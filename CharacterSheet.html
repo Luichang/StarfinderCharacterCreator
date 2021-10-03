@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page1">
+    <br>
+    <br>
+    <div class="grid-container">
+        <div class="item1">Character Name</div>
+        <div class="item2"><input type="text" id="character_name" name="character_name" class="ch_name_textbox"></div>
+        <div class="item3"><input type="text" id="class_level" name="class_level" class="level_textbox"><br>Class/Level</div>
+        <div class="item4"><input type="text" id="race" name="race" class="race_textbox"><br>Race</div>
+        <div class="item5"><input type="text" id="theme" name="theme" class="race_textbox"><br>Theme</div>
+        <div class="item6"><input type="text" id="size" name="size" class="size_textbox"><br>Size</div>
+        <div class="item7"><input type="text" id="speed" name="speed" class="speet_textbox"><br>Speed</div>
+        <div class="item8"><input type="text" id="gender" name="gender" class="gender_textbox"><br>Gender</div>
+        <div class="item9"><input type="text" id="h_world" name="h_world" class="h_world_textbox"><br>Home World</div>
+        <div class="item10"><input type="text" id="alignment" name="alignment" class="alignment_textbox"><br>Alignment</div>
+        <div class="item11"><input type="text" id="deity" name="deity" class="deity_textbox"><br>Deity</div>
+        <div class="item12"><input type="text" id="player" name="player" class="deity_textbox"><br>Player</div>
+        <div class="item13">Description<br><input type="text" id="description" name="description" class="description_textbox"></div>
+        <div class="item14">
+            <div class="grid-container-ability">
+                <div class="ability00">Ability Scores</div>
+                <div class="ability01">Score</div>
+                <div class="ability02">Modifier</div>
+                <div class="ability03">Race Points</div>
+                <div class="ability04">Theme Points</div>
+                <div class="ability05">Augments</div>
+                <div class="ability06">Point Buy</div>
+                <div class="ability07">Ability Increases</div>
+                <div class="ability10">STR</div>
+                <div class="ability11"><input type="text" id="str_score" name="str_score" class="ability_textbox"></div>
+                <div class="ability12"><input type="text" id="str_mod" name="str_mod" class="ability_textbox"></div>
+                <div class="ability13"><input type="text" id="str_race" name="str_race" class="ability_textbox"></div>
+                <div class="ability14"><input type="text" id="str_theme" name="str_theme" class="ability_textbox"></div>
+                <div class="ability15"><input type="text" id="str_augment" name="str_augment" class="ability_textbox"></div>
+                <div class="ability16"><input type="text" id="str_point" name="str_point" class="ability_textbox"></div>
+                <div class="ability17"><input type="text" id="str_ability" name="str_ability" class="ability_textbox"></div>
+                <div class="ability20">DEX</div>
+                <div class="ability21"><input type="text" id="dex_score" name="dex_score" class="ability_textbox"></div>
+                <div class="ability22"><input type="text" id="dex_mod" name="dex_mod" class="ability_textbox"></div>
+                <div class="ability23"><input type="text" id="dex_race" name="dex_race" class="ability_textbox"></div>
+                <div class="ability24"><input type="text" id="dex_theme" name="dex_theme" class="ability_textbox"></div>
+                <div class="ability25"><input type="text" id="dex_augment" name="dex_augment" class="ability_textbox"></div>
+                <div class="ability26"><input type="text" id="dex_point" name="dex_point" class="ability_textbox"></div>
+                <div class="ability27"><input type="text" id="dex_ability" name="dex_ability" class="ability_textbox"></div>
+                <div class="ability30">CON</div>
+                <div class="ability31"><input type="text" id="con_score" name="con_score" class="ability_textbox"></div>
+                <div class="ability32"><input type="text" id="con_mod" name="con_mod" class="ability_textbox"></div>
+                <div class="ability33"><input type="text" id="con_race" name="con_race" class="ability_textbox"></div>
+                <div class="ability34"><input type="text" id="con_theme" name="con_theme" class="ability_textbox"></div>
+                <div class="ability35"><input type="text" id="con_augment" name="con_augment" class="ability_textbox"></div>
+                <div class="ability36"><input type="text" id="con_point" name="con_point" class="ability_textbox"></div>
+                <div class="ability37"><input type="text" id="con_ability" name="con_ability" class="ability_textbox"></div>
+                <div class="ability40">INT</div>
+                <div class="ability41"><input type="text" id="int_score" name="int_score" class="ability_textbox"></div>
+                <div class="ability42"><input type="text" id="int_mod" name="int_mod" class="ability_textbox"></div>
+                <div class="ability43"><input type="text" id="int_race" name="int_race" class="ability_textbox"></div>
+                <div class="ability44"><input type="text" id="int_theme" name="int_theme" class="ability_textbox"></div>
+                <div class="ability45"><input type="text" id="int_augment" name="int_augment" class="ability_textbox"></div>
+                <div class="ability46"><input type="text" id="int_point" name="int_point" class="ability_textbox"></div>
+                <div class="ability47"><input type="text" id="int_ability" name="int_ability" class="ability_textbox"></div>
+                <div class="ability50">WIS</div>
+                <div class="ability51"><input type="text" id="wis_score" name="wis_score" class="ability_textbox"></div>
+                <div class="ability52"><input type="text" id="wis_mod" name="wis_mod" class="ability_textbox"></div>
+                <div class="ability53"><input type="text" id="wis_race" name="wis_race" class="ability_textbox"></div>
+                <div class="ability54"><input type="text" id="wis_theme" name="wis_theme" class="ability_textbox"></div>
+                <div class="ability55"><input type="text" id="wis_augment" name="wis_augment" class="ability_textbox"></div>
+                <div class="ability56"><input type="text" id="wis_point" name="wis_point" class="ability_textbox"></div>
+                <div class="ability57"><input type="text" id="wis_ability" name="wis_ability" class="ability_textbox"></div>
+                <div class="ability60">CHA</div>
+                <div class="ability61"><input type="text" id="cha_score" name="cha_score" class="ability_textbox"></div>
+                <div class="ability62"><input type="text" id="cha_mod" name="cha_mod" class="ability_textbox"></div>
+                <div class="ability63"><input type="text" id="cha_race" name="cha_race" class="ability_textbox"></div>
+                <div class="ability64"><input type="text" id="cha_theme" name="cha_theme" class="ability_textbox"></div>
+                <div class="ability65"><input type="text" id="cha_augment" name="cha_augment" class="ability_textbox"></div>
+                <div class="ability66"><input type="text" id="cha_point" name="cha_point" class="ability_textbox"></div>
+                <div class="ability67"><input type="text" id="cha_ability" name="cha_ability" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item15">
+            <div class="grid-container-initiative">
+                <div class="init1">Initiative</div>
+                <div class="init2"><input type="text" id="init_total" name="init_total" class="ability_textbox"> =</div>
+                <div class="init3"><input type="text" id="init_dex" name="init_dex" class="ability_textbox"> +</div>
+                <div class="init4"><input type="text" id="init_misc" name="init_misc" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item16">
+            <div class="grid-container-health">
+                <div class="health1">Health and Resolve</div>
+                <div class="health2">Total</div>
+                <div class="health3">Current</div>
+                <div class="health4">Stamina Points</div>
+                <div class="health5">Hit Points</div>
+                <div class="health6">Resolve</div>
+                <div class="health7"><input type="text" id="total_stamina" name="total_stamina" class="ability_textbox"></div>
+                <div class="health8"><input type="text" id="total_hp" name="total_hp" class="ability_textbox"></div>
+                <div class="health9"><input type="text" id="total_resolve" name="total_resolve" class="ability_textbox"></div>
+                <div class="health10"><input type="text" id="current_stamina" name="current_stamina" class="ability_textbox"></div>
+                <div class="health11"><input type="text" id="current_hp" name="current_hp" class="ability_textbox"></div>
+                <div class="health12"><input type="text" id="current_resolve" name="current_resolve" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item17">
+            <div class="grid-container-ac">
+                <div class="ac1">Armor Class</div>
+                <div class="ac2">EAC</div>
+                <div class="ac3">Energy<br>Armor Class</div>
+                <div class="ac4">KAC</div>
+                <div class="ac5">Kinetic<br>Armor Class</div>
+                <div class="ac6">AC VS Combat Maneuvers</div>
+                <div class="ac7">Total</div>
+                <div class="ac8">Armor Bonus</div>
+                <div class="ac9">Dex Mod</div>
+                <div class="ac10">Misc Mod</div>
+                <div class="ac11"><input type="text" id="ac_eac_total" name="ac_eac_total" class="ability_textbox"> =</div>
+                <div class="ac12">+ <input type="text" id="ac_eac_abonus" name="ac_eac_abonus" class="ability_textbox"></div>
+                <div class="ac13">+ <input type="text" id="ac_eac_dexmod" name="ac_eac_dexmod" class="ability_textbox"></div>
+                <div class="ac14">+ <input type="text" id="ac_eac_miscmod" name="ac_kac_miscmod" class="ability_textbox"></div>
+                <div class="ac15"><input type="text" id="ac_kac_total" name="ac_eac_total" class="ability_textbox"> =</div>
+                <div class="ac16">+ <input type="text" id="ac_kac_abonus" name="ac_eac_abonus" class="ability_textbox"></div>
+                <div class="ac17">+ <input type="text" id="ac_kac_dexmod" name="ac_eac_dexmod" class="ability_textbox"></div>
+                <div class="ac18">+ <input type="text" id="ac_kac_miscmod" name="ac_kac_miscmod" class="ability_textbox"></div>
+                <div class="ac19"><input type="text" id="ac_acvs_total" name="ac_acvs_total" class="ability_textbox"> =</div>
+                <div class="ac20">+ KAC</div>
+                <div class="ac21">10</div>
+                <div class="ac22">10</div>
+                <div class="ac23">8</div>
+            </div>
+        </div>
+        <div class="item18">
+            <div class="grid-container-save">
+                <div class="save1">Saving Throws</div>
+                <div class="save2">Total</div>
+                <div class="save3">Base Save</div>
+                <div class="save4">Ability Mod</div>
+                <div class="save5">Misc Mid</div>
+                <div class="save6">Fortitude</div>
+                <div class="save7">Reflex</div>
+                <div class="save8">Will</div>
+                <div class="save9"><input type="text" id="save_fort_total" name="save_fort_total" class="ability_textbox"> =</div>
+                <div class="save10"><input type="text" id="save_fort_base" name="save_fort_base" class="ability_textbox"> +</div>
+                <div class="save11"><input type="text" id="save_fort_ability" name="save_fort_ability" class="ability_textbox"> +</div>
+                <div class="save12"><input type="text" id="save_fort_misc" name="save_fort_misc" class="ability_textbox"></div>
+                <div class="save13"><input type="text" id="save_refl_total" name="save_refl_total" class="ability_textbox"> =</div>
+                <div class="save14"><input type="text" id="save_refl_base" name="save_refl_base" class="ability_textbox"> +</div>
+                <div class="save15"><input type="text" id="save_refl_ability" name="save_refl_ability" class="ability_textbox"> +</div>
+                <div class="save16"><input type="text" id="save_refl_misc" name="save_refl_misc" class="ability_textbox"></div>
+                <div class="save17"><input type="text" id="save_will_total" name="save_will_total" class="ability_textbox"> =</div>
+                <div class="save18"><input type="text" id="save_will_base" name="save_will_base" class="ability_textbox"> +</div>
+                <div class="save19"><input type="text" id="save_will_ability" name="save_will_ability" class="ability_textbox"> +</div>
+                <div class="save20"><input type="text" id="save_will_misc" name="save_will_misc" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item19">
+            <div class="grid-container-attack">
+                <div class="attack1">Attack Bonuses</div>
+                <div class="attack2"><br>Melee Attack</div>
+                <div class="attack3"><br>Ranged Attack</div>
+                <div class="attack4"><br>Thrown Attack</div>
+                <div class="attack5">Total<br><input type="text" id="attack_melee_total" name="attack_melee_total" class="attack_bonus_textbox"> =</div>
+                <div class="attack6">BAB<br><input type="text" id="attack_melee_bab" name="attack_melee_bab" class="attack_bonus_textbox"> +</div>
+                <div class="attack7">Str Mod<br><input type="text" id="attack_melee_ability" name="attack_melee_ability" class="attack_bonus_textbox"> +</div>
+                <div class="attack8">Misc Mod<br><input type="text" id="attack_melee_misc" name="attack_melee_misc" class="attack_bonus_textbox"></div>
+                <div class="attack9">Total<br><input type="text" id="attack_range_total" name="attack_range_total" class="attack_bonus_textbox"> =</div>
+                <div class="attack10">BAB<br><input type="text" id="attack_range_bab" name="attack_range_bab" class="attack_bonus_textbox"> +</div>
+                <div class="attack11">Dex Mod<br><input type="text" id="attack_range_ability" name="attack_range_ability" class="attack_bonus_textbox"> +</div>
+                <div class="attack12">Misc Mod<br><input type="text" id="attack_range_misc" name="attack_range_misc" class="attack_bonus_textbox"></div>
+                <div class="attack13">Total<br><input type="text" id="attack_throw_total" name="attack_throw_total" class="attack_bonus_textbox"> =</div>
+                <div class="attack14">BAB<br><input type="text" id="attack_throw_bab" name="attack_throw_bab" class="attack_bonus_textbox"> +</div>
+                <div class="attack15">Str Mod<br><input type="text" id="attack_throw_ability" name="attack_throw_ability" class="attack_bonus_textbox"> +</div>
+                <div class="attack16">Misc Mod<br><input type="text" id="attack_throw_misc" name="attack_throw_misc" class="attack_bonus_textbox"></div>
+            </div>
+        </div>
+        <div class="item20">
+            <div class="grid-container-skills">
+                <div class="skills000">Skills</div>
+                <div class="skills001">Remaining<br>Skills Ranks</div>
+                <div class="skills002"><input type="text" id="skills_spendable" name="skills_spendable" class="ability_textbox"></div>
+                <div class="skills003">Skill Ranks<br>Per Level</div>
+                <div class="skills004"><input type="text" id="skills_per_level" name="skills_per_level" class="ability_textbox"></div>
+                <div class="skills005">Total</div>
+                <div class="skills006">Ranks</div>
+                <div class="skills007">Class Bonus</div>
+                <div class="skills008">Ability Mod</div>
+                <div class="skills009">Misc Mod</div>
+                <div class="skills010">Acrobatics         (Dex)</div>
+                <div class="skills020">Athletics          (Str)</div>
+                <div class="skills030">Bluff              (Cha)</div>
+                <div class="skills040">Computers          (Int)</div>
+                <div class="skills050">Culture            (Int)</div>
+                <div class="skills060">Diplomacy          (Cha)</div>
+                <div class="skills070">Disguise           (Cha)</div>
+                <div class="skills080">Engineering        (Int)</div>
+                <div class="skills090">Intimidate         (Cha)</div>
+                <div class="skills100">Life Science       (Int)</div>
+                <div class="skills110">Medicine           (Int)</div>
+                <div class="skills120">Mysticism          (Wis)</div>
+                <div class="skills130">Perception         (Wis)</div>
+                <div class="skills140">Physical Science   (Int)</div>
+                <div class="skills150">Piloting           (Dex)</div>
+                <div class="skills160">Profession (Cha,Int,Wis)</div>
+                <div class="skills170">Profession (Cha,Int,Wis)</div>
+                <div class="skills180">Sense Motive       (Wis)</div>
+                <div class="skills190">Sleight of Hand    (Dex)</div>
+                <div class="skills200">Stealth            (Dex)</div>
+                <div class="skills210">Survival           (Wis)</div>
+
+                <div class="skills011"><input type="text" id="skills_acrobatics_total" name="skills_acrobatics_total" class="ability_textbox"></div>
+                <div class="skills012"><input type="text" id="skills_acrobatics_ranks" name="skills_acrobatics_ranks" class="ability_textbox"></div>
+                <div class="skills013"><input type="text" id="skills_acrobatics_class" name="skills_acrobatics_class" class="ability_textbox"></div>
+                <div class="skills014"><input type="text" id="skills_acrobatics_ability" name="skills_acrobatics_ability" class="ability_textbox"></div>
+                <div class="skills015"><input type="text" id="skills_acrobatics_misc" name="skills_acrobatics_misc" class="ability_textbox"></div>
+
+                <div class="skills021"><input type="text" id="skills_athletics_total" name="skills_athletics_total" class="ability_textbox"></div>
+                <div class="skills022"><input type="text" id="skills_athletics_ranks" name="skills_athletics_ranks" class="ability_textbox"></div>
+                <div class="skills023"><input type="text" id="skills_athletics_class" name="skills_athletics_class" class="ability_textbox"></div>
+                <div class="skills024"><input type="text" id="skills_athletics_ability" name="skills_athletics_ability" class="ability_textbox"></div>
+                <div class="skills025"><input type="text" id="skills_athletics_misc" name="skills_athletics_misc" class="ability_textbox"></div>
+
+                <div class="skills031"><input type="text" id="skills_bluff_total" name="skills_bluff_total" class="ability_textbox"></div>
+                <div class="skills032"><input type="text" id="skills_bluff_ranks" name="skills_bluff_ranks" class="ability_textbox"></div>
+                <div class="skills033"><input type="text" id="skills_bluff_class" name="skills_bluff_class" class="ability_textbox"></div>
+                <div class="skills034"><input type="text" id="skills_bluff_ability" name="skills_bluff_ability" class="ability_textbox"></div>
+                <div class="skills035"><input type="text" id="skills_bluff_misc" name="skills_bluff_misc" class="ability_textbox"></div>
+
+                <div class="skills041"><input type="text" id="skills_computers_total" name="skills_computers_total" class="ability_textbox"></div>
+                <div class="skills042"><input type="text" id="skills_computers_ranks" name="skills_computers_ranks" class="ability_textbox"></div>
+                <div class="skills043"><input type="text" id="skills_computers_class" name="skills_computers_class" class="ability_textbox"></div>
+                <div class="skills044"><input type="text" id="skills_computers_ability" name="skills_computers_ability" class="ability_textbox"></div>
+                <div class="skills045"><input type="text" id="skills_computers_misc" name="skills_computers_misc" class="ability_textbox"></div>
+
+                <div class="skills051"><input type="text" id="skills_culture_total" name="skills_culture_total" class="ability_textbox"></div>
+                <div class="skills052"><input type="text" id="skills_culture_ranks" name="skills_culture_ranks" class="ability_textbox"></div>
+                <div class="skills053"><input type="text" id="skills_culture_class" name="skills_culture_class" class="ability_textbox"></div>
+                <div class="skills054"><input type="text" id="skills_culture_ability" name="skills_culture_ability" class="ability_textbox"></div>
+                <div class="skills055"><input type="text" id="skills_culture_misc" name="skills_culture_misc" class="ability_textbox"></div>
+
+                <div class="skills061"><input type="text" id="skills_diplomacy_total" name="skills_diplomacy_total" class="ability_textbox"></div>
+                <div class="skills062"><input type="text" id="skills_diplomacy_ranks" name="skills_diplomacy_ranks" class="ability_textbox"></div>
+                <div class="skills063"><input type="text" id="skills_diplomacy_class" name="skills_diplomacy_class" class="ability_textbox"></div>
+                <div class="skills064"><input type="text" id="skills_diplomacy_ability" name="skills_diplomacy_ability" class="ability_textbox"></div>
+                <div class="skills065"><input type="text" id="skills_diplomacy_misc" name="skills_diplomacy_misc" class="ability_textbox"></div>
+
+                <div class="skills071"><input type="text" id="skills_disguise_total" name="skills_disguise_total" class="ability_textbox"></div>
+                <div class="skills072"><input type="text" id="skills_disguise_ranks" name="skills_disguise_ranks" class="ability_textbox"></div>
+                <div class="skills073"><input type="text" id="skills_disguise_class" name="skills_disguise_class" class="ability_textbox"></div>
+                <div class="skills074"><input type="text" id="skills_disguise_ability" name="skills_disguise_ability" class="ability_textbox"></div>
+                <div class="skills075"><input type="text" id="skills_disguise_misc" name="skills_disguise_misc" class="ability_textbox"></div>
+
+                <div class="skills081"><input type="text" id="skills_engineering_total" name="skills_engineering_total" class="ability_textbox"></div>
+                <div class="skills082"><input type="text" id="skills_engineering_ranks" name="skills_engineering_ranks" class="ability_textbox"></div>
+                <div class="skills083"><input type="text" id="skills_engineering_class" name="skills_engineering_class" class="ability_textbox"></div>
+                <div class="skills084"><input type="text" id="skills_engineering_ability" name="skills_engineering_ability" class="ability_textbox"></div>
+                <div class="skills085"><input type="text" id="skills_engineering_misc" name="skills_engineering_misc" class="ability_textbox"></div>
+
+                <div class="skills091"><input type="text" id="skills_intimidate_total" name="skills_intimidate_total" class="ability_textbox"></div>
+                <div class="skills092"><input type="text" id="skills_intimidate_ranks" name="skills_intimidate_ranks" class="ability_textbox"></div>
+                <div class="skills093"><input type="text" id="skills_intimidate_class" name="skills_intimidate_class" class="ability_textbox"></div>
+                <div class="skills094"><input type="text" id="skills_intimidate_ability" name="skills_intimidate_ability" class="ability_textbox"></div>
+                <div class="skills095"><input type="text" id="skills_intimidate_misc" name="skills_intimidate_misc" class="ability_textbox"></div>
+
+                <div class="skills101"><input type="text" id="skills_life_science_total" name="skills_life_science_total" class="ability_textbox"></div>
+                <div class="skills102"><input type="text" id="skills_life_science_ranks" name="skills_life_science_ranks" class="ability_textbox"></div>
+                <div class="skills103"><input type="text" id="skills_life_science_class" name="skills_life_science_class" class="ability_textbox"></div>
+                <div class="skills104"><input type="text" id="skills_life_science_ability" name="skills_life_science_ability" class="ability_textbox"></div>
+                <div class="skills105"><input type="text" id="skills_life_science_misc" name="skills_life_science_misc" class="ability_textbox"></div>
+
+                <div class="skills111"><input type="text" id="skills_medicine_total" name="skills_medicine_total" class="ability_textbox"></div>
+                <div class="skills112"><input type="text" id="skills_medicine_ranks" name="skills_medicine_ranks" class="ability_textbox"></div>
+                <div class="skills113"><input type="text" id="skills_medicine_class" name="skills_medicine_class" class="ability_textbox"></div>
+                <div class="skills114"><input type="text" id="skills_medicine_ability" name="skills_medicine_ability" class="ability_textbox"></div>
+                <div class="skills115"><input type="text" id="skills_medicine_misc" name="skills_medicine_misc" class="ability_textbox"></div>
+
+                <div class="skills121"><input type="text" id="skills_mysticism_total" name="skills_mysticism_total" class="ability_textbox"></div>
+                <div class="skills122"><input type="text" id="skills_mysticism_ranks" name="skills_mysticism_ranks" class="ability_textbox"></div>
+                <div class="skills123"><input type="text" id="skills_mysticism_class" name="skills_mysticism_class" class="ability_textbox"></div>
+                <div class="skills124"><input type="text" id="skills_mysticism_ability" name="skills_mysticism_ability" class="ability_textbox"></div>
+                <div class="skills125"><input type="text" id="skills_mysticism_misc" name="skills_mysticism_misc" class="ability_textbox"></div>
+
+                <div class="skills131"><input type="text" id="skills_perception_total" name="skills_perception_total" class="ability_textbox"></div>
+                <div class="skills132"><input type="text" id="skills_perception_ranks" name="skills_perception_ranks" class="ability_textbox"></div>
+                <div class="skills133"><input type="text" id="skills_perception_class" name="skills_perception_class" class="ability_textbox"></div>
+                <div class="skills134"><input type="text" id="skills_perception_ability" name="skills_perception_ability" class="ability_textbox"></div>
+                <div class="skills135"><input type="text" id="skills_perception_misc" name="skills_perception_misc" class="ability_textbox"></div>
+
+                <div class="skills141"><input type="text" id="skills_physical_science_total" name="skills_physical_science_total" class="ability_textbox"></div>
+                <div class="skills142"><input type="text" id="skills_physical_science_ranks" name="skills_physical_science_ranks" class="ability_textbox"></div>
+                <div class="skills143"><input type="text" id="skills_physical_science_class" name="skills_physical_science_class" class="ability_textbox"></div>
+                <div class="skills144"><input type="text" id="skills_physical_science_ability" name="skills_physical_science_ability" class="ability_textbox"></div>
+                <div class="skills145"><input type="text" id="skills_physical_science_misc" name="skills_physical_science_misc" class="ability_textbox"></div>
+
+                <div class="skills151"><input type="text" id="skills_piloting_total" name="skills_piloting_total" class="ability_textbox"></div>
+                <div class="skills152"><input type="text" id="skills_piloting_ranks" name="skills_piloting_ranks" class="ability_textbox"></div>
+                <div class="skills153"><input type="text" id="skills_piloting_class" name="skills_piloting_class" class="ability_textbox"></div>
+                <div class="skills154"><input type="text" id="skills_piloting_ability" name="skills_piloting_ability" class="ability_textbox"></div>
+                <div class="skills155"><input type="text" id="skills_piloting_misc" name="skills_piloting_misc" class="ability_textbox"></div>
+
+                <div class="skills161"><input type="text" id="skills_profession_total" name="skills_profession_total" class="ability_textbox"></div>
+                <div class="skills162"><input type="text" id="skills_profession_ranks" name="skills_profession_ranks" class="ability_textbox"></div>
+                <div class="skills163"><input type="text" id="skills_profession_class" name="skills_profession_class" class="ability_textbox"></div>
+                <div class="skills164"><input type="text" id="skills_profession_ability" name="skills_profession_ability" class="ability_textbox"></div>
+                <div class="skills165"><input type="text" id="skills_profession_misc" name="skills_profession_misc" class="ability_textbox"></div>
+
+                <div class="skills171"><input type="text" id="skills_profession2_total" name="skills_profession2_total" class="ability_textbox"></div>
+                <div class="skills172"><input type="text" id="skills_profession2_ranks" name="skills_profession2_ranks" class="ability_textbox"></div>
+                <div class="skills173"><input type="text" id="skills_profession2_class" name="skills_profession2_class" class="ability_textbox"></div>
+                <div class="skills174"><input type="text" id="skills_profession2_ability" name="skills_profession2_ability" class="ability_textbox"></div>
+                <div class="skills175"><input type="text" id="skills_profession2_misc" name="skills_profession2_misc" class="ability_textbox"></div>
+
+                <div class="skills181"><input type="text" id="skills_sense_motive_total" name="skills_sense_motive_total" class="ability_textbox"></div>
+                <div class="skills182"><input type="text" id="skills_sense_motive_ranks" name="skills_sense_motive_ranks" class="ability_textbox"></div>
+                <div class="skills183"><input type="text" id="skills_sense_motive_class" name="skills_sense_motive_class" class="ability_textbox"></div>
+                <div class="skills184"><input type="text" id="skills_sense_motive_ability" name="skills_sense_motive_ability" class="ability_textbox"></div>
+                <div class="skills185"><input type="text" id="skills_sense_motive_misc" name="skills_sense_motive_misc" class="ability_textbox"></div>
+
+                <div class="skills191"><input type="text" id="skills_slight_of_hand_total" name="skills_slight_of_hand_total" class="ability_textbox"></div>
+                <div class="skills192"><input type="text" id="skills_slight_of_hand_ranks" name="skills_slight_of_hand_ranks" class="ability_textbox"></div>
+                <div class="skills193"><input type="text" id="skills_slight_of_hand_class" name="skills_slight_of_hand_class" class="ability_textbox"></div>
+                <div class="skills194"><input type="text" id="skills_slight_of_hand_ability" name="skills_slight_of_hand_ability" class="ability_textbox"></div>
+                <div class="skills195"><input type="text" id="skills_slight_of_hand_misc" name="skills_slight_of_hand_misc" class="ability_textbox"></div>
+
+                <div class="skills201"><input type="text" id="skills_stealth_total" name="skills_stealth_total" class="ability_textbox"></div>
+                <div class="skills202"><input type="text" id="skills_stealth_ranks" name="skills_stealth_ranks" class="ability_textbox"></div>
+                <div class="skills203"><input type="text" id="skills_stealth_class" name="skills_stealth_class" class="ability_textbox"></div>
+                <div class="skills204"><input type="text" id="skills_stealth_ability" name="skills_stealth_ability" class="ability_textbox"></div>
+                <div class="skills205"><input type="text" id="skills_stealth_misc" name="skills_stealth_misc" class="ability_textbox"></div>
+
+                <div class="skills211"><input type="text" id="skills_survival_total" name="skills_survival_total" class="ability_textbox"></div>
+                <div class="skills212"><input type="text" id="skills_survival_ranks" name="skills_survival_ranks" class="ability_textbox"></div>
+                <div class="skills213"><input type="text" id="skills_survival_class" name="skills_survival_class" class="ability_textbox"></div>
+                <div class="skills214"><input type="text" id="skills_survival_ability" name="skills_survival_ability" class="ability_textbox"></div>
+                <div class="skills215"><input type="text" id="skills_survival_misc" name="skills_survival_misc" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item21">
+            <div class="grid-container-weapons">
+                <div class="weapons1">Weapons</div>
+                <div class="weapons10">Weapon<br><input type="text" id="weapon_name_1" name="weapon_name_1" class="damage_textbox"></div>
+                <div class="weapons11">Level<br><input type="text" id="weapon_level_1" name="weapon_level_1" class="damage_textbox"></div>
+                <div class="weapons12">Attack Bonus<br><input type="text" id="weapon_attack_1" name="weapon_attack_1" class="damage_textbox"></div>
+                <div class="weapons13">Damage<br><input type="text" id="weapon_damage_1" name="weapon_damage_1" class="damage_textbox"></div>
+                <div class="weapons14">Critical<br><input type="text" id="weapon_crit_1" name="weapon_crit_1" class="damage_textbox"></div>
+                <div class="weapons15">Range<br><input type="text" id="weapon_range_1" name="weapon_range_1" class="damage_textbox"></div>
+                <div class="weapons16">Type<br><input type="text" id="weapon_type_1" name="weapon_type_1" class="damage_textbox"></div>
+                <div class="weapons17">Ammo/Ussage<br><input type="text" id="weapon_ammo_1" name="weapon_ammo_1" class="damage_textbox"></div>
+                <div class="weapons18">Special<br><input type="text" id="weapon_special_1" name="weapon_special_1" class="damage_textbox"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<body class="page2">
+    <div class="grid-container-p2">
+        <div class="item30">
+            <div class="c_abilities">
+                <div class="c_abilities00">Class Abilities</div>
+                <div class="c_abilities01"><input type="text" id="c_abilities_01" name="c_abilities_01" class="ability_textbox"></div>
+                <div class="c_abilities02"><input type="text" id="c_abilities_02" name="c_abilities_02" class="ability_textbox"></div>
+                <div class="c_abilities03"><input type="text" id="c_abilities_03" name="c_abilities_03" class="ability_textbox"></div>
+                <div class="c_abilities04"><input type="text" id="c_abilities_04" name="c_abilities_04" class="ability_textbox"></div>
+                <div class="c_abilities05"><input type="text" id="c_abilities_05" name="c_abilities_05" class="ability_textbox"></div>
+                <div class="c_abilities06"><input type="text" id="c_abilities_06" name="c_abilities_06" class="ability_textbox"></div>
+                <div class="c_abilities07"><input type="text" id="c_abilities_07" name="c_abilities_07" class="ability_textbox"></div>
+                <div class="c_abilities08"><input type="text" id="c_abilities_08" name="c_abilities_08" class="ability_textbox"></div>
+                <div class="c_abilities09"><input type="text" id="c_abilities_09" name="c_abilities_09" class="ability_textbox"></div>
+                <div class="c_abilities10"><input type="text" id="c_abilities_10" name="c_abilities_10" class="ability_textbox"></div>
+                <div class="c_abilities11"><input type="text" id="c_abilities_11" name="c_abilities_11" class="ability_textbox"></div>
+                <div class="c_abilities12"><input type="text" id="c_abilities_12" name="c_abilities_12" class="ability_textbox"></div>
+                <div class="c_abilities13"><input type="text" id="c_abilities_13" name="c_abilities_13" class="ability_textbox"></div>
+                <div class="c_abilities14"><input type="text" id="c_abilities_14" name="c_abilities_14" class="ability_textbox"></div>
+                <div class="c_abilities15"><input type="text" id="c_abilities_15" name="c_abilities_15" class="ability_textbox"></div>
+                <div class="c_abilities16"><input type="text" id="c_abilities_16" name="c_abilities_16" class="ability_textbox"></div>
+                <div class="c_abilities17"><input type="text" id="c_abilities_17" name="c_abilities_17" class="ability_textbox"></div>
+                <div class="c_abilities18"><input type="text" id="c_abilities_18" name="c_abilities_18" class="ability_textbox"></div>
+                <div class="c_abilities19"><input type="text" id="c_abilities_19" name="c_abilities_19" class="ability_textbox"></div>
+                <div class="c_abilities20"><input type="text" id="c_abilities_20" name="c_abilities_20" class="ability_textbox"></div>
+                <div class="c_abilities21"><input type="text" id="c_abilities_21" name="c_abilities_21" class="ability_textbox"></div>
+                <div class="c_abilities22"><input type="text" id="c_abilities_22" name="c_abilities_22" class="ability_textbox"></div>
+                <div class="c_abilities23"><input type="text" id="c_abilities_23" name="c_abilities_23" class="ability_textbox"></div>
+                <div class="c_abilities24"><input type="text" id="c_abilities_24" name="c_abilities_24" class="ability_textbox"></div>
+                <div class="c_abilities25"><input type="text" id="c_abilities_25" name="c_abilities_25" class="ability_textbox"></div>
+                <div class="c_abilities26"><input type="text" id="c_abilities_26" name="c_abilities_26" class="ability_textbox"></div>
+                <div class="c_abilities27"><input type="text" id="c_abilities_27" name="c_abilities_27" class="ability_textbox"></div>
+                <div class="c_abilities28"><input type="text" id="c_abilities_28" name="c_abilities_28" class="ability_textbox"></div>
+                <div class="c_abilities29"><input type="text" id="c_abilities_29" name="c_abilities_29" class="ability_textbox"></div>
+                <div class="c_abilities30"><input type="text" id="c_abilities_30" name="c_abilities_30" class="ability_textbox"></div>
+                <div class="c_abilities31"><input type="text" id="c_abilities_31" name="c_abilities_31" class="ability_textbox"></div>
+                <div class="c_abilities32"><input type="text" id="c_abilities_32" name="c_abilities_32" class="ability_textbox"></div>
+                <div class="c_abilities33"><input type="text" id="c_abilities_33" name="c_abilities_33" class="ability_textbox"></div>
+                <div class="c_abilities34"><input type="text" id="c_abilities_34" name="c_abilities_34" class="ability_textbox"></div>
+                <div class="c_abilities35"><input type="text" id="c_abilities_35" name="c_abilities_35" class="ability_textbox"></div>
+
+                <div class="c_abilities40">Theme Abilities</div>
+                <div class="c_abilities41"><input type="text" id="c_abilities_41" name="c_abilities_41" class="ability_textbox"></div>
+                <div class="c_abilities42"><input type="text" id="c_abilities_42" name="c_abilities_42" class="ability_textbox"></div>
+                <div class="c_abilities43"><input type="text" id="c_abilities_43" name="c_abilities_43" class="ability_textbox"></div>
+                <div class="c_abilities44"><input type="text" id="c_abilities_44" name="c_abilities_44" class="ability_textbox"></div>
+
+                <div class="c_abilities50">Racial Abilities</div>
+                <div class="c_abilities51"><input type="text" id="c_abilities_51" name="c_abilities_51" class="ability_textbox"></div>
+                <div class="c_abilities52"><input type="text" id="c_abilities_52" name="c_abilities_52" class="ability_textbox"></div>
+                <div class="c_abilities53"><input type="text" id="c_abilities_53" name="c_abilities_53" class="ability_textbox"></div>
+                <div class="c_abilities54"><input type="text" id="c_abilities_54" name="c_abilities_54" class="ability_textbox"></div>
+                <div class="c_abilities55"><input type="text" id="c_abilities_55" name="c_abilities_55" class="ability_textbox"></div>
+                <div class="c_abilities56"><input type="text" id="c_abilities_56" name="c_abilities_56" class="ability_textbox"></div>
+                <div class="c_abilities57"><input type="text" id="c_abilities_57" name="c_abilities_57" class="ability_textbox"></div>
+
+                <div class="c_abilities60">Other Abilities</div>
+                <div class="c_abilities61"><input type="text" id="c_abilities_61" name="c_abilities_61" class="ability_textbox"></div>
+                <div class="c_abilities62"><input type="text" id="c_abilities_62" name="c_abilities_62" class="ability_textbox"></div>
+                <div class="c_abilities63"><input type="text" id="c_abilities_63" name="c_abilities_63" class="ability_textbox"></div>
+                <div class="c_abilities64"><input type="text" id="c_abilities_64" name="c_abilities_64" class="ability_textbox"></div>
+                <div class="c_abilities65"><input type="text" id="c_abilities_65" name="c_abilities_65" class="ability_textbox"></div>
+                <div class="c_abilities66"><input type="text" id="c_abilities_66" name="c_abilities_66" class="ability_textbox"></div>
+                <div class="c_abilities67"><input type="text" id="c_abilities_67" name="c_abilities_67" class="ability_textbox"></div>
+                <div class="c_abilities68"><input type="text" id="c_abilities_68" name="c_abilities_68" class="ability_textbox"></div>
+                <div class="c_abilities69"><input type="text" id="c_abilities_69" name="c_abilities_69" class="ability_textbox"></div>
+                <div class="c_abilities70"><input type="text" id="c_abilities_70" name="c_abilities_70" class="ability_textbox"></div>
+                <div class="c_abilities71"><input type="text" id="c_abilities_71" name="c_abilities_71" class="ability_textbox"></div>
+                <div class="c_abilities72"><input type="text" id="c_abilities_72" name="c_abilities_72" class="ability_textbox"></div>
+                <div class="c_abilities73"><input type="text" id="c_abilities_73" name="c_abilities_73" class="ability_textbox"></div>
+                <div class="c_abilities74"><input type="text" id="c_abilities_74" name="c_abilities_74" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item31">
+            <div class="feats">
+                <div class="feats00">Feats and Proficiencies</div>
+                <div class="feats01"><input type="text" id="feats_01" name="feats_01" class="ability_textbox"></div>
+                <div class="feats02"><input type="text" id="feats_02" name="feats_02" class="ability_textbox"></div>
+                <div class="feats03"><input type="text" id="feats_03" name="feats_03" class="ability_textbox"></div>
+                <div class="feats04"><input type="text" id="feats_04" name="feats_04" class="ability_textbox"></div>
+                <div class="feats05"><input type="text" id="feats_05" name="feats_05" class="ability_textbox"></div>
+                <div class="feats06"><input type="text" id="feats_06" name="feats_06" class="ability_textbox"></div>
+                <div class="feats07"><input type="text" id="feats_07" name="feats_07" class="ability_textbox"></div>
+                <div class="feats08"><input type="text" id="feats_08" name="feats_08" class="ability_textbox"></div>
+                <div class="feats09"><input type="text" id="feats_09" name="feats_09" class="ability_textbox"></div>
+                <div class="feats10"><input type="text" id="feats_10" name="feats_10" class="ability_textbox"></div>
+                <div class="feats11"><input type="text" id="feats_11" name="feats_11" class="ability_textbox"></div>
+                <div class="feats12"><input type="text" id="feats_12" name="feats_12" class="ability_textbox"></div>
+                <div class="feats13"><input type="text" id="feats_13" name="feats_13" class="ability_textbox"></div>
+                <div class="feats14"><input type="text" id="feats_14" name="feats_14" class="ability_textbox"></div>
+                <div class="feats15"><input type="text" id="feats_15" name="feats_15" class="ability_textbox"></div>
+                <div class="feats16"><input type="text" id="feats_16" name="feats_16" class="ability_textbox"></div>
+                <div class="feats17"><input type="text" id="feats_17" name="feats_17" class="ability_textbox"></div>
+                <div class="feats18"><input type="text" id="feats_18" name="feats_18" class="ability_textbox"></div>
+                <div class="feats19"><input type="text" id="feats_19" name="feats_19" class="ability_textbox"></div>
+                <div class="feats20"><input type="text" id="feats_20" name="feats_20" class="ability_textbox"></div>
+                <div class="feats21"><input type="text" id="feats_21" name="feats_21" class="ability_textbox"></div>
+                <div class="feats22"><input type="text" id="feats_22" name="feats_22" class="ability_textbox"></div>
+                <div class="feats23"><input type="text" id="feats_23" name="feats_23" class="ability_textbox"></div>
+                <div class="feats24"><input type="text" id="feats_24" name="feats_24" class="ability_textbox"></div>
+                <div class="feats25"><input type="text" id="feats_25" name="feats_25" class="ability_textbox"></div>
+                <div class="feats26"><input type="text" id="feats_26" name="feats_26" class="ability_textbox"></div>
+                <div class="feats27"><input type="text" id="feats_27" name="feats_27" class="ability_textbox"></div>
+                <div class="feats28"><input type="text" id="feats_28" name="feats_28" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item32">
+            <div class="languages">
+                <div class="languages00">Languages</div>
+                <div class="languages01"><input type="text" id="languages_01" name="languages_01" class="ability_textbox"></div>
+                <div class="languages02"><input type="text" id="languages_02" name="languages_02" class="ability_textbox"></div>
+                <div class="languages03"><input type="text" id="languages_03" name="languages_03" class="ability_textbox"></div>
+                <div class="languages04"><input type="text" id="languages_04" name="languages_04" class="ability_textbox"></div>
+            </div>
+        </div>
+        <div class="item33">
+            <div class="spells">
+                <div class="spells001">Per Day</div>
+                <div class="spells002">Per Day</div>
+                <div class="spells003">Per Day</div>
+                <div class="spells004">Per Day</div>
+                <div class="spells005">Per Day</div>
+                <div class="spells006">Per Day</div>
+                <div class="spells00">Spells Known</div>
+                <div class="spells01">0</div>
+                <div class="spells02">Spells Known</div>
+                <div class="spells03"><input type="text" id="spells_03" name="spells_03" class="ability_textbox"></div>
+                <div class="spells04"><input type="text" id="spells_04" name="spells_04" class="level_textbox"></div>
+                <div class="spells05"><input type="text" id="spells_05" name="spells_05" class="level_textbox"></div>
+                <div class="spells06"><input type="text" id="spells_06" name="spells_06" class="level_textbox"></div>
+                <div class="spells07"><input type="text" id="spells_07" name="spells_07" class="level_textbox"></div>
+                <div class="spells08"><input type="text" id="spells_08" name="spells_08" class="level_textbox"></div>
+                <div class="spells09"><input type="text" id="spells_09" name="spells_09" class="level_textbox"></div>
+                <div class="spells10"><input type="text" id="spells_10" name="spells_10" class="level_textbox"></div>
+                <div class="spells11"><input type="text" id="spells_11" name="spells_11" class="level_textbox"></div>
+                <div class="spells12"><input type="text" id="spells_12" name="spells_12" class="level_textbox"></div>
+                <div class="spells13"><input type="text" id="spells_13" name="spells_13" class="level_textbox"></div>
+                <div class="spells14"><input type="text" id="spells_14" name="spells_14" class="level_textbox"></div>
+                <div class="spells15"><input type="text" id="spells_15" name="spells_15" class="level_textbox"></div>
+                <div class="spells16"><input type="text" id="spells_16" name="spells_16" class="level_textbox"></div>
+                <div class="spells17"><input type="text" id="spells_17" name="spells_17" class="level_textbox"></div>
+
+                <div class="spells20">1st</div>
+                <div class="spells21">Spells Known</div>
+                <div class="spells22"><input type="text" id="spells_22" name="spells_22" class="ability_textbox"></div>
+                <div class="spells23"><input type="text" id="spells_23" name="spells_23" class="ability_textbox"></div>
+                <div class="spells24"><input type="text" id="spells_24" name="spells_24" class="level_textbox"></div>
+                <div class="spells25"><input type="text" id="spells_25" name="spells_25" class="level_textbox"></div>
+                <div class="spells26"><input type="text" id="spells_26" name="spells_26" class="level_textbox"></div>
+                <div class="spells27"><input type="text" id="spells_27" name="spells_27" class="level_textbox"></div>
+                <div class="spells28"><input type="text" id="spells_28" name="spells_28" class="level_textbox"></div>
+                <div class="spells29"><input type="text" id="spells_29" name="spells_29" class="level_textbox"></div>
+                <div class="spells30"><input type="text" id="spells_30" name="spells_30" class="level_textbox"></div>
+                <div class="spells31"><input type="text" id="spells_31" name="spells_31" class="level_textbox"></div>
+                <div class="spells32"><input type="text" id="spells_32" name="spells_32" class="level_textbox"></div>
+                <div class="spells33"><input type="text" id="spells_33" name="spells_33" class="level_textbox"></div>
+                <div class="spells34"><input type="text" id="spells_34" name="spells_34" class="level_textbox"></div>
+                <div class="spells35"><input type="text" id="spells_35" name="spells_35" class="level_textbox"></div>
+
+                <div class="spells40">2nd</div>
+                <div class="spells41">Spells Known</div>
+                <div class="spells42"><input type="text" id="spells_42" name="spells_42" class="ability_textbox"></div>
+                <div class="spells43"><input type="text" id="spells_43" name="spells_43" class="ability_textbox"></div>
+                <div class="spells44"><input type="text" id="spells_44" name="spells_44" class="level_textbox"></div>
+                <div class="spells45"><input type="text" id="spells_45" name="spells_45" class="level_textbox"></div>
+                <div class="spells46"><input type="text" id="spells_46" name="spells_46" class="level_textbox"></div>
+                <div class="spells47"><input type="text" id="spells_47" name="spells_47" class="level_textbox"></div>
+                <div class="spells48"><input type="text" id="spells_48" name="spells_48" class="level_textbox"></div>
+                <div class="spells49"><input type="text" id="spells_49" name="spells_49" class="level_textbox"></div>
+                <div class="spells50"><input type="text" id="spells_40" name="spells_50" class="level_textbox"></div>
+                <div class="spells51"><input type="text" id="spells_51" name="spells_51" class="level_textbox"></div>
+                <div class="spells52"><input type="text" id="spells_52" name="spells_52" class="level_textbox"></div>
+                <div class="spells53"><input type="text" id="spells_53" name="spells_53" class="level_textbox"></div>
+                <div class="spells54"><input type="text" id="spells_54" name="spells_54" class="level_textbox"></div>
+                <div class="spells55"><input type="text" id="spells_55" name="spells_55" class="level_textbox"></div>
+
+                <div class="spells60">3rd</div>
+                <div class="spells61">Spells Known</div>
+                <div class="spells62"><input type="text" id="spells_62" name="spells_62" class="ability_textbox"></div>
+                <div class="spells63"><input type="text" id="spells_63" name="spells_63" class="ability_textbox"></div>
+                <div class="spells64"><input type="text" id="spells_64" name="spells_64" class="level_textbox"></div>
+                <div class="spells65"><input type="text" id="spells_65" name="spells_65" class="level_textbox"></div>
+                <div class="spells66"><input type="text" id="spells_66" name="spells_66" class="level_textbox"></div>
+                <div class="spells67"><input type="text" id="spells_67" name="spells_67" class="level_textbox"></div>
+                <div class="spells68"><input type="text" id="spells_68" name="spells_68" class="level_textbox"></div>
+                <div class="spells69"><input type="text" id="spells_69" name="spells_69" class="level_textbox"></div>
+                <div class="spells70"><input type="text" id="spells_70" name="spells_70" class="level_textbox"></div>
+                <div class="spells71"><input type="text" id="spells_71" name="spells_71" class="level_textbox"></div>
+                <div class="spells72"><input type="text" id="spells_72" name="spells_72" class="level_textbox"></div>
+                <div class="spells73"><input type="text" id="spells_73" name="spells_73" class="level_textbox"></div>
+                <div class="spells74"><input type="text" id="spells_74" name="spells_74" class="level_textbox"></div>
+                <div class="spells75"><input type="text" id="spells_75" name="spells_75" class="level_textbox"></div>
+
+                <div class="spells80">4th</div>
+                <div class="spells81">Spells Known</div>
+                <div class="spells82"><input type="text" id="spells_82" name="spells_82" class="ability_textbox"></div>
+                <div class="spells83"><input type="text" id="spells_83" name="spells_83" class="ability_textbox"></div>
+                <div class="spells84"><input type="text" id="spells_84" name="spells_84" class="level_textbox"></div>
+                <div class="spells85"><input type="text" id="spells_85" name="spells_85" class="level_textbox"></div>
+                <div class="spells86"><input type="text" id="spells_86" name="spells_86" class="level_textbox"></div>
+                <div class="spells87"><input type="text" id="spells_87" name="spells_87" class="level_textbox"></div>
+                <div class="spells88"><input type="text" id="spells_88" name="spells_88" class="level_textbox"></div>
+                <div class="spells89"><input type="text" id="spells_89" name="spells_89" class="level_textbox"></div>
+                <div class="spells90"><input type="text" id="spells_90" name="spells_90" class="level_textbox"></div>
+                <div class="spells91"><input type="text" id="spells_91" name="spells_91" class="level_textbox"></div>
+                <div class="spells92"><input type="text" id="spells_92" name="spells_92" class="level_textbox"></div>
+                <div class="spells93"><input type="text" id="spells_93" name="spells_93" class="level_textbox"></div>
+
+                <div class="spells100">5th</div>
+                <div class="spells101">Spells Known</div>
+                <div class="spells102"><input type="text" id="spells_102" name="spells_102" class="ability_textbox"></div>
+                <div class="spells103"><input type="text" id="spells_103" name="spells_103" class="ability_textbox"></div>
+                <div class="spells104"><input type="text" id="spells_104" name="spells_104" class="level_textbox"></div>
+                <div class="spells105"><input type="text" id="spells_105" name="spells_105" class="level_textbox"></div>
+                <div class="spells106"><input type="text" id="spells_106" name="spells_106" class="level_textbox"></div>
+                <div class="spells107"><input type="text" id="spells_107" name="spells_107" class="level_textbox"></div>
+                <div class="spells108"><input type="text" id="spells_108" name="spells_108" class="level_textbox"></div>
+                <div class="spells109"><input type="text" id="spells_109" name="spells_109" class="level_textbox"></div>
+                <div class="spells110"><input type="text" id="spells_110" name="spells_110" class="level_textbox"></div>
+                <div class="spells111"><input type="text" id="spells_111" name="spells_111" class="level_textbox"></div>
+
+                <div class="spells120">6th</div>
+                <div class="spells121">Spells Known</div>
+                <div class="spells122"><input type="text" id="spells_122" name="spells_122" class="ability_textbox"></div>
+                <div class="spells123"><input type="text" id="spells_123" name="spells_123" class="ability_textbox"></div>
+                <div class="spells124"><input type="text" id="spells_124" name="spells_124" class="level_textbox"></div>
+                <div class="spells125"><input type="text" id="spells_125" name="spells_125" class="level_textbox"></div>
+                <div class="spells126"><input type="text" id="spells_126" name="spells_126" class="level_textbox"></div>
+                <div class="spells127"><input type="text" id="spells_127" name="spells_127" class="level_textbox"></div>
+                <div class="spells128"><input type="text" id="spells_128" name="spells_128" class="level_textbox"></div>
+                <div class="spells129"><input type="text" id="spells_129" name="spells_129" class="level_textbox"></div>
+                <div class="spells130"><input type="text" id="spells_130" name="spells_130" class="level_textbox"></div>
+                <div class="spells131"><input type="text" id="spells_131" name="spells_131" class="level_textbox"></div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

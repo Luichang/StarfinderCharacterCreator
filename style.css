@@ -1,0 +1,960 @@
+@page {
+    size: 7in 9.25in;
+    margin: 30mm 16mm 30mm 16mm;
+}
+
+/* .page1 {
+    background-image: url('background1.jpg');
+    background-repeat: no-repeat;
+} */
+
+/* .wrapper {
+  display: flex;
+  /* flex-wrap: wrap;
+  font-weight: bold;
+  /* text-align: left;
+} */
+
+.item1 {
+    grid-area: cname;
+    grid-column: 1/4;
+    grid-row: 1;
+}
+.item2 {
+    grid-area: cnamein;
+    grid-column: 4/8;
+    grid-row: 1;
+}
+.item3 {
+    grid-area: class_level;
+    grid-column: 1/5;
+    grid-row: 2;
+}
+.item4 {
+    grid-area: race;
+    grid-column: 5/7;
+    grid-row: 2;
+}
+.item5 {
+    grid-area: theme;
+    grid-column: 7;
+    grid-row: 2;
+}
+.item6 {
+    grid-area: size;
+    grid-column: 1;
+    grid-row: 3;
+}
+.item7 {
+    grid-area: speed;
+    grid-column: 2;
+    grid-row: 3;
+}
+.item8 {
+    grid-area: gender;
+    grid-column: 3;
+    grid-row: 3;
+}
+.item9 {
+    grid-area: h_world;
+    grid-column: 4/8;
+    grid-row: 3;
+}
+.item10 {
+    grid-area: alignment;
+    grid-column: 1;
+    grid-row: 4;
+}
+.item11 {
+    grid-area: deity;
+    grid-column: 2/5;
+    grid-row: 4;
+}
+.item12 {
+    grid-area: player;
+    grid-column: 5/8;
+    grid-row: 4;
+}
+.item13 {
+    grid-area: description;
+    grid-column: 8;
+    grid-row: 1/5;
+}
+.item14 {
+    grid-area: abilities;
+    grid-column: 1/6;
+    grid-row: 5/9;
+}
+
+.ability00 { grid-area: ability_text }
+.ability01 { grid-area: score }
+.ability02 { grid-area: mod }
+.ability03 { grid-area: race }
+.ability04 { grid-area: theme }
+.ability05 { grid-area: augment }
+.ability06 { grid-area: point }
+.ability07 { grid-area: ability }
+.ability10 { grid-area: str; }
+.ability11 { grid-area: str_score; }
+.ability12 { grid-area: str_mod; }
+.ability13 { grid-area: str_race; }
+.ability14 { grid-area: str_theme; }
+.ability15 { grid-area: str_augment; }
+.ability16 { grid-area: str_point; }
+.ability17 { grid-area: str_ability; }
+.ability20 { grid-area: dex; }
+.ability21 { grid-area: dex_score; }
+.ability22 { grid-area: dex_mod; }
+.ability23 { grid-area: dex_race; }
+.ability24 { grid-area: dex_theme; }
+.ability25 { grid-area: dex_augment; }
+.ability26 { grid-area: dex_point; }
+.ability27 { grid-area: dex_ability; }
+.ability30 { grid-area: con; }
+.ability31 { grid-area: con_score; }
+.ability32 { grid-area: con_mod; }
+.ability33 { grid-area: con_race; }
+.ability34 { grid-area: con_theme; }
+.ability35 { grid-area: con_augment; }
+.ability36 { grid-area: con_point; }
+.ability37 { grid-area: con_ability; }
+.ability40 { grid-area: int; }
+.ability41 { grid-area: int_score; }
+.ability42 { grid-area: int_mod; }
+.ability43 { grid-area: int_race; }
+.ability44 { grid-area: int_theme; }
+.ability45 { grid-area: int_augment; }
+.ability46 { grid-area: int_point; }
+.ability47 { grid-area: int_ability; }
+.ability50 { grid-area: wis; }
+.ability51 { grid-area: wis_score; }
+.ability52 { grid-area: wis_mod; }
+.ability53 { grid-area: wis_race; }
+.ability54 { grid-area: wis_theme; }
+.ability55 { grid-area: wis_augment; }
+.ability56 { grid-area: wis_point; }
+.ability57 { grid-area: wis_ability; }
+.ability60 { grid-area: cha; }
+.ability61 { grid-area: cha_score; }
+.ability62 { grid-area: cha_mod; }
+.ability63 { grid-area: cha_race; }
+.ability64 { grid-area: cha_theme; }
+.ability65 { grid-area: cha_augment; }
+.ability66 { grid-area: cha_point; }
+.ability67 { grid-area: cha_ability; }
+
+.item15 {
+    grid-area: initiative;
+    grid-column: 6/9;
+    grid-row: 5;
+}
+
+.init1 { grid-area: init_text; }
+.init2 { grid-area: init_total; }
+.init3 { grid-area: init_dex; }
+.init4 { grid-area: init_misc; }
+
+.item16 {
+    grid-area: health;
+    grid-column: 6/9;
+    grid-row: 6/8;
+}
+
+.health1 { grid-area: health_and_resolve; }
+.health2 { grid-area: health_total; }
+.health3 { grid-area: health_current; }
+.health4 { grid-area: health_sp; }
+.health5 { grid-area: health_hp; }
+.health6 { grid-area: health_resolve; }
+.health7 { grid-area: health_t_stamina; }
+.health8 { grid-area: health_t_hp; }
+.health9 { grid-area: health_t_resolve; }
+.health10 { grid-area: health_c_stamina; }
+.health11 { grid-area: health_c_hp; }
+.health12 { grid-area: health_c_resolve; }
+
+.item17 {
+    grid-area: ac;
+    grid-column: 6/9;
+    grid-row: 8/13;
+}
+
+.ac1 { grid-area: armor_class; }
+.ac2 { grid-area: ac_eac; }
+.ac3 { grid-area: ac_eac_text; }
+.ac4 { grid-area: ac_kac; }
+.ac5 { grid-area: ac_kac_text; }
+.ac6 { grid-area: ac_acvs_text; }
+.ac7 { grid-area: ac_total; }
+.ac8 { grid-area: ac_ab; }
+.ac9 { grid-area: ac_dex; }
+.ac10 { grid-area: ac_misc; }
+.ac11 { grid-area: ac_eac_total; }
+.ac12 { grid-area: ac_eac_abonus; }
+.ac13 { grid-area: ac_eac_dexmod; }
+.ac14 { grid-area: ac_eac_miscmod; }
+.ac15 { grid-area: ac_kac_total; }
+.ac16 { grid-area: ac_kac_abonus; }
+.ac17 { grid-area: ac_kac_dexmod; }
+.ac18 { grid-area: ac_kac_miscmod; }
+.ac19 { grid-area: ac_acvs_total; }
+.ac20 { grid-area: ac_acvs_kac; }
+.ac21 { grid-area: ac_eac_10; }
+.ac22 { grid-area: ac_kac_10; }
+.ac23 { grid-area: ac_acvs_8; }
+
+.item18 {
+    grid-area: saves;
+    grid-column: 6/9;
+    grid-row: 13/18;
+}
+
+.save1 { grid-area: save_text; }
+.save2 { grid-area: save_total; }
+.save3 { grid-area: save_base; }
+.save4 { grid-area: save_ability; }
+.save5 { grid-area: save_misc; }
+.save6 { grid-area: save_fortitude; }
+.save7 { grid-area: save_reflex; }
+.save8 { grid-area: save_will; }
+.save9 { grid-area: save_fort_total; }
+.save10 { grid-area: save_fort_base; }
+.save11 { grid-area: save_fort_ability; }
+.save12 { grid-area: save_fort_misc; }
+.save13 { grid-area: save_refl_total; }
+.save14 { grid-area: save_refl_base; }
+.save15 { grid-area: save_refl_ability; }
+.save16 { grid-area: save_refl_misc; }
+.save17 { grid-area: save_will_total; }
+.save18 { grid-area: save_will_base; }
+.save19 { grid-area: save_will_ability; }
+.save20 { grid-area: save_will_misc; }
+
+.item19 {
+    grid-area: attack;
+    grid-column: 6/9;
+    grid-row: 18/22;
+}
+
+.attack1 { grid-area: attack_text; }
+.attack2 { grid-area: attack_melee; }
+.attack3 { grid-area: attack_range; }
+.attack4 { grid-area: attack_throw; }
+.attack5 { grid-area: attack_melee_total; }
+.attack6 { grid-area: attack_melee_bab; }
+.attack7 { grid-area: attack_melee_ability; }
+.attack8 { grid-area: attack_melee_misc; }
+.attack9 { grid-area: attack_range_total; }
+.attack10 { grid-area: attack_range_bab; }
+.attack11 { grid-area: attack_range_ability; }
+.attack12 { grid-area: attack_range_misc; }
+.attack13 { grid-area: attack_throw_total; }
+.attack14 { grid-area: attack_throw_bab; }
+.attack15 { grid-area: attack_throw_ability; }
+.attack16 { grid-area: attack_throw_misc; }
+
+.item20 {
+    grid-area: skills;
+    grid-column: 1/6;
+    grid-row: 9/25;
+}
+
+.skills000 { grid-area: skills_text; }
+.skills001 { grid-area: skills_spendable_text; }
+.skills002 { grid-area: skills_spendable; }
+.skills003 { grid-area: skills_per_rank_text; }
+.skills004 { grid-area: skills_per_rank; }
+.skills005 { grid-area: skills_total; }
+.skills006 { grid-area: skills_ranks; }
+.skills007 { grid-area: skills_class; }
+.skills008 { grid-area: skills_ability; }
+.skills009 { grid-area: skills_misc; }
+.skills010 { grid-area: skills_acrobatics; }
+.skills020 { grid-area: skills_athletics; }
+.skills030 { grid-area: skills_bluff; }
+.skills040 { grid-area: skills_computers; }
+.skills050 { grid-area: skills_culture; }
+.skills060 { grid-area: skills_diplomacy; }
+.skills070 { grid-area: skills_disguise; }
+.skills080 { grid-area: skills_engineering; }
+.skills090 { grid-area: skills_intimidate; }
+.skills100 { grid-area: skills_life_science; }
+.skills110 { grid-area: skills_medicine; }
+.skills120 { grid-area: skills_mysticism; }
+.skills130 { grid-area: skills_perception; }
+.skills140 { grid-area: skills_physical_science; }
+.skills150 { grid-area: skills_piloting; }
+.skills160 { grid-area: skills_profession; }
+.skills170 { grid-area: skills_profession2; }
+.skills180 { grid-area: skills_sense_motive; }
+.skills190 { grid-area: skills_slight_of_hand; }
+.skills200 { grid-area: skills_stealth; }
+.skills210 { grid-area: skills_survival; }
+.skills011 { grid-area: skills_acrobatics_total; }
+.skills012 { grid-area: skills_acrobatics_ranks; }
+.skills013 { grid-area: skills_acrobatics_class; }
+.skills014 { grid-area: skills_acrobatics_ability; }
+.skills015 { grid-area: skills_acrobatics_misc; }
+.skills021 { grid-area: skills_athletics_total; }
+.skills022 { grid-area: skills_athletics_ranks; }
+.skills023 { grid-area: skills_athletics_class; }
+.skills024 { grid-area: skills_athletics_ability; }
+.skills025 { grid-area: skills_athletics_misc; }
+.skills031 { grid-area: skills_bluff_total; }
+.skills032 { grid-area: skills_bluff_ranks; }
+.skills033 { grid-area: skills_bluff_class; }
+.skills034 { grid-area: skills_bluff_ability; }
+.skills035 { grid-area: skills_bluff_misc; }
+.skills041 { grid-area: skills_computers_total; }
+.skills042 { grid-area: skills_computers_ranks; }
+.skills043 { grid-area: skills_computers_class; }
+.skills044 { grid-area: skills_computers_ability; }
+.skills045 { grid-area: skills_computers_misc; }
+.skills051 { grid-area: skills_culture_total; }
+.skills052 { grid-area: skills_culture_ranks; }
+.skills053 { grid-area: skills_culture_class; }
+.skills054 { grid-area: skills_culture_ability; }
+.skills055 { grid-area: skills_culture_misc; }
+.skills061 { grid-area: skills_diplomacy_total; }
+.skills062 { grid-area: skills_diplomacy_ranks; }
+.skills063 { grid-area: skills_diplomacy_class; }
+.skills064 { grid-area: skills_diplomacy_ability; }
+.skills065 { grid-area: skills_diplomacy_misc; }
+.skills071 { grid-area: skills_disguise_total; }
+.skills072 { grid-area: skills_disguise_ranks; }
+.skills073 { grid-area: skills_disguise_class; }
+.skills074 { grid-area: skills_disguise_ability; }
+.skills075 { grid-area: skills_disguise_misc; }
+.skills081 { grid-area: skills_engineering_total; }
+.skills082 { grid-area: skills_engineering_ranks; }
+.skills083 { grid-area: skills_engineering_class; }
+.skills084 { grid-area: skills_engineering_ability; }
+.skills085 { grid-area: skills_engineering_misc; }
+.skills091 { grid-area: skills_intimidate_total; }
+.skills092 { grid-area: skills_intimidate_ranks; }
+.skills093 { grid-area: skills_intimidate_class; }
+.skills094 { grid-area: skills_intimidate_ability; }
+.skills095 { grid-area: skills_intimidate_misc; }
+.skills101 { grid-area: skills_life_science_total; }
+.skills102 { grid-area: skills_life_science_ranks; }
+.skills103 { grid-area: skills_life_science_class; }
+.skills104 { grid-area: skills_life_science_ability; }
+.skills105 { grid-area: skills_life_science_misc; }
+.skills111 { grid-area: skills_medicine_total; }
+.skills112 { grid-area: skills_medicine_ranks; }
+.skills113 { grid-area: skills_medicine_class; }
+.skills114 { grid-area: skills_medicine_ability; }
+.skills115 { grid-area: skills_medicine_misc; }
+.skills121 { grid-area: skills_mysticism_total; }
+.skills122 { grid-area: skills_mysticism_ranks; }
+.skills123 { grid-area: skills_mysticism_class; }
+.skills124 { grid-area: skills_mysticism_ability; }
+.skills125 { grid-area: skills_mysticism_misc; }
+.skills131 { grid-area: skills_perception_total; }
+.skills132 { grid-area: skills_perception_ranks; }
+.skills133 { grid-area: skills_perception_class; }
+.skills134 { grid-area: skills_perception_ability; }
+.skills135 { grid-area: skills_perception_misc; }
+.skills141 { grid-area: skills_physical_science_total; }
+.skills142 { grid-area: skills_physical_science_ranks; }
+.skills143 { grid-area: skills_physical_science_class; }
+.skills144 { grid-area: skills_physical_science_ability; }
+.skills145 { grid-area: skills_physical_science_misc; }
+.skills151 { grid-area: skills_piloting_total; }
+.skills152 { grid-area: skills_piloting_ranks; }
+.skills153 { grid-area: skills_piloting_class; }
+.skills154 { grid-area: skills_piloting_ability; }
+.skills155 { grid-area: skills_piloting_misc; }
+.skills161 { grid-area: skills_profession_total; }
+.skills162 { grid-area: skills_profession_ranks; }
+.skills163 { grid-area: skills_profession_class; }
+.skills164 { grid-area: skills_profession_ability; }
+.skills165 { grid-area: skills_profession_misc; }
+.skills171 { grid-area: skills_profession2_total; }
+.skills172 { grid-area: skills_profession2_ranks; }
+.skills173 { grid-area: skills_profession2_class; }
+.skills174 { grid-area: skills_profession2_ability; }
+.skills175 { grid-area: skills_profession2_misc; }
+.skills181 { grid-area: skills_sense_motive_total; }
+.skills182 { grid-area: skills_sense_motive_ranks; }
+.skills183 { grid-area: skills_sense_motive_class; }
+.skills184 { grid-area: skills_sense_motive_ability; }
+.skills185 { grid-area: skills_sense_motive_misc; }
+.skills191 { grid-area: skills_slight_of_hand_total; }
+.skills192 { grid-area: skills_slight_of_hand_ranks; }
+.skills193 { grid-area: skills_slight_of_hand_class; }
+.skills194 { grid-area: skills_slight_of_hand_ability; }
+.skills195 { grid-area: skills_slight_of_hand_misc; }
+.skills201 { grid-area: skills_stealth_total; }
+.skills202 { grid-area: skills_stealth_ranks; }
+.skills203 { grid-area: skills_stealth_class; }
+.skills204 { grid-area: skills_stealth_ability; }
+.skills205 { grid-area: skills_stealth_misc; }
+.skills211 { grid-area: skills_survival_total; }
+.skills212 { grid-area: skills_survival_ranks; }
+.skills213 { grid-area: skills_survival_class; }
+.skills214 { grid-area: skills_survival_ability; }
+.skills215 { grid-area: skills_survival_misc; }
+
+.item21 {
+    grid-area: weapons;
+    grid-column: 6/9;
+    grid-row: 22/24;
+}
+
+.weapons1 { grid-area: weapon_text; }
+.weapons10 { grid-area: weapon_name_1; }
+.weapons11 { grid-area: weapon_level_1; }
+.weapons12 { grid-area: weapon_attack_1; }
+.weapons13 { grid-area: weapon_damage_1; }
+.weapons14 { grid-area: weapon_crit_1; }
+.weapons15 { grid-area: weapon_range_1; }
+.weapons16 { grid-area: weapon_type_1; }
+.weapons17 { grid-area: weapon_ammo_1; }
+.weapons18 { grid-area: weapon_special_1; }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 10% 10% 10% 10% 8% 10% 16% 22.7%;
+    /* grid-template-areas:
+    'cname cname cname cname cnamein cnamein cnamein cnamein cnamein description description description description'
+    'class_level class_level class_level class_level class_level race race theme theme description description description description'
+    'size size speed speed gender h_world h_world h_world h_world description description description description'
+    'alignment deity deity deity deity player player player player description description description description'
+    'abilities abilities abilities abilities abilities initiative initiative initiative initiative initiative initiative initiative initiative'
+    'white white white white white  initiative initiative initiative initiative initiative initiative initiative initiative'; */
+    grid-gap: 5px;
+    background-color: #2196F3;
+    padding: 5px;
+}
+
+.grid-container > div {
+    background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 5px 0;
+    font-size: 10px;
+}
+
+.grid-container-ability {
+    display: grid;
+    grid-template-columns: 12% 12% 12% 12% 12% 12% 12% 12%;
+    grid-template-areas:
+        'ability_text ability_text . . . . . .'
+        '. score mod race theme augment point ability'
+        'str str_score str_mod str_race str_theme str_augment str_point str_ability'
+        'dex dex_score dex_mod dex_race dex_theme dex_augment dex_point dex_ability'
+        'con con_score con_mod con_race con_theme con_augment con_point con_ability'
+        'int int_score int_mod int_race int_theme int_augment int_point int_ability'
+        'wis wis_score wis_mod wis_race wis_theme wis_augment wis_point wis_ability'
+        'cha cha_score cha_mod cha_race cha_theme cha_augment cha_point cha_ability';
+}
+
+.grid-container-initiative {
+    display: grid;
+    grid-template-columns: 20% 15% 15% 15%;
+    grid-template-areas:
+        'init_text init_total init_dex init_misc';
+}
+
+.grid-container-health {
+    display: grid;
+    grid-template-columns: 20% 17% 17% 17%;
+    grid-template-areas:
+        'health_and_resolve health_and_resolve health_and_resolve .'
+        '. health_sp health_hp health_resolve'
+        'health_total health_t_stamina health_t_hp health_t_resolve'
+        'health_current health_c_stamina health_c_hp health_c_resolve';
+}
+
+.grid-container-ac {
+    display: grid;
+    grid-template-columns: 6% 15% 17% 2% 17% 17% 17%;
+    /* grid-template-columns: 40px 80px 60px 10px 60px 60px 60px; */
+    grid-template-areas:
+        'armor_class armor_class . . . . .'
+        '. . ac_total . ac_ab ac_dex ac_misc'
+        'ac_eac ac_eac_text ac_eac_total ac_eac_10 ac_eac_abonus ac_eac_dexmod ac_eac_miscmod'
+        'ac_kac ac_kac_text ac_kac_total ac_kac_10 ac_kac_abonus ac_kac_dexmod ac_kac_miscmod'
+        'ac_acvs_text ac_acvs_text ac_acvs_total ac_acvs_8 ac_acvs_kac . .'
+        ;
+}
+
+.grid-container-save {
+    display: grid;
+    grid-template-columns: 20% 15% 15% 15% 15%;
+    grid-template-areas:
+        'save_text save_text . . .'
+        '. save_total save_base save_ability save_misc'
+        'save_fortitude save_fort_total save_fort_base save_fort_ability save_fort_misc'
+        'save_reflex save_refl_total save_refl_base save_refl_ability save_refl_misc'
+        'save_will save_will_total save_will_base save_will_ability save_will_misc'
+        ;
+}
+
+.grid-container-attack {
+    display: grid;
+    grid-template-columns: 20% 15% 15% 15% 15%;
+    grid-template-areas:
+        'attack_text attack_text . . .'
+        'attack_melee attack_melee_total attack_melee_bab attack_melee_ability attack_melee_misc'
+        'attack_range attack_range_total attack_range_bab attack_range_ability attack_range_misc'
+        'attack_throw attack_throw_total attack_throw_bab attack_throw_ability attack_throw_misc'
+        ;
+}
+
+.grid-container-skills {
+    display: grid;
+    grid-template-columns: 20% 16% 16% 16% 16% 16%;
+    grid-template-areas:
+        'skills_text skills_text skills_spendable_text skills_spendable skills_per_rank_text skills_per_rank'
+        '. skills_total skills_ranks skills_class skills_ability skills_misc'
+        'skills_acrobatics skills_acrobatics_total skills_acrobatics_ranks skills_acrobatics_class skills_acrobatics_ability skills_acrobatics_misc'
+        'skills_athletics skills_athletics_total skills_athletics_ranks skills_athletics_class skills_athletics_ability skills_athletics_misc'
+        'skills_bluff skills_bluff_total skills_bluff_ranks skills_bluff_class skills_bluff_ability skills_bluff_misc'
+        'skills_computers skills_computers_total skills_computers_ranks skills_computers_class skills_computers_ability skills_computers_misc'
+        'skills_culture skills_culture_total skills_culture_ranks skills_culture_class skills_culture_ability skills_culture_misc'
+        'skills_diplomacy skills_diplomacy_total skills_diplomacy_ranks skills_diplomacy_class skills_diplomacy_ability skills_diplomacy_misc'
+        'skills_disguise skills_disguise_total skills_disguise_ranks skills_disguise_class skills_disguise_ability skills_disguise_misc'
+        'skills_engineering skills_engineering_total skills_engineering_ranks skills_engineering_class skills_engineering_ability skills_engineering_misc'
+        'skills_intimidate skills_intimidate_total skills_intimidate_ranks skills_intimidate_class skills_intimidate_ability skills_intimidate_misc'
+        'skills_life_science skills_life_science_total skills_life_science_ranks skills_life_science_class skills_life_science_ability skills_life_science_misc'
+        'skills_medicine skills_medicine_total skills_medicine_ranks skills_medicine_class skills_medicine_ability skills_medicine_misc'
+        'skills_mysticism skills_mysticism_total skills_mysticism_ranks skills_mysticism_class skills_mysticism_ability skills_mysticism_misc'
+        'skills_perception skills_perception_total skills_perception_ranks skills_perception_class skills_perception_ability skills_perception_misc'
+        'skills_physical_science skills_physical_science_total skills_physical_science_ranks skills_physical_science_class skills_physical_science_ability skills_physical_science_misc'
+        'skills_piloting skills_piloting_total skills_piloting_ranks skills_piloting_class skills_piloting_ability skills_piloting_misc'
+        'skills_profession skills_profession_total skills_profession_ranks skills_profession_class skills_profession_ability skills_profession_misc'
+        'skills_profession2 skills_profession2_total skills_profession2_ranks skills_profession2_class skills_profession2_ability skills_profession2_misc'
+        'skills_sense_motive skills_sense_motive_total skills_sense_motive_ranks skills_sense_motive_class skills_sense_motive_ability skills_sense_motive_misc'
+        'skills_slight_of_hand skills_slight_of_hand_total skills_slight_of_hand_ranks skills_slight_of_hand_class skills_slight_of_hand_ability skills_slight_of_hand_misc'
+        'skills_stealth skills_stealth_total skills_stealth_ranks skills_stealth_class skills_stealth_ability skills_stealth_misc'
+        'skills_survival skills_survival_total skills_survival_ranks skills_survival_class skills_survival_ability skills_survival_misc'
+        ;
+}
+
+.grid-container-weapons {
+    display: grid;
+    grid-template-columns: 16% 16% 16% 16% 16% 16%;
+    grid-template-areas:
+        'weapon_text weapon_text weapon_text . . .'
+        'weapon_name_1 weapon_name_1 weapon_name_1 weapon_level_1 weapon_attack_1 weapon_damage_1'
+        'weapon_crit_1 weapon_range_1 weapon_type_1 weapon_ammo_1 weapon_ammo_1 weapon_special_1'
+        ;
+}
+
+.item30 {
+    grid-area: c_abilities;
+    grid-column: 1/3;
+    grid-row: 1;
+}
+
+.c_abilities00 { grid-area: c_abilities_c_text; }
+.c_abilities01 { grid-area: c_abilities_01; }
+.c_abilities02 { grid-area: c_abilities_02; }
+.c_abilities03 { grid-area: c_abilities_03; }
+.c_abilities04 { grid-area: c_abilities_04; }
+.c_abilities05 { grid-area: c_abilities_05; }
+.c_abilities06 { grid-area: c_abilities_06; }
+.c_abilities07 { grid-area: c_abilities_07; }
+.c_abilities08 { grid-area: c_abilities_08; }
+.c_abilities09 { grid-area: c_abilities_09; }
+.c_abilities10 { grid-area: c_abilities_10; }
+.c_abilities11 { grid-area: c_abilities_11; }
+.c_abilities12 { grid-area: c_abilities_12; }
+.c_abilities13 { grid-area: c_abilities_13; }
+.c_abilities14 { grid-area: c_abilities_14; }
+.c_abilities15 { grid-area: c_abilities_15; }
+.c_abilities16 { grid-area: c_abilities_16; }
+.c_abilities17 { grid-area: c_abilities_17; }
+.c_abilities18 { grid-area: c_abilities_18; }
+.c_abilities19 { grid-area: c_abilities_19; }
+.c_abilities20 { grid-area: c_abilities_20; }
+.c_abilities21 { grid-area: c_abilities_21; }
+.c_abilities22 { grid-area: c_abilities_22; }
+.c_abilities23 { grid-area: c_abilities_23; }
+.c_abilities24 { grid-area: c_abilities_24; }
+.c_abilities25 { grid-area: c_abilities_25; }
+.c_abilities26 { grid-area: c_abilities_26; }
+.c_abilities27 { grid-area: c_abilities_27; }
+.c_abilities28 { grid-area: c_abilities_28; }
+.c_abilities29 { grid-area: c_abilities_29; }
+.c_abilities30 { grid-area: c_abilities_30; }
+.c_abilities31 { grid-area: c_abilities_31; }
+.c_abilities32 { grid-area: c_abilities_32; }
+.c_abilities33 { grid-area: c_abilities_33; }
+.c_abilities34 { grid-area: c_abilities_34; }
+.c_abilities35 { grid-area: c_abilities_35; }
+
+.c_abilities40 { grid-area: c_abilities_t_text; }
+.c_abilities41 { grid-area: c_abilities_41; }
+.c_abilities42 { grid-area: c_abilities_42; }
+.c_abilities43 { grid-area: c_abilities_43; }
+.c_abilities44 { grid-area: c_abilities_44; }
+
+.c_abilities50 { grid-area: c_abilities_r_text; }
+.c_abilities51 { grid-area: c_abilities_51; }
+.c_abilities52 { grid-area: c_abilities_52; }
+.c_abilities53 { grid-area: c_abilities_53; }
+.c_abilities54 { grid-area: c_abilities_54; }
+.c_abilities55 { grid-area: c_abilities_55; }
+.c_abilities56 { grid-area: c_abilities_56; }
+.c_abilities57 { grid-area: c_abilities_57; }
+
+.c_abilities60 { grid-area: c_abilities_o_text; }
+.c_abilities61 { grid-area: c_abilities_61; }
+.c_abilities62 { grid-area: c_abilities_62; }
+.c_abilities63 { grid-area: c_abilities_63; }
+.c_abilities64 { grid-area: c_abilities_64; }
+.c_abilities65 { grid-area: c_abilities_65; }
+.c_abilities66 { grid-area: c_abilities_66; }
+.c_abilities67 { grid-area: c_abilities_67; }
+.c_abilities68 { grid-area: c_abilities_68; }
+.c_abilities69 { grid-area: c_abilities_69; }
+.c_abilities70 { grid-area: c_abilities_70; }
+.c_abilities71 { grid-area: c_abilities_71; }
+.c_abilities72 { grid-area: c_abilities_72; }
+.c_abilities73 { grid-area: c_abilities_73; }
+.c_abilities74 { grid-area: c_abilities_74; }
+
+.item31 {
+    grid-area: feats;
+    grid-column: 1;
+    grid-row: 2/4;
+}
+
+.feats00 { grid-area: feats_text; }
+.feats01 { grid-area: feats_01; }
+.feats02 { grid-area: feats_02; }
+.feats03 { grid-area: feats_03; }
+.feats04 { grid-area: feats_04; }
+.feats05 { grid-area: feats_05; }
+.feats06 { grid-area: feats_06; }
+.feats07 { grid-area: feats_07; }
+.feats08 { grid-area: feats_08; }
+.feats09 { grid-area: feats_09; }
+.feats10 { grid-area: feats_10; }
+.feats11 { grid-area: feats_11; }
+.feats12 { grid-area: feats_12; }
+.feats13 { grid-area: feats_13; }
+.feats14 { grid-area: feats_14; }
+.feats15 { grid-area: feats_15; }
+.feats16 { grid-area: feats_16; }
+.feats17 { grid-area: feats_17; }
+.feats18 { grid-area: feats_18; }
+.feats19 { grid-area: feats_19; }
+.feats20 { grid-area: feats_20; }
+.feats21 { grid-area: feats_21; }
+.feats22 { grid-area: feats_22; }
+.feats23 { grid-area: feats_23; }
+.feats24 { grid-area: feats_24; }
+.feats25 { grid-area: feats_25; }
+.feats26 { grid-area: feats_26; }
+.feats27 { grid-area: feats_27; }
+.feats28 { grid-area: feats_28; }
+
+.item32 {
+    grid-area: languages;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.languages00 { grid-area: language_text; }
+.languages01 { grid-area: language_01; }
+.languages02 { grid-area: language_02; }
+.languages03 { grid-area: language_03; }
+.languages04 { grid-area: language_04; }
+
+.item33 {
+    grid-area: spells;
+    grid-column: 3;
+    grid-row: 1/4;
+}
+
+.spells00 { grid-area: spells_text; }
+.spells01 { grid-area: spells_0_text; }
+.spells02 { grid-area: spells_0_known_text; }
+.spells03 { grid-area: spells_0_known; }
+.spells04 { grid-area: spells_04; }
+.spells05 { grid-area: spells_05; }
+.spells06 { grid-area: spells_06; }
+.spells07 { grid-area: spells_07; }
+.spells08 { grid-area: spells_08; }
+.spells09 { grid-area: spells_09; }
+.spells10 { grid-area: spells_10; }
+.spells11 { grid-area: spells_11; }
+.spells12 { grid-area: spells_12; }
+.spells13 { grid-area: spells_13; }
+.spells14 { grid-area: spells_14; }
+.spells15 { grid-area: spells_15; }
+.spells16 { grid-area: spells_16; }
+.spells17 { grid-area: spells_17; }
+.spells20 { grid-area: spells_1_text; }
+.spells21 { grid-area: spells_1_known_text; }
+.spells22 { grid-area: spells_1_known; }
+.spells23 { grid-area: spells_1_daily; }
+.spells24 { grid-area: spells_24; }
+.spells25 { grid-area: spells_25; }
+.spells26 { grid-area: spells_26; }
+.spells27 { grid-area: spells_27; }
+.spells28 { grid-area: spells_28; }
+.spells29 { grid-area: spells_29; }
+.spells30 { grid-area: spells_30; }
+.spells31 { grid-area: spells_31; }
+.spells32 { grid-area: spells_32; }
+.spells33 { grid-area: spells_33; }
+.spells34 { grid-area: spells_34; }
+.spells35 { grid-area: spells_35; }
+.spells40 { grid-area: spells_2_text; }
+.spells41 { grid-area: spells_2_known_text; }
+.spells42 { grid-area: spells_2_known; }
+.spells43 { grid-area: spells_2_daily; }
+.spells44 { grid-area: spells_44; }
+.spells45 { grid-area: spells_45; }
+.spells46 { grid-area: spells_46; }
+.spells47 { grid-area: spells_47; }
+.spells48 { grid-area: spells_48; }
+.spells49 { grid-area: spells_49; }
+.spells50 { grid-area: spells_50; }
+.spells51 { grid-area: spells_51; }
+.spells52 { grid-area: spells_52; }
+.spells53 { grid-area: spells_53; }
+.spells54 { grid-area: spells_54; }
+.spells55 { grid-area: spells_55; }
+.spells60 { grid-area: spells_3_text; }
+.spells61 { grid-area: spells_3_known_text; }
+.spells62 { grid-area: spells_3_known; }
+.spells63 { grid-area: spells_3_daily; }
+.spells64 { grid-area: spells_64; }
+.spells65 { grid-area: spells_65; }
+.spells66 { grid-area: spells_66; }
+.spells67 { grid-area: spells_67; }
+.spells68 { grid-area: spells_68; }
+.spells69 { grid-area: spells_69; }
+.spells70 { grid-area: spells_70; }
+.spells71 { grid-area: spells_71; }
+.spells72 { grid-area: spells_72; }
+.spells73 { grid-area: spells_73; }
+.spells74 { grid-area: spells_74; }
+.spells75 { grid-area: spells_75; }
+.spells80 { grid-area: spells_4_text; }
+.spells81 { grid-area: spells_4_known_text; }
+.spells82 { grid-area: spells_4_known; }
+.spells83 { grid-area: spells_4_daily; }
+.spells84 { grid-area: spells_84; }
+.spells85 { grid-area: spells_85; }
+.spells86 { grid-area: spells_86; }
+.spells87 { grid-area: spells_87; }
+.spells88 { grid-area: spells_88; }
+.spells89 { grid-area: spells_89; }
+.spells90 { grid-area: spells_90; }
+.spells91 { grid-area: spells_91; }
+.spells92 { grid-area: spells_92; }
+.spells93 { grid-area: spells_93; }
+.spells100 { grid-area: spells_5_text; }
+.spells101 { grid-area: spells_5_known_text; }
+.spells102 { grid-area: spells_5_known; }
+.spells103 { grid-area: spells_5_daily; }
+.spells104 { grid-area: spells_104; }
+.spells105 { grid-area: spells_105; }
+.spells106 { grid-area: spells_106; }
+.spells107 { grid-area: spells_107; }
+.spells108 { grid-area: spells_108; }
+.spells109 { grid-area: spells_109; }
+.spells110 { grid-area: spells_110; }
+.spells111 { grid-area: spells_111; }
+.spells120 { grid-area: spells_6_text; }
+.spells121 { grid-area: spells_6_known_text; }
+.spells122 { grid-area: spells_6_known; }
+.spells123 { grid-area: spells_6_daily; }
+.spells124 { grid-area: spells_124; }
+.spells125 { grid-area: spells_125; }
+.spells126 { grid-area: spells_126; }
+.spells127 { grid-area: spells_127; }
+.spells128 { grid-area: spells_128; }
+.spells129 { grid-area: spells_129; }
+.spells130 { grid-area: spells_130; }
+.spells131 { grid-area: spells_131; }
+.spells001 { grid-area: spells_1_daily_text; }
+.spells002 { grid-area: spells_2_daily_text; }
+.spells003 { grid-area: spells_3_daily_text; }
+.spells004 { grid-area: spells_4_daily_text; }
+.spells005 { grid-area: spells_5_daily_text; }
+.spells006 { grid-area: spells_6_daily_text; }
+
+.spells{
+    display: grid;
+    grid-template-columns: 10% 25% 15% 25% 15% 10%;
+    grid-template-areas:
+        'spells_text spells_text . . . .'
+        'spells_0_text spells_0_known_text spells_0_known . . .'
+        'spells_04 spells_04 spells_04 spells_11 spells_11 spells_11'
+        'spells_05 spells_05 spells_05 spells_12 spells_12 spells_12'
+        'spells_06 spells_06 spells_06 spells_13 spells_13 spells_13'
+        'spells_07 spells_07 spells_07 spells_14 spells_14 spells_14'
+        'spells_08 spells_08 spells_08 spells_15 spells_15 spells_15'
+        'spells_09 spells_09 spells_09 spells_16 spells_16 spells_16'
+        'spells_10 spells_10 spells_10 spells_17 spells_17 spells_17'
+        'spells_1_text spells_1_known_text spells_1_known spells_1_daily_text spells_1_daily .'
+        'spells_24 spells_24 spells_24 spells_30 spells_30 spells_30'
+        'spells_25 spells_25 spells_25 spells_31 spells_31 spells_31'
+        'spells_26 spells_26 spells_26 spells_32 spells_32 spells_32'
+        'spells_27 spells_27 spells_27 spells_33 spells_33 spells_33'
+        'spells_28 spells_28 spells_28 spells_34 spells_34 spells_34'
+        'spells_29 spells_29 spells_29 spells_35 spells_35 spells_35'
+        'spells_2_text spells_2_known_text spells_2_known spells_2_daily_text spells_2_daily .'
+        'spells_44 spells_44 spells_44 spells_50 spells_50 spells_50'
+        'spells_45 spells_45 spells_45 spells_51 spells_51 spells_51'
+        'spells_46 spells_46 spells_46 spells_52 spells_52 spells_52'
+        'spells_47 spells_47 spells_47 spells_53 spells_53 spells_53'
+        'spells_48 spells_48 spells_48 spells_54 spells_54 spells_54'
+        'spells_49 spells_49 spells_49 spells_55 spells_55 spells_55'
+        'spells_3_text spells_3_known_text spells_3_known spells_3_daily_text spells_3_daily .'
+        'spells_64 spells_64 spells_64 spells_70 spells_70 spells_70'
+        'spells_65 spells_65 spells_65 spells_71 spells_71 spells_71'
+        'spells_66 spells_66 spells_66 spells_72 spells_72 spells_72'
+        'spells_67 spells_67 spells_67 spells_73 spells_73 spells_73'
+        'spells_68 spells_68 spells_68 spells_74 spells_74 spells_74'
+        'spells_69 spells_69 spells_69 spells_75 spells_75 spells_75'
+        'spells_4_text spells_4_known_text spells_4_known spells_4_daily_text spells_4_daily .'
+        'spells_84 spells_84 spells_84 spells_89 spells_89 spells_89'
+        'spells_85 spells_85 spells_85 spells_90 spells_90 spells_90'
+        'spells_86 spells_86 spells_86 spells_91 spells_91 spells_91'
+        'spells_87 spells_87 spells_87 spells_92 spells_92 spells_92'
+        'spells_88 spells_88 spells_88 spells_93 spells_93 spells_93'
+        'spells_5_text spells_5_known_text spells_5_known spells_5_daily_text spells_5_daily .'
+        'spells_104 spells_104 spells_104 spells_108 spells_108 spells_108'
+        'spells_105 spells_105 spells_105 spells_109 spells_109 spells_109'
+        'spells_106 spells_106 spells_106 spells_110 spells_110 spells_110'
+        'spells_107 spells_107 spells_107 spells_111 spells_111 spells_111'
+        'spells_6_text spells_6_known_text spells_6_known spells_6_daily_text spells_6_daily .'
+        'spells_124 spells_124 spells_124 spells_128 spells_128 spells_128'
+        'spells_125 spells_125 spells_125 spells_129 spells_129 spells_129'
+        'spells_126 spells_126 spells_126 spells_130 spells_130 spells_130'
+        'spells_127 spells_127 spells_127 spells_131 spells_131 spells_131'
+        ;
+    }
+
+.c_abilities {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-areas:
+        'c_abilities_c_text c_abilities_c_text .'
+        'c_abilities_01 c_abilities_22     c_abilities_30'
+        'c_abilities_02 c_abilities_23     c_abilities_31'
+        'c_abilities_03 c_abilities_24     c_abilities_32'
+        'c_abilities_04 c_abilities_25     c_abilities_33'
+        'c_abilities_05 c_abilities_26     c_abilities_34'
+        'c_abilities_06 c_abilities_27     c_abilities_35'
+        'c_abilities_07 c_abilities_28     c_abilities_o_text'
+        'c_abilities_08 c_abilities_29     c_abilities_61'
+        'c_abilities_09 c_abilities_t_text c_abilities_62'
+        'c_abilities_10 c_abilities_41     c_abilities_63'
+        'c_abilities_11 c_abilities_42     c_abilities_64'
+        'c_abilities_12 c_abilities_43     c_abilities_65'
+        'c_abilities_13 c_abilities_44     c_abilities_66'
+        'c_abilities_14 c_abilities_r_text c_abilities_67'
+        'c_abilities_15 c_abilities_51     c_abilities_68'
+        'c_abilities_16 c_abilities_52     c_abilities_69'
+        'c_abilities_17 c_abilities_53     c_abilities_70'
+        'c_abilities_18 c_abilities_54     c_abilities_71'
+        'c_abilities_19 c_abilities_55     c_abilities_72'
+        'c_abilities_20 c_abilities_56     c_abilities_73'
+        'c_abilities_21 c_abilities_57     c_abilities_74'
+        ;
+}
+
+/* .feats {
+    display: grid;
+    grid-template-areas:
+        'c_abilities_c_text'
+        'feats_01'
+        ;
+} */
+
+.grid-container-p2 {
+    display: grid;
+    grid-gap: 5px;
+    background-color: #53F2A5;
+    padding: 5px;
+}
+
+.resizedTextbox {
+    width: 80%;
+    height: 65%;
+}
+
+.ch_name_textbox {
+    width: 90%;
+    height: 65%;
+}
+
+.level_textbox {
+    width: 95%;
+    height: 65%;
+}
+
+.race_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.size_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.speet_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.gender_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.h_world_textbox {
+    width: 95%;
+    height: 65%;
+}
+
+.alignment_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.deity_textbox {
+    width: 90%;
+    height: 65%;
+}
+
+.description_textbox {
+    width: 90%;
+    height: 90%;
+}
+
+.attack_bonus_textbox {
+    width: 70%;
+    height: 45%;
+}
+
+.ability_textbox {
+    width: 70%;
+    height: 60%;
+}
+
+.weapon_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.ammo_textbox {
+    width: 80%;
+    height: 65%;
+}
+
+.damage_textbox {
+    width: 80%;
+    height: 45%;
+
+}
