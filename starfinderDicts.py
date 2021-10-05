@@ -82,7 +82,7 @@ raceAbilities = {"android"           : [["Constructed", "words"],
                  "kasatha"           : [["Desert stride", "words"],
                                         ["Four-armed", "words"],
                                         ["Historian", "stats", [["culture", 2]]],
-                                        ["Natural grace", [["acrobatics", 2], ["athletics", 2]]]] ,
+                                        ["Natural grace", "stats", [["acrobatics", 2], ["athletics", 2]]]] ,
 
                  "lashunta(korasha)" : [["Dimorphic", "words"],
                                         ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
@@ -96,11 +96,11 @@ raceAbilities = {"android"           : [["Constructed", "words"],
 
                  "shirren"           : [["Blindsense", "words"],
                                         ["Communalism", "words"],
-                                        ["Cultural fascination", [["culture", 2], ["diplomacy", 2]]],
+                                        ["Cultural fascination", "stats", [["culture", 2], ["diplomacy", 2]]],
                                         ["Limited telepathy", "words"]] ,
 
-                 "vesk"              : [["Armor savant", "armor"],
-                                        ["Fearless", "saveing"],
+                 "vesk"              : [["Armor savant", "words"],
+                                        ["Fearless", "words"],
                                         ["Low-light vision", "words"],
                                         ["Natural weapons", "words"]] ,
 
@@ -180,7 +180,7 @@ classChoseFeats = {
                     ["Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer", "Saboteur", "Superior Overcharge", "Ultraclocking"]
         ]
     },
-    "mystic": ,
+    "mystic": [],
     "operative": {
         "exploit" : [
                         ["Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation", "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
