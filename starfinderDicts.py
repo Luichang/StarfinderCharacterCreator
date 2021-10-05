@@ -161,122 +161,188 @@ themeAbilities = {
                         ["Steely determination", "words"]]
 }
 
+classChoseFeats = {
+    "envoy": {
+        "improvisation" : [
+                            ["Clever Feint", "Dispiriting Taunt", "Don’t Quit", "Expanded Attunement", "Get ’Em", "Inspiring Boost", "Not in the Face", "Universal Expression", "Watch Your Step"],
+                            ["Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation", "Quick Dispiriting Taunt", "Quick Inspiring Boost", "Watch Out"],
+                            ["Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get ’Em"],
+                            ["Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness", "Sustained Determination"]
+                        ],
+        "talent" : [
+                        ["Additional Skill Expertise", "Altered Bearing", "Analyst", "Cautious Expertise", "Convincing Liar", "Cultural Savant", "Cunning Disguise", "Engineering Adept", "Expert Forger", "Fast Hack", "Inspired Medic", "Keen Observer", "Menacing Gaze", "Rattling Presence", "Skilled Linguist", "Slick Customer", "Student of Technology", "Surgeon", "Well Informed"]
+                    ],
+    },
+    "mechanic": {
+        "trick" : [
+                    ["Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt", "Nightvision Processor", "Overcharge", "Overclocking", "Overload Weapon", "Portable Power", "Quick Patch", "Quick Repair", "Repair Drone", "Visual Data Processor"],
+                    ["Boost Shield", "Drone Meld", "Engineer’s Eye", "Ghost Intrusion", "Holographic Projector", "Hyperclocking", "Improved Overcharge", "Invisibility Bypass Processor", "Resistant Energy", "Scoutbot"],
+                    ["Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer", "Saboteur", "Superior Overcharge", "Ultraclocking"]
+        ]
+    },
+    "mystic": ,
+    "operative": {
+        "exploit" : [
+                        ["Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation", "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
+                        ["Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot", "Improved Quick Movement", "Interfering Shot", "Mentalist’s Bane", "Speed Hacker", "Staggering Shot", "Stalwart", "Sure-Footed", "Uncanny Shooter"],
+                        ["Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant", "Glimpse the Truth", "Holographic Distraction", "Improved Evasion", "Improved Uncanny Mobility", "Master of Disguise", "Stunning Shot", "Versatile Movement"],
+                        ["Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery", "Uncanny Senses"]
+        ]
+    },
+    "solarian": {
+        "revelation" : [
+                        ["Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost", "Gravity Hold", "Plasma Sheath", "Radiation", "Stellar Rush"],
+                        ["Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity", "Glow of Life", "Gravity Surge", "Hypnotic Glow", "Reflection"],
+                        ["Soul Furnace", "Stealth Warp"],
+                        ["Gravity Shield", "Sunbolt"],
+                        ["Ultimate Graviton", "Ultimate Photon"]
+        ],
+        "zenith" : ["Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake", "Time Dilation", "Wormholes"]
+    },
+    "soldier": {
+        "gear" : [
+                    ["Armored Advantage", "Brutal Blast", "Bullet Barrage", "Laser Accuracy", "Melee Striker"],
+                    ["Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation", "Powerful Explosive", "Sonic Resonance"],
+                    ["Heavy Onslaught"]
+        ],
+        "styles" : {
+            "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi", "Power of Legend", "Secret of the Archmagi", "Arcane Attack"],
+            "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army", "On the Bounce"],
+            "blitz" : ["Rapid Response", "Charge Attack", "Keep Fighting", "Perfect Opportunity", "Against the Odds"],
+            "bombard" : ["Grenade Expert", "Heavy Fire", "Debilitating Attack", "Explosives Acumen", "Impactful Attack"],
+            "guard" : ["Armor Training", "Guard’s Protection", "Rapid Recovery", "Kinetic Resistance", "Impenetrable Defense"],
+            "hit-and-run" : ["Opening Volley", "Nimble Fusillade", "Duck and Weave", "Elusive Target", "Harrying Shot"],
+            "sharpshoot" : ["Sniper’s Aim", "Focus Fire", "Intense Focus", "Focused Damage", "Prepared Shot", ]
+        }
+    },
+    "technomancer": {
+        "hack" : [
+                    ["Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech", "Harmful Spells", "Quick Scan", "Robot Influence", "Selective Targeting", "Spell Countermeasures", "Technomantic Proficiency"],
+                    ["Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms", "Magic Negation", "Spell Grenade"],
+                    ["Diviner’s Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures", "Widened Spell"],
+                    ["Countertech Sentinel", "Eternal Spell", "Reboot Mind", "Seeking Shot"],
+                    ["Phase Shot", "Quickened Spell", "Rain of Fire", "Spell Library"]
+        ]
+    }
+}
+
 classAbilities = {
-    "envoy":  [[["Envoy improvisation"],
-                ["Expertise (1d6)"],
-                ["Skill expertise"]],
+    "envoy":  [[["Envoy improvisation", "improvisation"], # one of the chassChoseFeats for envoy
+                ["Expertise (1d6)", "words"], # maybe worth creating an array with all expertise skills
+                ["Skill expertise", "add expertise"]], # any ability, each only once
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise talent"],
-                ["Weapon specialization"]],
+               [["Expertise talent", "talent"],
+                ["Weapon specialization", "weapon"]], # You gain the Weapon Specialization feat as a bonus feat for each weapon type with which this class grants you proficiency
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "class up"]],
 
-               [["Expertise (1d6+1)"],
-                ["Skill expertise"]],
+               [["Expertise (1d6+1)", "words"],
+                ["Skill expertise", "add expertise"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise talent"]],
+               [["Expertise talent", "talent"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise (1d6+2)"],
-                ["Skill expertise"]],
+               [["Expertise (1d6+2)", "words"],
+                ["Skill expertise", "add expertise"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise talent"]],
+               [["Expertise talent", "talent"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise (1d8+2)"], ["Skill expertise"]],
+               [["Expertise (1d8+2)", "words"],
+                ["Skill expertise", "add expertise"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise talent"]],
+               [["Expertise talent", "talent"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise (1d8+3)"],
-                ["Skill expertise"]],
+               [["Expertise (1d8+3)", "words"],
+                ["Skill expertise", "add expertise"]],
 
-               [["Envoy improvisation"]],
+               [["Envoy improvisation", "improvisation"]],
 
-               [["Expertise talent"]],
+               [["Expertise talent", "talent"]],
 
-               [["Envoy improvisation"],
-                ["Expertise (1d8+4)"],
-                ["True expertise"]],
+               [["Envoy improvisation", "class up"],
+                ["Expertise (1d8+4)", "words"],
+                ["True expertise", "words"]], # maybe add in a selection from the selected envoy improvisation but it really is just words
              ]
 
     ,
-    "mechanic":[[["Artificial intelligence"],
-                 ["Bypass +1"],
-                 ["Custom rig"]],
+    "mechanic":[[["Artificial intelligence", "words"], # might want a selector between Drone and Exocortex
+                 ["Bypass +1", "words"],
+                 ["Custom rig", "words"]],
 
-                 ["Mechanic trick"],
+                 ["Mechanic trick", "trick"],
 
-                [["Overload"],
-                 ["Weapon specialization"]],
+                [["Overload", "words"],
+                 ["Weapon specialization", "weapon"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Bypass +2"],
-                 ["Remote hack"]],
+                [["Bypass +2", "words"],
+                 ["Remote hack", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Expert rig"],
-                 ["Miracle worker 1/day"]],
+                [["Expert rig", "words"],
+                 ["Miracle worker 1/day", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Bypass +3"],
-                 ["Override"]],
+                [["Bypass +3", "words"],
+                 ["Override", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Coordinated assault +1"],
-                 ["Miracle worker 2/day"]],
+                [["Coordinated assault +1", "words"],
+                 ["Miracle worker 2/day", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Advanced rig"],
-                 ["Bypass +4"]],
+                [["Advanced rig", "words"], # gains a counter measure of firewall as a bonus
+                 ["Bypass +4", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Miracle worker 3/day"]],
+                [["Miracle worker 3/day", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Bypass +5"],
-                 ["Control net"],
-                 ["Coordinated assault +2"]],
+                [["Bypass +5", "words"],
+                 ["Control net", "words"],
+                 ["Coordinated assault +2", "words"]],
 
-                [["Mechanic trick"]],
+                [["Mechanic trick", "trick"]],
 
-                [["Ghost in the machine"],
-                 ["Miracle worker 4/day"],
-                 ["Superior rig"]],
+                [["Ghost in the machine", "words"],
+                 ["Miracle worker 4/day", "words"],
+                 ["Superior rig", "words"]], # gains the counter measures of lock out and wipe as a bonus
 
-                [["Bypass +6"],
-                 ["Mechanic trick"],
-                 ["Tech master"]],
+                [["Bypass +6", "words"],
+                 ["Mechanic trick", "trick"],
+                 ["Tech master", "words"]],
              ]
     ,
     "mystic":  [[["Connection"],
                  ["Connection power"],
                  ["Connection spell"],
-                 ["Healing touch"]],
+                 ["Healing touch", "words"]],
 
                 [["Channel skill +1"],
-                 ["Mindlink"]],
+                 ["Mindlink", "words"]],
 
                 [["Connection power"],
-                 ["Weapon specialization"]],
+                 ["Weapon specialization", "weapon"]],
 
                 [["Connection spell"]],
 
@@ -293,7 +359,7 @@ classAbilities = {
                 [["Connection spell"]],
 
                 [["Channel skill +4"],
-                 ["Telepathic bond"]],
+                 ["Telepathic bond", "words"]],
 
                 [["Connection power"]],
 
@@ -309,213 +375,216 @@ classAbilities = {
 
                 [["Connection powe"]],
 
-                [["Transcendence"]],
+                [["Transcendence", "words"]],
 
                 [["Channel skill +7"],
-                 ["Enlightenment"]],
+                 ["Enlightenment", "words"]],
              ]
     ,
-    "operative":   [[["Operative’s edge +1"],
+    "operative":   [[["Operative’s edge +1"], # +1 insight bonus to initiative checks and to skill checks
                      ["Specialization"],
-                     ["Trick attack +1d4"]],
+                     ["Trick attack +1d4", "words"]],
 
-                    [["Evasion"],
+                    [["Evasion", "words"],
                      ["Operative exploit"]],
 
                     [["Operative’s edge +2"],
-                     ["Quick movement (+10 ft.)"],
-                     ["Trick attack +1d8"],
-                     ["Weapon specialization"]],
+                     ["Quick movement (+10 ft.)", "words"],
+                     ["Trick attack +1d8", "words"],
+                     ["Weapon specialization", "weapon"]],
 
-                    [["Debilitating trick"],
+                    [["Debilitating trick", "words"],
                      ["Operative exploit"]],
 
                     [["Specialization exploit"],
-                     ["Trick attack +3d8"]],
+                     ["Trick attack +3d8", "words"]],
 
                     [["Operative exploit"]],
 
                     [["Operative’s edge +3"],
                      ["Specialization skill mastery"],
-                     ["Trick attack +4d8"],
-                     ["Uncanny agility"]],
+                     ["Trick attack +4d8", "words"],
+                     ["Uncanny agility", "words"]],
 
                     [["Operative exploit"],
-                     ["Triple attack"]],
+                     ["Triple attack", "words"]],
 
-                    [["Quick movement (+20 ft.)"],
-                     ["Trick attack +5d8"]],
+                    [["Quick movement (+20 ft.)", "words"],
+                     ["Trick attack +5d8", "words"]],
 
                     [["Operative exploit"]],
 
                     [["Operative’s edge +4"],
                      ["Specialization power"],
-                     ["Trick attack +6d8"]],
+                     ["Trick attack +6d8", "words"]],
 
                     [["Operative exploit"]],
 
-                    [["Quad attack"],
-                     ["Trick attack +7d8"]],
+                    [["Quad attack", "words"],
+                     ["Trick attack +7d8", "words"]],
 
                     [["Operative exploit"]],
 
                     [["Operative’s edge +5"],
-                     ["Quick movement (+30 ft.)"],
-                     ["Trick attack +8d8"]],
+                     ["Quick movement (+30 ft.)", "words"],
+                     ["Trick attack +8d8", "words"]],
 
                     [["Operative exploit"]],
 
-                    [["Double debilitation"],
-                     ["Trick attack +9d8"]],
+                    [["Double debilitation", "words"],
+                     ["Trick attack +9d8", "words"]],
 
                     [["Operative exploit"]],
 
                     [["Operative’s edge +6"],
-                     ["Trick attack +10d8"]],
+                     ["Trick attack +10d8", "words"]],
 
                     [["Operative exploit"],
-                     ["Supreme operative"]],
+                     ["Supreme operative", "words"]],
              ]
     ,
-    "solarian": [[["Skill adept"],
-                  ["Solar manifestation"],
-                  ["Stellar mode"],
-                  ["Stellar revelation (black hole, supernova)"]],
+    "solarian": [[["Skill adept", "skill", [["any"], ["any"]]],
+                  ["Solar manifestation"], # chose either weapon or armor and chose either glowing star or darkness black hole
+                  ["Stellar mode", "words"],
+                  ["Stellar revelation (black hole, supernova)", "revelation"]],
 
-                 [["Stellar revelation"]],
+                 [["Stellar revelation", "revelation"]],
 
-                 [["Sidereal influence (2 skills)"],
-                  ["Weapon specialization"]],
+                 [["Sidereal influence (2 skills)", "influence"],
+                  ["Weapon specialization", "weapon"]],
 
-                 [["Stellar revelation"]],
-
-                 [[]],
-
-                 [["Stellar revelation"]],
-
-                 [["Flashing strikes"]],
-
-                 [["Stellar revelation"]],
-
-                 [["Zenith revelations"]],
-
-                 [["Stellar revelation"]],
-
-                 [["Sidereal influence (4 skills)"]],
-
-                 [["Stellar revelation"]],
-
-                 [["Solarian’s onslaught"]],
-
-                 [["Stellar revelation"]],
+                 [["Stellar revelation", "revelation"]],
 
                  [[]],
 
-                 [["Stellar revelation"]],
+                 [["Stellar revelation", "revelation"]],
 
-                 [["Zenith revelations"]],
+                 [["Flashing strikes", "words"]],
 
-                 [["Stellar revelation"]],
+                 [["Stellar revelation", "revelation"]],
 
-                 [["Sidereal influence (6 skills)"]],
+                 [["Zenith revelations", "zenith"]],
 
-                 [["Stellar paragon"],
-                  ["Stellar revelation"]],
-             ],
-    "soldier": [[["Primary Fighting style"],
-                 ["Primary style technique"]],
+                 [["Stellar revelation", "revelation"]],
 
-                [["Combat feat"]],
+                 [["Sidereal influence (4 skills)", "influence"]],
 
-                [["Gear boost"],
-                 ["Weapon specialization"]],
+                 [["Stellar revelation", "revelation"]],
 
-                [["Combat feat"]],
+                 [["Solarian’s onslaught", "words"]],
 
-                [["Primary style technique"]],
+                 [["Stellar revelation", "revelation"]],
 
-                [["Combat feat"]],
+                 [[]],
 
-                [["Gear boost"]],
+                 [["Stellar revelation", "revelation"]],
 
-                [["Combat feat"]],
+                 [["Zenith revelations", "zenith"]],
 
-                [["Primary style technique"],
-                 ["Secondary fighting style"],
-                 ["Secondary style technique"]],
+                 [["Stellar revelation", "revelation"]],
 
-                [["Combat feat"]],
+                 [["Sidereal influence (6 skills)", "influence"]],
 
-                [["Gear boost"],
-                 ["Soldier’s onslaught"]],
+                 [["Stellar paragon", "words"],
+                  ["Stellar revelation", "revelation"]],
+             ]
+    ,
+    "soldier": [[["Primary Fighting style", "style"],
+                 ["Primary style technique", "technique1"]],
 
-                [["Combat feat"]],
+                [["Combat feat", "combat"]],
 
-                [["Primary style technique"],
-                 ["Secondary style technique"]],
+                [["Gear boost", "gear"],
+                 ["Weapon specialization", "weapon"]],
 
-                [["Combat feat"]],
+                [["Combat feat", "combat"]],
 
-                [["Gear boost"]],
+                [["Primary style technique", "technique1"]],
 
-                [["Combat feat"]],
+                [["Combat feat", "combat"]],
 
-                [["Primary style technique"], ["Secondary style technique"]],
+                [["Gear boost", "gear"]],
 
-                [["Combat feat"]],
+                [["Combat feat", "combat"]],
 
-                [["Gear boost"]],
+                [["Primary style technique", "technique1"],
+                 ["Secondary fighting style", "style"],
+                 ["Secondary style technique", "technique2"]],
 
-                [["Combat feat"],
-                 ["Kill shot"]],
-             ],
-    "technomancer": [[["Spell cache"]],
+                [["Combat feat", "combat"]],
 
-                     [["Magic hack"]],
+                [["Gear boost", "gear"],
+                 ["Soldier’s onslaught", "words"]],
 
-                     [["Spell Focus"],
-                      ["Techlore +1"],
-                      ["Weapon specialization"]],
+                [["Combat feat", "combat"]],
+
+                [["Primary style technique", "technique1"],
+                 ["Secondary style technique", "technique2"]],
+
+                [["Combat feat", "combat"]],
+
+                [["Gear boost", "gear"]],
+
+                [["Combat feat", "combat"]],
+
+                [["Primary style technique", "technique1"],
+                 ["Secondary style technique", "technique2"]],
+
+                [["Combat feat", "combat"]],
+
+                [["Gear boost", "gear"]],
+
+                [["Combat feat", "combat"],
+                 ["Kill shot", "words"]],
+             ]
+    ,
+    "technomancer": [[["Spell cache", "words"]],
+
+                     [["Magic hack", "hack"]],
+
+                     [["Spell Focus", "feat", "Spell Focus"],
+                      ["Techlore +1", "skills", [["computers", 1], ["mysticism", 1]]],
+                      ["Weapon specialization", "weapon"]],
+
+
+                     [[]],
+
+                     [["Magic hack", "hack"]],
+
+                     [["Cache capacitor 1", "words"],
+                      ["Techlore +2", "skills", [["computers", 1], ["mysticism", 1]]]],
 
 
                      [[]],
 
-                     [["Magic hack"]],
+                     [["Magic hack", "hack"]],
 
-                     [["Cache capacitor 1"],
-                      ["Techlore +2"]],
-
+                     [["Techlore +3", "skills", [["computers", 1], ["mysticism", 1]]]],
 
                      [[]],
 
-                     [["Magic hack"]],
+                     [["Magic hack", "hack"]],
 
-                     [["Techlore +3"]],
-
-                     [[]],
-
-                     [["Magic hack"]],
-
-                     [["Cache capacitor 2"],
-                      ["Techlore +4"]],
+                     [["Cache capacitor 2", "words"],
+                      ["Techlore +4", "skills", [["computers", 1], ["mysticism", 1]]]],
 
                      [[]],
 
-                     [["Magic hack"]],
+                     [["Magic hack", "hack"]],
 
-                     [["Techlore +5"]],
+                     [["Techlore +5", "skills", [["computers", 1], ["mysticism", 1]]]],
 
                      [[]],
 
-                     [["Magic hack"]],
+                     [["Magic hack", "hack"]],
 
-                     [["Cache capacitor 3"],
-                      ["Techlore +6"]],
+                     [["Cache capacitor 3", "words"],
+                      ["Techlore +6", "skills", [["computers", 1], ["mysticism", 1]]]],
 
-                     [["Resolve attunement"]],
+                     [["Resolve attunement", "words"]],
 
-                     [["Fuse spells"],
-                      ["Magic hack"]],
+                     [["Fuse spells", "words"],
+                      ["Magic hack", "hack"]],
              ]
 }
 
