@@ -1,51 +1,57 @@
 possibleAttributes = ["str", "strength", "dex", "dexterity", "con", "constitution",
-                              "int", "inteligence", "wis", "wisdom", "cha", "charisma"]
+                      "int", "inteligence", "wis", "wisdom", "cha", "charisma"]
 
-raceStatList = {"android"           : {"strength" : 0, "dexterity" : 2, "constitution" : 0,
-                                       "intelligence" : 2, "wisdom" : 0, "charisma" : -2, "hp" : 4} ,
-                "human"             : {"strength" : 0, "dexterity" : 0, "constitution" : 0,
-                                       "intelligence" : 0, "wisdom" : 0, "charisma" : 0, "hp" : 4} ,
-                "kasatha"           : {"strength" : 2, "dexterity" : 0, "constitution" : 0,
-                                       "intelligence" : -2, "wisdom" : 2, "charisma" : 0, "hp" : 4} ,
-                "lashunta(korasha)" : {"strength" : 2, "dexterity" : 0, "constitution" : 0,
-                                       "intelligence" : 0, "wisdom" : -2, "charisma" : 2, "hp" : 4} ,
-                "lashunta(damaya)"  : {"strength" : 0, "dexterity" : 0, "constitution" : -2,
-                                       "intelligence" : 2, "wisdom" : 0, "charisma" : 2, "hp" : 4} ,
-                "shirren"           : {"strength" : 0, "dexterity" : 0, "constitution" : 2,
-                                       "intelligence" : 0, "wisdom" : 2, "charisma" : -2, "hp" : 6} ,
-                "vesk"              : {"strength" : 2, "dexterity" : 0, "constitution" : 2,
-                                       "intelligence" : -2, "wisdom" : 0, "charisma" : 0, "hp" : 6} ,
-                "ysoki"             : {"strength" : -2, "dexterity" : 2, "constitution" : 0,
-                                       "intelligence" : 2, "wisdom" : 0, "charisma" : 0, "hp" : 2} }
+raceStatList = {
+    "android"           : {"strength" : 0, "dexterity" : 2, "constitution" : 0,
+                           "intelligence" : 2, "wisdom" : 0, "charisma" : -2, "hp" : 4} ,
+    "human"             : {"strength" : 0, "dexterity" : 0, "constitution" : 0,
+                           "intelligence" : 0, "wisdom" : 0, "charisma" : 0, "hp" : 4} ,
+    "kasatha"           : {"strength" : 2, "dexterity" : 0, "constitution" : 0,
+                           "intelligence" : -2, "wisdom" : 2, "charisma" : 0, "hp" : 4} ,
+    "lashunta(korasha)" : {"strength" : 2, "dexterity" : 0, "constitution" : 0,
+                           "intelligence" : 0, "wisdom" : -2, "charisma" : 2, "hp" : 4} ,
+    "lashunta(damaya)"  : {"strength" : 0, "dexterity" : 0, "constitution" : -2,
+                           "intelligence" : 2, "wisdom" : 0, "charisma" : 2, "hp" : 4} ,
+    "shirren"           : {"strength" : 0, "dexterity" : 0, "constitution" : 2,
+                           "intelligence" : 0, "wisdom" : 2, "charisma" : -2, "hp" : 6} ,
+    "vesk"              : {"strength" : 2, "dexterity" : 0, "constitution" : 2,
+                           "intelligence" : -2, "wisdom" : 0, "charisma" : 0, "hp" : 6} ,
+    "ysoki"             : {"strength" : -2, "dexterity" : 2, "constitution" : 0,
+                           "intelligence" : 2, "wisdom" : 0, "charisma" : 0, "hp" : 2}
+}
 
-themes = {"ace pilot":     {"strength" : 0, "dexterity" : 1, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 0},
-          "bounty hunter": {"strength" : 0, "dexterity" : 0, "constitution" : 1, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 0},
-          "icon":          {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 1},
-          "mercenary":     {"strength" : 1, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 0},
-          "outlaw":        {"strength" : 0, "dexterity" : 1, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 0},
-          "priest":        {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 1, "charisma" : 0},
-          "scholar":       {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 1,
-                            "wisdom" : 0, "charisma" : 0},
-          "spacefarer":    {"strength" : 0, "dexterity" : 0, "constitution" : 1, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 0},
-          "xenoseeker":    {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 1},
-          "themeless":     {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
-                            "wisdom" : 0, "charisma" : 0}}
+themes = {
+    "ace pilot":     {"strength" : 0, "dexterity" : 1, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 0},
+    "bounty hunter": {"strength" : 0, "dexterity" : 0, "constitution" : 1, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 0},
+    "icon":          {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 1},
+    "mercenary":     {"strength" : 1, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 0},
+    "outlaw":        {"strength" : 0, "dexterity" : 1, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 0},
+    "priest":        {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 1, "charisma" : 0},
+    "scholar":       {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 1,
+                      "wisdom" : 0, "charisma" : 0},
+    "spacefarer":    {"strength" : 0, "dexterity" : 0, "constitution" : 1, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 0},
+    "xenoseeker":    {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 1},
+    "themeless":     {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0,
+                      "wisdom" : 0, "charisma" : 0}
+}
 
-classesStatFocus = {"envoy": "Charisma or Dexterity and Intelligence",
-                    "mechanic": "Intelligence or Dexterity",
-                    "mystic": "Wisdom or Charisma",
-                    "operative": "Dexterity or Intelligence and Charisma",
-                    "solarian": "Charisma or Strength",
-                    "soldier": "Strength or Dexterity or Constitution",
-                    "technomancer": "Intelligence or Dexterity"}
+classesStatFocus = {
+    "envoy": "Charisma or Dexterity and Intelligence",
+    "mechanic": "Intelligence or Dexterity",
+    "mystic": "Wisdom or Charisma",
+    "operative": "Dexterity or Intelligence and Charisma",
+    "solarian": "Charisma or Strength",
+    "soldier": "Strength or Dexterity or Constitution",
+    "technomancer": "Intelligence or Dexterity"
+}
 
 attributeShorthand = {
     "strength"     : "strength",
@@ -71,43 +77,47 @@ attributeShortener = {
      "charisma"     : "Cha",
 }
 
-raceAbilities = {"android"           : [["Constructed", "words"],
-                                        ["Exceptional vision", "words"],
-                                        ["Flat affect", "stats", [["sense motive", -2]]],
-                                        ["Upgrade slot", "words"]] ,
+raceAbilities = {
+    "android"            : [["Constructed", "words"],
+                            ["Exceptional vision", "words"],
+                            ["Flat affect", "stats", [["sense motive", -2]]],
+                            ["Upgrade slot", "words"]] ,
 
-                 "human"             : [["Bonus feat", "feat"], # Humans select one extra feat at 1st level
-                                        ["Skilled", "words"]] , # Humans gain an additional skill rank at 1st level and each level thereafter
+     "human"             : [["Bonus feat", "feat"],
+                            # Humans select one extra feat at 1st level
+                            ["Skilled", "words"]] ,
+                            # Humans gain an additional skill rank at 1st level and each level thereafter
 
-                 "kasatha"           : [["Desert stride", "words"],
-                                        ["Four-armed", "words"],
-                                        ["Historian", "stats", [["culture", 2]]],
-                                        ["Natural grace", "stats", [["acrobatics", 2], ["athletics", 2]]]] ,
+     "kasatha"           : [["Desert stride", "words"],
+                            ["Four-armed", "words"],
+                            ["Historian", "stats", [["culture", 2]]],
+                            ["Natural grace", "stats", [["acrobatics", 2], ["athletics", 2]]]] ,
 
-                 "lashunta(korasha)" : [["Dimorphic", "words"],
-                                        ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
-                                        ["Limited telepathy", "words"],
-                                        ["Student", "stats", [["any", 2], ["any", 2]]]] ,
+     "lashunta(korasha)" : [["Dimorphic", "words"],
+                            ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
+                            ["Limited telepathy", "words"],
+                            ["Student", "stats", [["any", 2], ["any", 2]]]] ,
 
-                 "lashunta(damaya)"  : [["Dimorphic", "words"],
-                                        ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
-                                        ["Limited telepathy", "words"],
-                                        ["Student", "stats", [["any", 2], ["any", 2]]]] ,
+     "lashunta(damaya)"  : [["Dimorphic", "words"],
+                            ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
+                            ["Limited telepathy", "words"],
+                            ["Student", "stats", [["any", 2], ["any", 2]]]] ,
 
-                 "shirren"           : [["Blindsense", "words"],
-                                        ["Communalism", "words"],
-                                        ["Cultural fascination", "stats", [["culture", 2], ["diplomacy", 2]]],
-                                        ["Limited telepathy", "words"]] ,
+     "shirren"           : [["Blindsense", "words"],
+                            ["Communalism", "words"],
+                            ["Cultural fascination", "stats", [["culture", 2], ["diplomacy", 2]]],
+                            ["Limited telepathy", "words"]] ,
 
-                 "vesk"              : [["Armor savant", "words"],
-                                        ["Fearless", "words"],
-                                        ["Low-light vision", "words"],
-                                        ["Natural weapons", "words"]] ,
+     "vesk"              : [["Armor savant", "words"],
+                            ["Fearless", "words"],
+                            ["Low-light vision", "words"],
+                            ["Natural weapons", "words"]] ,
 
-                 "ysoki"             : [["Cheek pouches", "words"],
-                                        ["Darkvision", "words"],
-                                        ["Moxie", "words"],
-                                        ["Scrounger", "stats", [["engineering", 2], ["stealth", 2], ["survival", 2]]]] }
+     "ysoki"             : [["Cheek pouches", "words"],
+                            ["Darkvision", "words"],
+                            ["Moxie", "words"],
+                            ["Scrounger", "stats", [["engineering", 2], ["stealth", 2], ["survival", 2]]]]
+}
 
 themeAbilities = {
     "ace pilot":       [["Theme knowledge", "??"], # piloting becomes class knowledge or +1 bonus to checks
@@ -120,7 +130,8 @@ themeAbilities = {
                         ["Relentless", "words"],
                         ["Master hunter", "words"]],
 
-    "icon":            [["Theme knowledge", "??"], # chose a profession receive +1 to checks, culture becomes class knowledge or +1 bonus to checks
+    "icon":            [["Theme knowledge", "??"],
+                        # chose a profession receive +1 to checks, culture becomes class knowledge or +1 bonus to checks
                         ["Celebrity", "words"],
                         ["Megacelebrity", "words"],
                         ["Master icon", "words"]],
@@ -137,10 +148,15 @@ themeAbilities = {
 
     "priest":          [["Theme knowledge", "??"], # mysticism becomes class knowledge or +1 bonus to checks
                         ["Mantle of the clergy", "words"],
-                        ["Divine boon", "spell"], # Choose one 1st-level mystic spell with some connection to your deity’s portfolio (subject to the GM’s approval). If you have levels in the mystic class, you gain 1 additional 1stlevel spell per day and add the chosen spell to your list of mystic spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
+                        ["Divine boon", "spell"],
+                        # ^ Choose one 1st-level mystic spell with some connection to your deity’s portfolio
+                        # (subject to the GM’s approval). If you have levels in the mystic class, you gain 1
+                        # additional 1stlevel spell per day and add the chosen spell to your list of mystic
+                        # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
                         ["True communion", "words"]],
 
-    "scholar":         [["Theme knowledge", "??"], # chose either life or physical science, that becomes class knowledge or +1 bonus to checks
+    "scholar":         [["Theme knowledge", "??"],
+                        # chose either life or physical science, that becomes class knowledge or +1 bonus to checks
                         ["Tip of the tongue", "words"],
                         ["Research maven", "words"],
                         ["Master scholar", "words"]],
@@ -164,35 +180,54 @@ themeAbilities = {
 classChoseFeats = {
     "envoy": {
         "improvisation" : [
-                            ["Clever Feint", "Dispiriting Taunt", "Don’t Quit", "Expanded Attunement", "Get ’Em", "Inspiring Boost", "Not in the Face", "Universal Expression", "Watch Your Step"],
-                            ["Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation", "Quick Dispiriting Taunt", "Quick Inspiring Boost", "Watch Out"],
+                            ["Clever Feint", "Dispiriting Taunt", "Don’t Quit", "Expanded Attunement", "Get ’Em",
+                            "Inspiring Boost", "Not in the Face", "Universal Expression", "Watch Your Step"],
+                            ["Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation",
+                            "Quick Dispiriting Taunt", "Quick Inspiring Boost", "Watch Out"],
                             ["Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get ’Em"],
-                            ["Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness", "Sustained Determination"]
+                            ["Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness",
+                            "Sustained Determination"]
                         ],
         "talent" : [
-                        ["Additional Skill Expertise", "Altered Bearing", "Analyst", "Cautious Expertise", "Convincing Liar", "Cultural Savant", "Cunning Disguise", "Engineering Adept", "Expert Forger", "Fast Hack", "Inspired Medic", "Keen Observer", "Menacing Gaze", "Rattling Presence", "Skilled Linguist", "Slick Customer", "Student of Technology", "Surgeon", "Well Informed"]
+                        ["Additional Skill Expertise", "Altered Bearing", "Analyst", "Cautious Expertise",
+                        "Convincing Liar", "Cultural Savant", "Cunning Disguise", "Engineering Adept",
+                        "Expert Forger", "Fast Hack", "Inspired Medic", "Keen Observer", "Menacing Gaze",
+                        "Rattling Presence", "Skilled Linguist", "Slick Customer", "Student of Technology",
+                        "Surgeon", "Well Informed"]
                     ],
     },
     "mechanic": {
         "trick" : [
-                    ["Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt", "Nightvision Processor", "Overcharge", "Overclocking", "Overload Weapon", "Portable Power", "Quick Patch", "Quick Repair", "Repair Drone", "Visual Data Processor"],
-                    ["Boost Shield", "Drone Meld", "Engineer’s Eye", "Ghost Intrusion", "Holographic Projector", "Hyperclocking", "Improved Overcharge", "Invisibility Bypass Processor", "Resistant Energy", "Scoutbot"],
-                    ["Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer", "Saboteur", "Superior Overcharge", "Ultraclocking"]
+                    ["Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt", "Nightvision Processor",
+                    "Overcharge", "Overclocking", "Overload Weapon", "Portable Power",
+                    "Quick Patch", "Quick Repair", "Repair Drone", "Visual Data Processor"],
+                    ["Boost Shield", "Drone Meld", "Engineer’s Eye", "Ghost Intrusion", "Holographic Projector",
+                    "Hyperclocking", "Improved Overcharge", "Invisibility Bypass Processor", "Resistant Energy",
+                    "Scoutbot"],
+                    ["Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer",
+                    "Saboteur", "Superior Overcharge", "Ultraclocking"]
         ]
     },
     "mystic": [],
     "operative": {
         "exploit" : [
-                        ["Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation", "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
-                        ["Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot", "Improved Quick Movement", "Interfering Shot", "Mentalist’s Bane", "Speed Hacker", "Staggering Shot", "Stalwart", "Sure-Footed", "Uncanny Shooter"],
-                        ["Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant", "Glimpse the Truth", "Holographic Distraction", "Improved Evasion", "Improved Uncanny Mobility", "Master of Disguise", "Stunning Shot", "Versatile Movement"],
+                        ["Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation",
+                        "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
+                        ["Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot",
+                        "Improved Quick Movement", "Interfering Shot", "Mentalist’s Bane", "Speed Hacker",
+                        "Staggering Shot", "Stalwart", "Sure-Footed", "Uncanny Shooter"],
+                        ["Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant",
+                        "Glimpse the Truth", "Holographic Distraction", "Improved Evasion", "Improved Uncanny Mobility",
+                        "Master of Disguise", "Stunning Shot", "Versatile Movement"],
                         ["Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery", "Uncanny Senses"]
         ]
     },
     "solarian": {
         "revelation" : [
-                        ["Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost", "Gravity Hold", "Plasma Sheath", "Radiation", "Stellar Rush"],
-                        ["Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity", "Glow of Life", "Gravity Surge", "Hypnotic Glow", "Reflection"],
+                        ["Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost", "Gravity Hold", "Plasma Sheath",
+                        "Radiation", "Stellar Rush"],
+                        ["Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity", "Glow of Life",
+                        "Gravity Surge", "Hypnotic Glow", "Reflection"],
                         ["Soul Furnace", "Stealth Warp"],
                         ["Gravity Shield", "Sunbolt"],
                         ["Ultimate Graviton", "Ultimate Photon"]
@@ -202,24 +237,31 @@ classChoseFeats = {
     "soldier": {
         "gear" : [
                     ["Armored Advantage", "Brutal Blast", "Bullet Barrage", "Laser Accuracy", "Melee Striker"],
-                    ["Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation", "Powerful Explosive", "Sonic Resonance"],
+                    ["Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation", "Powerful Explosive",
+                    "Sonic Resonance"],
                     ["Heavy Onslaught"]
         ],
         "styles" : {
-            "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi", "Power of Legend", "Secret of the Archmagi", "Arcane Attack"],
+            "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi", "Power of Legend",
+            "Secret of the Archmagi", "Arcane Attack"],
             "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army", "On the Bounce"],
             "blitz" : ["Rapid Response", "Charge Attack", "Keep Fighting", "Perfect Opportunity", "Against the Odds"],
             "bombard" : ["Grenade Expert", "Heavy Fire", "Debilitating Attack", "Explosives Acumen", "Impactful Attack"],
-            "guard" : ["Armor Training", "Guard’s Protection", "Rapid Recovery", "Kinetic Resistance", "Impenetrable Defense"],
+            "guard" : ["Armor Training", "Guard’s Protection", "Rapid Recovery", "Kinetic Resistance",
+                        "Impenetrable Defense"],
             "hit-and-run" : ["Opening Volley", "Nimble Fusillade", "Duck and Weave", "Elusive Target", "Harrying Shot"],
             "sharpshoot" : ["Sniper’s Aim", "Focus Fire", "Intense Focus", "Focused Damage", "Prepared Shot", ]
         }
     },
     "technomancer": {
         "hack" : [
-                    ["Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech", "Harmful Spells", "Quick Scan", "Robot Influence", "Selective Targeting", "Spell Countermeasures", "Technomantic Proficiency"],
-                    ["Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms", "Magic Negation", "Spell Grenade"],
-                    ["Diviner’s Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures", "Widened Spell"],
+                    ["Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech", "Harmful Spells",
+                    "Quick Scan", "Robot Influence", "Selective Targeting", "Spell Countermeasures",
+                    "Technomantic Proficiency"],
+                    ["Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms",
+                    "Magic Negation", "Spell Grenade"],
+                    ["Diviner’s Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures",
+                    "Widened Spell"],
                     ["Countertech Sentinel", "Eternal Spell", "Reboot Mind", "Seeking Shot"],
                     ["Phase Shot", "Quickened Spell", "Rain of Fire", "Spell Library"]
         ]
@@ -234,7 +276,9 @@ classAbilities = {
                [["Envoy improvisation", "improvisation"]],
 
                [["Expertise talent", "talent"],
-                ["Weapon specialization", "weapon"]], # You gain the Weapon Specialization feat as a bonus feat for each weapon type with which this class grants you proficiency
+                ["Weapon specialization", "weapon"]],
+                # You gain the Weapon Specialization feat as a bonus feat for each weapon type with which this
+                # class grants you proficiency
 
                [["Envoy improvisation", "class up"]],
 
@@ -274,7 +318,8 @@ classAbilities = {
 
                [["Envoy improvisation", "class up"],
                 ["Expertise (1d8+4)", "words"],
-                ["True expertise", "words"]], # maybe add in a selection from the selected envoy improvisation but it really is just words
+                ["True expertise", "words"]],
+                # maybe add in a selection from the selected envoy improvisation but it really is just words
              ]
 
     ,
@@ -444,7 +489,8 @@ classAbilities = {
              ]
     ,
     "solarian": [[["Skill adept", "skill", [["any"], ["any"]]],
-                  ["Solar manifestation"], # chose either weapon or armor and chose either glowing star or darkness black hole
+                  ["Solar manifestation"],
+                  # chose either weapon or armor and chose either glowing star or darkness black hole
                   ["Stellar mode", "words"],
                   ["Stellar revelation (black hole, supernova)", "revelation"]],
 
