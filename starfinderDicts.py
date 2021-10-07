@@ -120,33 +120,33 @@ raceAbilities = {
 }
 
 themeAbilities = {
-    "ace pilot":       [["Theme knowledge", "??"], # piloting becomes class knowledge or +1 bonus to checks
+    "ace pilot":       [["Theme knowledge", "piloting"], # piloting becomes class knowledge or +1 bonus to checks
                         ["Lone wolf", "words"],
                         ["Need for speed", "words"],
                         ["Master pilot", "words"]],
 
-    "bounty hunter":   [["Theme knowledge", "??"], # survival becomes class knowledge or +1 bonus to checks
+    "bounty hunter":   [["Theme knowledge", "survival"], # survival becomes class knowledge or +1 bonus to checks
                         ["Swift hunter", "words"],
                         ["Relentless", "words"],
                         ["Master hunter", "words"]],
 
-    "icon":            [["Theme knowledge", "??"],
+    "icon":            [["Theme knowledge", ["profession", "profession2"]],
                         # chose a profession receive +1 to checks, culture becomes class knowledge or +1 bonus to checks
                         ["Celebrity", "words"],
                         ["Megacelebrity", "words"],
                         ["Master icon", "words"]],
 
-    "mercenary":       [["Theme knowledge", "??"], # athletics becomes class knowledge or +1 bonus to checks
+    "mercenary":       [["Theme knowledge", "athletics"], # athletics becomes class knowledge or +1 bonus to checks
                         ["Grunt", "words"], # carrying limit increases
                         ["Squad leader", "words"],
                         ["Commander", "words"]],
 
-    "outlaw":          [["Theme knowledge", "??"], # slight of hand becomes class knowledge or +1 bonus to checks
+    "outlaw":          [["Theme knowledge", "slight of hand"], # slight of hand becomes class knowledge or +1 bonus to checks
                         ["Legal corruption", "words"],
                         ["Black market connections", "words"],
                         ["Master outlaw", "words"]],
 
-    "priest":          [["Theme knowledge", "??"], # mysticism becomes class knowledge or +1 bonus to checks
+    "priest":          [["Theme knowledge", "mysticism"], # mysticism becomes class knowledge or +1 bonus to checks
                         ["Mantle of the clergy", "words"],
                         ["Divine boon", "spell"],
                         # ^ Choose one 1st-level mystic spell with some connection to your deity’s portfolio
@@ -155,23 +155,23 @@ themeAbilities = {
                         # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
                         ["True communion", "words"]],
 
-    "scholar":         [["Theme knowledge", "??"],
+    "scholar":         [["Theme knowledge", ["life science", "physical science"]],
                         # chose either life or physical science, that becomes class knowledge or +1 bonus to checks
                         ["Tip of the tongue", "words"],
                         ["Research maven", "words"],
                         ["Master scholar", "words"]],
 
-    "spacefarer":      [["Theme knowledge", "??"], # physical science becomes class knowledge or +1 bonus to checks
+    "spacefarer":      [["Theme knowledge", "physical science"], # physical science becomes class knowledge or +1 bonus to checks
                         ["Eager dabbler", "?"], # +2 bonus to skill checks for skills with 0 ranks in skill
                         ["Jack of all trades", "words"],
                         ["Master explorer", "words"]],
 
-    "xenoseeker":      [["Theme knowledge", "??"], # life science becomes class knowledge or +1 bonus to checks
+    "xenoseeker":      [["Theme knowledge", "life science"], # life science becomes class knowledge or +1 bonus to checks
                         ["Quick pidgin", "words"],
                         ["First contact", "words"],
                         ["Brilliant discovery", "words"]],
 
-    "themeless":       [["General knowledge", "??"], # chose a skill that becomes class knowledge or +1 bonus to checks
+    "themeless":       [["General knowledge", "any"], # chose a skill that becomes class knowledge or +1 bonus to checks
                         ["Certainty", "words"],
                         ["Extensive studies", "words"],
                         ["Steely determination", "words"]]
@@ -488,7 +488,7 @@ classAbilities = {
                      ["Supreme operative", "words"]],
              ]
     ,
-    "solarian": [[["Skill adept", "skill", [["any"], ["any"]]],
+    "solarian": [[["Skill adept", "skills", [["any"], ["any"]]],
                   ["Solar manifestation"],
                   # chose either weapon or armor and chose either glowing star or darkness black hole
                   ["Stellar mode", "words"],

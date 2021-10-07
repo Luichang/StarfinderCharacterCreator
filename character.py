@@ -428,23 +428,85 @@ class character:
                     self.skills[block[0]] += block[1]
                     listWriteToFile.append([htmlTags[block[0]], self.skills[block[0]]])
                     listWriteToFile.append([htmlTags[block[0] + "Misc"], self.skillMisc[block[0]]])
+            elif raceAbilityBlock[1] == "spell": # TODO
+                pass
+            elif raceAbilityBlock[1] == "feat":
+                pass
+            elif raceAbilityBlock[1] == "words":
+                pass
+            else:
+                print("The race Ability", raceAbilityBlock[1], "has not yet been implemented")
 
-
+        themeName = self.theme.split("(")[0].rstrip()
         if self.classLevel >= 1:
-            listWriteToFile.append([themeBoxes[0], themeAbilities[self.theme.split("(")[0].rstrip()][0][0]])
+            listWriteToFile.append([themeBoxes[0], themeAbilities[themeName][0][0]])
+            if type(themeAbilities[themeName][0][1]) == type(""):
+                newClassSkill = themeAbilities[themeName][0][1]
+                if newClassSkill == "any":
+                    newClassSkill = self.getUserResponse(possibleSkill, "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(possibleSkill)))
+                self.makeClassSkill(newClassSkill)
+            elif type(themeAbilities[themeName][0][1]) == type([]):
+                newClassSkill = self.getUserResponse(possibleSkill, "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(themeAbilities[themeName][0][1])))
+                self.makeClassSkill(newClassSkill)
+            else:
+                print("themeAbility", themeAbilities[themeName][0][1], "has not yet been implemented")
         if self.classLevel >= 6:
-            listWriteToFile.append([themeBoxes[1], themeAbilities[self.theme.split("(")[0].rstrip()][1][0]])
+            listWriteToFile.append([themeBoxes[1], themeAbilities[themeName][1][0]]) # TODO
+            if themeAbilities[themeName][1][1] != "words": # not sure what this is yet
+                pass
         if self.classLevel >= 12:
-            listWriteToFile.append([themeBoxes[2], themeAbilities[self.theme.split("(")[0].rstrip()][2][0]])
+            listWriteToFile.append([themeBoxes[2], themeAbilities[themeName][2][0]])
+            if themeAbilities[themeName][2][1] != "words": # the alternative is spell and needs to add a spell
+                pass
         if self.classLevel >= 18:
-            listWriteToFile.append([themeBoxes[3], themeAbilities[self.theme.split("(")[0].rstrip()][3][0]])
+            listWriteToFile.append([themeBoxes[3], themeAbilities[themeName][3][0]])
 
 
-        listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative’s",
-                            "Trick", "Quick", "Sidereal", "Techlore", "Cache"]
+        listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative’s", # Operative’s might not be just words
+                            "Trick", "Quick", "Sidereal", "Techlore", "Cache"] # Sidereal is not just words, Techlore is not just words
         listClassAbilities = []
         for i in range(self.classLevel):
-            for ability in classAbilities[self.className][i]:
+            for ability in classAbilities[self.className][i]: # TODO
+                if ability[1] == "improvisation":
+                    pass
+                elif ability[1] == "add expertise":
+                    pass
+                elif ability[1] == "talent":
+                    pass
+                elif ability[1] == "weapon":
+                    pass
+                elif ability[1] == "class up":
+                    pass
+                elif ability[1] == "trick":
+                    pass
+                elif ability[1] == "skills":
+                    pass
+                elif ability[1] == "revelation":
+                    pass
+                elif ability[1] == "zenith":
+                    pass
+                elif ability[1] == "influence":
+                    pass
+                elif ability[1] == "style":
+                    pass
+                elif ability[1] == "technique1":
+                    pass
+                elif ability[1] == "technique2":
+                    pass
+                elif ability[1] == "combat":
+                    pass
+                elif ability[1] == "gear":
+                    pass
+                elif ability[1] == "hack":
+                    pass
+                elif ability[1] == "feat":
+                    pass
+                elif ability[1] == "words":
+                    pass
+                else:
+                    print(ability, "has not yet been implemented")
+
+
                 result = [replacable for replacable in listReplaceables if replacable in ability[0]]
                 if len(result) != 0:
                     result = result[0]
@@ -463,8 +525,10 @@ class character:
 
         self.writeToFile("listPass", listWriteToFile)
 
+    def makeClassSkill(self, newClassSkill): # TODO
+        pass
 
-    def levelUp(self):
+    def levelUp(self): # TODO HP SP RP Spells
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,
         #          14500, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000]
         #currLevel = 1
