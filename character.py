@@ -408,6 +408,11 @@ class character:
                         htmlTags["classAbility13"], htmlTags["classAbility14"], htmlTags["classAbility15"], htmlTags["classAbility16"],
                         htmlTags["classAbility17"], htmlTags["classAbility18"], htmlTags["classAbility19"], htmlTags["classAbility20"],
                         htmlTags["classAbility21"], htmlTags["classAbility22"], htmlTags["classAbility23"], htmlTags["classAbility24"],
+                        htmlTags["classAbility25"], htmlTags["classAbility26"], htmlTags["classAbility27"], htmlTags["classAbility28"]]
+        chosenBoxes = [htmlTags["otherAbility1"], htmlTags["otherAbility2"], htmlTags["otherAbility3"], htmlTags["otherAbility4"],
+                       htmlTags["otherAbility5"], htmlTags["otherAbility6"], htmlTags["otherAbility7"], htmlTags["otherAbility8"],
+                       htmlTags["otherAbility9"], htmlTags["otherAbility10"], htmlTags["otherAbility11"], htmlTags["otherAbility12"],
+                       htmlTags["otherAbility13"], htmlTags["otherAbility14"], ]
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
                          "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
                          "sense motive", "slight of hand", "stealth", "survival"]
@@ -449,11 +454,16 @@ class character:
                 print("themeAbility", themeAbilities[themeName][0][1], "has not yet been implemented")
         if self.classLevel >= 6:
             listWriteToFile.append([themeBoxes[1], themeAbilities[themeName][1][0]]) # TODO
-            if themeAbilities[themeName][1][1] != "words": # not sure what this is yet
+            if themeAbilities[themeName][1][1] != "words": # not sure what this is yet only spacefarer will have this
+                # +2 bonus to skill checks for skills with 0 ranks in skill
                 pass
         if self.classLevel >= 12:
             listWriteToFile.append([themeBoxes[2], themeAbilities[themeName][2][0]])
-            if themeAbilities[themeName][2][1] != "words": # the alternative is spell and needs to add a spell
+            if themeAbilities[themeName][2][1] != "words": # the alternative is spell and needs to add a spell, only priest will have this
+                # ^ Choose one 1st-level mystic spell with some connection to your deity’s portfolio
+                # (subject to the GM’s approval). If you have levels in the mystic class, you gain 1
+                # additional 1stlevel spell per day and add the chosen spell to your list of mystic
+                # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
                 pass
         if self.classLevel >= 18:
             listWriteToFile.append([themeBoxes[3], themeAbilities[themeName][3][0]])
@@ -464,27 +474,27 @@ class character:
         listClassAbilities = []
         for i in range(self.classLevel):
             for ability in classAbilities[self.className][i]: # TODO
-                if ability[1] == "improvisation":
+                if ability[1] == "improvisation": # classChoseFeats, lists with levels
                     pass
                 elif ability[1] == "add expertise":
                     pass
-                elif ability[1] == "talent":
+                elif ability[1] == "talent": # classChoseFeats, lists with levels
                     pass
                 elif ability[1] == "weapon":
                     pass
                 elif ability[1] == "class up":
                     pass
-                elif ability[1] == "trick":
+                elif ability[1] == "trick": # classChoseFeats, lists with levels
                     pass
                 elif ability[1] == "skills":
                     pass
-                elif ability[1] == "revelation":
+                elif ability[1] == "revelation": # classChoseFeats, lists with levels
                     pass
-                elif ability[1] == "zenith":
+                elif ability[1] == "zenith": # classChoseFeats, single list
                     pass
                 elif ability[1] == "influence":
                     pass
-                elif ability[1] == "style":
+                elif ability[1] == "style": # classChoseFeats, dictionary
                     pass
                 elif ability[1] == "technique1":
                     pass
@@ -492,13 +502,13 @@ class character:
                     pass
                 elif ability[1] == "combat":
                     pass
-                elif ability[1] == "gear":
+                elif ability[1] == "gear": # classChoseFeats, lists with levels
                     pass
-                elif ability[1] == "hack":
+                elif ability[1] == "hack": # classChoseFeats, lists with levels
                     pass
                 elif ability[1] == "feat":
                     pass
-                elif ability[1] == "words":
+                elif ability[1] == "words": # nothing happens
                     pass
                 else:
                     print(ability, "has not yet been implemented")
