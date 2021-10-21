@@ -269,7 +269,7 @@ classChoseFeats = {
 }
 
 classAbilities = {
-    "envoy":  [[["Envoy improvisation", "improvisation"], # one of the chassChoseFeats for envoy
+    "envoy":  [[["Envoy improvisation", "improvisation"], # one of the classChoseFeats for envoy
                 ["Expertise (1d6)", "words"], # maybe worth creating an array with all expertise skills
                 ["Skill expertise", "add expertise"]], # any ability, each only once
 
@@ -1124,11 +1124,4 @@ htmlTags = {
     "classAbility26" : "c_abilities_26",
     "classAbility27" : "c_abilities_27",
     "classAbility28" : "c_abilities_28",
-    "classAbility29" : "c_abilities_29",
-    "classAbility30" : "c_abilities_30",
-    "classAbility31" : "c_abilities_31",
-    "classAbility32" : "c_abilities_32",
-    "classAbility33" : "c_abilities_33",
-    "classAbility34" : "c_abilities_34",
-    "classAbility35" : "c_abilities_35",
 }

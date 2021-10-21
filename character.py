@@ -408,9 +408,6 @@ class character:
                         htmlTags["classAbility13"], htmlTags["classAbility14"], htmlTags["classAbility15"], htmlTags["classAbility16"],
                         htmlTags["classAbility17"], htmlTags["classAbility18"], htmlTags["classAbility19"], htmlTags["classAbility20"],
                         htmlTags["classAbility21"], htmlTags["classAbility22"], htmlTags["classAbility23"], htmlTags["classAbility24"],
-                        htmlTags["classAbility25"], htmlTags["classAbility26"], htmlTags["classAbility27"], htmlTags["classAbility28"],
-                        htmlTags["classAbility29"], htmlTags["classAbility30"], htmlTags["classAbility31"], htmlTags["classAbility32"],
-                        htmlTags["classAbility33"], htmlTags["classAbility34"], htmlTags["classAbility35"]]
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
                          "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
                          "sense motive", "slight of hand", "stealth", "survival"]

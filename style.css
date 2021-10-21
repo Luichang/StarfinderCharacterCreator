@@ -577,13 +577,6 @@
 .c_abilities26 { grid-area: c_abilities_26; }
 .c_abilities27 { grid-area: c_abilities_27; }
 .c_abilities28 { grid-area: c_abilities_28; }
-.c_abilities29 { grid-area: c_abilities_29; }
-.c_abilities30 { grid-area: c_abilities_30; }
-.c_abilities31 { grid-area: c_abilities_31; }
-.c_abilities32 { grid-area: c_abilities_32; }
-.c_abilities33 { grid-area: c_abilities_33; }
-.c_abilities34 { grid-area: c_abilities_34; }
-.c_abilities35 { grid-area: c_abilities_35; }
 
 .c_abilities40 { grid-area: c_abilities_t_text; }
 .c_abilities41 { grid-area: c_abilities_41; }
@@ -596,9 +589,6 @@
 .c_abilities52 { grid-area: c_abilities_52; }
 .c_abilities53 { grid-area: c_abilities_53; }
 .c_abilities54 { grid-area: c_abilities_54; }
-.c_abilities55 { grid-area: c_abilities_55; }
-.c_abilities56 { grid-area: c_abilities_56; }
-.c_abilities57 { grid-area: c_abilities_57; }
 
 .c_abilities60 { grid-area: c_abilities_o_text; }
 .c_abilities61 { grid-area: c_abilities_61; }
@@ -838,29 +828,52 @@
     display: grid;
     grid-template-columns: 33% 33% 33%;
     grid-template-areas:
-        'c_abilities_c_text c_abilities_c_text .'
-        'c_abilities_01 c_abilities_22     c_abilities_30'
-        'c_abilities_02 c_abilities_23     c_abilities_31'
-        'c_abilities_03 c_abilities_24     c_abilities_32'
-        'c_abilities_04 c_abilities_25     c_abilities_33'
-        'c_abilities_05 c_abilities_26     c_abilities_34'
-        'c_abilities_06 c_abilities_27     c_abilities_35'
-        'c_abilities_07 c_abilities_28     c_abilities_o_text'
-        'c_abilities_08 c_abilities_29     c_abilities_61'
-        'c_abilities_09 c_abilities_t_text c_abilities_62'
-        'c_abilities_10 c_abilities_41     c_abilities_63'
-        'c_abilities_11 c_abilities_42     c_abilities_64'
-        'c_abilities_12 c_abilities_43     c_abilities_65'
-        'c_abilities_13 c_abilities_44     c_abilities_66'
-        'c_abilities_14 c_abilities_r_text c_abilities_67'
-        'c_abilities_15 c_abilities_51     c_abilities_68'
-        'c_abilities_16 c_abilities_52     c_abilities_69'
-        'c_abilities_17 c_abilities_53     c_abilities_70'
-        'c_abilities_18 c_abilities_54     c_abilities_71'
-        'c_abilities_19 c_abilities_55     c_abilities_72'
-        'c_abilities_20 c_abilities_56     c_abilities_73'
-        'c_abilities_21 c_abilities_57     c_abilities_74'
+        'c_abilities_c_text . .'
+        'c_abilities_01 c_abilities_02 c_abilities_03'
+        'c_abilities_04 c_abilities_05 c_abilities_06'
+        'c_abilities_07 c_abilities_08 c_abilities_09'
+        'c_abilities_10 c_abilities_11 c_abilities_12'
+        'c_abilities_13 c_abilities_14 c_abilities_15'
+        'c_abilities_16 c_abilities_17 c_abilities_18'
+        'c_abilities_19 c_abilities_20 c_abilities_21'
+        'c_abilities_22 c_abilities_23 c_abilities_24'
+        'c_abilities_25 c_abilities_26 c_abilities_27'
+        'c_abilities_28  . .'
+
+        'c_abilities_t_text . .'
+        'c_abilities_41 c_abilities_42 c_abilities_43'
+        'c_abilities_44 . .'
+
+        'c_abilities_r_text . .'
+        'c_abilities_51 c_abilities_52 c_abilities_53'
+        'c_abilities_54 . .'
+
+        'c_abilities_o_text . .'
+        'c_abilities_61 c_abilities_62 c_abilities_63'
+        'c_abilities_64 c_abilities_65 c_abilities_66'
+        'c_abilities_67 c_abilities_68 c_abilities_69'
+        'c_abilities_70 c_abilities_71 c_abilities_72'
+        'c_abilities_73 c_abilities_74 .'
         ;
+        /* 'c_abilities_01 c_abilities_20     c_abilities_61'
+        'c_abilities_02 c_abilities_21     c_abilities_62'
+        'c_abilities_03 c_abilities_22     c_abilities_63'
+        'c_abilities_04 c_abilities_23     c_abilities_64'
+        'c_abilities_05 c_abilities_24     c_abilities_65'
+        'c_abilities_06 c_abilities_25     c_abilities_66'
+        'c_abilities_07 c_abilities_26     c_abilities_67'
+        'c_abilities_08 c_abilities_27     c_abilities_68'
+        'c_abilities_09 c_abilities_28     c_abilities_69'
+        'c_abilities_10 .                  c_abilities_70'
+        'c_abilities_11 .                  c_abilities_71'
+        'c_abilities_12 .                  c_abilities_72'
+        'c_abilities_13 .                  c_abilities_73'
+        'c_abilities_14 .                  c_abilities_74'
+        'c_abilities_15 c_abilities_t_text c_abilities_r_text'
+        'c_abilities_16 c_abilities_41     c_abilities_51'
+        'c_abilities_17 c_abilities_42     c_abilities_52'
+        'c_abilities_18 c_abilities_43     c_abilities_53'
+        'c_abilities_19 c_abilities_44     c_abilities_54' */
 }
 
 /* .feats {
