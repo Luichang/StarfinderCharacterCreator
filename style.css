@@ -605,6 +605,8 @@
 .c_abilities72 { grid-area: c_abilities_72; }
 .c_abilities73 { grid-area: c_abilities_73; }
 .c_abilities74 { grid-area: c_abilities_74; }
+.c_abilities75 { grid-area: c_abilities_75; }
+.c_abilities76 { grid-area: c_abilities_76; }
 
 .item31 {
     grid-area: feats;
@@ -853,7 +855,8 @@
         'c_abilities_64 c_abilities_65 c_abilities_66'
         'c_abilities_67 c_abilities_68 c_abilities_69'
         'c_abilities_70 c_abilities_71 c_abilities_72'
-        'c_abilities_73 c_abilities_74 .'
+        'c_abilities_73 c_abilities_74 c_abilities_75'
+        'c_abilities_76 .              .             '
         ;
         /* 'c_abilities_01 c_abilities_20     c_abilities_61'
         'c_abilities_02 c_abilities_21     c_abilities_62'
