@@ -644,6 +644,7 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "cha",
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Grenade Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -677,6 +678,7 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "int",
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Grenade Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 0,
                 "athletics"        : 3,
@@ -710,6 +712,7 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "wis",
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 0,
                 "athletics"        : 0,
@@ -743,6 +746,7 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "dex",
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Small Arm Proficiency", "Sniper Weapon Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -776,6 +780,7 @@ classesStatBonus = {
         "sp"        : 7,
         "hp"        : 7,
         "key"       : "cha",
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Advanced Melee Weapon Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -809,6 +814,8 @@ classesStatBonus = {
         "sp"        : 7,
         "hp"        : 7,
         "key"       : "str",
+        "proficiencies" : ["Light Armor Proficiency", "Heavy Armor Proficiency", "Basic Melee Weapon Proficiency", "Advanced Melee Weapon Proficiency",
+                           "Small Arm Proficiency", "Longarm Proficiency", "Heavy Weapon Proficiency", "Sniper Weapon Proficiency", "Grenade Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -842,6 +849,7 @@ classesStatBonus = {
         "sp"        : 5,
         "hp"        : 5,
         "key"       : "int",
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 0,
                 "athletics"        : 0,
