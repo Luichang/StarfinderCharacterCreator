@@ -1,9 +1,14 @@
 import math
 from bs4 import BeautifulSoup
 from starfinderDicts import *
+from feats import feats
 
 class character:
     def __init__(self, fileName=""):
+
+        self.spellLevel = -1
+
+        self.chosenFeats = []
 
         self.mods = {
             "str" : 0,
@@ -399,6 +404,166 @@ class character:
         self.mods["wis"] = ((self.attributes["wisdom"] // 2) - 5)
         self.mods["cha"] = ((self.attributes["charisma"] // 2) - 5)
 
+    def checkCombatFeats(self, checkFeat):
+        # need a combat list to track how many combat feats have been selected
+        anyCounter = 0
+        toAdd = True
+        combat = []
+
+        for feat in self.chosenFeats:
+            if feats[feat][0] == "combat":
+                combat.append(feat)
+        for feat in checkFeat:
+            if feat == "any":
+                anyCounter += 1
+            else:
+                if feat not in combat:
+                    toAdd = False
+                    break
+
+        if anyCounter > len(combat):
+            toAdd = False
+        return toAdd
+
+    def checkForFeat(self, checkFeat):
+        # need a list to track how many feats have been selected
+        toAdd = True
+        for feat in checkFeat:
+            if feat not in self.chosenFeats:
+                toAdd = False
+                break
+        return toAdd
+
+    def checkForSkills(self, checkSkills):
+        toAdd = True
+        for checkSkill in checkSkills:
+            if not toAdd:
+                break
+            if checkSkill[0] == "from":
+                toAdd = False
+                for fromCheckSkill in checkSkill[1]:
+                    if self.skills[fromCheckSkill] >= checkSkill[2]:
+                        toAdd = True
+                        break
+            elif len(checkSkill) > 2:
+                if self.skills[checkSkill[0]] != checkSkill[1]:
+                    toAdd = False
+            else:
+                if self.skills[checkSkill[0]] < checkSkill[1]:
+                    toAdd = False
+        return toAdd
+
+    def checkForAttribute(self, checkAttribute):
+        checkAbility = checkAttribute[0]
+        if checkAttribute[0] == "key":
+            checkAbility = classesStatBonus[self.className]["key"]
+        if self.attributes[attributeShorthand[checkAbility]] >= checkAttribute[1]:
+            return True
+        return False
+
+    def checkForSpellLevel(self, checkSpellLevel):
+        if checkSpellLevel == -1:
+            if self.spellLevel == -1:
+                return True
+        elif self.spellLevel >= checkSpellLevel:
+            return True
+        return False
+
+    def checkForBab(self, checkBab):
+        if classesStatBonus[self.className]["bab"][self.classLevel - 1]] >= checkBab:
+            return True
+        return False
+
+    def checkForLevel(self, checkLevel):
+        if self.classLevel >= checkLevel:
+            return True
+        return False
+
+    def checkForSaves(saves, level, checkSaves):
+        if classesStatBonus[self.className][checkSaves[0]][self.classLevel - 1]] >= checkSaves[1]:
+            return True
+        return False
+
+    def checkForText(self, printText):
+        # TODO figure out more elegant way to check these
+        affirm = ['true', '1', 't', 'y', 'yes']
+        deny = ['false', '0', 'f', 'n', 'no']
+        possible = affirm + deny
+        entered = ""
+        while entered not in possible:
+            entered = input(printText)
+        return entered in affirm
+
+    def checkFrom(self, fromList):
+        featTrue = False
+        classTrue = False
+        for fromCheck in fromList:
+            if fromCheck[0] == "feat":
+                for feat in fromCheck[1]:
+                    if feat in self.chosenFeats:
+                        featTrue = True
+                        break
+            elif fromCheck[0] == "class":
+                classTrue = fromCheck[1] == self.className
+
+            else:
+                print("from", fromCheck[0], "not implemented", fromList)
+        return featTrue or classTrue
+
+    def filterFeats(self, combat=False):
+        selected = []
+        for feat in feats:
+            tmp = feats[feat]
+            if not combat or tmp[0] == "combat":
+                toAdd = True
+                for check in tmp[1]:
+                    if len(check) > 0:
+                        if check[0] == "combat":
+                            if not checkCombatFeats(check[1]):
+                                toAdd = False
+                        elif check[0] == "feat":
+                            if not checkForFeat(check[1]):
+                                toAdd = False
+                        elif check[0] == "skills":
+                            if not checkForSkills(check[1]):
+                                toAdd = False
+                        elif check[0] == "ability":
+                            if not checkForAttribute(check[1]):
+                                toAdd = False
+                        elif check[0] == "spellLevel":
+                            if not checkForSpellLevel(check[1]):
+                                toAdd = False
+                        elif check[0] == "bab":
+                            if not checkForBab(check[1]):
+                                toAdd = False
+                        elif check[0] == "level":
+                            if not checkForLevel(check[1]):
+                                toAdd = False
+                        elif check[0] == "save":
+                            if not checkForSaves(check[1]):
+                                toAdd = False
+                        elif check[0] == "text":
+                            if not checkForText(check[1]):
+                                toAdd = False
+                        elif check[0] == "from":
+                            if not checkFrom(check[1]):
+                                toAdd = False
+                if toAdd:
+                    selected.append(feat)
+        return selected
+
+    def selectNewFeat(self, combat=False):
+        possibleFeats = self.filterFeats(combat)
+        for feat in self.chosenFeats:
+            if feat in possibleFeats:
+                possibleFeats.remove(feat)
+
+        printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleFeats))
+        entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
+        self.chosenFeats.append(entered)
+
+
+
     def featsAndAbilities(self):
         raceBoxes = [htmlTags["raceAbility1"], htmlTags["raceAbility2"], htmlTags["raceAbility3"],
                      htmlTags["raceAbility4"]]
@@ -435,7 +600,7 @@ class character:
             elif raceAbilityBlock[1] == "spell": # TODO
                 pass
             elif raceAbilityBlock[1] == "feat":
-                pass
+                self.selectNewFeat()
             elif raceAbilityBlock[1] == "words":
                 pass
             else:
@@ -503,13 +668,13 @@ class character:
                 elif ability[1] == "technique2":
                     pass
                 elif ability[1] == "combat":
-                    pass
+                    self.selectNewFeat(combat=True)
                 elif ability[1] == "gear": # classChoseFeats, lists with levels
                     pass
                 elif ability[1] == "hack": # classChoseFeats, lists with levels
                     pass
                 elif ability[1] == "feat":
-                    pass
+                    self.chosenFeats.append(ability[2])
                 elif ability[1] == "words": # nothing happens
                     pass
                 else:
