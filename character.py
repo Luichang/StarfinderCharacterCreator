@@ -9,6 +9,7 @@ class character:
         self.spellLevel = -1
 
         self.chosenFeats = []
+        self.classFeats = []
 
         self.mods = {
             "str" : 0,
@@ -201,6 +202,9 @@ class character:
 
         for skill in classesStatBonus[self.className]["classBonus"]:
             listToWriteToFile.append([htmlTags[skill + "Class"], classesStatBonus[self.className]["classBonus"][skill]])
+
+        for feat in classesStatBonus[self.className]["proficiencies"]:
+            self.chosenFeats.append(feat)
 
         print("""Currently only point buy system is implemented, if you want to use another system figure
                 out the conversion yourself.""")
@@ -456,7 +460,7 @@ class character:
     def checkForAttribute(self, checkAttribute):
         checkAbility = checkAttribute[0]
         if checkAttribute[0] == "key":
-            checkAbility = classesStatBonus[self.className]["key"]
+            checkAbility = self.key
         if self.attributes[attributeShorthand[checkAbility]] >= checkAttribute[1]:
             return True
         return False
@@ -470,7 +474,7 @@ class character:
         return False
 
     def checkForBab(self, checkBab):
-        if classesStatBonus[self.className]["bab"][self.classLevel - 1]] >= checkBab:
+        if classesStatBonus[self.className]["bab"][self.classLevel - 1] >= checkBab:
             return True
         return False
 
@@ -480,7 +484,7 @@ class character:
         return False
 
     def checkForSaves(saves, level, checkSaves):
-        if classesStatBonus[self.className][checkSaves[0]][self.classLevel - 1]] >= checkSaves[1]:
+        if classesStatBonus[self.className][checkSaves[0]][self.classLevel - 1] >= checkSaves[1]:
             return True
         return False
 
@@ -559,9 +563,28 @@ class character:
                 possibleFeats.remove(feat)
 
         printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleFeats))
-        entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
-        self.chosenFeats.append(entered)
+        lowerChosenFeats = [x.lower() for x in possibleClassFeats]
+        entered = self.getUserResponse(lowerChosenFeats, printText)
+        enteredFeatIndex = lowerChosenFeats.index(entered)
+        self.chosenFeats.append(possibleClassFeats[enteredFeatIndex])
 
+        # entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
+        # self.chosenFeats.append(entered)
+
+    def selectNewClassFeat(self, featType):
+        possibleClassFeats = []
+        for featList in classChoseFeats[self.className][featType]:
+            if self.classLevel >= featList[0]:
+                possibleClassFeats += featList[1:]
+
+        for feat in self.classFeats:
+            if feat in possibleClassFeats:
+                possibleClassFeats.remove(feat)
+        printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleClassFeats))
+        lowerClassFeats = [x.lower() for x in possibleClassFeats]
+        entered = self.getUserResponse(lowerClassFeats, printText)
+        enteredFeatIndex = lowerClassFeats.index(entered)
+        self.classFeats.append(possibleClassFeats[enteredFeatIndex])
 
 
     def featsAndAbilities(self):
@@ -576,10 +599,16 @@ class character:
                         htmlTags["classAbility17"], htmlTags["classAbility18"], htmlTags["classAbility19"], htmlTags["classAbility20"],
                         htmlTags["classAbility21"], htmlTags["classAbility22"], htmlTags["classAbility23"], htmlTags["classAbility24"],
                         htmlTags["classAbility25"], htmlTags["classAbility26"], htmlTags["classAbility27"], htmlTags["classAbility28"]]
-        chosenBoxes = [htmlTags["otherAbility1"], htmlTags["otherAbility2"], htmlTags["otherAbility3"], htmlTags["otherAbility4"],
+        otherBoxes = [htmlTags["otherAbility1"], htmlTags["otherAbility2"], htmlTags["otherAbility3"], htmlTags["otherAbility4"],
                        htmlTags["otherAbility5"], htmlTags["otherAbility6"], htmlTags["otherAbility7"], htmlTags["otherAbility8"],
                        htmlTags["otherAbility9"], htmlTags["otherAbility10"], htmlTags["otherAbility11"], htmlTags["otherAbility12"],
-                       htmlTags["otherAbility13"], htmlTags["otherAbility14"], ]
+                       htmlTags["otherAbility13"], htmlTags["otherAbility14"], htmlTags["otherAbility15"], htmlTags["otherAbility16"]]
+        featBoxes = [htmlTags["feat1"], htmlTags["feat2"], htmlTags["feat3"], htmlTags["feat4"], htmlTags["feat5"], htmlTags["feat6"],
+                     htmlTags["feat7"], htmlTags["feat8"], htmlTags["feat9"], htmlTags["feat10"], htmlTags["feat11"], htmlTags["feat12"],
+                     htmlTags["feat13"], htmlTags["feat14"], htmlTags["feat15"], htmlTags["feat16"], htmlTags["feat17"], htmlTags["feat18"],
+                     htmlTags["feat19"], htmlTags["feat20"], htmlTags["feat21"], htmlTags["feat22"], htmlTags["feat23"], htmlTags["feat24"],
+                     htmlTags["feat25"], htmlTags["feat26"], htmlTags["feat27"], htmlTags["feat28"]]
+
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
                          "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
                          "sense motive", "slight of hand", "stealth", "survival"]
@@ -615,7 +644,7 @@ class character:
                     newClassSkill = self.getUserResponse(possibleSkill, "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(possibleSkill)))
                 self.makeClassSkill(newClassSkill)
             elif type(themeAbilities[themeName][0][1]) == type([]):
-                newClassSkill = self.getUserResponse(possibleSkill, "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(themeAbilities[themeName][0][1])))
+                newClassSkill = self.getUserResponse(themeAbilities[themeName][0][1], "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(themeAbilities[themeName][0][1])))
                 self.makeClassSkill(newClassSkill)
             else:
                 print("themeAbility", themeAbilities[themeName][0][1], "has not yet been implemented")
@@ -637,19 +666,17 @@ class character:
 
 
         listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative’s", # Operative’s might not be just words
-                            "Trick", "Quick", "Sidereal", "Techlore", "Cache"] # Sidereal is not just words, Techlore is not just words
+                            "Trick", "Quick", "Sidereal", "Techlore", "Cache", "Skill"] # Sidereal is not just words, Techlore is not just words
         listClassAbilities = []
         for i in range(self.classLevel):
             for ability in classAbilities[self.className][i]: # TODO
                 if ability[1] == "improvisation": # classChoseFeats, lists with levels
-                    pass
-                elif ability[1] == "add expertise":
+                    self.selectNewClassFeat("improvisation")
+                elif ability[1] == "add expertise": # this is not shown on the excel sheet, might just ignore it then
                     pass
                 elif ability[1] == "talent": # classChoseFeats, lists with levels
-                    pass
+                    self.selectNewClassFeat("talent")
                 elif ability[1] == "weapon":
-                    pass
-                elif ability[1] == "class up":
                     pass
                 elif ability[1] == "trick": # classChoseFeats, lists with levels
                     pass
@@ -696,6 +723,12 @@ class character:
 
         for i in range(len(listClassAbilities)):
             listWriteToFile.append([classBoxes[i], listClassAbilities[i]])
+
+        for i in range(len(self.classFeats)):
+            listWriteToFile.append([otherBoxes[i], self.classFeats[i]])
+
+        for i in range(len(self.chosenFeats)):
+            listWriteToFile.append([featBoxes[i], self.chosenFeats[i]])
 
         self.writeToFile("listPass", listWriteToFile)
 
