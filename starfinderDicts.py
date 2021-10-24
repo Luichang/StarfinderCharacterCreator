@@ -180,16 +180,20 @@ themeAbilities = {
 classChoseFeats = {
     "envoy": {
         "improvisation" : [
-                            ["Clever Feint", "Dispiriting Taunt", "Don’t Quit", "Expanded Attunement", "Get ’Em",
+                            # 1
+                            [1, "Clever Feint", "Dispiriting Taunt", "Don’t Quit", "Expanded Attunement", "Get ’Em",
                             "Inspiring Boost", "Not in the Face", "Universal Expression", "Watch Your Step"],
-                            ["Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation",
+                            # 4
+                            [4, "Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation",
                             "Quick Dispiriting Taunt", "Quick Inspiring Boost", "Watch Out"],
-                            ["Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get ’Em"],
-                            ["Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness",
+                            #6
+                            [6, "Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get ’Em"],
+                            #8
+                            [8, "Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness",
                             "Sustained Determination"]
                         ],
         "talent" : [
-                        ["Additional Skill Expertise", "Altered Bearing", "Analyst", "Cautious Expertise",
+                        [1, "Additional Skill Expertise", "Altered Bearing", "Analyst", "Cautious Expertise",
                         "Convincing Liar", "Cultural Savant", "Cunning Disguise", "Engineering Adept",
                         "Expert Forger", "Fast Hack", "Inspired Medic", "Keen Observer", "Menacing Gaze",
                         "Rattling Presence", "Skilled Linguist", "Slick Customer", "Student of Technology",
@@ -198,50 +202,66 @@ classChoseFeats = {
     },
     "mechanic": {
         "trick" : [
-                    ["Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt", "Nightvision Processor",
+                    #2
+                    [2, "Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt", "Nightvision Processor",
                     "Overcharge", "Overclocking", "Overload Weapon", "Portable Power",
                     "Quick Patch", "Quick Repair", "Repair Drone", "Visual Data Processor"],
-                    ["Boost Shield", "Drone Meld", "Engineer’s Eye", "Ghost Intrusion", "Holographic Projector",
+                    #8
+                    [8, "Boost Shield", "Drone Meld", "Engineer’s Eye", "Ghost Intrusion", "Holographic Projector",
                     "Hyperclocking", "Improved Overcharge", "Invisibility Bypass Processor", "Resistant Energy",
                     "Scoutbot"],
-                    ["Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer",
+                    #14
+                    [14, "Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer",
                     "Saboteur", "Superior Overcharge", "Ultraclocking"]
         ]
     },
     "mystic": [],
     "operative": {
         "exploit" : [
-                        ["Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation",
+                        #2
+                        [2, "Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation",
                         "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
-                        ["Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot",
+                        #6
+                        [6, "Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot",
                         "Improved Quick Movement", "Interfering Shot", "Mentalist’s Bane", "Speed Hacker",
                         "Staggering Shot", "Stalwart", "Sure-Footed", "Uncanny Shooter"],
-                        ["Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant",
+                        #10
+                        [10, "Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant",
                         "Glimpse the Truth", "Holographic Distraction", "Improved Evasion", "Improved Uncanny Mobility",
                         "Master of Disguise", "Stunning Shot", "Versatile Movement"],
-                        ["Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery", "Uncanny Senses"]
+                        #14
+                        [14, "Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery", "Uncanny Senses"]
         ]
     },
     "solarian": {
         "revelation" : [
-                        ["Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost", "Gravity Hold", "Plasma Sheath",
+                        #2
+                        [2, "Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost", "Gravity Hold", "Plasma Sheath",
                         "Radiation", "Stellar Rush"],
-                        ["Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity", "Glow of Life",
+                        #6
+                        [6, "Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity", "Glow of Life",
                         "Gravity Surge", "Hypnotic Glow", "Reflection"],
-                        ["Soul Furnace", "Stealth Warp"],
-                        ["Gravity Shield", "Sunbolt"],
-                        ["Ultimate Graviton", "Ultimate Photon"]
+                        #10
+                        [10, "Soul Furnace", "Stealth Warp"],
+                        #14
+                        [14, "Gravity Shield", "Sunbolt"],
+                        #16
+                        [16, "Ultimate Graviton", "Ultimate Photon"]
         ],
-        "zenith" : ["Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake", "Time Dilation", "Wormholes"]
+        "zenith" : [1, "Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake", "Time Dilation", "Wormholes"]
     },
     "soldier": {
         "gear" : [
-                    ["Armored Advantage", "Brutal Blast", "Bullet Barrage", "Laser Accuracy", "Melee Striker"],
-                    ["Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation", "Powerful Explosive",
+                    #1
+                    [1, "Armored Advantage", "Brutal Blast", "Bullet Barrage", "Laser Accuracy", "Melee Striker"],
+                    #7
+                    [7, "Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation", "Powerful Explosive",
                     "Sonic Resonance"],
-                    ["Heavy Onslaught"]
+                    #11
+                    [11, "Heavy Onslaught"]
         ],
         "styles" : {
+            # name                  1, 5, 9, 13, 17
             "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi", "Power of Legend",
             "Secret of the Archmagi", "Arcane Attack"],
             "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army", "On the Bounce"],
@@ -255,15 +275,20 @@ classChoseFeats = {
     },
     "technomancer": {
         "hack" : [
-                    ["Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech", "Harmful Spells",
+                    #2
+                    [2, "Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech", "Harmful Spells",
                     "Quick Scan", "Robot Influence", "Selective Targeting", "Spell Countermeasures",
                     "Technomantic Proficiency"],
-                    ["Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms",
+                    #5
+                    [5, "Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms",
                     "Magic Negation", "Spell Grenade"],
-                    ["Diviner’s Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures",
+                    #8
+                    [8, "Diviner’s Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures",
                     "Widened Spell"],
-                    ["Countertech Sentinel", "Eternal Spell", "Reboot Mind", "Seeking Shot"],
-                    ["Phase Shot", "Quickened Spell", "Rain of Fire", "Spell Library"]
+                    #11
+                    [11, "Countertech Sentinel", "Eternal Spell", "Reboot Mind", "Seeking Shot"],
+                    #14
+                    [14, "Phase Shot", "Quickened Spell", "Rain of Fire", "Spell Library"]
         ]
     }
 }
