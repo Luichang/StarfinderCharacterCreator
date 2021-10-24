@@ -296,7 +296,7 @@ classChoseFeats = {
 classAbilities = {
     "envoy":  [[["Envoy improvisation", "improvisation"], # one of the classChoseFeats for envoy
                 ["Expertise (1d6)", "words"], # maybe worth creating an array with all expertise skills
-                ["Skill expertise", "add expertise"]], # any ability, each only once
+                ["Skill expertise (1)", "add expertise"]], # any ability, each only once
 
                [["Envoy improvisation", "improvisation"]],
 
@@ -305,10 +305,10 @@ classAbilities = {
                 # You gain the Weapon Specialization feat as a bonus feat for each weapon type with which this
                 # class grants you proficiency
 
-               [["Envoy improvisation", "class up"]],
+               [["Envoy improvisation", "improvisation"]],
 
                [["Expertise (1d6+1)", "words"],
-                ["Skill expertise", "add expertise"]],
+                ["Skill expertise (2)", "add expertise"]],
 
                [["Envoy improvisation", "improvisation"]],
 
@@ -317,7 +317,7 @@ classAbilities = {
                [["Envoy improvisation", "improvisation"]],
 
                [["Expertise (1d6+2)", "words"],
-                ["Skill expertise", "add expertise"]],
+                ["Skill expertise (3)", "add expertise"]],
 
                [["Envoy improvisation", "improvisation"]],
 
@@ -326,7 +326,7 @@ classAbilities = {
                [["Envoy improvisation", "improvisation"]],
 
                [["Expertise (1d8+2)", "words"],
-                ["Skill expertise", "add expertise"]],
+                ["Skill expertise (4)", "add expertise"]],
 
                [["Envoy improvisation", "improvisation"]],
 
@@ -335,13 +335,13 @@ classAbilities = {
                [["Envoy improvisation", "improvisation"]],
 
                [["Expertise (1d8+3)", "words"],
-                ["Skill expertise", "add expertise"]],
+                ["Skill expertise (5)", "add expertise"]],
 
                [["Envoy improvisation", "improvisation"]],
 
                [["Expertise talent", "talent"]],
 
-               [["Envoy improvisation", "class up"],
+               [["Envoy improvisation", "improvisation"],
                 ["Expertise (1d8+4)", "words"],
                 ["True expertise", "words"]],
                 # maybe add in a selection from the selected envoy improvisation but it really is just words
