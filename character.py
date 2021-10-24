@@ -264,9 +264,7 @@ class character:
         self.vsCombat = 8 + self.kac
         listToWriteToFile.append([htmlTags["vsCombat"], self.vsCombat])
 
-        self.SP = max(1, classesStatBonus[self.className]["sp"] + self.mods["con"])
-        self.HP = max(1, classesStatBonus[self.className]["hp"] + raceStatList[self.raceName.split()[0]]["hp"])
-        self.RP = max(1, max(1, self.classLevel // 2) + self.mods[self.key])
+        self.calcHP()
 
         listToWriteToFile.append([htmlTags["sp"], self.SP])
         listToWriteToFile.append([htmlTags["hp"], self.HP])
@@ -373,6 +371,10 @@ class character:
         self.writeToFile("listPass", listToWriteToFile)
         self.featsAndAbilities()
 
+    def calcHP(self):
+        self.SP = max(1, (max(0, classesStatBonus[self.className]["sp"] + self.mods["con"])) * self.classLevel)
+        self.HP = max(1, (classesStatBonus[self.className]["hp"] * self.classLevel) + raceStatList[self.raceName.split()[0]]["hp"])
+        self.RP = max(1, max(1, self.classLevel // 2) + self.mods[self.key])
 
     def addSkillPoints(self):
         skillpoints = classesStatBonus[self.className]["skills"] + self.mods["int"]
@@ -535,7 +537,11 @@ class character:
     def makeClassSkill(self, newClassSkill): # TODO
         pass
 
-    def levelUp(self): # TODO HP SP RP Spells
+    def abilityIncrease(self):
+        if self.classLevel % 5:
+            pass
+
+    def levelUp(self): # TODO Spells
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,
         #          14500, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000]
         #currLevel = 1
@@ -546,6 +552,7 @@ class character:
         #        break
         if self.classLevel < 20:
             self.classLevel = self.classLevel + 1
+            self.abilityIncrease()
             self.addSkillPoints()
             listToWriteToFile = []
             for skill in self.skillRanks:
@@ -553,10 +560,9 @@ class character:
                 listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
                 listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
             self.featsAndAbilities()
+            self.calcHP()
             listToWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
             self.writeToFile("listPass", listToWriteToFile)
-
-
 
     def getUserResponse(self, options, text="", include=True):
         entered = ""
