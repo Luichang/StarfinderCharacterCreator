@@ -149,8 +149,8 @@ themeAbilities = {
     "priest":          [["Theme knowledge", "mysticism"], # mysticism becomes class knowledge or +1 bonus to checks
                         ["Mantle of the clergy", "words"],
                         ["Divine boon", "spell"],
-                        # ^ Choose one 1st-level mystic spell with some connection to your deity’s portfolio
-                        # (subject to the GM’s approval). If you have levels in the mystic class, you gain 1
+                        # ^ Choose one 1st-level mystic spell with some connection to your deity's portfolio
+                        # (subject to the GM's approval). If you have levels in the mystic class, you gain 1
                         # additional 1stlevel spell per day and add the chosen spell to your list of mystic
                         # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
                         ["True communion", "words"]],
@@ -181,13 +181,13 @@ classChoseFeats = {
     "envoy": {
         "improvisation" : [
                             # 1
-                            [1, "Clever Feint", "Dispiriting Taunt", "Don’t Quit", "Expanded Attunement", "Get ’Em",
+                            [1, "Clever Feint", "Dispiriting Taunt", "Don't Quit", "Expanded Attunement", "Get 'Em",
                             "Inspiring Boost", "Not in the Face", "Universal Expression", "Watch Your Step"],
                             # 4
                             [4, "Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation",
                             "Quick Dispiriting Taunt", "Quick Inspiring Boost", "Watch Out"],
                             #6
-                            [6, "Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get ’Em"],
+                            [6, "Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get 'Em"],
                             #8
                             [8, "Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness",
                             "Sustained Determination"]
@@ -207,7 +207,7 @@ classChoseFeats = {
                     "Overcharge", "Overclocking", "Overload Weapon", "Portable Power",
                     "Quick Patch", "Quick Repair", "Repair Drone", "Visual Data Processor"],
                     #8
-                    [8, "Boost Shield", "Drone Meld", "Engineer’s Eye", "Ghost Intrusion", "Holographic Projector",
+                    [8, "Boost Shield", "Drone Meld", "Engineer's Eye", "Ghost Intrusion", "Holographic Projector",
                     "Hyperclocking", "Improved Overcharge", "Invisibility Bypass Processor", "Resistant Energy",
                     "Scoutbot"],
                     #14
@@ -223,7 +223,7 @@ classChoseFeats = {
                         "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
                         #6
                         [6, "Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot",
-                        "Improved Quick Movement", "Interfering Shot", "Mentalist’s Bane", "Speed Hacker",
+                        "Improved Quick Movement", "Interfering Shot", "Mentalist's Bane", "Speed Hacker",
                         "Staggering Shot", "Stalwart", "Sure-Footed", "Uncanny Shooter"],
                         #10
                         [10, "Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant",
@@ -267,10 +267,10 @@ classChoseFeats = {
             "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army", "On the Bounce"],
             "blitz" : ["Rapid Response", "Charge Attack", "Keep Fighting", "Perfect Opportunity", "Against the Odds"],
             "bombard" : ["Grenade Expert", "Heavy Fire", "Debilitating Attack", "Explosives Acumen", "Impactful Attack"],
-            "guard" : ["Armor Training", "Guard’s Protection", "Rapid Recovery", "Kinetic Resistance",
+            "guard" : ["Armor Training", "Guard's Protection", "Rapid Recovery", "Kinetic Resistance",
                         "Impenetrable Defense"],
             "hit-and-run" : ["Opening Volley", "Nimble Fusillade", "Duck and Weave", "Elusive Target", "Harrying Shot"],
-            "sharpshoot" : ["Sniper’s Aim", "Focus Fire", "Intense Focus", "Focused Damage", "Prepared Shot", ]
+            "sharpshoot" : ["Sniper's Aim", "Focus Fire", "Intense Focus", "Focused Damage", "Prepared Shot", ]
         }
     },
     "technomancer": {
@@ -283,7 +283,7 @@ classChoseFeats = {
                     [5, "Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms",
                     "Magic Negation", "Spell Grenade"],
                     #8
-                    [8, "Diviner’s Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures",
+                    [8, "Diviner's Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures",
                     "Widened Spell"],
                     #11
                     [11, "Countertech Sentinel", "Eternal Spell", "Reboot Mind", "Seeking Shot"],
@@ -451,14 +451,14 @@ classAbilities = {
                  ["Enlightenment", "words"]],
              ]
     ,
-    "operative":   [[["Operative’s edge +1"], # +1 insight bonus to initiative checks and to skill checks
+    "operative":   [[["Operative's edge +1"], # +1 insight bonus to initiative checks and to skill checks
                      ["Specialization"],
                      ["Trick attack +1d4", "words"]],
 
                     [["Evasion", "words"],
                      ["Operative exploit"]],
 
-                    [["Operative’s edge +2"],
+                    [["Operative's edge +2"],
                      ["Quick movement (+10 ft.)", "words"],
                      ["Trick attack +1d8", "words"],
                      ["Weapon specialization", "weapon"]],
@@ -471,7 +471,7 @@ classAbilities = {
 
                     [["Operative exploit"]],
 
-                    [["Operative’s edge +3"],
+                    [["Operative's edge +3"],
                      ["Specialization skill mastery"],
                      ["Trick attack +4d8", "words"],
                      ["Uncanny agility", "words"]],
@@ -484,7 +484,7 @@ classAbilities = {
 
                     [["Operative exploit"]],
 
-                    [["Operative’s edge +4"],
+                    [["Operative's edge +4"],
                      ["Specialization power"],
                      ["Trick attack +6d8", "words"]],
 
@@ -495,7 +495,7 @@ classAbilities = {
 
                     [["Operative exploit"]],
 
-                    [["Operative’s edge +5"],
+                    [["Operative's edge +5"],
                      ["Quick movement (+30 ft.)", "words"],
                      ["Trick attack +8d8", "words"]],
 
@@ -506,7 +506,7 @@ classAbilities = {
 
                     [["Operative exploit"]],
 
-                    [["Operative’s edge +6"],
+                    [["Operative's edge +6"],
                      ["Trick attack +10d8", "words"]],
 
                     [["Operative exploit"],
@@ -542,7 +542,7 @@ classAbilities = {
 
                  [["Stellar revelation", "revelation"]],
 
-                 [["Solarian’s onslaught", "words"]],
+                 [["Solarian's onslaught", "words"]],
 
                  [["Stellar revelation", "revelation"]],
 
@@ -585,7 +585,7 @@ classAbilities = {
                 [["Combat feat", "combat"]],
 
                 [["Gear boost", "gear"],
-                 ["Soldier’s onslaught", "words"]],
+                 ["Soldier's onslaught", "words"]],
 
                 [["Combat feat", "combat"]],
 

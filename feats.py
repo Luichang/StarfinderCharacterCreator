@@ -26,7 +26,7 @@ feats = {
     "Far Shot" :                          ["combat", [["bab", 1]],                                                                                                             "words"],
     "Fast Talk" :                         ["normal", [["skills", [["bluff", 5]]]],                                                                                             "words"],
     "Fleet" :                             ["combat", [[]],                                                                                                                     "words"], # speed effected
-    "Fusillade" :                         ["combat", [["bab", 1], ["text", "do you have at least 4 arms?"]],                                                                   "words"],
+    "Fusillade" :                         ["combat", [["bab", 1], ["race", "kasatha"]],                                                                                        "words"],
     "Great Fortitude" :                   ["normal", [[]],                                                                                                                     "save", ["Fortitude", 2]],
     "Improved Great Fortitude" :          ["normal", [["feat", ["Great Fortitude"]], ["level", 5]],                                                                            "words"],
     "Grenade Proficiency" :               ["combat", [[]],                                                                                                                     "words"],
