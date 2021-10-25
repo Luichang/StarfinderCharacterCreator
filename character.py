@@ -145,7 +145,7 @@ class character:
 
         if self.raceName == "human":
             entered = self.getUserResponse(possibleAttributes,
-                                           """Humans get to increase one stat by 2. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)don, (cha)risma""")
+                                           """Humans get to increase one stat by 2. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""")
 
             raceAttributes[attributeShorthand[entered]] = 2
 
@@ -167,7 +167,7 @@ class character:
         self.themeAttributes = themes[self.theme]
         if self.theme == "themeless":
             entered = self.getUserResponse(possibleAttributes,
-                                           """Themeless get to increase one stat by 1. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)don, (cha)risma""")
+                                           """Themeless get to increase one stat by 1. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""")
 
             self.themeAttributes[attributeShorthand[entered]] = 1
             self.theme += " (" + entered + ")"
@@ -492,7 +492,7 @@ class character:
             return True
         return False
 
-    def checkForSaves(saves, level, checkSaves):
+    def checkForSaves(self, checkSaves):
         if classesStatBonus[self.className][checkSaves[0]][self.classLevel - 1] >= checkSaves[1]:
             return True
         return False
@@ -532,34 +532,38 @@ class character:
                 for check in tmp[1]:
                     if len(check) > 0:
                         if check[0] == "combat":
-                            if not checkCombatFeats(check[1]):
+                            if not self.checkCombatFeats(check[1]):
                                 toAdd = False
                         elif check[0] == "feat":
-                            if not checkForFeat(check[1]):
+                            if not self.checkForFeat(check[1]):
                                 toAdd = False
                         elif check[0] == "skills":
-                            if not checkForSkills(check[1]):
+                            if not self.checkForSkills(check[1]):
                                 toAdd = False
                         elif check[0] == "ability":
-                            if not checkForAttribute(check[1]):
+                            if not self.checkForAttribute(check[1]):
                                 toAdd = False
                         elif check[0] == "spellLevel":
-                            if not checkForSpellLevel(check[1]):
+                            if not self.checkForSpellLevel(check[1]):
                                 toAdd = False
                         elif check[0] == "bab":
-                            if not checkForBab(check[1]):
+                            if not self.checkForBab(check[1]):
                                 toAdd = False
                         elif check[0] == "level":
-                            if not checkForLevel(check[1]):
+                            if not self.checkForLevel(check[1]):
                                 toAdd = False
                         elif check[0] == "save":
-                            if not checkForSaves(check[1]):
+                            if not self.checkForSaves(check[1]):
                                 toAdd = False
+                        elif check[0] == "race":
+                            if not self.checkForRace(check[1]):
+                                toAdd = False
+                        # casterLevel check: check if lashunta and greater than level required, or class of technomancer or mystic
                         elif check[0] == "text":
-                            if not checkForText(check[1]):
+                            if not self.checkForText(check[1]):
                                 toAdd = False
                         elif check[0] == "from":
-                            if not checkFrom(check[1]):
+                            if not self.checkFrom(check[1]):
                                 toAdd = False
                 if toAdd:
                     selected.append(feat)
@@ -572,20 +576,19 @@ class character:
                 possibleFeats.remove(feat)
 
         printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleFeats))
-        lowerChosenFeats = [x.lower() for x in possibleClassFeats]
+        lowerChosenFeats = [x.lower() for x in possibleFeats]
         entered = self.getUserResponse(lowerChosenFeats, printText)
         enteredFeatIndex = lowerChosenFeats.index(entered)
-        self.chosenFeats.append(possibleClassFeats[enteredFeatIndex])
+        self.chosenFeats.append(possibleFeats[enteredFeatIndex])
 
         # entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
         # self.chosenFeats.append(entered)
 
-    def selectNewClassFeat(self, featType):
+    def selectNewClassFeat(self, featType, level):
         possibleClassFeats = []
         for featList in classChoseFeats[self.className][featType]:
-            if self.classLevel >= featList[0]:
+            if level >= featList[0]:
                 possibleClassFeats += featList[1:]
-
         for feat in self.classFeats:
             if feat in possibleClassFeats:
                 possibleClassFeats.remove(feat)
@@ -594,7 +597,6 @@ class character:
         entered = self.getUserResponse(lowerClassFeats, printText)
         enteredFeatIndex = lowerClassFeats.index(entered)
         self.classFeats.append(possibleClassFeats[enteredFeatIndex])
-
 
     def featsAndAbilities(self):
         raceBoxes = [htmlTags["raceAbility1"], htmlTags["raceAbility2"], htmlTags["raceAbility3"],
