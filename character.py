@@ -10,6 +10,7 @@ class character:
 
         self.chosenFeats = []
         self.classFeats = []
+        self.styles = [] # this is soldier exclusive
 
         self.mods = {
             "str" : 0,
@@ -112,7 +113,7 @@ class character:
         self.spentPoints = {"Str" : 0, "Dex" : 0, "Con" : 0, "Int" : 0, "Wis": 0, "Cha" : 0}
         self.themeAttributes = themes["themeless"]
 
-        self.classLevel = 20
+        self.classLevel = 1
 
         if fileName == "":
             self.createNew()
@@ -497,6 +498,11 @@ class character:
             return True
         return False
 
+    def checkForRace(self, checkRace):
+        if self.raceName == checkRace:
+            return True
+        return False
+
     def checkForText(self, printText):
         # TODO figure out more elegant way to check these
         affirm = ['true', '1', 't', 'y', 'yes']
@@ -647,7 +653,8 @@ class character:
                 print("The race Ability", raceAbilityBlock[1], "has not yet been implemented")
 
         themeName = self.theme.split("(")[0].rstrip()
-        if self.classLevel >= 1:
+        if self.classLevel == 1:
+            print("doing the level 1 thing")
             listWriteToFile.append([themeBoxes[0], themeAbilities[themeName][0][0]])
             if type(themeAbilities[themeName][0][1]) == type(""):
                 newClassSkill = themeAbilities[themeName][0][1]
@@ -659,12 +666,12 @@ class character:
                 self.makeClassSkill(newClassSkill)
             else:
                 print("themeAbility", themeAbilities[themeName][0][1], "has not yet been implemented")
-        if self.classLevel >= 6:
+        if self.classLevel == 6:
             listWriteToFile.append([themeBoxes[1], themeAbilities[themeName][1][0]]) # TODO
             if themeAbilities[themeName][1][1] != "words": # not sure what this is yet only spacefarer will have this
                 # +2 bonus to skill checks for skills with 0 ranks in skill
                 pass
-        if self.classLevel >= 12:
+        if self.classLevel == 12:
             listWriteToFile.append([themeBoxes[2], themeAbilities[themeName][2][0]])
             if themeAbilities[themeName][2][1] != "words": # the alternative is spell and needs to add a spell, only priest will have this
                 # ^ Choose one 1st-level mystic spell with some connection to your deity’s portfolio
@@ -672,65 +679,82 @@ class character:
                 # additional 1stlevel spell per day and add the chosen spell to your list of mystic
                 # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
                 pass
-        if self.classLevel >= 18:
+        if self.classLevel == 18:
             listWriteToFile.append([themeBoxes[3], themeAbilities[themeName][3][0]])
 
 
         listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative’s", # Operative’s might not be just words
                             "Trick", "Quick", "Sidereal", "Techlore", "Cache", "Skill"] # Sidereal is not just words, Techlore is not just words
         listClassAbilities = []
-        for i in range(self.classLevel):
-            for ability in classAbilities[self.className][i]: # TODO
-                if ability[1] == "improvisation": # classChoseFeats, lists with levels
-                    self.selectNewClassFeat("improvisation")
-                elif ability[1] == "add expertise": # this is not shown on the excel sheet, might just ignore it then
-                    pass
-                elif ability[1] == "talent": # classChoseFeats, lists with levels
-                    self.selectNewClassFeat("talent")
-                elif ability[1] == "weapon":
-                    pass
-                elif ability[1] == "trick": # classChoseFeats, lists with levels
-                    pass
-                elif ability[1] == "skills":
-                    pass
-                elif ability[1] == "revelation": # classChoseFeats, lists with levels
-                    pass
-                elif ability[1] == "zenith": # classChoseFeats, single list
-                    pass
-                elif ability[1] == "influence":
-                    pass
-                elif ability[1] == "style": # classChoseFeats, dictionary
-                    pass
-                elif ability[1] == "technique1":
-                    pass
-                elif ability[1] == "technique2":
-                    pass
-                elif ability[1] == "combat":
-                    self.selectNewFeat(combat=True)
-                elif ability[1] == "gear": # classChoseFeats, lists with levels
-                    pass
-                elif ability[1] == "hack": # classChoseFeats, lists with levels
-                    pass
-                elif ability[1] == "feat":
-                    self.chosenFeats.append(ability[2])
-                elif ability[1] == "words": # nothing happens
-                    pass
-                else:
-                    print(ability, "has not yet been implemented")
+        #for level in range(1, self.classLevel + 1):
+        for ability in classAbilities[self.className][self.classLevel - 1]:
+            if ability[1] == "improvisation": # classChoseFeats, lists with levels
+                self.selectNewClassFeat("improvisation", self.classLevel - 1)
+            elif ability[1] == "talent": # classChoseFeats, lists with levels
+                self.selectNewClassFeat("talent", self.classLevel - 1)
+            elif ability[1] == "trick": # classChoseFeats, lists with levels
+                self.selectNewClassFeat("trick", self.classLevel - 1)
+            elif ability[1] == "class":
+                toMakeClass = ability[2]
+                for makeClass in toMakeClass:
+                    makeClass = newClassSkill
+                    if newClassSkill == "any":
+                        newClassSkill = self.getUserResponse(possibleSkill, "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(possibleSkill)))
+                    self.makeClassSkill(newClassSkill)
+            elif ability[1] == "skills":
+                for skill in ability[2]:
+                    self.skillMisc[skill[0]] += skill[1]
+                    self.skill[skill[0]] += skill[1]
+            elif ability[1] == "revelation": # classChoseFeats, lists with levels
+                self.selectNewClassFeat("revelation", self.classLevel - 1)
+            elif ability[1] == "zenith": # classChoseFeats, single list
+                self.selectNewClassFeat("zenith", self.classLevel - 1)
+            elif ability[1] == "style": # classChoseFeats, dictionary
+                possibleStyles = [x for x in classChoseFeats["soldier"]["styles"]]
+                for style in self.styles:
+                    possibleStyles.remove(style)
+                printText = "please enter the style name you would like to add. Possible styles are: {}".format(", ".join(possibleStyles))
+                entered = self.getUserResponse(possibleStyles, printText)
+                self.styles.append(entered)
+                self.classFeats.append(entered.title())
+            elif ability[1] == "technique1":
+                self.classFeats.append(classChoseFeats["soldier"]["styles"][self.styles[0]][self.classLevel - 1])
+            elif ability[1] == "technique2":
+                self.classFeats.append(classChoseFeats["soldier"]["styles"][self.styles[1]][(self.classLevel - 1) - 8])
+            elif ability[1] == "combat":
+                self.selectNewFeat(combat=True)
+            elif ability[1] == "gear": # classChoseFeats, lists with levels
+                self.selectNewClassFeat("gear", self.classLevel - 1)
+            elif ability[1] == "hack": # classChoseFeats, lists with levels
+                self.selectNewClassFeat("hack", self.classLevel - 1)
+            elif ability[1] == "feat":
+                self.chosenFeats.append(ability[2])
+
+            elif ability[1] == "add expertise": # envoy # this is not shown on the excel sheet, might just ignore it then # TODO
+                pass
+            elif ability[1] == "influence": # solarian # add two skills, one each from two lists
+                pass
+            elif ability[1] == "weapon": # all
+                pass
+
+            elif ability[1] == "words": # nothing happens
+                pass
+            else:
+                print(ability, "has not yet been implemented")
 
 
-                result = [replacable for replacable in listReplaceables if replacable in ability[0]]
+            result = [replacable for replacable in listReplaceables if replacable in ability[0]]
+            if len(result) != 0:
+                result = result[0]
+                result = [oldAbility for oldAbility in listClassAbilities if result in oldAbility]
                 if len(result) != 0:
                     result = result[0]
-                    result = [oldAbility for oldAbility in listClassAbilities if result in oldAbility]
-                    if len(result) != 0:
-                        result = result[0]
-                        result = listClassAbilities.index(result)
-                        listClassAbilities[result] = ability[0]
-                    else:
-                        listClassAbilities.append(ability[0])
+                    result = listClassAbilities.index(result)
+                    listClassAbilities[result] = ability[0]
                 else:
                     listClassAbilities.append(ability[0])
+            else:
+                listClassAbilities.append(ability[0])
 
         for i in range(len(listClassAbilities)):
             listWriteToFile.append([classBoxes[i], listClassAbilities[i]])
@@ -806,6 +830,9 @@ class character:
                 listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
             self.featsAndAbilities()
             self.calcHP()
+            listToWriteToFile.append([htmlTags["sp"], self.SP])
+            listToWriteToFile.append([htmlTags["hp"], self.HP])
+            listToWriteToFile.append([htmlTags["rp"], self.RP])
             listToWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
             self.writeToFile("listPass", listToWriteToFile)
 
