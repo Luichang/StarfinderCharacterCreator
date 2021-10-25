@@ -28,6 +28,15 @@ class character:
             "charisma": 10
         }
 
+        self.abilityIncreases = {
+            "strength": 0,
+            "dexterity": 0,
+            "constitution": 0,
+            "intelligence": 0,
+            "wisdom": 0,
+            "charisma": 0
+        }
+
         self.skills = {
             "acrobatics"       : 0,
             "athletics"        : 0,
@@ -736,8 +745,44 @@ class character:
         pass
 
     def abilityIncrease(self):
-        if self.classLevel % 5:
-            pass
+        if self.classLevel % 2 == 1:
+            self.selectNewFeat()
+        if self.classLevel % 5 == 0:
+            possibleAbilities = ["(str)ength", "(dex)terity", "(con)stitution", "(int)elligence", "(wis)dom", "(cha)risma"]
+            toIncreaseNumber = 4
+            toIncrease = []
+            while toIncreaseNumber > 0:
+                printText = "You get to increase {} more attributes. Possible attributes: {}".format(toIncreaseNumber, possibleAbilities)
+                entered = self.getUserResponse(possibleAttributes, printText)
+                entered = attributeShorthand[entered]
+                self.abilityIncreases[entered] += 1
+                self.attributes[entered] += 1
+                if self.attributes[entered] < 18:
+                    self.attributes[entered] += 1
+                index = [x for x in possibleAbilities if attributeShortener[entered].lower() in x][0]
+                possibleAbilities.remove(index)
+                toIncreaseNumber -= 1
+            self.calcAtributMod()
+            listToWriteToFile = []
+            listToWriteToFile.append([htmlTags["abilityStr"], self.abilityIncreases["strength"]])
+            listToWriteToFile.append([htmlTags["abilityDex"], self.abilityIncreases["dexterity"]])
+            listToWriteToFile.append([htmlTags["abilityCon"], self.abilityIncreases["constitution"]])
+            listToWriteToFile.append([htmlTags["abilityInt"], self.abilityIncreases["intelligence"]])
+            listToWriteToFile.append([htmlTags["abilityWis"], self.abilityIncreases["wisdom"]])
+            listToWriteToFile.append([htmlTags["abilityCha"], self.abilityIncreases["charisma"]])
+            listToWriteToFile.append([htmlTags["attrStrMod"], self.mods["str"]])
+            listToWriteToFile.append([htmlTags["attrDexMod"], self.mods["dex"]])
+            listToWriteToFile.append([htmlTags["attrConMod"], self.mods["con"]])
+            listToWriteToFile.append([htmlTags["attrIntMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["attrWisMod"], self.mods["wis"]])
+            listToWriteToFile.append([htmlTags["attrChaMod"], self.mods["cha"]])
+            listToWriteToFile.append([htmlTags["attrStr"], self.attributes["strength"]])
+            listToWriteToFile.append([htmlTags["attrDex"], self.attributes["dexterity"]])
+            listToWriteToFile.append([htmlTags["attrCon"], self.attributes["constitution"]])
+            listToWriteToFile.append([htmlTags["attrInt"], self.attributes["intelligence"]])
+            listToWriteToFile.append([htmlTags["attrWis"], self.attributes["wisdom"]])
+            listToWriteToFile.append([htmlTags["attrCha"], self.attributes["charisma"]])
+            self.writeToFile("listPass", listToWriteToFile)
 
     def levelUp(self): # TODO Spells
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,

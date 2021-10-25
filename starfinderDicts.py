@@ -958,6 +958,14 @@ htmlTags = {
     "attrIntPoint" : "int_point",
     "attrWisPoint" : "wis_point",
     "attrChaPoint" : "cha_point",
+    "abilityStr" : "str_ability",
+    "abilityDex" : "dex_ability",
+    "abilityCon" : "con_ability",
+    "abilityInt" : "int_ability",
+    "abilityWis" : "wis_ability",
+    "abilityCha" : "cha_ability",
+
+
     "className" : "class_level",
     "init_total" : "init_total",
     "init_dex" : "init_dex",
