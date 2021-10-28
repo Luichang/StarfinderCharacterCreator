@@ -222,6 +222,13 @@ class character:
         listToWriteToFile.append([htmlTags["attrWis"], self.attributes["wisdom"]])
         listToWriteToFile.append([htmlTags["attrCha"], self.attributes["charisma"]])
 
+        listToWriteToFile.append([htmlTags["abilityStr"], self.abilityIncreases["strength"]])
+        listToWriteToFile.append([htmlTags["abilityDex"], self.abilityIncreases["dexterity"]])
+        listToWriteToFile.append([htmlTags["abilityCon"], self.abilityIncreases["constitution"]])
+        listToWriteToFile.append([htmlTags["abilityInt"], self.abilityIncreases["intelligence"]])
+        listToWriteToFile.append([htmlTags["abilityWis"], self.abilityIncreases["wisdom"]])
+        listToWriteToFile.append([htmlTags["abilityCha"], self.abilityIncreases["charisma"]])
+
         self.className = self.getUserResponse(["envoy", "mechanic", "mystic", "operative", "solarian", "soldier",
                                                "technomancer"],
                                               """Chose a Class. Possible Classes are: envoy, mechanic, mystic, operative, solarian, soldier, technomancer""")
@@ -679,7 +686,6 @@ class character:
 
         themeName = self.theme.split("(")[0].rstrip()
         if self.classLevel == 1:
-            print("doing the level 1 thing")
             listWriteToFile.append([themeBoxes[0], themeAbilities[themeName][0][0]])
             if type(themeAbilities[themeName][0][1]) == type(""):
                 newClassSkill = themeAbilities[themeName][0][1]
@@ -817,7 +823,11 @@ class character:
                 possibleAbilities.remove(index)
                 toIncreaseNumber -= 1
             self.calcAtributMod()
+            self.initiative = self.mods["dex"]
+
             listToWriteToFile = []
+            listToWriteToFile.append([htmlTags["init_total"], self.initiative])
+            listToWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
             listToWriteToFile.append([htmlTags["abilityStr"], self.abilityIncreases["strength"]])
             listToWriteToFile.append([htmlTags["abilityDex"], self.abilityIncreases["dexterity"]])
             listToWriteToFile.append([htmlTags["abilityCon"], self.abilityIncreases["constitution"]])
@@ -1044,6 +1054,13 @@ class character:
             self.spentPoints["Wis"]              = int(soup.find(attrs={"id": htmlTags["attrWisPoint"]})["value"])
             self.spentPoints["Cha"]              = int(soup.find(attrs={"id": htmlTags["attrChaPoint"]})["value"])
 
+            self.abilityIncreases["strength"]    = int(soup.find(attrs={"id": htmlTags["abilityStr"]})["value"])
+            self.abilityIncreases["dexterity"]   = int(soup.find(attrs={"id": htmlTags["abilityDex"]})["value"])
+            self.abilityIncreases["constitution"]= int(soup.find(attrs={"id": htmlTags["abilityCon"]})["value"])
+            self.abilityIncreases["intelligence"]= int(soup.find(attrs={"id": htmlTags["abilityInt"]})["value"])
+            self.abilityIncreases["wisdom"]      = int(soup.find(attrs={"id": htmlTags["abilityWis"]})["value"])
+            self.abilityIncreases["charisma"]    = int(soup.find(attrs={"id": htmlTags["abilityCha"]})["value"])
+
             self.attributes["strength"]          = int(soup.find(attrs={"id": htmlTags["attrStr"]})["value"])
             self.attributes["dexterity"]         = int(soup.find(attrs={"id": htmlTags["attrDex"]})["value"])
             self.attributes["constitution"]      = int(soup.find(attrs={"id": htmlTags["attrCon"]})["value"])
@@ -1063,6 +1080,7 @@ class character:
                 self.skills[skill] = int(soup.find(attrs={"id": htmlTags[skill]})["value"])
                 self.skillRanks[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Rank"]})["value"])
                 self.skillClass[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Class"]})["value"])
+                self.skillMisc[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Misc"]})["value"])
 
         except FileNotFoundError:
             print("""The Character name you entered does not have a file.
