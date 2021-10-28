@@ -86,6 +86,30 @@ class character:
             "survival"        : 0
         }
 
+        self.skillClass = {
+            "acrobatics"      : 0,
+            "athletics"       : 0,
+            "bluff"           : 0,
+            "computers"       : 0,
+            "culture"         : 0,
+            "diplomacy"       : 0,
+            "disguise"        : 0,
+            "engineering"     : 0,
+            "intimidate"      : 0,
+            "life science"    : 0,
+            "medicine"        : 0,
+            "mysticism"       : 0,
+            "perception"      : 0,
+            "physical science": 0,
+            "piloting"        : 0,
+            "profession"      : 0,
+            "profession2"     : 0,
+            "sense motive"    : 0,
+            "slight of hand"  : 0,
+            "stealth"         : 0,
+            "survival"        : 0
+        }
+
         self.skillMisc = {
             "acrobatics"      : 0,
             "athletics"       : 0,
@@ -211,7 +235,8 @@ class character:
         listToWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
 
         for skill in classesStatBonus[self.className]["classBonus"]:
-            listToWriteToFile.append([htmlTags[skill + "Class"], classesStatBonus[self.className]["classBonus"][skill]])
+            self.skillClass[skill] = classesStatBonus[self.className]["classBonus"][skill]
+            listToWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
 
         for feat in classesStatBonus[self.className]["proficiencies"]:
             self.chosenFeats.append(feat)
@@ -383,7 +408,7 @@ class character:
         }
 
         for skill in self.skillRanks:
-            self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * classesStatBonus[self.className]["classBonus"][skill]
+            self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * self.skillClass[skill]
             listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
             listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
             listToWriteToFile.append([htmlTags[skill + "Misc"], self.skillMisc[skill]])
@@ -767,8 +792,11 @@ class character:
 
         self.writeToFile("listPass", listWriteToFile)
 
-    def makeClassSkill(self, newClassSkill): # TODO
-        pass
+    def makeClassSkill(self, newClassSkill):
+        if self.skillClass[newClassSkill] == 0:
+            self.skillClass[newClassSkill] = 3
+        else:
+            self.skillMisc[newClassSkill] += 1
 
     def abilityIncrease(self):
         if self.classLevel % 2 == 1:
@@ -825,7 +853,7 @@ class character:
             self.addSkillPoints()
             listToWriteToFile = []
             for skill in self.skillRanks:
-                self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * classesStatBonus[self.className]["classBonus"][skill]
+                self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * self.skillClass[skill]
                 listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
                 listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
             self.featsAndAbilities()
@@ -881,7 +909,7 @@ class character:
         listWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
 
         for skill in classesStatBonus[self.className]["classBonus"]:
-            listWriteToFile.append([htmlTags[skill + "Class"], classesStatBonus[self.className]["classBonus"][skill]])
+            listWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
             listWriteToFile.append([htmlTags[skill], self.skills[skill]])
             listWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
 
@@ -1034,6 +1062,7 @@ class character:
             for skill in classesStatBonus["envoy"]["classBonus"]:
                 self.skills[skill] = int(soup.find(attrs={"id": htmlTags[skill]})["value"])
                 self.skillRanks[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Rank"]})["value"])
+                self.skillClass[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Class"]})["value"])
 
         except FileNotFoundError:
             print("""The Character name you entered does not have a file.
