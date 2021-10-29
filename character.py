@@ -366,6 +366,11 @@ class character:
 
         self.addSkillPoints()
 
+        listToWriteToFile = self.calcSkills()
+        self.writeToFile("listPass", listToWriteToFile)
+        self.featsAndAbilities()
+
+    def calcSkills(self):
         listToWriteToFile = []
         listToWriteToFile.append([htmlTags["acrobaticsMod"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["athleticsMod"], self.mods["str"]])
@@ -411,14 +416,13 @@ class character:
             "stealth"          : self.mods["dex"],
             "survival"         : self.mods["wis"],
         }
-
-        for skill in self.skillRanks:
+        for skill in self.skills:
             self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * self.skillClass[skill]
             listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
             listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
+            listToWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
             listToWriteToFile.append([htmlTags[skill + "Misc"], self.skillMisc[skill]])
-        self.writeToFile("listPass", listToWriteToFile)
-        self.featsAndAbilities()
+        return listToWriteToFile
 
     def calcHP(self):
         self.SP = max(1, (max(0, classesStatBonus[self.className]["sp"] + self.mods["con"])) * self.classLevel)
@@ -784,6 +788,8 @@ class character:
             else:
                 listClassAbilities.append(ability[0])
 
+        listWriteToFile += self.calcSkills()
+
         for i in range(len(listClassAbilities)):
             listWriteToFile.append([classBoxes[i], listClassAbilities[i]])
 
@@ -843,6 +849,7 @@ class character:
             listToWriteToFile.append([htmlTags["attrInt"], self.attributes["intelligence"]])
             listToWriteToFile.append([htmlTags["attrWis"], self.attributes["wisdom"]])
             listToWriteToFile.append([htmlTags["attrCha"], self.attributes["charisma"]])
+            listToWriteToFile+= self.calcSkills()
             self.writeToFile("listPass", listToWriteToFile)
 
     def levelUp(self): # TODO Spells
@@ -913,11 +920,6 @@ class character:
         listWriteToFile.append([htmlTags["attrWisPoint"], self.spentPoints["Wis"]])
         listWriteToFile.append([htmlTags["attrChaPoint"], self.spentPoints["Cha"]])
 
-
-        for skill in classesStatBonus[self.className]["classBonus"]:
-            listWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
-            listWriteToFile.append([htmlTags[skill], self.skills[skill]])
-            listWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
         listWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
 
         listWriteToFile.append([htmlTags["eac"], self.eac])
@@ -980,27 +982,7 @@ class character:
         listWriteToFile.append([htmlTags["spendablePoints"], 0])
         listWriteToFile.append([htmlTags["perLevelPoints"], classesStatBonus[self.className]["skills"] + self.mods["int"]])
 
-        listWriteToFile.append([htmlTags["acrobaticsMod"], self.mods["dex"]])
-        listWriteToFile.append([htmlTags["athleticsMod"], self.mods["str"]])
-        listWriteToFile.append([htmlTags["bluffMod"], self.mods["cha"]])
-        listWriteToFile.append([htmlTags["computersMod"], self.mods["int"]])
-        listWriteToFile.append([htmlTags["cultureMod"], self.mods["int"]])
-        listWriteToFile.append([htmlTags["diplomacyMod"], self.mods["cha"]])
-        listWriteToFile.append([htmlTags["disguiseMod"], self.mods["cha"]])
-        listWriteToFile.append([htmlTags["engineeringMod"], self.mods["int"]])
-        listWriteToFile.append([htmlTags["intimidateMod"], self.mods["cha"]])
-        listWriteToFile.append([htmlTags["life scienceMod"], self.mods["int"]])
-        listWriteToFile.append([htmlTags["medicineMod"], self.mods["int"]])
-        listWriteToFile.append([htmlTags["mysticismMod"], self.mods["wis"]])
-        listWriteToFile.append([htmlTags["perceptionMod"], self.mods["wis"]])
-        listWriteToFile.append([htmlTags["physical scienceMod"], self.mods["int"]])
-        listWriteToFile.append([htmlTags["pilotingMod"], self.mods["dex"]])
-        listWriteToFile.append([htmlTags["professionMod"], -1])
-        listWriteToFile.append([htmlTags["profession2Mod"], -1])
-        listWriteToFile.append([htmlTags["sense motiveMod"], self.mods["wis"]])
-        listWriteToFile.append([htmlTags["slight of handMod"], self.mods["dex"]])
-        listWriteToFile.append([htmlTags["stealthMod"], self.mods["dex"]])
-        listWriteToFile.append([htmlTags["survivalMod"], self.mods["wis"]])
+        listWriteToFile += self.calcSkills()
         self.writeToFile("listPass", listWriteToFile)
         self.featsAndAbilities()
 
