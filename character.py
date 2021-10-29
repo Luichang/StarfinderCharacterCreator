@@ -148,7 +148,7 @@ class character:
     def createNew(self):
         self.name = self.getUserResponse([""], "Enter a Character Name", False)
 
-        self.writeToFile(htmlTags["name"], self.name)
+        self.writeToFile(htmlTags["name"], self.name.title())
 
         self.raceName = self.getUserResponse(["android", "human", "kasatha", "lashunta(korasha)",
                                               "lashunta(damaya)", "shirren", "vesk", "ysoki"],
@@ -156,7 +156,7 @@ class character:
                                             )
 
         listToWriteToFile = []
-        listToWriteToFile.append([htmlTags["race"], self.raceName])
+        listToWriteToFile.append([htmlTags["race"], self.raceName.title()])
         listToWriteToFile.append([htmlTags["raceStr"], raceStatList[self.raceName]["strength"]])
         listToWriteToFile.append([htmlTags["raceDex"], raceStatList[self.raceName]["dexterity"]])
         listToWriteToFile.append([htmlTags["raceCon"], raceStatList[self.raceName]["constitution"]])
@@ -179,7 +179,7 @@ class character:
             self.raceName += " (" + entered + ")"
 
             listToWriteToFile = []
-            listToWriteToFile.append([htmlTags["race"], self.raceName])
+            listToWriteToFile.append([htmlTags["race"], self.raceName.title()])
             listToWriteToFile.append([htmlTags[htmlEnteredTag], 2])
             self.writeToFile("listPass", listToWriteToFile)
 
@@ -187,7 +187,7 @@ class character:
                                         "scholar", "spacefarer", "xenoseeker", "themeless"],
                                           """Chose a theme. Possible themes are: "ace pilot, bounty hunter, icon, mercenary, outlaw, priest, scholar, spacefarer, xenoseeker, themeless""")
 
-        self.writeToFile(htmlTags["theme"], self.theme)
+        self.writeToFile(htmlTags["theme"], self.theme.title())
 
         self.themeAttributes = themes[self.theme]
         if self.theme == "themeless":
@@ -196,7 +196,7 @@ class character:
 
             self.themeAttributes[attributeShorthand[entered]] = 1
             self.theme += " (" + entered + ")"
-            self.writeToFile(htmlTags["theme"], self.theme)
+            self.writeToFile(htmlTags["theme"], self.theme.title())
 
         listToWriteToFile = []
         listToWriteToFile.append([htmlTags["themeStr"], self.themeAttributes["strength"]])
@@ -234,12 +234,11 @@ class character:
                                               """Chose a Class. Possible Classes are: envoy, mechanic, mystic, operative, solarian, soldier, technomancer""")
 
         if self.className == "soldier":
-            self.key = self.getUserResponse(["str", "dex"], """Soldier has to chose the key ability. Possible
-                                            are str and dex""")
+            self.key = self.getUserResponse(["str", "dex"], """Soldier has to chose the key ability. Possible are str and dex""")
         else:
             self.key = classesStatBonus[self.className]["key"]
 
-        listToWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
+        listToWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
 
         for skill in classesStatBonus[self.className]["classBonus"]:
             self.skillClass[skill] = classesStatBonus[self.className]["classBonus"][skill]
@@ -629,7 +628,7 @@ class character:
         for feat in self.classFeats:
             if feat in possibleClassFeats:
                 possibleClassFeats.remove(feat)
-        printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleClassFeats))
+        printText = "please enter class feat name you would like to add. Possible feats are: {}".format(", ".join(possibleClassFeats))
         lowerClassFeats = [x.lower() for x in possibleClassFeats]
         entered = self.getUserResponse(lowerClassFeats, printText)
         enteredFeatIndex = lowerClassFeats.index(entered)
@@ -766,7 +765,6 @@ class character:
                 pass
             elif ability[1] == "weapon": # all
                 pass
-
             elif ability[1] == "words": # nothing happens
                 pass
             else:
@@ -870,7 +868,7 @@ class character:
             listToWriteToFile.append([htmlTags["sp"], self.SP])
             listToWriteToFile.append([htmlTags["hp"], self.HP])
             listToWriteToFile.append([htmlTags["rp"], self.RP])
-            listToWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
+            listToWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
             self.writeToFile("listPass", listToWriteToFile)
 
     def getUserResponse(self, options, text="", include=True):
@@ -885,15 +883,15 @@ class character:
 
     def updateHTML(self):
         listWriteToFile = []
-        listWriteToFile.append([htmlTags["name"], self.name])
-        listWriteToFile.append([htmlTags["race"], self.raceName])
+        listWriteToFile.append([htmlTags["name"], self.name.title()])
+        listWriteToFile.append([htmlTags["race"], self.raceName.title()])
         listWriteToFile.append([htmlTags["raceStr"], raceStatList[self.raceName.split()[0]]["strength"]])
         listWriteToFile.append([htmlTags["raceDex"], raceStatList[self.raceName.split()[0]]["dexterity"]])
         listWriteToFile.append([htmlTags["raceCon"], raceStatList[self.raceName.split()[0]]["constitution"]])
         listWriteToFile.append([htmlTags["raceInt"], raceStatList[self.raceName.split()[0]]["intelligence"]])
         listWriteToFile.append([htmlTags["raceWis"], raceStatList[self.raceName.split()[0]]["wisdom"]])
         listWriteToFile.append([htmlTags["raceCha"], raceStatList[self.raceName.split()[0]]["charisma"]])
-        listWriteToFile.append([htmlTags["theme"], self.theme])
+        listWriteToFile.append([htmlTags["theme"], self.theme.title()])
         listWriteToFile.append([htmlTags["themeStr"], self.themeAttributes["strength"]])
         listWriteToFile.append([htmlTags["themeDex"], self.themeAttributes["dexterity"]])
         listWriteToFile.append([htmlTags["themeCon"], self.themeAttributes["constitution"]])
@@ -915,12 +913,12 @@ class character:
         listWriteToFile.append([htmlTags["attrWisPoint"], self.spentPoints["Wis"]])
         listWriteToFile.append([htmlTags["attrChaPoint"], self.spentPoints["Cha"]])
 
-        listWriteToFile.append([htmlTags["className"], self.className + " (" + str(self.classLevel) + ")"])
 
         for skill in classesStatBonus[self.className]["classBonus"]:
             listWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
             listWriteToFile.append([htmlTags[skill], self.skills[skill]])
             listWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
+        listWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
 
         listWriteToFile.append([htmlTags["eac"], self.eac])
         listWriteToFile.append([htmlTags["eac_armor"], 0])
