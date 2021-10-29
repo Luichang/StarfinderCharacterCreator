@@ -231,7 +231,16 @@ classChoseFeats = {
                         "Master of Disguise", "Stunning Shot", "Versatile Movement"],
                         #14
                         [14, "Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery", "Uncanny Senses"]
-        ]
+        ],
+        "specialization" : {
+            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
+            "Detective" : [["culture", "sense motive"], "Glimpse the truth", "Detective's Insight"],
+            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"], # you gain a +4 bonus to Culture and Survival checks
+            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
+            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
+            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
+            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction", "Contingency Plan"]
+        }
     },
     "solarian": {
         "revelation" : [
@@ -451,65 +460,65 @@ classAbilities = {
                  ["Enlightenment", "words"]],
              ]
     ,
-    "operative":   [[["Operative's edge +1"], # +1 insight bonus to initiative checks and to skill checks
-                     ["Specialization"],
+    "operative":   [[["Operative's edge +1", "edge"], # edge, specialization, exploit
+                     ["Specialization", "specialization", ["feat", "Skill Focus"]], # feat "Skill Focus"
                      ["Trick attack +1d4", "words"]],
 
                     [["Evasion", "words"],
-                     ["Operative exploit"]],
+                     ["Operative exploit", "exploit"]],
 
-                    [["Operative's edge +2"],
+                    [["Operative's edge +2", "edge"],
                      ["Quick movement (+10 ft.)", "words"],
                      ["Trick attack +1d8", "words"],
                      ["Weapon specialization", "weapon"]],
 
                     [["Debilitating trick", "words"],
-                     ["Operative exploit"]],
+                     ["Operative exploit", "exploit"]],
 
-                    [["Specialization exploit"],
+                    [["Specialization exploit", "specialization", ["exploit"]],
                      ["Trick attack +3d8", "words"]],
 
-                    [["Operative exploit"]],
+                    [["Operative exploit", "exploit"]],
 
-                    [["Operative's edge +3"],
-                     ["Specialization skill mastery"],
+                    [["Operative's edge +3", "edge"],
+                     ["Specialization skill mastery", "words"],
                      ["Trick attack +4d8", "words"],
                      ["Uncanny agility", "words"]],
 
-                    [["Operative exploit"],
+                    [["Operative exploit", "exploit"],
                      ["Triple attack", "words"]],
 
                     [["Quick movement (+20 ft.)", "words"],
                      ["Trick attack +5d8", "words"]],
 
-                    [["Operative exploit"]],
+                    [["Operative exploit", "exploit"]],
 
-                    [["Operative's edge +4"],
-                     ["Specialization power"],
+                    [["Operative's edge +4", "edge"],
+                     ["Specialization power", "specialization", ["power"]],
                      ["Trick attack +6d8", "words"]],
 
-                    [["Operative exploit"]],
+                    [["Operative exploit", "exploit"]],
 
                     [["Quad attack", "words"],
                      ["Trick attack +7d8", "words"]],
 
-                    [["Operative exploit"]],
+                    [["Operative exploit", "exploit"]],
 
-                    [["Operative's edge +5"],
+                    [["Operative's edge +5", "edge"],
                      ["Quick movement (+30 ft.)", "words"],
                      ["Trick attack +8d8", "words"]],
 
-                    [["Operative exploit"]],
+                    [["Operative exploit", "exploit"]],
 
                     [["Double debilitation", "words"],
                      ["Trick attack +9d8", "words"]],
 
-                    [["Operative exploit"]],
+                    [["Operative exploit", "exploit"]],
 
-                    [["Operative's edge +6"],
+                    [["Operative's edge +6", "edge"],
                      ["Trick attack +10d8", "words"]],
 
-                    [["Operative exploit"],
+                    [["Operative exploit", "exploit"],
                      ["Supreme operative", "words"]],
              ]
     ,

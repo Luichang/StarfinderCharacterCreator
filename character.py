@@ -10,7 +10,7 @@ class character:
 
         self.chosenFeats = []
         self.classFeats = []
-        self.styles = [] # this is soldier exclusive
+        self.styles = [] # this is soldier and operative exclusive
 
         self.mods = {
             "str" : 0,
@@ -599,7 +599,7 @@ class character:
                             if not self.checkForRace(check[1]):
                                 toAdd = False
                         # casterLevel check: check if lashunta and greater than level required, or class of technomancer or mystic
-                        elif check[0] == "text":
+                        elif check[0] == "text": # for the two weapon feats add them to the list but when player selectes them a new prompt comes up asking them what weapon type. there teh check can be made if they are proficient and if not the feat won't be added and the player will be informed of this and they can chose a new feat
                             if not self.checkForText(check[1]):
                                 toAdd = False
                         elif check[0] == "from":
@@ -722,11 +722,11 @@ class character:
         #for level in range(1, self.classLevel + 1):
         for ability in classAbilities[self.className][self.classLevel - 1]:
             if ability[1] == "improvisation": # classChoseFeats, lists with levels
-                self.selectNewClassFeat("improvisation", self.classLevel - 1)
+                self.selectNewClassFeat("improvisation", self.classLevel)
             elif ability[1] == "talent": # classChoseFeats, lists with levels
-                self.selectNewClassFeat("talent", self.classLevel - 1)
+                self.selectNewClassFeat("talent", self.classLevel)
             elif ability[1] == "trick": # classChoseFeats, lists with levels
-                self.selectNewClassFeat("trick", self.classLevel - 1)
+                self.selectNewClassFeat("trick", self.classLevel)
             elif ability[1] == "class":
                 toMakeClass = ability[2]
                 for makeClass in toMakeClass:
@@ -737,11 +737,10 @@ class character:
             elif ability[1] == "skills":
                 for skill in ability[2]:
                     self.skillMisc[skill[0]] += skill[1]
-                    self.skill[skill[0]] += skill[1]
             elif ability[1] == "revelation": # classChoseFeats, lists with levels
-                self.selectNewClassFeat("revelation", self.classLevel - 1)
+                self.selectNewClassFeat("revelation", self.classLevel)
             elif ability[1] == "zenith": # classChoseFeats, single list
-                self.selectNewClassFeat("zenith", self.classLevel - 1)
+                self.selectNewClassFeat("zenith", self.classLevel)
             elif ability[1] == "style": # classChoseFeats, dictionary
                 possibleStyles = [x for x in classChoseFeats["soldier"]["styles"]]
                 for style in self.styles:
@@ -757,11 +756,39 @@ class character:
             elif ability[1] == "combat":
                 self.selectNewFeat(combat=True)
             elif ability[1] == "gear": # classChoseFeats, lists with levels
-                self.selectNewClassFeat("gear", self.classLevel - 1)
+                self.selectNewClassFeat("gear", self.classLevel)
             elif ability[1] == "hack": # classChoseFeats, lists with levels
-                self.selectNewClassFeat("hack", self.classLevel - 1)
+                self.selectNewClassFeat("hack", self.classLevel)
             elif ability[1] == "feat":
                 self.chosenFeats.append(ability[2])
+            elif ability[1] == "edge":
+                self.initiative_misc += 1
+                self.initiative = self.mods["dex"] + self.initiative_misc
+                listWriteToFile.append([htmlTags["init_total"], self.initiative])
+                listWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
+                listWriteToFile.append([htmlTags["init_misc"], self.initiative_misc])
+                for skill in self.skillMisc:
+                    self.skillMisc[skill] += 1
+            elif ability[1] == "specialization":
+                if ability[2][0] == "feat":
+                    self.chosenFeats.append(ability[2][1])
+                    possibleSpecialization = [x for x in classChoseFeats["operative"]["specialization"]]
+                    printText = "please enter the specialization name you would like to add. Possible specialization are: {}".format(", ".join(possibleSpecialization))
+                    entered = self.getUserResponse([x.lower() for x in possibleSpecialization], printText)
+                    entered = entered.title()
+                    self.styles.append(entered)
+                    self.classFeats.append(entered)
+                    skill1, skill2 = classChoseFeats["operative"]["specialization"][self.styles[0]][0]
+                    self.chosenFeats.append("Skill Focus [{}]".format(skill1.title()))
+                    self.chosenFeats.append("Skill Focus [{}]".format(skill2.title()))
+                    self.skillMisc[skill1] += 3
+                    self.skillMisc[skill2] += 3
+                elif ability[2][0] == "exploit":
+                    self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles][1])
+                elif ability[2][0] == "power":
+                    self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles][2])
+            elif ability[1] == "exploit":
+                self.selectNewClassFeat("exploit", self.classLevel)
 
             elif ability[1] == "add expertise": # envoy # this is not shown on the excel sheet, might just ignore it then # TODO
                 pass
