@@ -523,7 +523,7 @@ classAbilities = {
              ]
     ,
     "solarian": [[["Skill adept", "class", [["any"], ["any"]]],
-                  ["Solar manifestation"],
+                  ["Solar manifestation", "words"],
                   # chose either weapon or armor and chose either glowing star or darkness black hole
                   ["Stellar mode", "words"],
                   ["Stellar revelation (black hole, supernova)", "revelation"]],
