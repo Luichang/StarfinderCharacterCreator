@@ -69,7 +69,7 @@ feats = {
     "Penetrating Spell" :                 ["normal", [["spellLevel", 4]],                                                                                                      "words"],
     "Powered Armor Proficiency" :         ["combat", [["ability", ["str", 13]], ["feat", ["Light Armor Proficiency"]], ["bab", 5]],                                            "words"],
     "Quick Draw" :                        ["combat", [["bab", 1]],                                                                                                             "words"],
-    "Skill Focus" :                       ["normal", [[]],                                                                                                                     "skills", [["any", 3]]],
+    "Skill Focus" :                       ["normal", [[]],                                                                                                                     "choose", ["skill", ["any", 3]]],
     "Skill Synergy" :                     ["normal", [[]],                                                                                                                     "classSkill", [["any"], ["any"]]], # or a +2 bonus to it
     "Sky Jockey" :                        ["normal", [["skills", [["piloting", 5]]]],                                                                                          "words"],
     "Slippery Shooter" :                  ["combat", [["ability", ["dex", 15]], ["bab", 6]],                                                                                   "words"],
@@ -92,7 +92,7 @@ feats = {
     "Toughness" :                         ["normal", [[]],                                                                                                                     "stamina"], # +1 Stamina Point per character level and other bonuses
     "Unfriendly Fire" :                   ["combat", [["skills", [["bluff", 5]]]],                                                                                             "words"],
     "Veiled Threat" :                     ["normal", [["ability", ["cha", 15]], ["skills", [["intimidate", 1]]]],                                                                "words"],
-    "Weapon Focus" :                      ["combat", [["text", "are you proficient with the selected weapon?"]],                                                               "words"],
+    "Weapon Focus" :                      ["combat", [["text", "are you proficient with the selected weapon?"]],                                                               "choose"],
     "Versatile Focus" :                   ["combat", [["feat", ["Weapon Focus"]]],                                                                                             "words"],
     "Weapon Specialization" :             ["combat", [["level", 3], ["text", "are you proficient with the selected weapon?"]],                                                 "words"],
     "Versatile Specialization" :          ["combat", [["feat", ["Weapon Specialization"]], ["level", 3]],                                                                      "words"]
