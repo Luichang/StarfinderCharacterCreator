@@ -57,7 +57,7 @@ class character:
             "profession"       : 0, #?????????????????
             "profession2"      : 0, #?????????????????
             "sense motive"     : 0,
-            "slight of hand"   : 0,
+            "sleight of hand"   : 0,
             "stealth"          : 0,
             "survival"         : 0,
         }
@@ -81,7 +81,7 @@ class character:
             "profession"      : 0,
             "profession2"     : 0,
             "sense motive"    : 0,
-            "slight of hand"  : 0,
+            "sleight of hand"  : 0,
             "stealth"         : 0,
             "survival"        : 0
         }
@@ -105,7 +105,7 @@ class character:
             "profession"      : 0,
             "profession2"     : 0,
             "sense motive"    : 0,
-            "slight of hand"  : 0,
+            "sleight of hand"  : 0,
             "stealth"         : 0,
             "survival"        : 0
         }
@@ -129,7 +129,7 @@ class character:
             "profession"      : 0,
             "profession2"     : 0,
             "sense motive"    : 0,
-            "slight of hand"  : 0,
+            "sleight of hand"  : 0,
             "stealth"         : 0,
             "survival"        : 0
         }
@@ -386,10 +386,9 @@ class character:
         listToWriteToFile.append([htmlTags["professionMod"], -1])
         listToWriteToFile.append([htmlTags["profession2Mod"], -1])
         listToWriteToFile.append([htmlTags["sense motiveMod"], self.mods["wis"]])
-        listToWriteToFile.append([htmlTags["slight of handMod"], self.mods["dex"]])
+        listToWriteToFile.append([htmlTags["sleight of handMod"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["stealthMod"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["survivalMod"], self.mods["wis"]])
-
         self.skills = {
             "acrobatics"       : self.mods["dex"],
             "athletics"        : self.mods["str"],
@@ -409,7 +408,7 @@ class character:
             "profession"       : self.mods["wis"], #?????????????????
             "profession2"      : self.mods["wis"], #?????????????????
             "sense motive"     : self.mods["wis"],
-            "slight of hand"   : self.mods["dex"],
+            "sleight of hand"  : self.mods["dex"],
             "stealth"          : self.mods["dex"],
             "survival"         : self.mods["wis"],
         }
@@ -431,7 +430,7 @@ class character:
         skillpoints = classesStatBonus[self.className]["skills"] + self.mods["int"]
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
                          "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
-                         "sense motive", "slight of hand", "stealth", "survival"]
+                         "sense motive", "sleight of hand", "stealth", "survival"]
 
         while skillpoints > 0:
             entered = self.getUserResponse(possibleSkill,
@@ -660,7 +659,7 @@ class character:
 
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
                          "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
-                         "sense motive", "slight of hand", "stealth", "survival"]
+                         "sense motive", "sleight of hand", "stealth", "survival"]
 
         listWriteToFile = []
         for i in range(len(raceAbilities[self.raceName.split()[0]])):

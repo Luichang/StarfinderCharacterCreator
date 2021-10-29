@@ -141,7 +141,7 @@ themeAbilities = {
                         ["Squad leader", "words"],
                         ["Commander", "words"]],
 
-    "outlaw":          [["Theme knowledge", "slight of hand"], # slight of hand becomes class knowledge or +1 bonus to checks
+    "outlaw":          [["Theme knowledge", "sleight of hand"], # sleight of hand becomes class knowledge or +1 bonus to checks
                         ["Legal corruption", "words"],
                         ["Black market connections", "words"],
                         ["Master outlaw", "words"]],
@@ -689,7 +689,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 3,
-                "slight of hand"   : 3,
+                "sleight of hand"  : 3,
                 "stealth"          : 3,
                 "survival"         : 0
         }
@@ -723,7 +723,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 0,
-                "slight of hand"   : 0,
+                "sleight of hand"  : 0,
                 "stealth"          : 0,
                 "survival"         : 0
         }
@@ -757,7 +757,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 3,
-                "slight of hand"   : 0,
+                "sleight of hand"  : 0,
                 "stealth"          : 0,
                 "survival"         : 3
         }
@@ -791,7 +791,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 3,
-                "slight of hand"   : 3,
+                "sleight of hand"  : 3,
                 "stealth"          : 3,
                 "survival"         : 3
         }
@@ -825,7 +825,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 3,
-                "slight of hand"   : 0,
+                "sleight of hand"  : 0,
                 "stealth"          : 3,
                 "survival"         : 0
         }
@@ -860,7 +860,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 0,
-                "slight of hand"   : 0,
+                "sleight of hand"  : 0,
                 "stealth"          : 0,
                 "survival"         : 3
         }
@@ -894,7 +894,7 @@ classesStatBonus = {
                 "profession"       : 3,
                 "profession2"      : 3,
                 "sense motive"     : 0,
-                "slight of hand"   : 3,
+                "sleight of hand"  : 3,
                 "stealth"          : 0,
                 "survival"         : 0
         }
@@ -919,7 +919,7 @@ skillMods = {
     "piloting"        : 0,
     "profession"      : 0,
     "sense motive"    : 0,
-    "slight of hand"  : 0,
+    "sleight of hand" : 0,
     "stealth"         : 0,
     "survival"        : 0
 }
@@ -1032,7 +1032,7 @@ htmlTags = {
     "profession"      : "skills_profession_total",
     "profession2"     : "skills_profession2_total",
     "sense motive"    : "skills_sense_motive_total",
-    "slight of hand"  : "skills_slight_of_hand_total",
+    "sleight of hand" : "skills_sleight_of_hand_total",
     "stealth"         : "skills_stealth_total",
     "survival"        : "skills_survival_total",
 
@@ -1054,7 +1054,7 @@ htmlTags = {
     "professionRank"      : "skills_profession_ranks",
     "profession2Rank"     : "skills_profession2_ranks",
     "sense motiveRank"    : "skills_sense_motive_ranks",
-    "slight of handRank"  : "skills_slight_of_hand_ranks",
+    "sleight of handRank" : "skills_sleight_of_hand_ranks",
     "stealthRank"         : "skills_stealth_ranks",
     "survivalRank"        : "skills_survival_ranks",
 
@@ -1076,7 +1076,7 @@ htmlTags = {
     "professionMod"      : "skills_profession_ability",
     "profession2Mod"     : "skills_profession2_ability",
     "sense motiveMod"    : "skills_sense_motive_ability",
-    "slight of handMod"  : "skills_slight_of_hand_ability",
+    "sleight of handMod" : "skills_sleight_of_hand_ability",
     "stealthMod"         : "skills_stealth_ability",
     "survivalMod"        : "skills_survival_ability",
 
@@ -1098,7 +1098,7 @@ htmlTags = {
     "professionClass"      : "skills_profession_class",
     "profession2Class"     : "skills_profession2_class",
     "sense motiveClass"    : "skills_sense_motive_class",
-    "slight of handClass"  : "skills_slight_of_hand_class",
+    "sleight of handClass" : "skills_sleight_of_hand_class",
     "stealthClass"         : "skills_stealth_class",
     "survivalClass"        : "skills_survival_class",
 
@@ -1120,7 +1120,7 @@ htmlTags = {
     "professionMisc"      : "skills_profession_misc",
     "profession2Misc"     : "skills_profession2_misc",
     "sense motiveMisc"    : "skills_sense_motive_misc",
-    "slight of handMisc"  : "skills_slight_of_hand_misc",
+    "sleight of handMisc" : "skills_sleight_of_hand_misc",
     "stealthMisc"         : "skills_stealth_misc",
     "survivalMisc"        : "skills_survival_misc",
 
