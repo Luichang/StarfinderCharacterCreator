@@ -293,8 +293,8 @@ class character:
         listToWriteToFile.append([htmlTags["attrWisMod"], self.mods["wis"]])
         listToWriteToFile.append([htmlTags["attrChaMod"], self.mods["cha"]])
 
-        self.initiative = self.mods["dex"]
         self.initiative_misc = 0
+        self.initiative = self.mods["dex"] + self.initiative_misc
 
         listToWriteToFile.append([htmlTags["init_total"], self.initiative])
         listToWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
@@ -826,11 +826,12 @@ class character:
                 possibleAbilities.remove(index)
                 toIncreaseNumber -= 1
             self.calcAtributMod()
-            self.initiative = self.mods["dex"]
+            self.initiative = self.mods["dex"] + self.initiative_misc
 
             listToWriteToFile = []
             listToWriteToFile.append([htmlTags["init_total"], self.initiative])
             listToWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
+            listToWriteToFile.append([htmlTags["init_misc"], self.initiative_misc])
             listToWriteToFile.append([htmlTags["abilityStr"], self.abilityIncreases["strength"]])
             listToWriteToFile.append([htmlTags["abilityDex"], self.abilityIncreases["dexterity"]])
             listToWriteToFile.append([htmlTags["abilityCon"], self.abilityIncreases["constitution"]])
