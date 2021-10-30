@@ -2,6 +2,7 @@ import math
 from bs4 import BeautifulSoup
 from starfinderDicts import *
 from feats import feats
+from spells import spells
 
 class character:
     def __init__(self, fileName=""):
@@ -11,6 +12,7 @@ class character:
         self.chosenFeats = []
         self.classFeats = []
         self.styles = [] # this is soldier and operative exclusive
+        self.spells = [[], [], [], [], [], [], []]
 
         self.mods = {
             "str" : 0,
@@ -369,6 +371,75 @@ class character:
         listToWriteToFile = self.calcSkills()
         self.writeToFile("listPass", listToWriteToFile)
         self.featsAndAbilities()
+
+        self.addSpells()
+
+    def addSpells(self):
+        if self.className == "technomancer" or self.className == "mystic":
+            self.spellLevel = self.classLevel
+            spellBoxes = [
+                ["spell001", "spell002", "spell003", "spell004", "spell005", "spell006"],
+                ["spell101", "spell102", "spell103", "spell104", "spell105", "spell106"],
+                ["spell201", "spell202", "spell203", "spell204", "spell205", "spell206"],
+                ["spell301", "spell302", "spell303", "spell304", "spell305", "spell306"],
+                ["spell401", "spell402", "spell403", "spell404", "spell405", "spell406"],
+                ["spell501", "spell502", "spell503", "spell504", "spell505"],
+                ["spell601", "spell602", "spell603", "spell604", "spell605"]
+            ]
+
+            spellWordBoxes = [["spell0known"], ["spell1known", "spell1day"],
+                              ["spell2known", "spell2day"], ["spell3known", "spell3day"],
+                              ["spell4known", "spell4day"], ["spell5known", "spell5day"],
+                              ["spell6known", "spell6day"]]
+
+            listToWriteToFile = []
+
+            bonusList = []
+            for bonus in spellsBonus:
+                if bonus[0] > self.attributes[attributeShorthand[self.key]]:
+                    break
+                bonusList = bonus[1:]
+
+            for i in range(7):
+                listToWriteToFile.append([htmlTags[spellWordBoxes[i][0]], spellsKnown[self.classLevel - 1][i]])
+                if len(spellWordBoxes[i]) > 1:
+                    perDay = spellsDay[self.classLevel - 1][i - 1] + bonusList[i]
+                    listToWriteToFile.append([htmlTags[spellWordBoxes[i][1]], perDay])
+
+            listOfPickableSpells = [[], [], [], [], [], [], []]
+            for i in range(7):
+                if spellsKnown[self.classLevel - 1][i] > 0:
+                    listOfPickableSpells[i] += spells[self.className][i]
+
+            if self.classLevel > 1:
+                for i in range(7):
+                    if spellsKnown[self.classLevel - 1][i] - spellsKnown[self.classLevel - 2][i] == 0:
+                        listOfPickableSpells[i] = []
+
+            for i in range(7):
+                for spell in self.spells[i]:
+                    if spell in listOfPickableSpells[i]:
+                        listOfPickableSpells[i].remove(spell)
+
+            for i in range(7):
+                if listOfPickableSpells[i] != []:
+                    numToAdd = spellsKnown[self.classLevel - 1][i]
+                    if self.classLevel > 1:
+                        numToAdd -= spellsKnown[self.classLevel - 2][i]
+                    for j in range(numToAdd):
+                        printText = "please enter spell name to add a point to. Possible spells are: {}".format(
+                        ", ".join(listOfPickableSpells[i]))
+                        entered = self.getUserResponse([x.lower() for x in listOfPickableSpells[i]], printText)
+                        entered = entered.title()
+                        listOfPickableSpells[i].remove(entered)
+                        self.spells[i].append(entered)
+
+            for i in range(7):
+                for j in range(len(self.spells[i])):
+                    listToWriteToFile.append([htmlTags[spellBoxes[i][j]], self.spells[i][j]])
+
+            self.writeToFile("listPass", listToWriteToFile)
+
 
     def calcSkills(self):
         listToWriteToFile = []
@@ -904,6 +975,7 @@ class character:
             listToWriteToFile.append([htmlTags["hp"], self.HP])
             listToWriteToFile.append([htmlTags["rp"], self.RP])
             listToWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
+            self.addSpells()
             self.writeToFile("listPass", listToWriteToFile)
 
     def getUserResponse(self, options, text="", include=True):

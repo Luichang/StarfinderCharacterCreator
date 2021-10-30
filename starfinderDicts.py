@@ -910,6 +910,66 @@ classesStatBonus = {
     }
 }
 
+spellsKnown = [
+    [4, 2, 0, 0, 0, 0, 0], # 1
+    [5, 3, 0, 0, 0, 0, 0], # 2
+    [6, 4, 0, 0, 0, 0, 0], # 3
+    [6, 4, 2, 0, 0, 0, 0], # 4
+    [6, 4, 3, 0, 0, 0, 0], # 5
+    [6, 4, 4, 0, 0, 0, 0], # 6
+    [6, 5, 4, 2, 0, 0, 0], # 7
+    [6, 5, 4, 3, 0, 0, 0], # 8
+    [6, 5, 4, 4, 0, 0, 0], # 9
+    [6, 5, 5, 4, 2, 0, 0], # 10
+    [6, 6, 5, 4, 3, 0, 0], # 11
+    [6, 6, 5, 4, 4, 0, 0], # 12
+    [6, 6, 5, 5, 4, 2, 0], # 13
+    [6, 6, 6, 5, 4, 3, 0], # 14
+    [6, 6, 6, 5, 4, 4, 0], # 15
+    [6, 6, 6, 5, 5, 4, 2], # 16
+    [6, 6, 6, 6, 5, 4, 3], # 17
+    [6, 6, 6, 6, 5, 4, 4], # 18
+    [6, 6, 6, 6, 5, 5, 4], # 19
+    [6, 6, 6, 6, 6, 5, 5], # 20
+]
+
+spellsDay = [
+    [2, 0, 0, 0, 0, 0],
+    [2, 0, 0, 0, 0, 0],
+    [3, 0, 0, 0, 0, 0],
+    [3, 2, 0, 0, 0, 0],
+    [4, 2, 0, 0, 0, 0],
+    [4, 3, 0, 0, 0, 0],
+    [4, 3, 2, 0, 0, 0],
+    [4, 4, 2, 0, 0, 0],
+    [5, 4, 3, 0, 0, 0],
+    [5, 4, 3, 2, 0, 0],
+    [5, 4, 4, 2, 0, 0],
+    [5, 5, 4, 3, 0, 0],
+    [5, 5, 4, 3, 2, 0],
+    [5, 5, 4, 4, 2, 0],
+    [5, 5, 5, 4, 3, 0],
+    [5, 5, 5, 4, 3, 2],
+    [5, 5, 5, 4, 4, 2],
+    [5, 5, 5, 5, 4, 3],
+    [5, 5, 5, 5, 5, 4],
+    [5, 5, 5, 5, 5, 5]
+]
+
+spellsBonus = [
+    [ 0, 0, 0, 0, 0, 0, 0, 0], # 1-11
+    [11, 0, 1, 0, 0, 0, 0, 0], # 12-13
+    [13, 0, 1, 1, 0, 0, 0, 0], # 14-15
+    [15, 0, 1, 1, 1, 0, 0, 0], # 16-17
+    [17, 0, 1, 1, 1, 1, 0, 0], # 18-19
+    [19, 0, 2, 1, 1, 1, 1, 0], # 20-21
+    [21, 0, 2, 2, 1, 1, 1, 1], # 22-23
+    [23, 0, 2, 2, 2, 1, 1, 1], # 24-25
+    [25, 0, 2, 2, 2, 2, 1, 1], # 26-27
+    [27, 0, 3, 2, 2, 2, 2, 1], # 28-29
+    [29, 0, 3, 3, 2, 2, 2, 2], # 30-31
+]
+
 skillMods = {
     "acrobatics"      : 0,
     "athletics"       : 0,
@@ -1220,5 +1280,102 @@ htmlTags = {
     "feat26" : "feats_26",
     "feat27" : "feats_27",
     "feat28" : "feats_28",
+
+    "spell0known" : "spells_03",
+    "spell001"    : "spells_04",
+    "spell002"    : "spells_05",
+    "spell003"    : "spells_06",
+    "spell004"    : "spells_07",
+    "spell005"    : "spells_08",
+    "spell006"    : "spells_09",
+    "spell007"    : "spells_10",
+    "spell008"    : "spells_11",
+    "spell009"    : "spells_12",
+    "spell010"    : "spells_13",
+    "spell011"    : "spells_14",
+    "spell012"    : "spells_15",
+    "spell013"    : "spells_16",
+    "spell014"    : "spells_17",
+
+    "spell1known" : "spells_22",
+    "spell1day"   : "spells_23",
+    "spell101"    : "spells_24",
+    "spell102"    : "spells_25",
+    "spell103"    : "spells_26",
+    "spell104"    : "spells_27",
+    "spell105"    : "spells_28",
+    "spell106"    : "spells_29",
+    "spell107"    : "spells_30",
+    "spell108"    : "spells_31",
+    "spell109"    : "spells_32",
+    "spell110"    : "spells_33",
+    "spell111"    : "spells_34",
+    "spell112"    : "spells_35",
+
+    "spell2known" : "spells_42",
+    "spell2day"   : "spells_43",
+    "spell201"    : "spells_44",
+    "spell202"    : "spells_45",
+    "spell203"    : "spells_46",
+    "spell204"    : "spells_47",
+    "spell205"    : "spells_48",
+    "spell206"    : "spells_49",
+    "spell207"    : "spells_50",
+    "spell208"    : "spells_51",
+    "spell209"    : "spells_52",
+    "spell210"    : "spells_53",
+    "spell211"    : "spells_54",
+    "spell212"    : "spells_55",
+
+    "spell3known" : "spells_62",
+    "spell3day"   : "spells_63",
+    "spell301"    : "spells_64",
+    "spell302"    : "spells_65",
+    "spell303"    : "spells_66",
+    "spell304"    : "spells_67",
+    "spell305"    : "spells_68",
+    "spell306"    : "spells_69",
+    "spell307"    : "spells_70",
+    "spell308"    : "spells_71",
+    "spell309"    : "spells_72",
+    "spell310"    : "spells_73",
+    "spell311"    : "spells_74",
+    "spell312"    : "spells_75",
+
+    "spell4known" : "spells_82",
+    "spell4day"   : "spells_83",
+    "spell401"    : "spells_84",
+    "spell402"    : "spells_85",
+    "spell403"    : "spells_86",
+    "spell404"    : "spells_87",
+    "spell405"    : "spells_88",
+    "spell406"    : "spells_89",
+    "spell407"    : "spells_90",
+    "spell408"    : "spells_91",
+    "spell409"    : "spells_92",
+    "spell410"    : "spells_93",
+
+    "spell5known" : "spells_102",
+    "spell5day"   : "spells_103",
+    "spell501"    : "spells_104",
+    "spell502"    : "spells_105",
+    "spell503"    : "spells_106",
+    "spell504"    : "spells_107",
+    "spell505"    : "spells_108",
+    "spell506"    : "spells_109",
+    "spell507"    : "spells_110",
+    "spell508"    : "spells_111",
+
+    "spell6known" : "spells_122",
+    "spell6day"   : "spells_123",
+    "spell601"    : "spells_124",
+    "spell602"    : "spells_125",
+    "spell603"    : "spells_126",
+    "spell604"    : "spells_127",
+    "spell605"    : "spells_128",
+    "spell606"    : "spells_129",
+    "spell607"    : "spells_130",
+    "spell608"    : "spells_131",
+
 
 }
