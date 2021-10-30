@@ -7,7 +7,7 @@ feats = {
     "Basic Melee Weapon Proficiency" :    ["combat", [[]],                                                                                                                     "words"],
     "Blind-Fight" :                       ["combat", [[]],                                                                                                                     "words"],
     "Bodyguard" :                         ["combat", [[]],                                                                                                                     "words"],
-    "In Harm’s Way" :                     ["combat", [["feat", ["Bodyguard"]]],                                                                                                "words"],
+    "In Harm's Way" :                     ["combat", [["feat", ["Bodyguard"]]],                                                                                                "words"],
     "Cleave" :                            ["combat", [["ability", ["str", 13]], ["bab", 1]],                                                                                   "words"],
     "Great Cleave" :                      ["combat", [["ability", ["str", 13]], ["feat", ["Cleave"]], ["bab", 4]],                                                              "words"],
     "Climbing Master" :                   ["normal", [["skills", [["athletics", 5]]]],                                                                                         "words"], # speed effected
@@ -55,7 +55,7 @@ feats = {
     "Psychic Power" :                     ["normal", [["ability", ["cha", 13]], ["feat", ["Minor Psychic Power"]], ["level", 4]],                                              "words"], # Cast a 1st-level spell as a spell-like ability 1/day
     "Major Psychic Power" :               ["normal", [["ability", ["cha", 15]], ["feat", ["Minor Psychic Power", "Psychic Power"]], ["level", 4]],                             "words"], # Cast a 2nd-level spell as a spell-like ability 1/day
     "Mobility" :                          ["combat", [["ability", ["dex", 13]]],                                                                                               "words"],
-    "Agile Casting" :                     ["normal", [["ability", ["key", 15]], ["ability", ["dex", 15]], ["feat", ["Mobility"]], ["text", "caster level at least 4th"]],      "words"],
+    "Agile Casting" :                     ["normal", [["ability", ["key", 15]], ["ability", ["dex", 15]], ["feat", ["Mobility"]], ["from", [["class", "mystic"], ["class", "technomancer"]]], ["level", 4]],      "words"],
     "Shot on the Run" :                   ["combat", [["ability", ["dex", 15]], ["feat", ["Mobility"]], ["bab", 4]],                                                           "words"],
     "Parting Shot" :                      ["combat", [["ability", ["dex", 15]], ["feat", ["Mobility", "Shot on the Run"]], ["bab", 6]],                                        "words"],
     "Sidestep" :                          ["combat", [["ability", ["dex", 15]], ["from", [["feat", ["Mobility"]], ["class", "operative"]]]],                                     "words"],
@@ -92,8 +92,8 @@ feats = {
     "Toughness" :                         ["normal", [[]],                                                                                                                     "stamina"], # +1 Stamina Point per character level and other bonuses
     "Unfriendly Fire" :                   ["combat", [["skills", [["bluff", 5]]]],                                                                                             "words"],
     "Veiled Threat" :                     ["normal", [["ability", ["cha", 15]], ["skills", [["intimidate", 1]]]],                                                                "words"],
-    "Weapon Focus" :                      ["combat", [["text", "are you proficient with the selected weapon?"]],                                                               "choose"],
+    "Weapon Focus" :                      ["combat", [[]],                                                               "choose"],
     "Versatile Focus" :                   ["combat", [["feat", ["Weapon Focus"]]],                                                                                             "words"],
-    "Weapon Specialization" :             ["combat", [["level", 3], ["text", "are you proficient with the selected weapon?"]],                                                 "words"],
+    "Weapon Specialization" :             ["combat", [["level", 3]],                                                 "words"],
     "Versatile Specialization" :          ["combat", [["feat", ["Weapon Specialization"]], ["level", 3]],                                                                      "words"]
 }

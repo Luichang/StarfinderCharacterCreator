@@ -681,16 +681,57 @@ class character:
         return selected
 
     def selectNewFeat(self, combat=False):
+        addFeat = False
+        additionalInfo = ""
         possibleFeats = self.filterFeats(combat)
         for feat in self.chosenFeats:
             if feat in possibleFeats:
                 possibleFeats.remove(feat)
+        while not addFeat:
+            printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleFeats))
+            lowerChosenFeats = [x.lower() for x in possibleFeats]
+            entered = self.getUserResponse(lowerChosenFeats, printText)
+            addFeat = True
+            if entered == "weapon focus" or entered == "weapon specialization":
+                weaponFeats = ["advanced melee", "advanced melee weapon", "basic melee",
+                               "basic melee weapon", "grenade", "heavy", "heavy weapon",
+                               "longarm", "small arm", "sniper", "sniper weapon", "special", "special weapon"]
+                weaponFeatsSmall = ["advanced melee weapon", "basic melee weapon", "grenade", "heavy weapon",
+                               "longarm", "small arm", "sniper weapon", "special weapon"]
+                if entered == "weapon specialization":
+                    weaponFeats.remove("grenade")
+                    weaponFeatsSmall.remove("grenade")
 
-        printText = "please enter feat name you would like to add. Possible feats are: {}".format(", ".join(possibleFeats))
-        lowerChosenFeats = [x.lower() for x in possibleFeats]
-        entered = self.getUserResponse(lowerChosenFeats, printText)
+                weaponTypeText = "With which weapon type do you wish to use this feat? \n Possible weapon types are: {}".format(", ".join(weaponFeatsSmall))
+                weaponEntered = self.getUserResponse(weaponFeats, weaponTypeText)
+                weaponFeatsDict = {
+                    "advanced melee"        : "Advanced Melee Weapon Proficiency",
+                    "advanced melee weapon" : "Advanced Melee Weapon Proficiency",
+                    "basic melee"           : "Basic Melee Weapon Proficiency",
+                    "basic melee weapon"    : "Basic Melee Weapon Proficiency",
+                    "grenade"               : "Grenade Proficiency",
+                    "heavy"                 : "Heavy Weapon Proficiency",
+                    "heavy weapon"          : "Heavy Weapon Proficiency",
+                    "longarm"               : "Longarm Proficiency",
+                    "small arm"             : "Small Arm Proficiency",
+                    "sniper"                : "Sniper Weapon Proficiency",
+                    "sniper weapon"         : "Sniper Weapon Proficiency",
+                    "special"               : "Special Weapon Proficiency",
+                    "special weapon"        : "Special Weapon Proficiency"
+                }
+                additionalInfo = " [{}]".format(weaponFeatsDict[weaponEntered])
+                if weaponFeatsDict[weaponEntered] not in self.chosenFeats:
+                    addFeat = False
+                    print("You do not have the {}, please selsct a different feat".format(weaponFeatsDict[weaponEntered]))
+                    additionalInfo = ""
+            elif entered == "skill focus":
+                printText = "please enter the skill you would like to focus. Possible skills are: {}".format(", ".join([x for x in self.skills]))
+                skillEntered = self.getUserResponse([x for x in self.skills], printText)
+                additionalInfo = " [{}]".format(skillEntered.title())
+                self.skillMisc[skillEntered] += 3
+
         enteredFeatIndex = lowerChosenFeats.index(entered)
-        self.chosenFeats.append(possibleFeats[enteredFeatIndex])
+        self.chosenFeats.append(possibleFeats[enteredFeatIndex] + additionalInfo)
 
         # entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
         # self.chosenFeats.append(entered)
