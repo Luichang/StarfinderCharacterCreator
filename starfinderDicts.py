@@ -215,7 +215,87 @@ classChoseFeats = {
                     "Saboteur", "Superior Overcharge", "Ultraclocking"]
         ]
     },
-    "mystic": [],
+    "mystic": {
+        "connection" : {
+            "Akashic" : {
+                "spell" : ["identify", "augury", "tongues", "divination", "contact other plane", "vision"],
+                "skill" : ["culture", "mysticism"],
+                "feat"  : [["Akashic Knowledge"],
+                           ["Access Akashic Record"],
+                           ["Peer into the Future"],
+                           ["Mind Probe"],
+                           ["Telepathic Memories"],
+                           ["Memory Palace"],
+                           ["Glean Spell"]]
+                },
+            "Empath" :  {
+                "spell" : ["detect thoughts", "zone of truth", "clairaudience/clairvoyance", "mind probe", "telepathy", "true seeing"],
+                "skill" : ["perception", "sense motive"],
+                "feat"  : [["Empathy"],
+                           ["Greater Mindlink"],
+                           ["Emotionsense"],
+                           ["Discern Lies"],
+                           ["Greater Emotionsense"],
+                           ["Retrocognition"],
+                           ["Empathic Mastery"]]
+                },
+            "Healer" : {
+                "spell" : ["ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"],
+                "skill" : ["medicine", "mysticism"],
+                "feat"  : [["Healing Channe"],
+                           ["Lifelink"],
+                           ["Healer's Bond"],
+                           ["Steal Life"],
+                           ["Channel Bond"],
+                           ["Channel Life"],
+                           ["Deny Death"]]
+                },
+            "Mindbreaker" : {
+                "spell" : ["ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"],
+                "skill" : ["bluff", "intimidate"],
+                "feat"  : [["Share Pain"],
+                           ["Backlash"],
+                           ["Sow Doubt"],
+                           ["Mental Anguish"],
+                           ["Mindbreaking Link"],
+                           ["Mindkiller"],
+                           ["Explode Head"]]
+                },
+            "Overlord" : {
+                "spell" : ["command", "hold person", "suggestion", "confusion", "dominate person", "mass suggestion"],
+                "skill" : ["diplomacy", "intimidate"],
+                "feat"  : [["Inexplicable Commands"],
+                           ["Forced Amity"],
+                           ["Echoes of Obedience"],
+                           ["Greater Forced Amity"],
+                           ["Jealous Overlord"],
+                           ["Forceful Commands"],
+                           ["Absolute Control"]]
+                },
+            "Star Shaman" : {
+                "spell" : ["shooting stars", "darkvision", "irradiate", "remove radioactivity", "telekinesis", "control gravity"],
+                "skill" : ["perception", "piloting"],
+                "feat"  : [["Walk the Void"],
+                           ["Starlight Form"],
+                           ["Stargazer"],
+                           ["Starflight"],
+                           ["Starry Bond"],
+                           ["Meteor Shower"],
+                           ["Interplanetary Teleport"]]
+                },
+            "Xenodruid" : {
+                "spell" : ["life bubble", "fog cloud", "entropic grasp", "reincarnate", "commune with nature", "terraform"],
+                "skill" : ["life science", "survival"],
+                "feat"  : [["Speak with Animals"],
+                           ["Grasping Vines"],
+                           ["Animal Adaptation"],
+                           ["Reactive Resistance"],
+                           ["Share Resistance"],
+                           ["Plant Transport"],
+                           ["Guided Rebirth"]]
+                    }
+        }
+    },
     "operative": {
         "exploit" : [
                         #2
@@ -412,51 +492,51 @@ classAbilities = {
                  ["Tech master", "words"]],
              ]
     ,
-    "mystic":  [[["Connection"],
-                 ["Connection power"],
-                 ["Connection spell"],
+    "mystic":  [[["Connection", "connection"],
+                 ["Connection power", "cpower", 0], # 1
+                 ["Connection spell", "spell", 0],
                  ["Healing touch", "words"]],
 
-                [["Channel skill +1"],
+                [["Channel skill +1", "channel"],
                  ["Mindlink", "words"]],
 
-                [["Connection power"],
+                [["Connection power", "cpower", 1], # 3
                  ["Weapon specialization", "weapon"]],
 
-                [["Connection spell"]],
+                [["Connection spell", "spell", 1]],
 
-                [["Channel skill +2"]],
+                [["Channel skill +2", "channel"]],
 
-                [["Connection power"]],
+                [["Connection power", "cpower", 2]], # 6
 
-                [["Connection spell"]],
+                [["Connection spell", "spell", 2]],
 
-                [["Channel skill +3"]],
+                [["Channel skill +3", "channel"]],
 
-                [["Connection power"]],
+                [["Connection power", "cpower", 3]], # 9
 
-                [["Connection spell"]],
+                [["Connection spell", "spell", 3]],
 
-                [["Channel skill +4"],
+                [["Channel skill +4", "channel"],
                  ["Telepathic bond", "words"]],
 
-                [["Connection power"]],
+                [["Connection power", "cpower", 4]], # 12
 
-                [["Connection spell"]],
+                [["Connection spell", "spell", 4]],
 
-                [["Channel skill +5"]],
+                [["Channel skill +5", "channel"]],
 
-                [["Connection power"]],
+                [["Connection power", "cpower", 5]], # 15
 
-                [["Connection spell"]],
+                [["Connection spell", "spell", 5]],
 
-                [["Channel skill +6"]],
+                [["Channel skill +6", "channel"]],
 
-                [["Connection powe"]],
+                [["Connection power", "cpower", 6]], # 18
 
                 [["Transcendence", "words"]],
 
-                [["Channel skill +7"],
+                [["Channel skill +7", "channel"],
                  ["Enlightenment", "words"]],
              ]
     ,

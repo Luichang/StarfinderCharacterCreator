@@ -11,8 +11,9 @@ class character:
 
         self.chosenFeats = []
         self.classFeats = []
-        self.styles = [] # this is soldier and operative exclusive
+        self.styles = [] # this is soldier, mystic, and operative exclusive
         self.spells = [[], [], [], [], [], [], []]
+        self.additionalSpells = [[], [], [], [], [], [], []] # for spells provided outside of class level up
 
         self.mods = {
             "str" : 0,
@@ -83,7 +84,7 @@ class character:
             "profession"      : 0,
             "profession2"     : 0,
             "sense motive"    : 0,
-            "sleight of hand"  : 0,
+            "sleight of hand" : 0,
             "stealth"         : 0,
             "survival"        : 0
         }
@@ -107,7 +108,7 @@ class character:
             "profession"      : 0,
             "profession2"     : 0,
             "sense motive"    : 0,
-            "sleight of hand"  : 0,
+            "sleight of hand" : 0,
             "stealth"         : 0,
             "survival"        : 0
         }
@@ -131,7 +132,7 @@ class character:
             "profession"      : 0,
             "profession2"     : 0,
             "sense motive"    : 0,
-            "sleight of hand"  : 0,
+            "sleight of hand" : 0,
             "stealth"         : 0,
             "survival"        : 0
         }
@@ -435,8 +436,9 @@ class character:
                         self.spells[i].append(entered)
 
             for i in range(7):
-                for j in range(len(self.spells[i])):
-                    listToWriteToFile.append([htmlTags[spellBoxes[i][j]], self.spells[i][j]])
+                fullSpellList = self.spells[i] + self.additionalSpells[i]
+                for j in range(len(fullSpellList)):
+                    listToWriteToFile.append([htmlTags[spellBoxes[i][j]], fullSpellList[j]])
 
             self.writeToFile("listPass", listToWriteToFile)
 
@@ -819,8 +821,8 @@ class character:
         if self.classLevel == 12:
             listToWriteToFile.append([themeBoxes[2], themeAbilities[themeName][2][0]])
             if themeAbilities[themeName][2][1] != "words": # the alternative is spell and needs to add a spell, only priest will have this
-                # ^ Choose one 1st-level mystic spell with some connection to your deity’s portfolio
-                # (subject to the GM’s approval). If you have levels in the mystic class, you gain 1
+                # ^ Choose one 1st-level mystic spell with some connection to your deity's portfolio
+                # (subject to the GM's approval). If you have levels in the mystic class, you gain 1
                 # additional 1stlevel spell per day and add the chosen spell to your list of mystic
                 # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
                 pass
@@ -828,7 +830,7 @@ class character:
             listToWriteToFile.append([themeBoxes[3], themeAbilities[themeName][3][0]])
 
 
-        listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative’s", # Operative’s might not be just words
+        listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative's", # Operative's might not be just words
                             "Trick", "Quick", "Sidereal", "Techlore", "Cache", "Skill"] # Sidereal is not just words, Techlore is not just words
         listClassAbilities = []
         #for level in range(1, self.classLevel + 1):
@@ -896,11 +898,27 @@ class character:
                     self.skillMisc[skill1] += 3
                     self.skillMisc[skill2] += 3
                 elif ability[2][0] == "exploit":
-                    self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles][1])
+                    self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles[0]][1])
                 elif ability[2][0] == "power":
-                    self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles][2])
+                    self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles[0]][2])
             elif ability[1] == "exploit":
                 self.selectNewClassFeat("exploit", self.classLevel)
+
+            elif ability[1] == "connection":
+                possibleConnection = [x for x in classChoseFeats["mystic"]["connection"]]
+                printText = "please enter the connnection name you would like to add. Possible connections are: {}".format(", ".join(possibleConnection))
+                entered = self.getUserResponse([x.lower() for x in possibleConnection], printText)
+                entered = entered.title()
+                self.styles.append(entered)
+                self.classFeats.append(entered)
+            elif ability[1] == "cpower":
+                self.classFeats.append(classChoseFeats["mystic"]["connection"][self.styles[0]]["feat"][ability[2]])
+            elif ability[1] == "spell":
+                self.additionalSpells[ability[2] + 1].append(classChoseFeats["mystic"]["connection"][self.styles[0]]["spell"][ability[2]])
+            elif ability[1] == "channel":
+                skill1, skill2 = classChoseFeats["mystic"]["connection"][self.styles[0]]["skill"]
+                self.skillMisc[skill1] += 1
+                self.skillMisc[skill2] += 1
 
             elif ability[1] == "add expertise": # envoy # this is not shown on the excel sheet, might just ignore it then # TODO
                 pass
