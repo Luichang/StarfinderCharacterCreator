@@ -610,15 +610,11 @@ class character:
             return True
         return False
 
-    def checkForText(self, printText):
-        # TODO figure out more elegant way to check these
-        affirm = ['true', '1', 't', 'y', 'yes']
-        deny = ['false', '0', 'f', 'n', 'no']
-        possible = affirm + deny
-        entered = ""
-        while entered not in possible:
-            entered = input(printText)
-        return entered in affirm
+    def checkForStyle(self, checkStyle):
+        for style in self.styles:
+            if style == checkStyle:
+                return True
+        return False
 
     def checkFrom(self, fromList):
         featTrue = False
@@ -672,8 +668,8 @@ class character:
                             if not self.checkForRace(check[1]):
                                 toAdd = False
                         # casterLevel check: check if lashunta and greater than level required, or class of technomancer or mystic
-                        elif check[0] == "text": # for the two weapon feats add them to the list but when player selectes them a new prompt comes up asking them what weapon type. there teh check can be made if they are proficient and if not the feat won't be added and the player will be informed of this and they can chose a new feat
-                            if not self.checkForText(check[1]):
+                        elif check[0] == "style":
+                            if not self.checkForStyle(check[1]):
                                 toAdd = False
                         elif check[0] == "from":
                             if not self.checkFrom(check[1]):

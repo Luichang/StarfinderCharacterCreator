@@ -30,7 +30,7 @@ feats = {
     "Great Fortitude" :                   ["normal", [[]],                                                                                                                     "save", ["Fortitude", 2]],
     "Improved Great Fortitude" :          ["normal", [["feat", ["Great Fortitude"]], ["level", 5]],                                                                            "words"],
     "Grenade Proficiency" :               ["combat", [[]],                                                                                                                     "words"],
-    "Harm Undead" :                       ["normal", [["class", "mystic"], ["text", "did you chose the Healer Connection?"]],                                                  "words"],
+    "Harm Undead" :                       ["normal", [["class", "mystic"], ["style", "Healer"]],                                                                               "words"],
     "Heavy Armor Proficiency" :           ["combat", [["ability", ["str", 13]], ["feat", ["Light Armor Proficiency"]]],                                                        "words"],
     "Heavy Weapon Proficiency" :          ["combat", [["ability", ["str", 13]], ["feat", ["Small Arm Proficiency", "Longarm Proficiency"]]],                                   "words"],
     "Improved Combat Maneuver" :          ["combat", [["bab", 1]],                                                                                                             "words"], # +4 bonus to perform one combat maneuver
