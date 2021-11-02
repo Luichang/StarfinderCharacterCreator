@@ -15,6 +15,7 @@ class character:
         self.styles = [] # this is soldier, mystic, and operative exclusive
         self.spells = [[], [], [], [], [], [], []]
         self.additionalSpells = [[], [], [], [], [], [], []] # for spells provided outside of class level up
+        self.expertise = []
 
         self.mods = {
             "str" : 0,
@@ -899,7 +900,6 @@ class character:
                     self.classFeats.append(classChoseFeats["operative"]["specialization"][self.styles[0]][2])
             elif ability[1] == "exploit":
                 self.selectNewClassFeat("exploit", self.classLevel)
-
             elif ability[1] == "connection":
                 possibleConnection = [x for x in classChoseFeats["mystic"]["connection"]]
                 printText = "please enter the connnection name you would like to add. Possible connections are: {}".format(", ".join(possibleConnection))
@@ -915,12 +915,32 @@ class character:
                 skill1, skill2 = classChoseFeats["mystic"]["connection"][self.styles[0]]["skill"]
                 self.skillMisc[skill1] += 1
                 self.skillMisc[skill2] += 1
-
+            elif ability[1] == "expertise":
+                self.expertise.append("sense motive")
             elif ability[1] == "add expertise": # envoy # this is not shown on the excel sheet, might just ignore it then # TODO
-                pass
+                possibleExpertise = ["bluff", "computers", "culture", "diplomacy", "disguise", "engineering", "intimidate", "medicine"]
+                for expertise in self.expertise:
+                    if expertise in possibleExpertise:
+                        possibleExpertise.remove(expertise)
+                printText = "please enter the skill you would like to add as additional expertise. Possible expertise are: {}".format(", ".join(possibleExpertise))
+                entered = self.getUserResponse(possibleExpertise, printText)
+                self.expertise.append(entered)
             elif ability[1] == "influence": # solarian # add two skills, one each from two lists
-                pass
-            elif ability[1] == "weapon": # all
+                possibleGraviton = classChoseFeats["solarian"]["graviton"]
+                possiblePhoton = classChoseFeats["solarian"]["photon"]
+                for influence in self.expertise:
+                    if influence in possibleGraviton:
+                        possibleGraviton.remove(influence)
+                    if influence in possiblePhoton:
+                        possiblePhoton.remove(influence)
+                printText = "please enter the influence you would like to add as the Graviton influence. Possible influences are: {}".format(", ".join(possibleGraviton))
+                entered = self.getUserResponse(possibleGraviton, printText)
+                self.expertise.append(entered)
+                printText = "please enter the influence you would like to add as the Photon influence. Possible influences are: {}".format(", ".join(possiblePhoton))
+                entered = self.getUserResponse(possiblePhoton, printText)
+                self.expertise.append(entered)
+
+            elif ability[1] == "weapon": # all # TODO
                 pass
             elif ability[1] == "words": # nothing happens
                 pass
@@ -943,8 +963,15 @@ class character:
 
         listToWriteToFile += self.calcSkills()
 
+        j = 0
         for i in range(len(self.listClassAbilities)):
-            listToWriteToFile.append([classBoxes[i + j], self.listClassAbilities[i]])
+            if "Expertise" in self.listClassAbilities[i]:
+                for expertise in self.expertise:
+                    listToWriteToFile.append([classBoxes[i + j], self.listClassAbilities[i] + " [{}]".format(expertise)])
+                    j += 1
+                j -= 1
+            else:
+                listToWriteToFile.append([classBoxes[i + j], self.listClassAbilities[i]])
 
         for i in range(len(self.classFeats)):
             listToWriteToFile.append([otherBoxes[i], self.classFeats[i]])

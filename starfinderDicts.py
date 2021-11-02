@@ -337,6 +337,8 @@ classChoseFeats = {
                         #16
                         [16, "Ultimate Graviton", "Ultimate Photon"]
         ],
+        "graviton" : ["bluff", "disguise", "mysticism", "sense motive", "stealth"],
+        "photon" : ["culture", "diplomacy", "intimidate", "medicine", "survival"],
         "zenith" : [1, "Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake", "Time Dilation", "Wormholes"]
     },
     "soldier": {
@@ -384,7 +386,7 @@ classChoseFeats = {
 
 classAbilities = {
     "envoy":  [[["Envoy improvisation", "improvisation"], # one of the classChoseFeats for envoy
-                ["Expertise (1d6)", "words"], # maybe worth creating an array with all expertise skills
+                ["Expertise (1d6)", "expertise"], # maybe worth creating an array with all expertise skills
                 ["Skill expertise (1)", "add expertise"]], # any ability, each only once
 
                [["Envoy improvisation", "improvisation"]],
