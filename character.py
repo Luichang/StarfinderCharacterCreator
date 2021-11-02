@@ -9,6 +9,7 @@ class character:
 
         self.spellLevel = -1
 
+        self.listClassAbilities = []
         self.chosenFeats = []
         self.classFeats = []
         self.styles = [] # this is soldier, mystic, and operative exclusive
@@ -828,7 +829,6 @@ class character:
 
         listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative's", # Operative's might not be just words
                             "Trick", "Quick", "Sidereal", "Techlore", "Cache", "Skill"] # Sidereal is not just words, Techlore is not just words
-        listClassAbilities = []
         #for level in range(1, self.classLevel + 1):
         for ability in classAbilities[self.className][self.classLevel - 1]:
             if ability[1] == "improvisation": # classChoseFeats, lists with levels
@@ -931,20 +931,20 @@ class character:
             result = [replacable for replacable in listReplaceables if replacable in ability[0]]
             if len(result) != 0:
                 result = result[0]
-                result = [oldAbility for oldAbility in listClassAbilities if result in oldAbility]
+                result = [oldAbility for oldAbility in self.listClassAbilities if result in oldAbility]
                 if len(result) != 0:
                     result = result[0]
-                    result = listClassAbilities.index(result)
-                    listClassAbilities[result] = ability[0]
+                    result = self.listClassAbilities.index(result)
+                    self.listClassAbilities[result] = ability[0]
                 else:
-                    listClassAbilities.append(ability[0])
+                    self.listClassAbilities.append(ability[0])
             else:
-                listClassAbilities.append(ability[0])
+                self.listClassAbilities.append(ability[0])
 
         listToWriteToFile += self.calcSkills()
 
-        for i in range(len(listClassAbilities)):
-            listToWriteToFile.append([classBoxes[i], listClassAbilities[i]])
+        for i in range(len(self.listClassAbilities)):
+            listToWriteToFile.append([classBoxes[i + j], self.listClassAbilities[i]])
 
         for i in range(len(self.classFeats)):
             listToWriteToFile.append([otherBoxes[i], self.classFeats[i]])
