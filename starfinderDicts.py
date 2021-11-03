@@ -94,12 +94,12 @@ raceAbilities = {
                             ["Natural grace", "stats", [["acrobatics", 2], ["athletics", 2]]]] ,
 
      "lashunta(korasha)" : [["Dimorphic", "words"],
-                            ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
+                            ["Lashunta magic", "spell", [["Daze", "Psychokinetic Hand"], ["Detect Thoughts"]]],
                             ["Limited telepathy", "words"],
                             ["Student", "stats", [["any", 2], ["any", 2]]]] ,
 
      "lashunta(damaya)"  : [["Dimorphic", "words"],
-                            ["Lashunta magic", "spell", ["daze", "psychokinetic hand", "detect thoughts"]],
+                            ["Lashunta magic", "spell", [["Daze", "Psychokinetic Hand"], ["Detect Thoughts"]]],
                             ["Limited telepathy", "words"],
                             ["Student", "stats", [["any", 2], ["any", 2]]]] ,
 
@@ -218,7 +218,7 @@ classChoseFeats = {
     "mystic": {
         "connection" : {
             "Akashic" : {
-                "spell" : ["identify", "augury", "tongues", "divination", "contact other plane", "vision"],
+                "spell" : ["Identify", "Augury", "Tongues", "Divination", "Contact Other Plane", "Vision"],
                 "skill" : ["culture", "mysticism"],
                 "feat"  : [["Akashic Knowledge"],
                            ["Access Akashic Record"],
@@ -229,7 +229,7 @@ classChoseFeats = {
                            ["Glean Spell"]]
                 },
             "Empath" :  {
-                "spell" : ["detect thoughts", "zone of truth", "clairaudience/clairvoyance", "mind probe", "telepathy", "true seeing"],
+                "spell" : ["Detect Thoughts", "Zone of Truth", "Clairaudience/Clairvoyance", "Mind Probe", "Telepathy", "True Seeing"],
                 "skill" : ["perception", "sense motive"],
                 "feat"  : [["Empathy"],
                            ["Greater Mindlink"],
@@ -262,7 +262,7 @@ classChoseFeats = {
                            ["Explode Head"]]
                 },
             "Overlord" : {
-                "spell" : ["command", "hold person", "suggestion", "confusion", "dominate person", "mass suggestion"],
+                "spell" : ["Command", "Hold Person", "Suggestion", "Confusion", "Dominate Person", "Mass Suggestion"],
                 "skill" : ["diplomacy", "intimidate"],
                 "feat"  : [["Inexplicable Commands"],
                            ["Forced Amity"],
@@ -273,7 +273,7 @@ classChoseFeats = {
                            ["Absolute Control"]]
                 },
             "Star Shaman" : {
-                "spell" : ["shooting stars", "darkvision", "irradiate", "remove radioactivity", "telekinesis", "control gravity"],
+                "spell" : ["Shooting Stars", "Darkvision", "Irradiate", "Remove Radioactivity", "Telekinesis", "Control Gravity"],
                 "skill" : ["perception", "piloting"],
                 "feat"  : [["Walk the Void"],
                            ["Starlight Form"],
@@ -284,7 +284,7 @@ classChoseFeats = {
                            ["Interplanetary Teleport"]]
                 },
             "Xenodruid" : {
-                "spell" : ["life bubble", "fog cloud", "entropic grasp", "reincarnate", "commune with nature", "terraform"],
+                "spell" : ["Life Bubble", "Fog Cloud", "Entropic Grasp", "Reincarnate", "Commune with Nature", "Terraform"],
                 "skill" : ["life science", "survival"],
                 "feat"  : [["Speak with Animals"],
                            ["Grasping Vines"],

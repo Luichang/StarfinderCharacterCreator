@@ -796,7 +796,10 @@ class character:
                     listToWriteToFile.append([htmlTags[block[0]], self.skills[block[0]]])
                     listToWriteToFile.append([htmlTags[block[0] + "Misc"], self.skillMisc[block[0]]])
             elif raceAbilityBlock[1] == "spell": # TODO
-                pass
+                for i in range(2):
+                    for spell in raceAbilityBlock[2][i]:
+                        if spell not in self.additionalSpells:
+                            self.additionalSpells[i].append(spell)
             elif raceAbilityBlock[1] == "feat":
                 self.selectNewFeat()
             elif raceAbilityBlock[1] == "words":
