@@ -377,18 +377,27 @@ class character:
 
         self.addSpells()
 
+    def printSpells(self):
+        listToWriteToFile = []
+        spellBoxes = [
+            ["spell001", "spell002", "spell003", "spell004", "spell005", "spell006"],
+            ["spell101", "spell102", "spell103", "spell104", "spell105", "spell106"],
+            ["spell201", "spell202", "spell203", "spell204", "spell205", "spell206"],
+            ["spell301", "spell302", "spell303", "spell304", "spell305", "spell306"],
+            ["spell401", "spell402", "spell403", "spell404", "spell405", "spell406"],
+            ["spell501", "spell502", "spell503", "spell504", "spell505"],
+            ["spell601", "spell602", "spell603", "spell604", "spell605"]
+        ]
+        for i in range(7):
+            fullSpellList = self.spells[i] + self.additionalSpells[i]
+            for j in range(len(fullSpellList)):
+                listToWriteToFile.append([htmlTags[spellBoxes[i][j]], fullSpellList[j]])
+        return listToWriteToFile
+
+
     def addSpells(self):
         if self.className == "technomancer" or self.className == "mystic":
             self.spellLevel = self.classLevel
-            spellBoxes = [
-                ["spell001", "spell002", "spell003", "spell004", "spell005", "spell006"],
-                ["spell101", "spell102", "spell103", "spell104", "spell105", "spell106"],
-                ["spell201", "spell202", "spell203", "spell204", "spell205", "spell206"],
-                ["spell301", "spell302", "spell303", "spell304", "spell305", "spell306"],
-                ["spell401", "spell402", "spell403", "spell404", "spell405", "spell406"],
-                ["spell501", "spell502", "spell503", "spell504", "spell505"],
-                ["spell601", "spell602", "spell603", "spell604", "spell605"]
-            ]
 
             spellWordBoxes = [["spell0known"], ["spell1known", "spell1day"],
                               ["spell2known", "spell2day"], ["spell3known", "spell3day"],
@@ -437,10 +446,7 @@ class character:
                         listOfPickableSpells[i].remove(entered)
                         self.spells[i].append(entered)
 
-            for i in range(7):
-                fullSpellList = self.spells[i] + self.additionalSpells[i]
-                for j in range(len(fullSpellList)):
-                    listToWriteToFile.append([htmlTags[spellBoxes[i][j]], fullSpellList[j]])
+            listToWriteToFile += self.printSpells()
 
             self.writeToFile("listPass", listToWriteToFile)
 
@@ -978,6 +984,8 @@ class character:
 
         for i in range(len(self.chosenFeats)):
             listToWriteToFile.append([featBoxes[i], self.chosenFeats[i]])
+
+        listToWriteToFile += self.printSpells()
 
         self.writeToFile("listPass", listToWriteToFile)
 
