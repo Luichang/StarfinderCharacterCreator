@@ -352,44 +352,17 @@ class character:
         listToWriteToFile.append([htmlTags["hp"], self.HP])
         listToWriteToFile.append([htmlTags["rp"], self.RP])
 
-        self.fortSave = classesStatBonus[self.className]["fort"][self.classLevel - 1] + self.mods["con"] + 0
-        self.reflexSave = classesStatBonus[self.className]["reflex"][self.classLevel - 1] + self.mods["dex"] + 0
-        self.willSave = classesStatBonus[self.className]["will"][self.classLevel - 1] + self.mods["wis"] + 0
+        self.fortSave_misc = 0
+        self.reflexSave_misc = 0
+        self.willSave_misc = 0
 
-        listToWriteToFile.append([htmlTags["fortSave"], self.fortSave])
-        listToWriteToFile.append([htmlTags["reflexSave"], self.reflexSave])
-        listToWriteToFile.append([htmlTags["willSave"], self.willSave])
+        listToWriteToFile += self.calcSave()
 
-        listToWriteToFile.append([htmlTags["fortSaveBase"], classesStatBonus[self.className]["fort"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["reflexSaveBase"], classesStatBonus[self.className]["reflex"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["willSaveBase"], classesStatBonus[self.className]["will"][self.classLevel - 1]])
+        self.melee_misc = 0
+        self.range_misc = 0
+        self.throw_misc = 0
 
-        listToWriteToFile.append([htmlTags["fortSaveAbility"], self.mods["con"]])
-        listToWriteToFile.append([htmlTags["reflexSaveAbility"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["willSaveAbility"], self.mods["wis"]])
-
-        listToWriteToFile.append([htmlTags["fortSaveMisc"], 0])
-        listToWriteToFile.append([htmlTags["reflexSaveMisc"], 0])
-        listToWriteToFile.append([htmlTags["willSaveMisc"], 0])
-
-        self.melee = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + 0
-        self.range = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["dex"] + 0
-        self.throw = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + 0
-
-        listToWriteToFile.append([htmlTags["melee"], self.melee])
-        listToWriteToFile.append([htmlTags["melee_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["melee_ability"], self.mods["str"]])
-        listToWriteToFile.append([htmlTags["melee_misc"], 0])
-
-        listToWriteToFile.append([htmlTags["range"], self.range])
-        listToWriteToFile.append([htmlTags["range_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["range_ability"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["range_misc"], 0])
-
-        listToWriteToFile.append([htmlTags["throw"], self.range])
-        listToWriteToFile.append([htmlTags["throw_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["throw_ability"], self.mods["str"]])
-        listToWriteToFile.append([htmlTags["throw_misc"], 0])
+        listToWriteToFile += self.calcAttack()
 
         listToWriteToFile.append([htmlTags["spendablePoints"], 0])
         listToWriteToFile.append([htmlTags["perLevelPoints"], classesStatBonus[self.className]["skills"] + self.mods["int"]])
@@ -403,6 +376,51 @@ class character:
         self.featsAndAbilities()
 
         self.addSpells()
+
+    def calcSave(self):
+        listToWriteToFile = []
+        self.fortSave = classesStatBonus[self.className]["fort"][self.classLevel - 1] + self.mods["con"] + self.fortSave_misc
+        self.reflexSave = classesStatBonus[self.className]["reflex"][self.classLevel - 1] + self.mods["dex"] + self.reflexSave_misc
+        self.willSave = classesStatBonus[self.className]["will"][self.classLevel - 1] + self.mods["wis"] + self.willSave_misc
+
+        listToWriteToFile.append([htmlTags["fortSave"], self.fortSave])
+        listToWriteToFile.append([htmlTags["reflexSave"], self.reflexSave])
+        listToWriteToFile.append([htmlTags["willSave"], self.willSave])
+
+        listToWriteToFile.append([htmlTags["fortSaveBase"], classesStatBonus[self.className]["fort"][self.classLevel - 1]])
+        listToWriteToFile.append([htmlTags["reflexSaveBase"], classesStatBonus[self.className]["reflex"][self.classLevel - 1]])
+        listToWriteToFile.append([htmlTags["willSaveBase"], classesStatBonus[self.className]["will"][self.classLevel - 1]])
+
+        listToWriteToFile.append([htmlTags["fortSaveAbility"], self.mods["con"]])
+        listToWriteToFile.append([htmlTags["reflexSaveAbility"], self.mods["dex"]])
+        listToWriteToFile.append([htmlTags["willSaveAbility"], self.mods["wis"]])
+
+        listToWriteToFile.append([htmlTags["fortSaveMisc"], self.fortSave_misc])
+        listToWriteToFile.append([htmlTags["reflexSaveMisc"], self.reflexSave_misc])
+        listToWriteToFile.append([htmlTags["willSaveMisc"], self.willSave_misc])
+        return listToWriteToFile
+
+    def calcAttack(self):
+        listToWriteToFile = []
+        self.melee = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.melee_misc
+        self.range = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["dex"] + self.range_misc
+        self.throw = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.throw_misc
+
+        listToWriteToFile.append([htmlTags["melee"], self.melee])
+        listToWriteToFile.append([htmlTags["melee_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
+        listToWriteToFile.append([htmlTags["melee_ability"], self.mods["str"]])
+        listToWriteToFile.append([htmlTags["melee_misc"], self.melee_misc])
+
+        listToWriteToFile.append([htmlTags["range"], self.range])
+        listToWriteToFile.append([htmlTags["range_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
+        listToWriteToFile.append([htmlTags["range_ability"], self.mods["dex"]])
+        listToWriteToFile.append([htmlTags["range_misc"], self.range_misc])
+
+        listToWriteToFile.append([htmlTags["throw"], self.throw])
+        listToWriteToFile.append([htmlTags["throw_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
+        listToWriteToFile.append([htmlTags["throw_ability"], self.mods["str"]])
+        listToWriteToFile.append([htmlTags["throw_misc"], self.throw_misc])
+        return listToWriteToFile
 
     def printSpells(self):
         listToWriteToFile = []
@@ -1120,6 +1138,8 @@ class character:
                 className += " [" + str(self.key) + "]"
             listToWriteToFile.append([htmlTags["className"], className])
             self.addSpells()
+            listToWriteToFile += self.calcAttack()
+            listToWriteToFile += self.calcSave()
             self.writeToFile("listPass", listToWriteToFile)
 
     def getUserResponse(self, options, text="", include=True):
