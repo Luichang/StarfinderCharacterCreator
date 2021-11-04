@@ -238,12 +238,15 @@ class character:
                                                "technomancer"],
                                               """Chose a Class. Possible Classes are: envoy, mechanic, mystic, operative, solarian, soldier, technomancer""")
 
+        className = self.className.title() + " (" + str(self.classLevel) + ")"
         if self.className == "soldier":
             self.key = self.getUserResponse(["str", "dex"], """Soldier has to chose the key ability. Possible are str and dex""")
+            className += " [" + str(self.key) + "]"
         else:
             self.key = classesStatBonus[self.className]["key"]
 
-        listToWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
+
+        listToWriteToFile.append([htmlTags["className"], className])
 
         for skill in classesStatBonus[self.className]["classBonus"]:
             self.skillClass[skill] = classesStatBonus[self.className]["classBonus"][skill]
@@ -1067,7 +1070,10 @@ class character:
             listToWriteToFile.append([htmlTags["sp"], self.SP])
             listToWriteToFile.append([htmlTags["hp"], self.HP])
             listToWriteToFile.append([htmlTags["rp"], self.RP])
-            listToWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
+            className = self.className.title() + " (" + str(self.classLevel) + ")"
+            if self.className == "soldier":
+                className += " [" + str(self.key) + "]"
+            listToWriteToFile.append([htmlTags["className"], className])
             self.addSpells()
             self.writeToFile("listPass", listToWriteToFile)
 
@@ -1113,7 +1119,10 @@ class character:
         listToWriteToFile.append([htmlTags["attrWisPoint"], self.spentPoints["Wis"]])
         listToWriteToFile.append([htmlTags["attrChaPoint"], self.spentPoints["Cha"]])
 
-        listToWriteToFile.append([htmlTags["className"], self.className.title() + " (" + str(self.classLevel) + ")"])
+        className = self.className.title() + " (" + str(self.classLevel) + ")"
+        if self.className == "soldier":
+            className += " [" + str(self.key) + "]"
+        listToWriteToFile.append([htmlTags["className"], className])
 
         listToWriteToFile.append([htmlTags["eac"], self.eac])
         listToWriteToFile.append([htmlTags["eac_armor"], 0])
@@ -1207,6 +1216,9 @@ class character:
 
             self.fortSave                        = soup.find(attrs={"id": htmlTags["fortSave"]})["value"]
             self.willSave                        = soup.find(attrs={"id": htmlTags["willSave"]})["value"]
+            self.key                             = classesStatBonus[self.className]["key"]
+            if self.className == "soldier":
+                self.key                         = classNameLevel[2][1:-1]
 
             self.reflexSave                      = soup.find(attrs={"id": htmlTags["reflexSave"]})["value"]
             self.initiative                      = soup.find(attrs={"id": htmlTags["init_total"]})["value"]
