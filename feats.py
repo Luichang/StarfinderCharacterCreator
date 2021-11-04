@@ -9,10 +9,10 @@ feats = {
     "Bodyguard" :                         ["combat", [[]],                                                                                                                     "words"],
     "In Harm's Way" :                     ["combat", [["feat", ["Bodyguard"]]],                                                                                                "words"],
     "Cleave" :                            ["combat", [["ability", ["str", 13]], ["bab", 1]],                                                                                   "words"],
-    "Great Cleave" :                      ["combat", [["ability", ["str", 13]], ["feat", ["Cleave"]], ["bab", 4]],                                                              "words"],
+    "Great Cleave" :                      ["combat", [["ability", ["str", 13]], ["feat", ["Cleave"]], ["bab", 4]],                                                             "words"],
     "Climbing Master" :                   ["normal", [["skills", [["athletics", 5]]]],                                                                                         "words"], # speed effected
     "Combat Casting" :                    ["combat", [["spellLevel", 2]],                                                                                                      "words"],
-    "Connection Inkling" :                ["normal", [["ability", ["wis", 15]], ["level", 5], ["skills", [["mysticism", 0, "less"]]]],                                              "words"], # Gain the ability to cast minor mystic spells
+    "Connection Inkling" :                ["normal", [["ability", ["wis", 15]], ["level", 5], ["skills", [["mysticism", 0, "less"]]]],                                         "words"], # Gain the ability to cast minor mystic spells
     "Coordinated Shot" :                  ["combat", [["bab", 1]],                                                                                                             "words"],
     "Deadly Aim" :                        ["combat", [["bab", 1]],                                                                                                             "words"],
     "Deflect Projectiles" :               ["combat", [["bab", 8]],                                                                                                             "words"],
@@ -58,8 +58,8 @@ feats = {
     "Agile Casting" :                     ["normal", [["ability", ["key", 15]], ["ability", ["dex", 15]], ["feat", ["Mobility"]], ["from", [["class", "mystic"], ["class", "technomancer"]]], ["level", 4]],      "words"],
     "Shot on the Run" :                   ["combat", [["ability", ["dex", 15]], ["feat", ["Mobility"]], ["bab", 4]],                                                           "words"],
     "Parting Shot" :                      ["combat", [["ability", ["dex", 15]], ["feat", ["Mobility", "Shot on the Run"]], ["bab", 6]],                                        "words"],
-    "Sidestep" :                          ["combat", [["ability", ["dex", 15]], ["from", [["feat", ["Mobility"]], ["class", "operative"]]]],                                     "words"],
-    "Improved Sidestep" :                 ["combat", [["ability", ["dex", 15]], ["from", [["feat", ["Mobility"]], ["class", "operative"]]], ["feat", ["Sidestep"]]],             "words"],
+    "Sidestep" :                          ["combat", [["ability", ["dex", 15]], ["from", [["feat", ["Mobility"]], ["class", "operative"]]]],                                   "words"],
+    "Improved Sidestep" :                 ["combat", [["ability", ["dex", 15]], ["from", [["feat", ["Mobility"]], ["class", "operative"]]], ["feat", ["Sidestep"]]],           "words"],
     "Spring Attack" :                     ["combat", [["ability", ["dex", 15]], ["feat", ["Mobility"]], ["bab", 4]],                                                           "words"],
     "Multi-Weapon Fighting" :             ["combat", [[]],                                                                                                                     "words"],
     "Mystic Strike" :                     ["combat", [["spellLevel", 1]],                                                                                                      "words"],
@@ -91,9 +91,9 @@ feats = {
     "Technomantic Dabbler" :              ["normal", [["ability", ["int", 15]], ["level", 5], ["class", "technomancer", "not"]],                                               "words"], # Gain the ability to cast minor technomancer spells
     "Toughness" :                         ["normal", [[]],                                                                                                                     "stamina"], # +1 Stamina Point per character level and other bonuses
     "Unfriendly Fire" :                   ["combat", [["skills", [["bluff", 5]]]],                                                                                             "words"],
-    "Veiled Threat" :                     ["normal", [["ability", ["cha", 15]], ["skills", [["intimidate", 1]]]],                                                                "words"],
-    "Weapon Focus" :                      ["combat", [[]],                                                               "choose"],
+    "Veiled Threat" :                     ["normal", [["ability", ["cha", 15]], ["skills", [["intimidate", 1]]]],                                                              "words"],
+    "Weapon Focus" :                      ["combat", [[]],                                                                                                                     "choose"],
     "Versatile Focus" :                   ["combat", [["feat", ["Weapon Focus"]]],                                                                                             "words"],
-    "Weapon Specialization" :             ["combat", [["level", 3]],                                                 "words"],
+    "Weapon Specialization" :             ["combat", [["level", 3]],                                                                                                           "words"],
     "Versatile Specialization" :          ["combat", [["feat", ["Weapon Specialization"]], ["level", 3]],                                                                      "words"]
 }
