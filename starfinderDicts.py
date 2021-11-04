@@ -162,7 +162,7 @@ themeAbilities = {
                         ["Master scholar", "words"]],
 
     "spacefarer":      [["Theme knowledge", "physical science"], # physical science becomes class knowledge or +1 bonus to checks
-                        ["Eager dabbler", "?"], # +2 bonus to skill checks for skills with 0 ranks in skill
+                        ["Eager dabbler", "dabbler"], # +2 bonus to skill checks for skills with 0 ranks in skill
                         ["Jack of all trades", "words"],
                         ["Master explorer", "words"]],
 

@@ -139,6 +139,30 @@ class character:
             "survival"        : 0
         }
 
+        self.skillDabbler = {
+            "acrobatics"      : 0,
+            "athletics"       : 0,
+            "bluff"           : 0,
+            "computers"       : 0,
+            "culture"         : 0,
+            "diplomacy"       : 0,
+            "disguise"        : 0,
+            "engineering"     : 0,
+            "intimidate"      : 0,
+            "life science"    : 0,
+            "medicine"        : 0,
+            "mysticism"       : 0,
+            "perception"      : 0,
+            "physical science": 0,
+            "piloting"        : 0,
+            "profession"      : 0,
+            "profession2"     : 0,
+            "sense motive"    : 0,
+            "sleight of hand" : 0,
+            "stealth"         : 0,
+            "survival"        : 0
+        }
+
         self.spentPoints = {"Str" : 0, "Dex" : 0, "Con" : 0, "Int" : 0, "Wis": 0, "Cha" : 0}
         self.themeAttributes = themes["themeless"]
 
@@ -760,26 +784,6 @@ class character:
         self.classFeats.append(possibleClassFeats[enteredFeatIndex])
 
     def featsAndAbilities(self):
-        raceBoxes = [htmlTags["raceAbility1"], htmlTags["raceAbility2"], htmlTags["raceAbility3"],
-                     htmlTags["raceAbility4"]]
-        themeBoxes = [htmlTags["themeAbility1"], htmlTags["themeAbility2"], htmlTags["themeAbility3"],
-                     htmlTags["themeAbility4"]]
-        classBoxes = [htmlTags["classAbility1"], htmlTags["classAbility2"], htmlTags["classAbility3"], htmlTags["classAbility4"],
-                        htmlTags["classAbility5"], htmlTags["classAbility6"], htmlTags["classAbility7"], htmlTags["classAbility8"],
-                        htmlTags["classAbility9"], htmlTags["classAbility10"], htmlTags["classAbility11"], htmlTags["classAbility12"],
-                        htmlTags["classAbility13"], htmlTags["classAbility14"], htmlTags["classAbility15"], htmlTags["classAbility16"],
-                        htmlTags["classAbility17"], htmlTags["classAbility18"], htmlTags["classAbility19"], htmlTags["classAbility20"],
-                        htmlTags["classAbility21"], htmlTags["classAbility22"], htmlTags["classAbility23"], htmlTags["classAbility24"],
-                        htmlTags["classAbility25"], htmlTags["classAbility26"], htmlTags["classAbility27"], htmlTags["classAbility28"]]
-        otherBoxes = [htmlTags["otherAbility1"], htmlTags["otherAbility2"], htmlTags["otherAbility3"], htmlTags["otherAbility4"],
-                       htmlTags["otherAbility5"], htmlTags["otherAbility6"], htmlTags["otherAbility7"], htmlTags["otherAbility8"],
-                       htmlTags["otherAbility9"], htmlTags["otherAbility10"], htmlTags["otherAbility11"], htmlTags["otherAbility12"],
-                       htmlTags["otherAbility13"], htmlTags["otherAbility14"], htmlTags["otherAbility15"], htmlTags["otherAbility16"]]
-        featBoxes = [htmlTags["feat1"], htmlTags["feat2"], htmlTags["feat3"], htmlTags["feat4"], htmlTags["feat5"], htmlTags["feat6"],
-                     htmlTags["feat7"], htmlTags["feat8"], htmlTags["feat9"], htmlTags["feat10"], htmlTags["feat11"], htmlTags["feat12"],
-                     htmlTags["feat13"], htmlTags["feat14"], htmlTags["feat15"], htmlTags["feat16"], htmlTags["feat17"], htmlTags["feat18"],
-                     htmlTags["feat19"], htmlTags["feat20"], htmlTags["feat21"], htmlTags["feat22"], htmlTags["feat23"], htmlTags["feat24"],
-                     htmlTags["feat25"], htmlTags["feat26"], htmlTags["feat27"], htmlTags["feat28"]]
 
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
                          "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
@@ -788,7 +792,6 @@ class character:
         listToWriteToFile = []
         for i in range(len(raceAbilities[self.raceName.split()[0]])):
             raceAbilityBlock = raceAbilities[self.raceName.split()[0]][i]
-            listToWriteToFile.append([raceBoxes[i], raceAbilityBlock[0]])
             if raceAbilityBlock[1] == "stats":
                 for block in raceAbilityBlock[2]:
                     if block[0] == "any":
@@ -812,7 +815,6 @@ class character:
 
         themeName = self.theme.split("(")[0].rstrip()
         if self.classLevel == 1:
-            listToWriteToFile.append([themeBoxes[0], themeAbilities[themeName][0][0]])
             if type(themeAbilities[themeName][0][1]) == type(""):
                 newClassSkill = themeAbilities[themeName][0][1]
                 if newClassSkill == "any":
@@ -823,21 +825,22 @@ class character:
                 self.makeClassSkill(newClassSkill)
             else:
                 print("themeAbility", themeAbilities[themeName][0][1], "has not yet been implemented")
-        if self.classLevel == 6:
-            listToWriteToFile.append([themeBoxes[1], themeAbilities[themeName][1][0]]) # TODO
-            if themeAbilities[themeName][1][1] != "words": # not sure what this is yet only spacefarer will have this
+        if self.classLevel >= 6:
+            if themeAbilities[themeName][1][1] != "words":
                 # +2 bonus to skill checks for skills with 0 ranks in skill
-                pass
+                for skill in self.skills:
+                    if self.skillRanks[skill] == 0:
+                        self.skillDabbler[skill] = 2
         if self.classLevel == 12:
-            listToWriteToFile.append([themeBoxes[2], themeAbilities[themeName][2][0]])
             if themeAbilities[themeName][2][1] != "words": # the alternative is spell and needs to add a spell, only priest will have this
                 # ^ Choose one 1st-level mystic spell with some connection to your deity's portfolio
                 # (subject to the GM's approval). If you have levels in the mystic class, you gain 1
                 # additional 1stlevel spell per day and add the chosen spell to your list of mystic
                 # spells known. Otherwise, you can use the chosen spell once per day as a spell-like ability.
-                pass
-        if self.classLevel == 18:
-            listToWriteToFile.append([themeBoxes[3], themeAbilities[themeName][3][0]])
+                possibleSpells = spells["mystic"][1]
+                printText = "as a priest you may choose one 1st-level mystic spell. Possible spells are {}".format(", ".join(possibleSpells))
+                entered = self.getUserResponse(possibleSpells, printText)
+                self.additionalSpells[1].append(entered)
 
 
         listReplaceables = ["Expertise", "Bypass", "Miracle", "Coordinated", "Channel", "Operative's", # Operative's might not be just words
@@ -975,9 +978,53 @@ class character:
 
         listToWriteToFile += self.calcSkills()
 
+        listToWriteToFile += self.printAbilities()
+
+        listToWriteToFile += self.printSpells()
+
+        self.writeToFile("listPass", listToWriteToFile)
+
+    def printAbilities(self):
+        raceBoxes = [htmlTags["raceAbility1"], htmlTags["raceAbility2"], htmlTags["raceAbility3"],
+                     htmlTags["raceAbility4"]]
+        themeBoxes = [htmlTags["themeAbility1"], htmlTags["themeAbility2"], htmlTags["themeAbility3"],
+                     htmlTags["themeAbility4"]]
+        classBoxes = [htmlTags["classAbility1"], htmlTags["classAbility2"], htmlTags["classAbility3"], htmlTags["classAbility4"],
+                        htmlTags["classAbility5"], htmlTags["classAbility6"], htmlTags["classAbility7"], htmlTags["classAbility8"],
+                        htmlTags["classAbility9"], htmlTags["classAbility10"], htmlTags["classAbility11"], htmlTags["classAbility12"],
+                        htmlTags["classAbility13"], htmlTags["classAbility14"], htmlTags["classAbility15"], htmlTags["classAbility16"],
+                        htmlTags["classAbility17"], htmlTags["classAbility18"], htmlTags["classAbility19"], htmlTags["classAbility20"],
+                        htmlTags["classAbility21"], htmlTags["classAbility22"], htmlTags["classAbility23"], htmlTags["classAbility24"],
+                        htmlTags["classAbility25"], htmlTags["classAbility26"], htmlTags["classAbility27"], htmlTags["classAbility28"]]
+        otherBoxes = [htmlTags["otherAbility1"], htmlTags["otherAbility2"], htmlTags["otherAbility3"], htmlTags["otherAbility4"],
+                       htmlTags["otherAbility5"], htmlTags["otherAbility6"], htmlTags["otherAbility7"], htmlTags["otherAbility8"],
+                       htmlTags["otherAbility9"], htmlTags["otherAbility10"], htmlTags["otherAbility11"], htmlTags["otherAbility12"],
+                       htmlTags["otherAbility13"], htmlTags["otherAbility14"], htmlTags["otherAbility15"], htmlTags["otherAbility16"]]
+        featBoxes = [htmlTags["feat1"], htmlTags["feat2"], htmlTags["feat3"], htmlTags["feat4"], htmlTags["feat5"], htmlTags["feat6"],
+                     htmlTags["feat7"], htmlTags["feat8"], htmlTags["feat9"], htmlTags["feat10"], htmlTags["feat11"], htmlTags["feat12"],
+                     htmlTags["feat13"], htmlTags["feat14"], htmlTags["feat15"], htmlTags["feat16"], htmlTags["feat17"], htmlTags["feat18"],
+                     htmlTags["feat19"], htmlTags["feat20"], htmlTags["feat21"], htmlTags["feat22"], htmlTags["feat23"], htmlTags["feat24"],
+                     htmlTags["feat25"], htmlTags["feat26"], htmlTags["feat27"], htmlTags["feat28"]]
+
+        listToWriteToFile = []
+
+        for i in range(len(raceAbilities[self.raceName.split()[0]])):
+            raceAbilityBlock = raceAbilities[self.raceName.split()[0]][i]
+            listToWriteToFile.append([raceBoxes[i], raceAbilityBlock[0]])
+
+        themeName = self.theme.split("(")[0].rstrip()
+        if self.classLevel >= 1:
+            listToWriteToFile.append([themeBoxes[0], themeAbilities[themeName][0][0]])
+        if self.classLevel >= 6:
+            listToWriteToFile.append([themeBoxes[1], themeAbilities[themeName][1][0]])
+        if self.classLevel >= 12:
+            listToWriteToFile.append([themeBoxes[2], themeAbilities[themeName][2][0]])
+        if self.classLevel >= 18:
+            listToWriteToFile.append([themeBoxes[3], themeAbilities[themeName][3][0]])
+
         j = 0
         for i in range(len(self.listClassAbilities)):
-            if "Expertise" in self.listClassAbilities[i]:
+            if "Expertise" in self.listClassAbilities[i]: # expertise and influence
                 for expertise in self.expertise:
                     listToWriteToFile.append([classBoxes[i + j], self.listClassAbilities[i] + " [{}]".format(expertise)])
                     j += 1
@@ -990,10 +1037,8 @@ class character:
 
         for i in range(len(self.chosenFeats)):
             listToWriteToFile.append([featBoxes[i], self.chosenFeats[i]])
+        return listToWriteToFile
 
-        listToWriteToFile += self.printSpells()
-
-        self.writeToFile("listPass", listToWriteToFile)
 
     def makeClassSkill(self, newClassSkill):
         if self.skillClass[newClassSkill] == 0:
