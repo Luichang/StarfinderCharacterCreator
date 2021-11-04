@@ -1193,6 +1193,13 @@ class character:
         listToWriteToFile.append([htmlTags["attrWisPoint"], self.spentPoints["Wis"]])
         listToWriteToFile.append([htmlTags["attrChaPoint"], self.spentPoints["Cha"]])
 
+        listToWriteToFile.append([htmlTags["abilityStr"], self.abilityIncreases["strength"]])
+        listToWriteToFile.append([htmlTags["abilityDex"], self.abilityIncreases["dexterity"]])
+        listToWriteToFile.append([htmlTags["abilityCon"], self.abilityIncreases["constitution"]])
+        listToWriteToFile.append([htmlTags["abilityInt"], self.abilityIncreases["intelligence"]])
+        listToWriteToFile.append([htmlTags["abilityWis"], self.abilityIncreases["wisdom"]])
+        listToWriteToFile.append([htmlTags["abilityCha"], self.abilityIncreases["charisma"]])
+
         className = self.className.title() + " (" + str(self.classLevel) + ")"
         if self.className == "soldier":
             className += " [" + str(self.key) + "]"
@@ -1219,36 +1226,9 @@ class character:
         listToWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["init_misc"], self.initiative_misc])
 
-        listToWriteToFile.append([htmlTags["fortSave"], self.fortSave])
-        listToWriteToFile.append([htmlTags["reflexSave"], self.reflexSave])
-        listToWriteToFile.append([htmlTags["willSave"], self.willSave])
+        listToWriteToFile += self.calcSave()
 
-        listToWriteToFile.append([htmlTags["fortSaveBase"], classesStatBonus[self.className]["fort"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["reflexSaveBase"], classesStatBonus[self.className]["reflex"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["willSaveBase"], classesStatBonus[self.className]["will"][self.classLevel - 1]])
-
-        listToWriteToFile.append([htmlTags["fortSaveAbility"], self.mods["con"]])
-        listToWriteToFile.append([htmlTags["reflexSaveAbility"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["willSaveAbility"], self.mods["wis"]])
-
-        listToWriteToFile.append([htmlTags["fortSaveMisc"], 0])
-        listToWriteToFile.append([htmlTags["reflexSaveMisc"], 0])
-        listToWriteToFile.append([htmlTags["willSaveMisc"], 0])
-
-        listToWriteToFile.append([htmlTags["melee"], self.melee])
-        listToWriteToFile.append([htmlTags["melee_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["melee_ability"], self.mods["str"]])
-        listToWriteToFile.append([htmlTags["melee_misc"], 0])
-
-        listToWriteToFile.append([htmlTags["range"], self.range])
-        listToWriteToFile.append([htmlTags["range_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["range_ability"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["range_misc"], 0])
-
-        listToWriteToFile.append([htmlTags["throw"], self.throw])
-        listToWriteToFile.append([htmlTags["throw_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
-        listToWriteToFile.append([htmlTags["throw_ability"], self.mods["str"]])
-        listToWriteToFile.append([htmlTags["throw_misc"], 0])
+        listToWriteToFile += self.calcAttack()
 
         listToWriteToFile.append([htmlTags["sp"], self.SP])
         listToWriteToFile.append([htmlTags["hp"], self.HP])
@@ -1258,10 +1238,43 @@ class character:
         listToWriteToFile.append([htmlTags["perLevelPoints"], classesStatBonus[self.className]["skills"] + self.mods["int"]])
 
         listToWriteToFile += self.calcSkills()
+        listToWriteToFile += self.printAbilities()
+
+        listToWriteToFile += self.printSpellNumbers()
+
+        listToWriteToFile += self.printSpells()
+
         self.writeToFile("listPass", listToWriteToFile)
-        self.featsAndAbilities()
 
     def readFromHTML(self, fileName):
+        classBoxes = [htmlTags["classAbility1"], htmlTags["classAbility2"], htmlTags["classAbility3"], htmlTags["classAbility4"],
+                        htmlTags["classAbility5"], htmlTags["classAbility6"], htmlTags["classAbility7"], htmlTags["classAbility8"],
+                        htmlTags["classAbility9"], htmlTags["classAbility10"], htmlTags["classAbility11"], htmlTags["classAbility12"],
+                        htmlTags["classAbility13"], htmlTags["classAbility14"], htmlTags["classAbility15"], htmlTags["classAbility16"],
+                        htmlTags["classAbility17"], htmlTags["classAbility18"], htmlTags["classAbility19"], htmlTags["classAbility20"],
+                        htmlTags["classAbility21"], htmlTags["classAbility22"], htmlTags["classAbility23"], htmlTags["classAbility24"],
+                        htmlTags["classAbility25"], htmlTags["classAbility26"], htmlTags["classAbility27"], htmlTags["classAbility28"]]
+
+        otherBoxes = [htmlTags["otherAbility1"], htmlTags["otherAbility2"], htmlTags["otherAbility3"], htmlTags["otherAbility4"],
+                       htmlTags["otherAbility5"], htmlTags["otherAbility6"], htmlTags["otherAbility7"], htmlTags["otherAbility8"],
+                       htmlTags["otherAbility9"], htmlTags["otherAbility10"], htmlTags["otherAbility11"], htmlTags["otherAbility12"],
+                       htmlTags["otherAbility13"], htmlTags["otherAbility14"], htmlTags["otherAbility15"], htmlTags["otherAbility16"]]
+
+
+        featBoxes = [htmlTags["feat1"], htmlTags["feat2"], htmlTags["feat3"], htmlTags["feat4"], htmlTags["feat5"], htmlTags["feat6"],
+                     htmlTags["feat7"], htmlTags["feat8"], htmlTags["feat9"], htmlTags["feat10"], htmlTags["feat11"], htmlTags["feat12"],
+                     htmlTags["feat13"], htmlTags["feat14"], htmlTags["feat15"], htmlTags["feat16"], htmlTags["feat17"], htmlTags["feat18"],
+                     htmlTags["feat19"], htmlTags["feat20"], htmlTags["feat21"], htmlTags["feat22"], htmlTags["feat23"], htmlTags["feat24"],
+                     htmlTags["feat25"], htmlTags["feat26"], htmlTags["feat27"], htmlTags["feat28"]]
+
+        spellBoxes = [
+            ["spell001", "spell002", "spell003", "spell004", "spell005", "spell006", "spell007", "spell008"],
+            ["spell101", "spell102", "spell103", "spell104", "spell105", "spell106", "spell107", "spell108"],
+            ["spell201", "spell202", "spell203", "spell204", "spell205", "spell206", "spell207"],
+            ["spell301", "spell302", "spell303", "spell304", "spell305", "spell306", "spell307"],
+            ["spell401", "spell402", "spell403", "spell404", "spell405", "spell406", "spell407"],
+            ["spell501", "spell502", "spell503", "spell504", "spell505", "spell506"],
+            ["spell601", "spell602", "spell603", "spell604", "spell605", "spell606"]]
         try:
             fp = open("{}.html".format(fileName))
             soup = BeautifulSoup(fp, 'html.parser')
@@ -1274,26 +1287,29 @@ class character:
             self.eac                             = soup.find(attrs={"id": htmlTags["eac"]})["value"]
 
             self.name                            = soup.find(attrs={"id": htmlTags["name"]})["value"]
-            self.throw                           = soup.find(attrs={"id": htmlTags["throw"]})["value"]
-            self.range                           = soup.find(attrs={"id": htmlTags["range"]})["value"]
-            self.melee                           = soup.find(attrs={"id": htmlTags["melee"]})["value"]
 
-            self.theme                           = soup.find(attrs={"id": htmlTags["theme"]})["value"]
+            self.theme                           = soup.find(attrs={"id": htmlTags["theme"]})["value"].lower()
 
             self.vsCombat                        = soup.find(attrs={"id": htmlTags["vsCombat"]})["value"]
-            self.raceName                        = soup.find(attrs={"id": htmlTags["race"]})["value"]
+            self.raceName                        = soup.find(attrs={"id": htmlTags["race"]})["value"].lower()
 
             classNameLevel                       = soup.find(attrs={"id": htmlTags["className"]})["value"]
-            self.className, level                = classNameLevel.split()
-            self.classLevel                      = int(level[1:-1])
+            classNameLevel                       = classNameLevel.split()
+            self.className                       = classNameLevel[0].lower()
+            self.classLevel                      = int(classNameLevel[1][1:-1])
 
-            self.fortSave                        = soup.find(attrs={"id": htmlTags["fortSave"]})["value"]
-            self.willSave                        = soup.find(attrs={"id": htmlTags["willSave"]})["value"]
+            self.melee_misc                      = int(soup.find(attrs={"id": htmlTags["melee_misc"]})["value"])
+            self.range_misc                      = int(soup.find(attrs={"id": htmlTags["range_misc"]})["value"])
+            self.throw_misc                      = int(soup.find(attrs={"id": htmlTags["throw_misc"]})["value"])
+
+            self.melee                           = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.melee_misc
+            self.range                           = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["dex"] + self.range_misc
+            self.throw                           = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.throw_misc
+
             self.key                             = classesStatBonus[self.className]["key"]
             if self.className == "soldier":
                 self.key                         = classNameLevel[2][1:-1]
 
-            self.reflexSave                      = soup.find(attrs={"id": htmlTags["reflexSave"]})["value"]
             self.initiative                      = soup.find(attrs={"id": htmlTags["init_total"]})["value"]
             self.initiative_misc                 = soup.find(attrs={"id": htmlTags["init_misc"]})["value"]
 
@@ -1332,12 +1348,78 @@ class character:
             self.themeAttributes["wisdom"]       = int(soup.find(attrs={"id": htmlTags["themeWis"]})["value"])
             self.themeAttributes["charisma"]     = int(soup.find(attrs={"id": htmlTags["themeCha"]})["value"])
 
+            self.fortSave_misc                   = int(soup.find(attrs={"id": htmlTags["fortSaveMisc"]})["value"])
+            self.reflexSave_misc                 = int(soup.find(attrs={"id": htmlTags["reflexSaveMisc"]})["value"])
+            self.willSave_misc                   = int(soup.find(attrs={"id": htmlTags["willSaveMisc"]})["value"])
+
+            self.fortSave                        = classesStatBonus[self.className]["fort"][self.classLevel - 1] + self.mods["con"] + self.fortSave_misc
+            self.reflexSave                      = classesStatBonus[self.className]["reflex"][self.classLevel - 1] + self.mods["dex"] + self.reflexSave_misc
+            self.willSave                        = classesStatBonus[self.className]["will"][self.classLevel - 1] + self.mods["wis"] + self.willSave_misc
 
             for skill in classesStatBonus["envoy"]["classBonus"]:
                 self.skills[skill] = int(soup.find(attrs={"id": htmlTags[skill]})["value"])
                 self.skillRanks[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Rank"]})["value"])
                 self.skillClass[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Class"]})["value"])
                 self.skillMisc[skill] = int(soup.find(attrs={"id": htmlTags[skill + "Misc"]})["value"])
+                if self.theme == "spacefarer" and self.skillRanks[skill] == 0:
+                    self.skillDabbler[skill] = 2
+                    self.skillMisc[skill] -= 2
+
+            for classBox in classBoxes:
+                try:
+                    classFeat = soup.find(attrs={"id": classBox})["value"]
+                    if "Expertise" in classFeat:
+                        self.expertise.append(classFeat.split()[1][1:-1])
+                        if "Expertise" not in listClassAbilities:
+                            self.listClassAbilities.append(classFeat.split()[0])
+                    else:
+                        self.listClassAbilities.append(classFeat)
+
+                except KeyError:
+                    break
+
+            for otherBox in otherBoxes:
+                try:
+                    otherFeat = soup.find(attrs={"id": otherBox})["value"]
+                    self.classFeats.append(otherFeat)
+                    if self.className == "soldier":
+                        if otherFeat in classChoseFeats["soldier"]["styles"]:
+                            self.styles.append(otherFeat)
+                    elif self.className == "operative":
+                        if otherFeat in classChoseFeats["operative"]["specialization"]:
+                            self.styles.append(otherFeat)
+                    elif self.className == "mystic":
+                        if otherFeat in classChoseFeats["mystic"]["connection"]:
+                            self.styles.append(otherFeat)
+                except KeyError:
+                    break
+
+            for featBox in featBoxes:
+                try:
+                    chosenFeat = soup.find(attrs={"id": featBox})["value"]
+                    self.chosenFeats.append(chosenFeat)
+                except KeyError:
+                    break
+
+
+            for i in range(7):
+                fullSpellList = []
+                for spellBox in spellBoxes[i]:
+                    try:
+
+                        addingSpell = soup.find(attrs={"id": htmlTags[spellBox]})["value"]
+                        fullSpellList.append(addingSpell)
+                    except KeyError:
+                        break
+                #self.spells[i] + self.additionalSpells[i]
+                for j in range(len(fullSpellList)):
+                    if j < spellsKnown[self.classLevel - 1][i]:
+                        self.spells[i].append(fullSpellList[j])
+                    else:
+                        self.additionalSpells[i].append(fullSpellList[j])
+
+            # self.expertise
+            # self.chosenFeats "weapon focus" or "weapon specialization" or "skill focus"
 
         except FileNotFoundError:
             print("""The Character name you entered does not have a file.
