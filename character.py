@@ -425,13 +425,13 @@ class character:
     def printSpells(self):
         listToWriteToFile = []
         spellBoxes = [
-            ["spell001", "spell002", "spell003", "spell004", "spell005", "spell006"],
-            ["spell101", "spell102", "spell103", "spell104", "spell105", "spell106"],
-            ["spell201", "spell202", "spell203", "spell204", "spell205", "spell206"],
-            ["spell301", "spell302", "spell303", "spell304", "spell305", "spell306"],
-            ["spell401", "spell402", "spell403", "spell404", "spell405", "spell406"],
-            ["spell501", "spell502", "spell503", "spell504", "spell505"],
-            ["spell601", "spell602", "spell603", "spell604", "spell605"]
+            ["spell001", "spell002", "spell003", "spell004", "spell005", "spell006", "spell007", "spell008"],
+            ["spell101", "spell102", "spell103", "spell104", "spell105", "spell106", "spell107", "spell108"],
+            ["spell201", "spell202", "spell203", "spell204", "spell205", "spell206", "spell207"],
+            ["spell301", "spell302", "spell303", "spell304", "spell305", "spell306", "spell307"],
+            ["spell401", "spell402", "spell403", "spell404", "spell405", "spell406", "spell407"],
+            ["spell501", "spell502", "spell503", "spell504", "spell505", "spell506"],
+            ["spell601", "spell602", "spell603", "spell604", "spell605", "spell606"]
         ]
         for i in range(7):
             fullSpellList = self.spells[i] + self.additionalSpells[i]
@@ -439,17 +439,15 @@ class character:
                 listToWriteToFile.append([htmlTags[spellBoxes[i][j]], fullSpellList[j]])
         return listToWriteToFile
 
+    def printSpellNumbers(self):
+        spellWordBoxes = [["spell0known"], ["spell1known", "spell1day"],
+                          ["spell2known", "spell2day"], ["spell3known", "spell3day"],
+                          ["spell4known", "spell4day"], ["spell5known", "spell5day"],
+                          ["spell6known", "spell6day"]]
 
-    def addSpells(self):
+        listToWriteToFile = []
         if self.className == "technomancer" or self.className == "mystic":
             self.spellLevel = self.classLevel
-
-            spellWordBoxes = [["spell0known"], ["spell1known", "spell1day"],
-                              ["spell2known", "spell2day"], ["spell3known", "spell3day"],
-                              ["spell4known", "spell4day"], ["spell5known", "spell5day"],
-                              ["spell6known", "spell6day"]]
-
-            listToWriteToFile = []
 
             bonusList = []
             for bonus in spellsBonus:
@@ -462,7 +460,18 @@ class character:
                 if len(spellWordBoxes[i]) > 1:
                     perDay = spellsDay[self.classLevel - 1][i - 1] + bonusList[i]
                     listToWriteToFile.append([htmlTags[spellWordBoxes[i][1]], perDay])
+        else:
+            for i in range(7):
+                listToWriteToFile.append([htmlTags[spellWordBoxes[i][0]], 0])
+                if len(spellWordBoxes[i]) > 1:
+                    perDay = 0
+                    listToWriteToFile.append([htmlTags[spellWordBoxes[i][1]], perDay])
+        return listToWriteToFile
 
+
+    def addSpells(self):
+        listToWriteToFile = []
+        if self.className == "technomancer" or self.className == "mystic":
             listOfPickableSpells = [[], [], [], [], [], [], []]
             for i in range(7):
                 if spellsKnown[self.classLevel - 1][i] > 0:
@@ -492,8 +501,8 @@ class character:
                         self.spells[i].append(entered)
 
             listToWriteToFile += self.printSpells()
-
-            self.writeToFile("listPass", listToWriteToFile)
+        listToWriteToFile += self.printSpellNumbers()
+        self.writeToFile("listPass", listToWriteToFile)
 
 
     def calcSkills(self):
