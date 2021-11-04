@@ -552,11 +552,11 @@ class character:
             "survival"         : self.mods["wis"],
         }
         for skill in self.skills:
-            self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * self.skillClass[skill]
+            self.skills[skill] += self.skillRanks[skill] + self.skillClass[skill] + self.skillMisc[skill]
             listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
             listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
             listToWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
-            listToWriteToFile.append([htmlTags[skill + "Misc"], self.skillMisc[skill]])
+            listToWriteToFile.append([htmlTags[skill + "Misc"], self.skillMisc[skill] + self.skillDabbler[skill]])
         return listToWriteToFile
 
     def calcHP(self):
@@ -1133,10 +1133,7 @@ class character:
             self.abilityIncrease()
             self.addSkillPoints()
             listToWriteToFile = []
-            for skill in self.skillRanks:
-                self.skills[skill] += self.skillRanks[skill] + min(1, self.skillRanks[skill]) * self.skillClass[skill]
-                listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
-                listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
+            listToWriteToFile += self.calcSkills()
             self.featsAndAbilities()
             self.calcHP()
             listToWriteToFile.append([htmlTags["sp"], self.SP])
@@ -1207,7 +1204,6 @@ class character:
         listToWriteToFile.append([htmlTags["kac_dex"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["kac_misc"], 0])
         listToWriteToFile.append([htmlTags["vsCombat"], self.vsCombat])
-
 
         listToWriteToFile.append([htmlTags["attrStrMod"], self.mods["str"]])
         listToWriteToFile.append([htmlTags["attrDexMod"], self.mods["dex"]])
