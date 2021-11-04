@@ -593,7 +593,10 @@ class character:
         toAdd = True
         combat = []
 
-        for feat in self.chosenFeats:
+        for longFeat in self.chosenFeats:
+            feat = longFeat
+            if longFeat == "weapon focus" or longFeat == "weapon specialization" or longFeat == "skill focus":
+                feat = longFeat.split("[")[0].rstrip()
             if feats[feat][0] == "combat":
                 combat.append(feat)
         for feat in checkFeat:
