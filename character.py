@@ -1455,6 +1455,6 @@ class character:
                 print(soup.find(attrs={"id": attributeName}))
                 print("------------------")
 
-        with open("{}.html".format(self.name), "w") as out:
+        with open("{}.html".format(self.name.lower()), "w") as out:
             out.write(str(soup))
         fp.close()
