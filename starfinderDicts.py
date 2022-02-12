@@ -56,16 +56,22 @@ classesStatFocus = {
 attributeShorthand = {
     "strength"     : "strength",
     "str"          : "strength",
+    "Str"          : "strength",
     "dexterity"    : "dexterity",
     "dex"          : "dexterity",
+    "Dex"          : "dexterity",
     "constitution" : "constitution",
     "con"          : "constitution",
+    "Con"          : "constitution",
     "intelligence" : "intelligence",
     "int"          : "intelligence",
+    "Int"          : "intelligence",
     "wisdom"       : "wisdom",
     "wis"          : "wisdom",
+    "Wis"          : "wisdom",
     "charisma"     : "charisma",
-    "cha"          : "charisma"
+    "cha"          : "charisma",
+    "Cha"          : "charisma"
 }
 
 attributeShortener = {
@@ -443,7 +449,7 @@ classAbilities = {
                  ["Bypass +1", "words"],
                  ["Custom rig", "words"]],
 
-                 ["Mechanic trick", "trick"],
+                 ["Mechanic trick", "trick"], # TODO
 
                 [["Overload", "words"],
                  ["Weapon specialization", "weapon"]],

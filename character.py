@@ -1,11 +1,12 @@
 import math
 from bs4 import BeautifulSoup
+from copy import deepcopy
 from starfinderDicts import *
 from feats import feats
 from spells import spells
 
 class character:
-    def __init__(self, fileName=""):
+    def __init__(self, fileName="", gui=False):
 
         self.spellLevel = -1
 
@@ -22,6 +23,7 @@ class character:
             "dex" : 0,
             "con" : 0,
             "int" : 0,
+            "wis" : 0,
             "cha" : 0
         }
 
@@ -59,10 +61,10 @@ class character:
             "perception"       : 0,
             "physical science" : 0,
             "piloting"         : 0,
-            "profession"       : 0, #?????????????????
+            "profession"       : 0, #????????????????? # TODO
             "profession2"      : 0, #?????????????????
             "sense motive"     : 0,
-            "sleight of hand"   : 0,
+            "sleight of hand"  : 0,
             "stealth"          : 0,
             "survival"         : 0,
         }
@@ -163,69 +165,133 @@ class character:
             "survival"        : 0
         }
 
-        self.spentPoints = {"Str" : 0, "Dex" : 0, "Con" : 0, "Int" : 0, "Wis": 0, "Cha" : 0}
+        self.spentPoints = {"strength" : 0, "dexterity" : 0, "constitution" : 0, "intelligence" : 0, "wisdom": 0, "charisma" : 0}
         self.themeAttributes = themes["themeless"]
+        self.raceAttributes = raceStatList["human"]
 
         self.classLevel = 1
 
-        if fileName == "":
-            self.createNew()
-        else:
-            self.readFromHTML(fileName)
+        self.raceName = ""
+        self.className = ""
 
+        self.SP = 0
+        self.HP = 0
+        self.RP = 0
+
+        self.fortSave_misc = 0
+        self.reflexSave_misc = 0
+        self.willSave_misc = 0
+
+        self.melee_misc = 0
+        self.range_misc = 0
+        self.throw_misc = 0
+
+        self.initiative_misc = 0
+
+        if not gui:
+            if fileName == "":
+                self.createNew()
+            else:
+                self.readFromHTML(fileName)
+
+
+    def setName(self, name):
+        self.name = name
+
+    def addAttribute(self, text):
+        entered = self.getUserResponse(possibleAttributes, text)
+        return entered
+
+    def setRace(self, race, attr=None):
+        self.raceName = race
+        self.raceAttributes = deepcopy(raceStatList[self.raceName])
+
+        if self.raceName == "human":
+            if attr is None:
+                attr = self.addAttribute("""Humans get to increase one stat by 2. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""")
+
+            attribute = attributeShorthand[attr]
+            self.raceAttributes[attribute] = 2
+
+            self.raceName += " (" + attributeShortener[attribute] + ")"
+        self.calcAttributes()
+
+
+    def setTheme(self, theme, attr=None):
+        self.theme = theme
+        self.themeAttributes = themes[self.theme]
+
+        if self.theme == "themeless":
+            if attr is None:
+                attr = self.addAttribute("""Themeless get to increase one stat by 1. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""")
+
+            attribute = attributeShorthand[attr]
+            self.themeAttributes[attribute] = 1
+            self.theme += " (" + attributeShortener[attribute] + ")"
+        self.calcAttributes()
+
+    def calcAttributes(self):
+        self.attributes["strength"]     = 10 + self.raceAttributes["strength"]     + self.themeAttributes["strength"]     + self.spentPoints["strength"]
+        self.attributes["dexterity"]    = 10 + self.raceAttributes["dexterity"]    + self.themeAttributes["dexterity"]    + self.spentPoints["dexterity"]
+        self.attributes["constitution"] = 10 + self.raceAttributes["constitution"] + self.themeAttributes["constitution"] + self.spentPoints["constitution"]
+        self.attributes["intelligence"] = 10 + self.raceAttributes["intelligence"] + self.themeAttributes["intelligence"] + self.spentPoints["intelligence"]
+        self.attributes["wisdom"]       = 10 + self.raceAttributes["wisdom"]       + self.themeAttributes["wisdom"]       + self.spentPoints["wisdom"]
+        self.attributes["charisma"]     = 10 + self.raceAttributes["charisma"]     + self.themeAttributes["charisma"]     + self.spentPoints["charisma"]
+        self.calcAtributMod()
+
+    def setClassName(self, name, key=None):
+        self.className = name
+        className = self.className
+        if self.className == "soldier":
+            if key is None:
+                key = self.getUserResponse(["str", "dex"], """Soldier has to chose the key ability. Possible are str and dex""")
+            self.key = key
+        else:
+            self.key = classesStatBonus[self.className]["key"]
+
+        for skill in classesStatBonus[self.className]["classBonus"]:
+            self.skillClass[skill] = classesStatBonus[self.className]["classBonus"][skill]
+        return className
+
+    def calcAC(self):
+        self.eac = 10 + 0 + self.mods["dex"] + 0
+        self.kac = 10 + 0 + self.mods["dex"] + 0
+        self.vsCombat = 8 + self.kac
+
+    def calcInit(self):
+        self.initiative = self.mods["dex"] + self.initiative_misc
 
     def createNew(self):
-        self.name = self.getUserResponse([""], "Enter a Character Name", False)
+        entered = self.getUserResponse([""], "Enter a Character Name", False)
+        self.setName(entered)
 
         self.writeToFile(htmlTags["name"], self.name.title())
 
-        self.raceName = self.getUserResponse(["android", "human", "kasatha", "lashunta(korasha)",
-                                              "lashunta(damaya)", "shirren", "vesk", "ysoki"],
-                                              """Please chose a race, options are: android, human, kasatha, lashunta(korasha), lashunta(damaya), shirren, vesk, ysoki"""
-                                            )
+        entered = self.getUserResponse(["android", "human", "kasatha", "lashunta(korasha)",
+                                         "lashunta(damaya)", "shirren", "vesk", "ysoki"],
+                                         """Please chose a race, options are: android, human, kasatha, lashunta(korasha), lashunta(damaya), shirren, vesk, ysoki"""
+                                        )
+        self.setRace(entered)
 
         listToWriteToFile = []
         listToWriteToFile.append([htmlTags["race"], self.raceName.title()])
-        listToWriteToFile.append([htmlTags["raceStr"], raceStatList[self.raceName]["strength"]])
-        listToWriteToFile.append([htmlTags["raceDex"], raceStatList[self.raceName]["dexterity"]])
-        listToWriteToFile.append([htmlTags["raceCon"], raceStatList[self.raceName]["constitution"]])
-        listToWriteToFile.append([htmlTags["raceInt"], raceStatList[self.raceName]["intelligence"]])
-        listToWriteToFile.append([htmlTags["raceWis"], raceStatList[self.raceName]["wisdom"]])
-        listToWriteToFile.append([htmlTags["raceCha"], raceStatList[self.raceName]["charisma"]])
+        listToWriteToFile.append([htmlTags["raceStr"], self.raceAttributes["strength"]])
+        listToWriteToFile.append([htmlTags["raceDex"], self.raceAttributes["dexterity"]])
+        listToWriteToFile.append([htmlTags["raceCon"], self.raceAttributes["constitution"]])
+        listToWriteToFile.append([htmlTags["raceInt"], self.raceAttributes["intelligence"]])
+        listToWriteToFile.append([htmlTags["raceWis"], self.raceAttributes["wisdom"]])
+        listToWriteToFile.append([htmlTags["raceCha"], self.raceAttributes["charisma"]])
 
         self.writeToFile("listPass", listToWriteToFile)
 
-        raceAttributes = raceStatList[self.raceName]
 
-        if self.raceName == "human":
-            entered = self.getUserResponse(possibleAttributes,
-                                           """Humans get to increase one stat by 2. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""")
 
-            raceAttributes[attributeShorthand[entered]] = 2
-
-            htmlEnteredTag = "race" + attributeShortener[attributeShorthand[entered]]
-
-            self.raceName += " (" + entered + ")"
-
-            listToWriteToFile = []
-            listToWriteToFile.append([htmlTags["race"], self.raceName.title()])
-            listToWriteToFile.append([htmlTags[htmlEnteredTag], 2])
-            self.writeToFile("listPass", listToWriteToFile)
-
-        self.theme = self.getUserResponse(["ace pilot", "bounty hunter", "icon", "mercenary", "outlaw", "priest",
+        entered = self.getUserResponse(["ace pilot", "bounty hunter", "icon", "mercenary", "outlaw", "priest",
                                         "scholar", "spacefarer", "xenoseeker", "themeless"],
                                           """Chose a theme. Possible themes are: "ace pilot, bounty hunter, icon, mercenary, outlaw, priest, scholar, spacefarer, xenoseeker, themeless""")
 
+        self.setTheme(entered)
         self.writeToFile(htmlTags["theme"], self.theme.title())
-
-        self.themeAttributes = themes[self.theme]
-        if self.theme == "themeless":
-            entered = self.getUserResponse(possibleAttributes,
-                                           """Themeless get to increase one stat by 1. Possible attributes: (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""")
-
-            self.themeAttributes[attributeShorthand[entered]] = 1
-            self.theme += " (" + entered + ")"
-            self.writeToFile(htmlTags["theme"], self.theme.title())
 
         listToWriteToFile = []
         listToWriteToFile.append([htmlTags["themeStr"], self.themeAttributes["strength"]])
@@ -234,16 +300,7 @@ class character:
         listToWriteToFile.append([htmlTags["themeInt"], self.themeAttributes["intelligence"]])
         listToWriteToFile.append([htmlTags["themeWis"], self.themeAttributes["wisdom"]])
         listToWriteToFile.append([htmlTags["themeCha"], self.themeAttributes["charisma"]])
-        self.writeToFile("listPass", listToWriteToFile)
 
-        self.attributes["strength"]     = 10 + raceAttributes["strength"]     + self.themeAttributes["strength"]
-        self.attributes["dexterity"]    = 10 + raceAttributes["dexterity"]    + self.themeAttributes["dexterity"]
-        self.attributes["constitution"] = 10 + raceAttributes["constitution"] + self.themeAttributes["constitution"]
-        self.attributes["intelligence"] = 10 + raceAttributes["intelligence"] + self.themeAttributes["intelligence"]
-        self.attributes["wisdom"]       = 10 + raceAttributes["wisdom"]       + self.themeAttributes["wisdom"]
-        self.attributes["charisma"]     = 10 + raceAttributes["charisma"]     + self.themeAttributes["charisma"]
-
-        listToWriteToFile = []
         listToWriteToFile.append([htmlTags["attrStr"], self.attributes["strength"]])
         listToWriteToFile.append([htmlTags["attrDex"], self.attributes["dexterity"]])
         listToWriteToFile.append([htmlTags["attrCon"], self.attributes["constitution"]])
@@ -258,22 +315,22 @@ class character:
         listToWriteToFile.append([htmlTags["abilityWis"], self.abilityIncreases["wisdom"]])
         listToWriteToFile.append([htmlTags["abilityCha"], self.abilityIncreases["charisma"]])
 
-        self.className = self.getUserResponse(["envoy", "mechanic", "mystic", "operative", "solarian", "soldier",
+        self.writeToFile("listPass", listToWriteToFile)
+
+        listToWriteToFile = []
+
+        entered = self.getUserResponse(["envoy", "mechanic", "mystic", "operative", "solarian", "soldier",
                                                "technomancer"],
                                               """Chose a Class. Possible Classes are: envoy, mechanic, mystic, operative, solarian, soldier, technomancer""")
 
-        className = self.className.title() + " (" + str(self.classLevel) + ")"
-        if self.className == "soldier":
-            self.key = self.getUserResponse(["str", "dex"], """Soldier has to chose the key ability. Possible are str and dex""")
+        className = self.setClassName(entered).capitalize()
+        if self.className == "Soldier":
             className += " [" + str(self.key) + "]"
-        else:
-            self.key = classesStatBonus[self.className]["key"]
-
+        className += " (" + str(self.classLevel) + ")"
 
         listToWriteToFile.append([htmlTags["className"], className])
 
         for skill in classesStatBonus[self.className]["classBonus"]:
-            self.skillClass[skill] = classesStatBonus[self.className]["classBonus"][skill]
             listToWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
 
         for feat in classesStatBonus[self.className]["proficiencies"]:
@@ -297,14 +354,13 @@ class character:
             entered = self.getUserResponse(possibleAttributes,
                                            """You have {} points left to spend. Chose one from (str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, (cha)risma""".format(spendablePoints))
             if self.attributes[attributeShorthand[entered]] == 18:
-                print("""Sorry try again {} is already at 18 which is the maximum when setting up a
-                        character""".format(attributeShorthand[entered]))
+                print("""Sorry try again {} is already at 18 which is the maximum when setting up a character""".format(attributeShorthand[entered]))
                 continue
             currAttr = attributeShorthand[entered]
             self.attributes[currAttr] += 1
-            self.spentPoints[attributeShortener[currAttr]] += 1
+            self.spentPoints[attributeShorthand[currAttr]] += 1
 
-            self.writeToFile(htmlTags["attr" + attributeShortener[currAttr] + "Point"], self.spentPoints[attributeShortener[currAttr]])
+            self.writeToFile(htmlTags["attr" + attributeShortener[currAttr] + "Point"], self.spentPoints[attributeShorthand[currAttr]])
 
             spendablePoints -= 1
 
@@ -315,6 +371,7 @@ class character:
             listToWriteToFile.append([htmlTags["attrInt"], self.attributes["intelligence"]])
             listToWriteToFile.append([htmlTags["attrWis"], self.attributes["wisdom"]])
             listToWriteToFile.append([htmlTags["attrCha"], self.attributes["charisma"]])
+            self.writeToFile("listPass", listToWriteToFile)
 
         self.calcAtributMod()
 
@@ -325,25 +382,24 @@ class character:
         listToWriteToFile.append([htmlTags["attrWisMod"], self.mods["wis"]])
         listToWriteToFile.append([htmlTags["attrChaMod"], self.mods["cha"]])
 
-        self.initiative_misc = 0
-        self.initiative = self.mods["dex"] + self.initiative_misc
+        self.calcInit()
 
         listToWriteToFile.append([htmlTags["init_total"], self.initiative])
         listToWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["init_misc"], self.initiative_misc])
 
-        self.eac = 10 + 0 + self.mods["dex"] + 0
+        self.calcAC()
+
         listToWriteToFile.append([htmlTags["eac"], self.eac])
         listToWriteToFile.append([htmlTags["eac_armor"], 0])
         listToWriteToFile.append([htmlTags["eac_dex"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["eac_misc"], 0])
-        self.kac = 10 + 0 + self.mods["dex"] + 0
+
         listToWriteToFile.append([htmlTags["kac"], self.kac])
         listToWriteToFile.append([htmlTags["kac_armor"], 0])
         listToWriteToFile.append([htmlTags["kac_dex"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["kac_misc"], 0])
 
-        self.vsCombat = 8 + self.kac
         listToWriteToFile.append([htmlTags["vsCombat"], self.vsCombat])
 
         self.calcHP()
@@ -352,17 +408,11 @@ class character:
         listToWriteToFile.append([htmlTags["hp"], self.HP])
         listToWriteToFile.append([htmlTags["rp"], self.RP])
 
-        self.fortSave_misc = 0
-        self.reflexSave_misc = 0
-        self.willSave_misc = 0
+        self.calcSave()
+        listToWriteToFile += self.printSave()
 
-        listToWriteToFile += self.calcSave()
-
-        self.melee_misc = 0
-        self.range_misc = 0
-        self.throw_misc = 0
-
-        listToWriteToFile += self.calcAttack()
+        self.calcAttack()
+        listToWriteToFile += self.printAttack()
 
         listToWriteToFile.append([htmlTags["spendablePoints"], 0])
         listToWriteToFile.append([htmlTags["perLevelPoints"], classesStatBonus[self.className]["skills"] + self.mods["int"]])
@@ -378,11 +428,13 @@ class character:
         self.addSpells()
 
     def calcSave(self):
-        listToWriteToFile = []
+
         self.fortSave = classesStatBonus[self.className]["fort"][self.classLevel - 1] + self.mods["con"] + self.fortSave_misc
         self.reflexSave = classesStatBonus[self.className]["reflex"][self.classLevel - 1] + self.mods["dex"] + self.reflexSave_misc
         self.willSave = classesStatBonus[self.className]["will"][self.classLevel - 1] + self.mods["wis"] + self.willSave_misc
 
+    def printSave(self):
+        listToWriteToFile = []
         listToWriteToFile.append([htmlTags["fortSave"], self.fortSave])
         listToWriteToFile.append([htmlTags["reflexSave"], self.reflexSave])
         listToWriteToFile.append([htmlTags["willSave"], self.willSave])
@@ -401,11 +453,13 @@ class character:
         return listToWriteToFile
 
     def calcAttack(self):
-        listToWriteToFile = []
+
         self.melee = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.melee_misc
         self.range = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["dex"] + self.range_misc
         self.throw = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.throw_misc
 
+    def printAttack(self):
+        listToWriteToFile = []
         listToWriteToFile.append([htmlTags["melee"], self.melee])
         listToWriteToFile.append([htmlTags["melee_bab"], classesStatBonus[self.className]["bab"][self.classLevel - 1]])
         listToWriteToFile.append([htmlTags["melee_ability"], self.mods["str"]])
@@ -493,8 +547,8 @@ class character:
                     if self.classLevel > 1:
                         numToAdd -= spellsKnown[self.classLevel - 2][i]
                     for j in range(numToAdd):
-                        printText = "please enter spell name to add a point to. Possible spells are: {}".format(
-                        ", ".join(listOfPickableSpells[i]))
+                        printText = "please enter spell name of level {} to add. Possible spells are: {}".format(
+                        i, ", ".join(listOfPickableSpells[i]))
                         entered = self.getUserResponse([x.lower() for x in listOfPickableSpells[i]], printText)
                         entered = entered.title()
                         listOfPickableSpells[i].remove(entered)
@@ -505,29 +559,30 @@ class character:
         self.writeToFile("listPass", listToWriteToFile)
 
 
-    def calcSkills(self):
-        listToWriteToFile = []
-        listToWriteToFile.append([htmlTags["acrobaticsMod"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["athleticsMod"], self.mods["str"]])
-        listToWriteToFile.append([htmlTags["bluffMod"], self.mods["cha"]])
-        listToWriteToFile.append([htmlTags["computersMod"], self.mods["int"]])
-        listToWriteToFile.append([htmlTags["cultureMod"], self.mods["int"]])
-        listToWriteToFile.append([htmlTags["diplomacyMod"], self.mods["cha"]])
-        listToWriteToFile.append([htmlTags["disguiseMod"], self.mods["cha"]])
-        listToWriteToFile.append([htmlTags["engineeringMod"], self.mods["int"]])
-        listToWriteToFile.append([htmlTags["intimidateMod"], self.mods["cha"]])
-        listToWriteToFile.append([htmlTags["life scienceMod"], self.mods["int"]])
-        listToWriteToFile.append([htmlTags["medicineMod"], self.mods["int"]])
-        listToWriteToFile.append([htmlTags["mysticismMod"], self.mods["wis"]])
-        listToWriteToFile.append([htmlTags["perceptionMod"], self.mods["wis"]])
-        listToWriteToFile.append([htmlTags["physical scienceMod"], self.mods["int"]])
-        listToWriteToFile.append([htmlTags["pilotingMod"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["professionMod"], -1])
-        listToWriteToFile.append([htmlTags["profession2Mod"], -1])
-        listToWriteToFile.append([htmlTags["sense motiveMod"], self.mods["wis"]])
-        listToWriteToFile.append([htmlTags["sleight of handMod"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["stealthMod"], self.mods["dex"]])
-        listToWriteToFile.append([htmlTags["survivalMod"], self.mods["wis"]])
+    def calcSkills(self, verbose=True):
+        if verbose:
+            listToWriteToFile = []
+            listToWriteToFile.append([htmlTags["acrobaticsMod"], self.mods["dex"]])
+            listToWriteToFile.append([htmlTags["athleticsMod"], self.mods["str"]])
+            listToWriteToFile.append([htmlTags["bluffMod"], self.mods["cha"]])
+            listToWriteToFile.append([htmlTags["computersMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["cultureMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["diplomacyMod"], self.mods["cha"]])
+            listToWriteToFile.append([htmlTags["disguiseMod"], self.mods["cha"]])
+            listToWriteToFile.append([htmlTags["engineeringMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["intimidateMod"], self.mods["cha"]])
+            listToWriteToFile.append([htmlTags["life scienceMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["medicineMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["mysticismMod"], self.mods["wis"]])
+            listToWriteToFile.append([htmlTags["perceptionMod"], self.mods["wis"]])
+            listToWriteToFile.append([htmlTags["physical scienceMod"], self.mods["int"]])
+            listToWriteToFile.append([htmlTags["pilotingMod"], self.mods["dex"]])
+            listToWriteToFile.append([htmlTags["professionMod"], -1])
+            listToWriteToFile.append([htmlTags["profession2Mod"], -1])
+            listToWriteToFile.append([htmlTags["sense motiveMod"], self.mods["wis"]])
+            listToWriteToFile.append([htmlTags["sleight of handMod"], self.mods["dex"]])
+            listToWriteToFile.append([htmlTags["stealthMod"], self.mods["dex"]])
+            listToWriteToFile.append([htmlTags["survivalMod"], self.mods["wis"]])
         self.skills = {
             "acrobatics"       : self.mods["dex"],
             "athletics"        : self.mods["str"],
@@ -553,11 +608,13 @@ class character:
         }
         for skill in self.skills:
             self.skills[skill] += self.skillRanks[skill] + self.skillClass[skill] + self.skillMisc[skill]
-            listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
-            listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
-            listToWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
-            listToWriteToFile.append([htmlTags[skill + "Misc"], self.skillMisc[skill] + self.skillDabbler[skill]])
-        return listToWriteToFile
+            if verbose:
+                listToWriteToFile.append([htmlTags[skill], self.skills[skill]])
+                listToWriteToFile.append([htmlTags[skill + "Rank"], self.skillRanks[skill]])
+                listToWriteToFile.append([htmlTags[skill + "Class"], self.skillClass[skill]])
+                listToWriteToFile.append([htmlTags[skill + "Misc"], self.skillMisc[skill] + self.skillDabbler[skill]])
+        if verbose:
+            return listToWriteToFile
 
     def calcHP(self):
         self.SP = max(1, (max(0, classesStatBonus[self.className]["sp"] + self.mods["con"])) * self.classLevel)
@@ -579,7 +636,7 @@ class character:
             self.writeToFile(htmlTags["spendablePoints"], skillpoints)
 
 
-    def calcAtributMod(self):
+    def calcAtributMod(self): # TODO
         self.mods["str"] = ((self.attributes["strength"] // 2) - 5)
         self.mods["dex"] = ((self.attributes["dexterity"] // 2) - 5)
         self.mods["con"] = ((self.attributes["constitution"] // 2) - 5)
@@ -694,7 +751,7 @@ class character:
                 classTrue = fromCheck[1] == self.className
 
             else:
-                print("from", fromCheck[0], "not implemented", fromList)
+                print("from {} not implemented {}".format(fromCheck[0], fromList))
         return featTrue or classTrue
 
     def filterFeats(self, combat=False):
@@ -841,7 +898,7 @@ class character:
             elif raceAbilityBlock[1] == "words":
                 pass
             else:
-                print("The race Ability", raceAbilityBlock[1], "has not yet been implemented")
+                print("The race Ability {} has not yet been implemented".format(raceAbilityBlock[1]))
 
         themeName = self.theme.split("(")[0].rstrip()
         if self.classLevel == 1:
@@ -854,7 +911,7 @@ class character:
                 newClassSkill = self.getUserResponse(themeAbilities[themeName][0][1], "You get to select a Skill to be turned into a class skill. Options are {}".format(", ".join(themeAbilities[themeName][0][1])))
                 self.makeClassSkill(newClassSkill)
             else:
-                print("themeAbility", themeAbilities[themeName][0][1], "has not yet been implemented")
+                print("themeAbility {} has not yet been implemented".format(themeAbilities[themeName][0][1]))
         if self.classLevel >= 6:
             if themeAbilities[themeName][1][1] != "words":
                 # +2 bonus to skill checks for skills with 0 ranks in skill
@@ -990,7 +1047,7 @@ class character:
             elif ability[1] == "words": # nothing happens
                 pass
             else:
-                print(ability, "has not yet been implemented")
+                print("{} has not yet been implemented".format(ability))
 
 
             result = [replacable for replacable in listReplaceables if replacable in ability[0]]
@@ -1147,8 +1204,10 @@ class character:
                 className += " [" + str(self.key) + "]"
             listToWriteToFile.append([htmlTags["className"], className])
             self.addSpells()
-            listToWriteToFile += self.calcAttack()
-            listToWriteToFile += self.calcSave()
+            self.calcAttack()
+            listToWriteToFile += self.printAttack()
+            self.calcSave()
+            listToWriteToFile += self.printSave()
             self.writeToFile("listPass", listToWriteToFile)
 
     def getUserResponse(self, options, text="", include=True):
@@ -1186,12 +1245,12 @@ class character:
         listToWriteToFile.append([htmlTags["attrWis"], self.attributes["wisdom"]])
         listToWriteToFile.append([htmlTags["attrCha"], self.attributes["charisma"]])
 
-        listToWriteToFile.append([htmlTags["attrStrPoint"], self.spentPoints["Str"]])
-        listToWriteToFile.append([htmlTags["attrDexPoint"], self.spentPoints["Dex"]])
-        listToWriteToFile.append([htmlTags["attrConPoint"], self.spentPoints["Con"]])
-        listToWriteToFile.append([htmlTags["attrIntPoint"], self.spentPoints["Int"]])
-        listToWriteToFile.append([htmlTags["attrWisPoint"], self.spentPoints["Wis"]])
-        listToWriteToFile.append([htmlTags["attrChaPoint"], self.spentPoints["Cha"]])
+        listToWriteToFile.append([htmlTags["attrStrPoint"], self.spentPoints["strength"]])
+        listToWriteToFile.append([htmlTags["attrDexPoint"], self.spentPoints["dexterity"]])
+        listToWriteToFile.append([htmlTags["attrConPoint"], self.spentPoints["constitution"]])
+        listToWriteToFile.append([htmlTags["attrIntPoint"], self.spentPoints["intelligence"]])
+        listToWriteToFile.append([htmlTags["attrWisPoint"], self.spentPoints["wisdom"]])
+        listToWriteToFile.append([htmlTags["attrChaPoint"], self.spentPoints["charisma"]])
 
         listToWriteToFile.append([htmlTags["abilityStr"], self.abilityIncreases["strength"]])
         listToWriteToFile.append([htmlTags["abilityDex"], self.abilityIncreases["dexterity"]])
@@ -1226,9 +1285,10 @@ class character:
         listToWriteToFile.append([htmlTags["init_dex"], self.mods["dex"]])
         listToWriteToFile.append([htmlTags["init_misc"], self.initiative_misc])
 
-        listToWriteToFile += self.calcSave()
+        listToWriteToFile += self.printSave()
 
-        listToWriteToFile += self.calcAttack()
+        self.calcAttack()
+        listToWriteToFile += self.printAttack()
 
         listToWriteToFile.append([htmlTags["sp"], self.SP])
         listToWriteToFile.append([htmlTags["hp"], self.HP])
@@ -1279,53 +1339,37 @@ class character:
             fp = open("{}.html".format(fileName))
             soup = BeautifulSoup(fp, 'html.parser')
 
-            self.SP                              = soup.find(attrs={"id": htmlTags["sp"]})["value"]
-            self.HP                              = soup.find(attrs={"id": htmlTags["hp"]})["value"]
-            self.RP                              = soup.find(attrs={"id": htmlTags["rp"]})["value"]
-
-            self.kac                             = soup.find(attrs={"id": htmlTags["kac"]})["value"]
-            self.eac                             = soup.find(attrs={"id": htmlTags["eac"]})["value"]
-
             self.name                            = soup.find(attrs={"id": htmlTags["name"]})["value"]
 
-            self.theme                           = soup.find(attrs={"id": htmlTags["theme"]})["value"].lower()
+            theme                                = soup.find(attrs={"id": htmlTags["theme"]})["value"].lower()
+            theme                                = [theme[0], theme[1][1:-1]]
+            self.setTheme(*theme.split())
 
             self.vsCombat                        = soup.find(attrs={"id": htmlTags["vsCombat"]})["value"]
-            self.raceName                        = soup.find(attrs={"id": htmlTags["race"]})["value"].lower()
+            raceName                             = soup.find(attrs={"id": htmlTags["race"]})["value"].lower()
+            raceName                             = [raceName[0], raceName[1][1:-1]]
+            self.setRace(*raceName.split())
 
             classNameLevel                       = soup.find(attrs={"id": htmlTags["className"]})["value"]
             classNameLevel                       = classNameLevel.split()
             self.className                       = classNameLevel[0].lower()
-            self.classLevel                      = int(classNameLevel[1][1:-1])
+            self.classLevel                      = int(classNameLevel[-1][1:-1])
+            self.key                             = classesStatBonus[self.className]["key"]
+            if self.className == "soldier":
+                self.key                         = classNameLevel[1][1:-1]
 
             self.melee_misc                      = int(soup.find(attrs={"id": htmlTags["melee_misc"]})["value"])
             self.range_misc                      = int(soup.find(attrs={"id": htmlTags["range_misc"]})["value"])
             self.throw_misc                      = int(soup.find(attrs={"id": htmlTags["throw_misc"]})["value"])
 
-            self.melee                           = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.melee_misc
-            self.range                           = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["dex"] + self.range_misc
-            self.throw                           = classesStatBonus[self.className]["bab"][self.classLevel - 1] + self.mods["str"] + self.throw_misc
+            self.calcAttack()
 
-            self.key                             = classesStatBonus[self.className]["key"]
-            if self.className == "soldier":
-                self.key                         = classNameLevel[2][1:-1]
-
-            self.initiative                      = soup.find(attrs={"id": htmlTags["init_total"]})["value"]
-            self.initiative_misc                 = soup.find(attrs={"id": htmlTags["init_misc"]})["value"]
-
-            self.mods["str"]                     = int(soup.find(attrs={"id": htmlTags["attrStrMod"]})["value"])
-            self.mods["dex"]                     = int(soup.find(attrs={"id": htmlTags["attrDexMod"]})["value"])
-            self.mods["con"]                     = int(soup.find(attrs={"id": htmlTags["attrConMod"]})["value"])
-            self.mods["int"]                     = int(soup.find(attrs={"id": htmlTags["attrIntMod"]})["value"])
-            self.mods["wis"]                     = int(soup.find(attrs={"id": htmlTags["attrWisMod"]})["value"])
-            self.mods["cha"]                     = int(soup.find(attrs={"id": htmlTags["attrChaMod"]})["value"])
-
-            self.spentPoints["Str"]              = int(soup.find(attrs={"id": htmlTags["attrStrPoint"]})["value"])
-            self.spentPoints["Dex"]              = int(soup.find(attrs={"id": htmlTags["attrDexPoint"]})["value"])
-            self.spentPoints["Con"]              = int(soup.find(attrs={"id": htmlTags["attrConPoint"]})["value"])
-            self.spentPoints["Int"]              = int(soup.find(attrs={"id": htmlTags["attrIntPoint"]})["value"])
-            self.spentPoints["Wis"]              = int(soup.find(attrs={"id": htmlTags["attrWisPoint"]})["value"])
-            self.spentPoints["Cha"]              = int(soup.find(attrs={"id": htmlTags["attrChaPoint"]})["value"])
+            self.spentPoints["strength"]         = int(soup.find(attrs={"id": htmlTags["attrStrPoint"]})["value"])
+            self.spentPoints["dexterity"]        = int(soup.find(attrs={"id": htmlTags["attrDexPoint"]})["value"])
+            self.spentPoints["constitution"]     = int(soup.find(attrs={"id": htmlTags["attrConPoint"]})["value"])
+            self.spentPoints["intelligence"]     = int(soup.find(attrs={"id": htmlTags["attrIntPoint"]})["value"])
+            self.spentPoints["wisdom"]           = int(soup.find(attrs={"id": htmlTags["attrWisPoint"]})["value"])
+            self.spentPoints["charisma"]         = int(soup.find(attrs={"id": htmlTags["attrChaPoint"]})["value"])
 
             self.abilityIncreases["strength"]    = int(soup.find(attrs={"id": htmlTags["abilityStr"]})["value"])
             self.abilityIncreases["dexterity"]   = int(soup.find(attrs={"id": htmlTags["abilityDex"]})["value"])
@@ -1334,27 +1378,24 @@ class character:
             self.abilityIncreases["wisdom"]      = int(soup.find(attrs={"id": htmlTags["abilityWis"]})["value"])
             self.abilityIncreases["charisma"]    = int(soup.find(attrs={"id": htmlTags["abilityCha"]})["value"])
 
-            self.attributes["strength"]          = int(soup.find(attrs={"id": htmlTags["attrStr"]})["value"])
-            self.attributes["dexterity"]         = int(soup.find(attrs={"id": htmlTags["attrDex"]})["value"])
-            self.attributes["constitution"]      = int(soup.find(attrs={"id": htmlTags["attrCon"]})["value"])
-            self.attributes["intelligence"]      = int(soup.find(attrs={"id": htmlTags["attrInt"]})["value"])
-            self.attributes["wisdom"]            = int(soup.find(attrs={"id": htmlTags["attrWis"]})["value"])
-            self.attributes["charisma"]          = int(soup.find(attrs={"id": htmlTags["attrCha"]})["value"])
+            self.calcAttributes()
+            self.calcAtributMod()
 
-            self.themeAttributes["strength"]     = int(soup.find(attrs={"id": htmlTags["themeStr"]})["value"])
-            self.themeAttributes["dexterity"]    = int(soup.find(attrs={"id": htmlTags["themeDex"]})["value"])
-            self.themeAttributes["constitution"] = int(soup.find(attrs={"id": htmlTags["themeCon"]})["value"])
-            self.themeAttributes["intelligence"] = int(soup.find(attrs={"id": htmlTags["themeInt"]})["value"])
-            self.themeAttributes["wisdom"]       = int(soup.find(attrs={"id": htmlTags["themeWis"]})["value"])
-            self.themeAttributes["charisma"]     = int(soup.find(attrs={"id": htmlTags["themeCha"]})["value"])
+            self.calcHP()
+
+            self.initiative_misc                 = int(soup.find(attrs={"id": htmlTags["init_misc"]})["value"])
+            self.calcInit()
+
+            self.calcAC()
 
             self.fortSave_misc                   = int(soup.find(attrs={"id": htmlTags["fortSaveMisc"]})["value"])
             self.reflexSave_misc                 = int(soup.find(attrs={"id": htmlTags["reflexSaveMisc"]})["value"])
             self.willSave_misc                   = int(soup.find(attrs={"id": htmlTags["willSaveMisc"]})["value"])
 
-            self.fortSave                        = classesStatBonus[self.className]["fort"][self.classLevel - 1] + self.mods["con"] + self.fortSave_misc
-            self.reflexSave                      = classesStatBonus[self.className]["reflex"][self.classLevel - 1] + self.mods["dex"] + self.reflexSave_misc
-            self.willSave                        = classesStatBonus[self.className]["will"][self.classLevel - 1] + self.mods["wis"] + self.willSave_misc
+            self.calcSave()
+            # self.fortSave                        = classesStatBonus[self.className]["fort"][self.classLevel - 1] + self.mods["con"] + self.fortSave_misc
+            # self.reflexSave                      = classesStatBonus[self.className]["reflex"][self.classLevel - 1] + self.mods["dex"] + self.reflexSave_misc
+            # self.willSave                        = classesStatBonus[self.className]["will"][self.classLevel - 1] + self.mods["wis"] + self.willSave_misc
 
             for skill in classesStatBonus["envoy"]["classBonus"]:
                 self.skills[skill] = int(soup.find(attrs={"id": htmlTags[skill]})["value"])
