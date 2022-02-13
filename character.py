@@ -186,6 +186,9 @@ class character:
         self.range_misc = 0
         self.throw_misc = 0
 
+        self.professionAbility = "wis"
+        self.profession2Ability = "wis"
+
         self.initiative_misc = 0
 
         if not gui:
@@ -599,8 +602,8 @@ class character:
             "perception"       : self.mods["wis"],
             "physical science" : self.mods["int"],
             "piloting"         : self.mods["dex"],
-            "profession"       : self.mods["wis"], #?????????????????
-            "profession2"      : self.mods["wis"], #?????????????????
+            "profession"       : self.mods[self.professionAbility],
+            "profession2"      : self.mods[self.professionAbility],
             "sense motive"     : self.mods["wis"],
             "sleight of hand"  : self.mods["dex"],
             "stealth"          : self.mods["dex"],
@@ -624,8 +627,8 @@ class character:
     def addSkillPoints(self):
         skillpoints = classesStatBonus[self.className]["skills"] + self.mods["int"]
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
-                         "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
-                         "sense motive", "sleight of hand", "stealth", "survival"]
+                         "intimidate", "life science", "medicine", "mysticism", "perception", "physical science",
+                         "profession1", "profession2",  "piloting", "sense motive", "sleight of hand", "stealth", "survival"]
 
         while skillpoints > 0:
             entered = self.getUserResponse(possibleSkill,
@@ -873,8 +876,8 @@ class character:
     def featsAndAbilities(self):
 
         possibleSkill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy", "disguise", "engineering",
-                         "intimidate", "life science", "medicine", "mysticism", "perception", "physical science", "piloting",
-                         "sense motive", "sleight of hand", "stealth", "survival"]
+                         "intimidate", "life science", "medicine", "mysticism", "perception", "physical science",
+                         "profession1", "profession2",  "piloting", "sense motive", "sleight of hand", "stealth", "survival"]
 
         listToWriteToFile = []
         for i in range(len(raceAbilities[self.raceName.split()[0]])):
