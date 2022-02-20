@@ -2623,6 +2623,7 @@ class Ui_MainWindow(object):
         self.actionLoad = QtWidgets.QAction(MainWindow)
         self.actionLoad.setObjectName("actionLoad")
         self.actionLoad.setText("Load")
+        self.actionLoad.triggered.connect(self.loadCharacter)
         self.actionFeats = QtWidgets.QAction(MainWindow)
         self.actionFeats.setObjectName("actionFeats")
         self.actionFeats.setText("Feats")
@@ -2925,6 +2926,19 @@ class Ui_MainWindow(object):
 
     def saveCharacter(self):
         self.character.updateHTML()
+
+    def loadCharacter(self):
+        #QtCore, QtGui, QtWidgets
+        #fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', '/home/luichang/Documents/DnD/Starfinder', "HTML Files (*.html)")
+        dig = QtWidgets.QFileDialog()
+        dig.setFileMode(QtWidgets.QFileDialog.AnyFile)
+        #dig.setFilter("HTML Files (*.html)")
+        filenames = []
+
+        if dig.exec_():
+            filenames = dig.selectedFiles()
+        if filenames[0][-5:] == ".html":
+            pass
 
     def openFeats(self):
         if self.w is None:
