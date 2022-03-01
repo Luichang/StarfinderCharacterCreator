@@ -442,8 +442,6 @@ class UiForm(QtWidgets.QWidget):
         """does some class feature related update
 
         """
-
-        self.character.classFeats = []
         # for i in self.character.class_level:
         #     for ability in classAbilities[self.class_name][i]:
 
@@ -610,43 +608,3 @@ class UiForm(QtWidgets.QWidget):
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
                 boxcount += 1
-
-
-
-
-        # for box in boxes:
-            # if box.currentText() != "<<Select Feat>>":
-            #     self.character.classFeats.append(box.currentText())
-            #     print(box.currentText())
-
-    # def UpdateClassList(self, sender=None): # if character class_name
-
-    #     # self.UpdatecClassFeatList()
-
-    #     if not sender:
-    #         sender = self.sender()
-    #     if not isinstance(sender, QtWidgets.QAction):
-
-    #         selectedFeat = sender.currentText()
-
-    #         classList = [selectedFeat]
-    #     else:
-    #         classList = []
-
-    #     for featType in classChoseFeats[self.character.class_name]:
-    #         for featList in classChoseFeats[self.character.class_name][featType]:
-    #             try:
-    #                 if self.character.class_level >= int(featList[0]):
-    #                     classList += featList[1:]
-    #             except ValueError:
-    #                 pass
-    #     for feat in self.character.classFeats:
-    #         if feat in classList:
-    #             classList.remove(feat)
-
-    #     if not isinstance(sender, QtWidgets.QAction):
-    #         ClassModel = QtGui.QStandardItemModel()
-    #         for feat in classList:
-    #             ClassModel.appendRow(QtGui.QStandardItem(feat))
-    #         sender.setModel(ProxyModel(ClassModel, "<<Select Feat>>"))
-    #         sender.setCurrentIndex(1)
