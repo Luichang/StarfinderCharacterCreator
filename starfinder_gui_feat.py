@@ -482,12 +482,12 @@ class UiForm(QtWidgets.QWidget):
                 elif ability[1] == "class":
                     pass
                 elif ability[1] == "skills":
-                    self.character.classFeats.append(ability[0])
+                    self.character.class_feats.append(ability[0])
                     class_model.appendRow(QtGui.QStandardItem(ability[0]))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
                     for skill in ability[2]:
-                        self.character.skillMisc[skill[0]] += skill[1]
+                        self.character.skill_misc[skill[0]] += skill[1]
                 elif ability[1] == "revelation": # classChoseFeats, lists with levels
                     possible_class_feats = self.character.select_new_class_feat("revelation",
                                                     self.character.class_level, verbose=False)
@@ -503,7 +503,7 @@ class UiForm(QtWidgets.QWidget):
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Select Zenith>>"))
                     boxes[boxcount].setCurrentIndex(1)
                 elif ability[1] == "style": # classChoseFeats, dictionary
-                    possible_styles = [x for x in classChoseFeats["soldier"]["styles"]]
+                    possible_styles = list(classChoseFeats["soldier"]["styles"])
                     for style in self.character.styles:
                         possible_styles.remove(style)
                     for feat in possible_styles:
@@ -514,14 +514,14 @@ class UiForm(QtWidgets.QWidget):
                 elif ability[1] == "technique1":
                     soldier_style = classChoseFeats["soldier"]["styles"][self.styles[0]]
                     new_feat = soldier_style[self.character.class_level - 1]
-                    self.character.classFeats.append(new_feat)
+                    self.character.class_feats.append(new_feat)
                     class_model.appendRow(QtGui.QStandardItem(new_feat))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
                 elif ability[1] == "technique2":
                     soldier_style = classChoseFeats["soldier"]["styles"][self.styles[1]]
                     new_feat = soldier_style[(self.character.class_level - 1) - 8]
-                    self.character.classFeats.append(new_feat)
+                    self.character.class_feats.append(new_feat)
                     class_model.appendRow(QtGui.QStandardItem(new_feat))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
@@ -550,13 +550,13 @@ class UiForm(QtWidgets.QWidget):
                         pass
                     elif ability[2][0] == "exploit":
                         new_feat = classChoseFeats["operative"]["specialization"][self.styles[0]][1]
-                        self.character.classFeats.append(new_feat)
+                        self.character.class_feats.append(new_feat)
                         class_model.appendRow(QtGui.QStandardItem(new_feat))
                         boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                         boxes[boxcount].setCurrentIndex(1)
                     elif ability[2][0] == "power":
                         new_feat = classChoseFeats["operative"]["specialization"][self.styles[0]][2]
-                        self.character.classFeats.append(new_feat)
+                        self.character.class_feats.append(new_feat)
                         class_model.appendRow(QtGui.QStandardItem(new_feat))
                         boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                         boxes[boxcount].setCurrentIndex(1)
@@ -572,7 +572,7 @@ class UiForm(QtWidgets.QWidget):
                 elif ability[1] == "cpower":
                     mystic_styles = classChoseFeats["mystic"]["connection"][self.styles[0]]
                     new_feat = mystic_styles["feat"][ability[2]]
-                    self.character.classFeats.append(new_feat)
+                    self.character.class_feats.append(new_feat)
                     class_model.appendRow(QtGui.QStandardItem(new_feat))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
@@ -581,7 +581,7 @@ class UiForm(QtWidgets.QWidget):
                 elif ability[1] == "channel":
                     pass
                 elif ability[1] == "expertise": # TODO add expertise things
-                    self.character.classFeats.append(ability[0])
+                    self.character.class_feats.append(ability[0])
                     class_model.appendRow(QtGui.QStandardItem(ability[0]))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
@@ -600,12 +600,12 @@ class UiForm(QtWidgets.QWidget):
                 elif ability[1] == "influence": # solarian # add two skills, one each from two lists
                     pass
                 elif ability[1] == "weapon": # all # TODO
-                    self.character.classFeats.append(ability[0])
+                    self.character.class_feats.append(ability[0])
                     class_model.appendRow(QtGui.QStandardItem(ability[0]))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
                 elif ability[1] == "words": # nothing happens
-                    self.character.classFeats.append(ability[0])
+                    self.character.class_feats.append(ability[0])
                     class_model.appendRow(QtGui.QStandardItem(ability[0]))
                     boxes[boxcount].setModel(ProxyModel(class_model, "<<Fixed Feat>>"))
                     boxes[boxcount].setCurrentIndex(1)
