@@ -381,6 +381,4 @@ htmlTags = {
     "spell606"    : "spells_129",
     "spell607"    : "spells_130",
     "spell608"    : "spells_131",
-
-
 }

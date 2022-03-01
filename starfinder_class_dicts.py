@@ -12,44 +12,51 @@ classChoseFeats = {
     "envoy": {
         "improvisation" : [
                             # 1
-                            [1, "Clever Feint", "Dispiriting Taunt", "Don't Quit", "Expanded Attunement", "Get 'Em",
-                            "Inspiring Boost", "Not in the Face", "Universal Expression", "Watch Your Step"],
+                            [1, "Clever Feint", "Dispiriting Taunt", "Don't Quit",
+                            "Expanded Attunement", "Get 'Em", "Inspiring Boost", "Not in the Face",
+                            "Universal Expression", "Watch Your Step"],
                             # 4
-                            [4, "Clever Attack", "Duck Under", "Focus", "Hurry", "Long-Range Improvisation",
-                            "Quick Dispiriting Taunt", "Quick Inspiring Boost", "Watch Out"],
+                            [4, "Clever Attack", "Duck Under", "Focus", "Hurry",
+                            "Long-Range Improvisation", "Quick Dispiriting Taunt",
+                            "Quick Inspiring Boost", "Watch Out"],
                             #6
-                            [6, "Clever Improvisations", "Draw Fire", "Heads Up", "Improved Get 'Em"],
+                            [6, "Clever Improvisations", "Draw Fire", "Heads Up",
+                            "Improved Get 'Em"],
                             #8
-                            [8, "Desperate Defense", "Expert Attack", "Improved Hurry", "Situational Awareness",
-                            "Sustained Determination"]
+                            [8, "Desperate Defense", "Expert Attack", "Improved Hurry",
+                            "Situational Awareness", "Sustained Determination"]
                         ],
         "talent" : [
-                        [1, "Additional Skill Expertise", "Altered Bearing", "Analyst", "Cautious Expertise",
-                        "Convincing Liar", "Cultural Savant", "Cunning Disguise", "Engineering Adept",
-                        "Expert Forger", "Fast Hack", "Inspired Medic", "Keen Observer", "Menacing Gaze",
-                        "Rattling Presence", "Skilled Linguist", "Slick Customer", "Student of Technology",
-                        "Surgeon", "Well Informed"]
+                        [1, "Additional Skill Expertise", "Altered Bearing", "Analyst",
+                        "Cautious Expertise", "Convincing Liar", "Cultural Savant",
+                        "Cunning Disguise", "Engineering Adept", "Expert Forger", "Fast Hack",
+                        "Inspired Medic", "Keen Observer", "Menacing Gaze", "Rattling Presence",
+                        "Skilled Linguist", "Slick Customer", "Student of Technology", "Surgeon",
+                        "Well Informed"]
                     ],
     },
     "mechanic": {
         "trick" : [
                     #2
-                    [2, "Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt", "Nightvision Processor",
-                    "Overcharge", "Overclocking", "Overload Weapon", "Portable Power",
-                    "Quick Patch", "Quick Repair", "Repair Drone", "Visual Data Processor"],
+                    [2, "Distracting Hack", "Energy Shield", "Hack Directory", "Neural Shunt",
+                    "Nightvision Processor", "Overcharge", "Overclocking", "Overload Weapon",
+                    "Portable Power", "Quick Patch", "Quick Repair", "Repair Drone",
+                    "Visual Data Processor"],
                     #8
-                    [8, "Boost Shield", "Drone Meld", "Engineer's Eye", "Ghost Intrusion", "Holographic Projector",
-                    "Hyperclocking", "Improved Overcharge", "Invisibility Bypass Processor", "Resistant Energy",
-                    "Scoutbot"],
+                    [8, "Boost Shield", "Drone Meld", "Engineer's Eye", "Ghost Intrusion",
+                    "Holographic Projector", "Hyperclocking", "Improved Overcharge",
+                    "Invisibility Bypass Processor", "Resistant Energy", "Scoutbot"],
                     #14
-                    [14, "Extra Mod", "Improved Resistant Energy", "Invisibility-Hampering Projector", "Mod Tinkerer",
-                    "Saboteur", "Superior Overcharge", "Ultraclocking"]
+                    [14, "Extra Mod", "Improved Resistant Energy",
+                    "Invisibility-Hampering Projector", "Mod Tinkerer", "Saboteur",
+                    "Superior Overcharge", "Ultraclocking"]
         ]
     },
     "mystic": {
         "connection" : {
             "Akashic" : {
-                "spell" : ["Identify", "Augury", "Tongues", "Divination", "Contact Other Plane", "Vision"],
+                "spell" : ["Identify", "Augury", "Tongues", "Divination", "Contact Other Plane",
+                           "Vision"],
                 "skill" : ["culture", "mysticism"],
                 "feat"  : [["Akashic Knowledge"],
                            ["Access Akashic Record"],
@@ -60,7 +67,8 @@ classChoseFeats = {
                            ["Glean Spell"]]
                 },
             "Empath" :  {
-                "spell" : ["Detect Thoughts", "Zone of Truth", "Clairaudience/Clairvoyance", "Mind Probe", "Telepathy", "True Seeing"],
+                "spell" : ["Detect Thoughts", "Zone of Truth", "Clairaudience/Clairvoyance",
+                           "Mind Probe", "Telepathy", "True Seeing"],
                 "skill" : ["perception", "sense motive"],
                 "feat"  : [["Empathy"],
                            ["Greater Mindlink"],
@@ -93,7 +101,8 @@ classChoseFeats = {
                            ["Explode Head"]]
                 },
             "Overlord" : {
-                "spell" : ["Command", "Hold Person", "Suggestion", "Confusion", "Dominate Person", "Mass Suggestion"],
+                "spell" : ["Command", "Hold Person", "Suggestion", "Confusion", "Dominate Person",
+                           "Mass Suggestion"],
                 "skill" : ["diplomacy", "intimidate"],
                 "feat"  : [["Inexplicable Commands"],
                            ["Forced Amity"],
@@ -104,7 +113,8 @@ classChoseFeats = {
                            ["Absolute Control"]]
                 },
             "Star Shaman" : {
-                "spell" : ["Shooting Stars", "Darkvision", "Irradiate", "Remove Radioactivity", "Telekinesis", "Control Gravity"],
+                "spell" : ["Shooting Stars", "Darkvision", "Irradiate", "Remove Radioactivity",
+                           "Telekinesis", "Control Gravity"],
                 "skill" : ["perception", "piloting"],
                 "feat"  : [["Walk the Void"],
                            ["Starlight Form"],
@@ -115,7 +125,8 @@ classChoseFeats = {
                            ["Interplanetary Teleport"]]
                 },
             "Xenodruid" : {
-                "spell" : ["Life Bubble", "Fog Cloud", "Entropic Grasp", "Reincarnate", "Commune with Nature", "Terraform"],
+                "spell" : ["Life Bubble", "Fog Cloud", "Entropic Grasp", "Reincarnate",
+                           "Commune with Nature", "Terraform"],
                 "skill" : ["life science", "survival"],
                 "feat"  : [["Speak with Animals"],
                            ["Grasping Vines"],
@@ -130,37 +141,43 @@ classChoseFeats = {
     "operative": {
         "exploit" : [
                         #2
-                        [2, "Alien Archive", "Combat Trick", "Field Treatment", "Holographic Clone", "Inoculation",
-                        "Jack of All Trades", "Nightvision", "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot",],
+                        [2, "Alien Archive", "Combat Trick", "Field Treatment",
+                         "Holographic Clone", "Inoculation", "Jack of All Trades", "Nightvision",
+                         "Quick Disguise", "Uncanny Mobility", "Uncanny Pilot"],
                         #6
-                        [6, "Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses", "Hampering Shot",
-                        "Improved Quick Movement", "Interfering Shot", "Mentalist's Bane", "Speed Hacker",
-                        "Staggering Shot", "Stalwart", "Sure-Footed", "Uncanny Shooter"],
+                        [6, "Bleeding Shot", "Certainty", "Debilitating Sniper", "Enhanced Senses",
+                         "Hampering Shot", "Improved Quick Movement", "Interfering Shot",
+                         "Mentalist's Bane", "Speed Hacker", "Staggering Shot", "Stalwart",
+                         "Sure-Footed", "Uncanny Shooter"],
                         #10
-                        [10, "Cloaking Field", "Deactivating Shot", "Elusive Hacker", "Ever Vigilant",
-                        "Glimpse the Truth", "Holographic Distraction", "Improved Evasion", "Improved Uncanny Mobility",
-                        "Master of Disguise", "Stunning Shot", "Versatile Movement"],
+                        [10, "Cloaking Field", "Deactivating Shot", "Elusive Hacker",
+                         "Ever Vigilant", "Glimpse the Truth", "Holographic Distraction",
+                         "Improved Evasion", "Improved Uncanny Mobility", "Master of Disguise",
+                         "Stunning Shot", "Versatile Movement"],
                         #14
-                        [14, "Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery", "Uncanny Senses"]
+                        [14, "Efficient Cloaking Field", "Knockout Shot", "Multiattack Mastery",
+                         "Uncanny Senses"]
         ],
         "specialization" : {
             "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
-            "Detective" : [["culture", "sense motive"], "Glimpse the truth", "Detective's Insight"],
-            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"], # you gain a +4 bonus to Culture and Survival checks
+            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
+            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
+            # Explorer: you gain a +4 bonus to Culture and Survival checks
             "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
             "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
             "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
-            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction", "Contingency Plan"]
+            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
+                            "Contingency Plan"]
         }
     },
     "solarian": {
         "revelation" : [
                         #2
-                        [2, "Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost", "Gravity Hold", "Plasma Sheath",
-                        "Radiation", "Stellar Rush"],
+                        [2, "Dark Matter", "Flare", "Gravity Anchor", "Gravity Boost",
+                         "Gravity Hold", "Plasma Sheath", "Radiation", "Stellar Rush"],
                         #6
-                        [6, "Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity", "Glow of Life",
-                        "Gravity Surge", "Hypnotic Glow", "Reflection"],
+                        [6, "Astrologic Sense", "Blazing Orbit", "Corona", "Crush", "Defy Gravity",
+                         "Glow of Life", "Gravity Surge", "Hypnotic Glow", "Reflection"],
                         #10
                         [10, "Soul Furnace", "Stealth Warp"],
                         #14
@@ -170,43 +187,50 @@ classChoseFeats = {
         ],
         "graviton" : ["bluff", "disguise", "mysticism", "sense motive", "stealth"],
         "photon" : ["culture", "diplomacy", "intimidate", "medicine", "survival"],
-        "zenith" : [1, "Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake", "Time Dilation", "Wormholes"]
+        "zenith" : [1, "Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake",
+                    "Time Dilation", "Wormholes"]
     },
     "soldier": {
         "gear" : [
                     #1
-                    [1, "Armored Advantage", "Brutal Blast", "Bullet Barrage", "Laser Accuracy", "Melee Striker"],
+                    [1, "Armored Advantage", "Brutal Blast", "Bullet Barrage", "Laser Accuracy",
+                        "Melee Striker"],
                     #7
-                    [7, "Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation", "Powerful Explosive",
-                    "Sonic Resonance"],
+                    [7, "Anchoring Arcana", "Electric Arc", "Flash Freeze", "Plasma Immolation",
+                        "Powerful Explosive", "Sonic Resonance"],
                     #11
                     [11, "Heavy Onslaught"]
         ],
         "styles" : {
             # name                  1, 5, 9, 13, 17
-            "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi", "Power of Legend",
-            "Secret of the Archmagi", "Arcane Attack"],
-            "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army", "On the Bounce"],
-            "blitz" : ["Rapid Response", "Charge Attack", "Keep Fighting", "Perfect Opportunity", "Against the Odds"],
-            "bombard" : ["Grenade Expert", "Heavy Fire", "Debilitating Attack", "Explosives Acumen", "Impactful Attack"],
-            "guard" : ["Armor Training", "Guard's Protection", "Rapid Recovery", "Kinetic Resistance",
-                        "Impenetrable Defense"],
-            "hit-and-run" : ["Opening Volley", "Nimble Fusillade", "Duck and Weave", "Elusive Target", "Harrying Shot"],
-            "sharpshoot" : ["Sniper's Aim", "Focus Fire", "Intense Focus", "Focused Damage", "Prepared Shot", ]
+            "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi",
+                                  "Power of Legend", "Secret of the Archmagi", "Arcane Attack"],
+            "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army",
+                             "On the Bounce"],
+            "blitz" : ["Rapid Response", "Charge Attack", "Keep Fighting", "Perfect Opportunity",
+                       "Against the Odds"],
+            "bombard" : ["Grenade Expert", "Heavy Fire", "Debilitating Attack",
+                         "Explosives Acumen", "Impactful Attack"],
+            "guard" : ["Armor Training", "Guard's Protection", "Rapid Recovery",
+                       "Kinetic Resistance", "Impenetrable Defense"],
+            "hit-and-run" : ["Opening Volley", "Nimble Fusillade", "Duck and Weave",
+                             "Elusive Target", "Harrying Shot"],
+            "sharpshoot" : ["Sniper's Aim", "Focus Fire", "Intense Focus", "Focused Damage",
+                            "Prepared Shot"]
         }
     },
     "technomancer": {
         "hack" : [
                     #2
-                    [2, "Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech", "Harmful Spells",
-                    "Quick Scan", "Robot Influence", "Selective Targeting", "Spell Countermeasures",
-                    "Technomantic Proficiency"],
+                    [2, "Countertech", "Empowered Weapon", "Energize Spell", "Fabricate Tech",
+                        "Harmful Spells", "Quick Scan", "Robot Influence", "Selective Targeting",
+                        "Spell Countermeasures", "Technomantic Proficiency"],
                     #5
-                    [5, "Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell", "Fabricate Arms",
-                    "Magic Negation", "Spell Grenade"],
+                    [5, "Charging Jolt", "Debug Spell", "Distant Spell", "Extended Spell",
+                        "Fabricate Arms", "Magic Negation", "Spell Grenade"],
                     #8
-                    [8, "Diviner's Tap", "Flash Teleport", "Mental Mark", "Spellshot", "Tech Countermeasures",
-                    "Widened Spell"],
+                    [8, "Diviner's Tap", "Flash Teleport", "Mental Mark", "Spellshot",
+                        "Tech Countermeasures", "Widened Spell"],
                     #11
                     [11, "Countertech Sentinel", "Eternal Spell", "Reboot Mind", "Seeking Shot"],
                     #14
@@ -217,15 +241,15 @@ classChoseFeats = {
 
 classAbilities = {
     "envoy":  [[["Envoy improvisation", "improvisation"], # one of the classChoseFeats for envoy
-                ["Expertise (1d6)", "expertise"], # maybe worth creating an array with all expertise skills
+                ["Expertise (1d6)", "expertise"],
                 ["Skill expertise (1)", "add expertise"]], # any ability, each only once
 
                [["Envoy improvisation", "improvisation"]],
 
                [["Expertise talent", "talent"],
                 ["Weapon specialization", "weapon"]],
-                # You gain the Weapon Specialization feat as a bonus feat for each weapon type with which this
-                # class grants you proficiency
+                # You gain the Weapon Specialization feat as a bonus feat for each weapon type with
+                # which this class grants you proficiency
 
                [["Envoy improvisation", "improvisation"]],
 
@@ -266,11 +290,13 @@ classAbilities = {
                [["Envoy improvisation", "improvisation"],
                 ["Expertise (1d8+4)", "words"],
                 ["True expertise", "words"]],
-                # maybe add in a selection from the selected envoy improvisation but it really is just words
+                # maybe add in a selection from the selected envoy improvisation but it really is
+                # just words
              ]
 
     ,
-    "mechanic":[[["Artificial intelligence", "words"], # might want a selector between Drone and Exocortex
+    "mechanic":[[["Artificial intelligence", "words"],
+                # might want a selector between Drone and Exocortex
                  ["Bypass +1", "words"],
                  ["Custom rig", "words"]],
 
@@ -318,7 +344,8 @@ classAbilities = {
 
                 [["Ghost in the machine", "words"],
                  ["Miracle worker 4/day", "words"],
-                 ["Superior rig", "words"]], # gains the counter measures of lock out and wipe as a bonus
+                 ["Superior rig", "words"]],
+                 # gains the counter measures of lock out and wipe as a bonus
 
                 [["Bypass +6", "words"],
                  ["Mechanic trick", "trick"],
@@ -374,7 +401,7 @@ classAbilities = {
              ]
     ,
     "operative":   [[["Operative's edge +1", "edge"], # edge, specialization, exploit
-                     ["Specialization", "specialization", ["feat", "Skill Focus"]], # feat "Skill Focus"
+                     ["Specialization", "specialization", ["feat", "Skill Focus"]],
                      ["Trick attack +1d4", "words"]],
 
                     [["Evasion", "words"],
@@ -437,7 +464,8 @@ classAbilities = {
     ,
     "solarian": [[["Skill adept", "class", [["any"], ["any"]]],
                   ["Solar manifestation", "words"],
-                  # chose either weapon or armor and chose either glowing star or darkness black hole
+                  # chose either weapon or armor and chose either glowing star or
+                  # darkness black hole
                   ["Stellar mode", "words"],
                   ["Stellar revelation (black hole, supernova)", "revelation"]],
 
@@ -591,7 +619,8 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "cha",
-        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Grenade Proficiency", "Small Arm Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
+                           "Grenade Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -625,7 +654,8 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "int",
-        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Grenade Proficiency", "Small Arm Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
+                           "Grenade Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 0,
                 "athletics"        : 3,
@@ -659,7 +689,8 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "wis",
-        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Small Arm Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
+                           "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 0,
                 "athletics"        : 0,
@@ -693,7 +724,8 @@ classesStatBonus = {
         "sp"        : 6,
         "hp"        : 6,
         "key"       : "dex",
-        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Small Arm Proficiency", "Sniper Weapon Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
+                           "Small Arm Proficiency", "Sniper Weapon Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -727,7 +759,8 @@ classesStatBonus = {
         "sp"        : 7,
         "hp"        : 7,
         "key"       : "cha",
-        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Advanced Melee Weapon Proficiency", "Small Arm Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
+                           "Advanced Melee Weapon Proficiency", "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -761,8 +794,11 @@ classesStatBonus = {
         "sp"        : 7,
         "hp"        : 7,
         "key"       : "str",
-        "proficiencies" : ["Light Armor Proficiency", "Heavy Armor Proficiency", "Basic Melee Weapon Proficiency", "Advanced Melee Weapon Proficiency",
-                           "Small Arm Proficiency", "Longarm Proficiency", "Heavy Weapon Proficiency", "Sniper Weapon Proficiency", "Grenade Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Heavy Armor Proficiency",
+                           "Basic Melee Weapon Proficiency", "Advanced Melee Weapon Proficiency",
+                           "Small Arm Proficiency", "Longarm Proficiency",
+                           "Heavy Weapon Proficiency", "Sniper Weapon Proficiency",
+                           "Grenade Proficiency"],
         "classBonus": {
                 "acrobatics"       : 3,
                 "athletics"        : 3,
@@ -796,7 +832,8 @@ classesStatBonus = {
         "sp"        : 5,
         "hp"        : 5,
         "key"       : "int",
-        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency", "Small Arm Proficiency"],
+        "proficiencies" : ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
+                           "Small Arm Proficiency"],
         "classBonus": {
                 "acrobatics"       : 0,
                 "athletics"        : 0,

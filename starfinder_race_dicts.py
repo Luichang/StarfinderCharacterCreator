@@ -26,7 +26,8 @@ raceAbilities = {
      "human"             : [["Bonus feat", "feat"],
                             # Humans select one extra feat at 1st level
                             ["Skilled", "words"]] ,
-                            # Humans gain an additional skill rank at 1st level and each level thereafter
+                            # Humans gain an additional skill rank at 1st level and
+                            # each level thereafter
 
      "kasatha"           : [["Desert stride", "words"],
                             ["Four-armed", "words"],
@@ -34,12 +35,14 @@ raceAbilities = {
                             ["Natural grace", "stats", [["acrobatics", 2], ["athletics", 2]]]] ,
 
      "lashunta(korasha)" : [["Dimorphic", "words"],
-                            ["Lashunta magic", "spell", [["Daze", "Psychokinetic Hand"], ["Detect Thoughts"]]],
+                            ["Lashunta magic", "spell", [["Daze", "Psychokinetic Hand"],
+                                                         ["Detect Thoughts"]]],
                             ["Limited telepathy", "words"],
                             ["Student", "stats", [["any", 2], ["any", 2]]]] ,
 
      "lashunta(damaya)"  : [["Dimorphic", "words"],
-                            ["Lashunta magic", "spell", [["Daze", "Psychokinetic Hand"], ["Detect Thoughts"]]],
+                            ["Lashunta magic", "spell", [["Daze", "Psychokinetic Hand"],
+                                                         ["Detect Thoughts"]]],
                             ["Limited telepathy", "words"],
                             ["Student", "stats", [["any", 2], ["any", 2]]]] ,
 
@@ -56,6 +59,6 @@ raceAbilities = {
      "ysoki"             : [["Cheek pouches", "words"],
                             ["Darkvision", "words"],
                             ["Moxie", "words"],
-                            ["Scrounger", "stats", [["engineering", 2], ["stealth", 2], ["survival", 2]]]]
+                            ["Scrounger", "stats", [["engineering", 2], ["stealth", 2],
+                                                    ["survival", 2]]]]
 }
-
