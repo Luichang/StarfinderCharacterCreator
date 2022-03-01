@@ -1658,13 +1658,17 @@ class Character:
             self.name                          = soup.find(attrs={"id": htmlTags["name"]})["value"]
 
             theme = soup.find(attrs={"id": htmlTags["theme"]})["value"].lower()
-            theme                                = [theme[0], theme[1][1:-1]]
-            self.set_theme(*theme.split())
+            theme = theme.split()
+            if len(theme) == 2:
+                theme[1] = theme[1][1:-1]
+            self.set_theme(*theme)
 
             self.vs_combat = soup.find(attrs={"id": htmlTags["vsCombat"]})["value"]
             race_name = soup.find(attrs={"id": htmlTags["race"]})["value"].lower()
-            race_name                             = [race_name[0], race_name[1][1:-1]]
-            self.set_race(*race_name.split())
+            race_name = race_name.split()
+            if len(race_name) == 2:
+                race_name[1] = race_name[1][1:-1]
+            self.set_race(*race_name)
 
             class_name_level = soup.find(attrs={"id": htmlTags["className"]})["value"]
             class_name_level                      = class_name_level.split()
