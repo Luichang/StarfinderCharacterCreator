@@ -1032,12 +1032,12 @@ class Character:
         # entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
         # self.chosenFeats.append(entered)
 
-    def select_new_class_feat(self, feat_type, level, verbose=True):
+    def select_new_class_feat(self, feat_type : str, level : int, verbose : bool=True) -> list:
         """Adds a new feature based on the entered featType and level. Should verbose be set to
            False the list of options is returned
 
         Args:
-            featType (string): the type of feat that is to be added
+            featType (str): the type of feat that is to be added
             level (int): player level
             verbose (bool, optional): If this function is called in terminal it prompts the user
                                       to enter a response, otherwise it returns all possibilities.
@@ -1193,7 +1193,7 @@ class Character:
                 self.chosen_feats.append(ability[2])
             elif ability[1] == "edge":
                 self.initiative_misc += 1
-                self.initiative = self.mods["dex"] + self.initiative_misc
+                self.calc_init()
                 list_to_write_to_file.append([htmlTags["init_total"], self.initiative])
                 list_to_write_to_file.append([htmlTags["init_dex"], self.mods["dex"]])
                 list_to_write_to_file.append([htmlTags["init_misc"], self.initiative_misc])
@@ -1278,6 +1278,8 @@ class Character:
             elif ability[1] == "weapon": # all # TODO
                 pass
             elif ability[1] == "words": # nothing happens
+                pass
+            elif ability[1] == "None":
                 pass
             else:
                 print(f"{ability} has not yet been implemented")
