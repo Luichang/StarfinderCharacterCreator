@@ -187,8 +187,8 @@ classChoseFeats = {
         ],
         "graviton" : ["bluff", "disguise", "mysticism", "sense motive", "stealth"],
         "photon" : ["culture", "diplomacy", "intimidate", "medicine", "survival"],
-        "zenith" : [1, "Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake",
-                    "Time Dilation", "Wormholes"]
+        "zenith" : [[1, "Miniature Star", "Ray of Light", "Solar Acceleration", "Starquake",
+                    "Time Dilation", "Wormholes"]]
     },
     "soldier": {
         "gear" : [
@@ -462,7 +462,7 @@ classAbilities = {
                      ["Supreme operative", "words"]],
              ]
     ,
-    "solarian": [[["Skill adept", "class", [["any"], ["any"]]],
+    "solarian": [[["Skill adept", "class", [["any"], ["any"]]], # class, revelation, influence, zenith, None
                   ["Solar manifestation", "words"],
                   # chose either weapon or armor and chose either glowing star or
                   # darkness black hole
@@ -476,7 +476,7 @@ classAbilities = {
 
                  [["Stellar revelation", "revelation"]],
 
-                 [[]],
+                 [["None", "None"]],
 
                  [["Stellar revelation", "revelation"]],
 
@@ -496,7 +496,7 @@ classAbilities = {
 
                  [["Stellar revelation", "revelation"]],
 
-                 [[]],
+                 [["None", "None"]],
 
                  [["Stellar revelation", "revelation"]],
 
