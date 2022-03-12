@@ -859,3 +859,8 @@ classesStatBonus = {
         }
     }
 }
+
+class_feat_replacables = ["Expertise", "Skill expertise", "Bypass", "Miracle worker",
+                          "Coordinated assault", "Channel skill", "Operative's edge",
+                          "Trick attack", "Sidereal influence", "Techlore", "Cache capacitor",
+                          "Quick movement"]
