@@ -559,7 +559,7 @@ classAbilities = {
                  ["Kill shot", "words"]],
              ]
     ,
-    "technomancer": [[["Spell cache", "words"]],
+    "technomancer": [[["Spell cache", "words"]], # hack, feat, skills
 
                      [["Magic hack", "hack"]],
 
@@ -568,7 +568,7 @@ classAbilities = {
                       ["Weapon specialization", "weapon"]],
 
 
-                     [[]],
+                     [["None", "None"]],
 
                      [["Magic hack", "hack"]],
 
@@ -576,26 +576,26 @@ classAbilities = {
                       ["Techlore +2", "skills", [["computers", 1], ["mysticism", 1]]]],
 
 
-                     [[]],
+                     [["None", "None"]],
 
                      [["Magic hack", "hack"]],
 
                      [["Techlore +3", "skills", [["computers", 1], ["mysticism", 1]]]],
 
-                     [[]],
+                     [["None", "None"]],
 
                      [["Magic hack", "hack"]],
 
                      [["Cache capacitor 2", "words"],
                       ["Techlore +4", "skills", [["computers", 1], ["mysticism", 1]]]],
 
-                     [[]],
+                     [["None", "None"]],
 
                      [["Magic hack", "hack"]],
 
                      [["Techlore +5", "skills", [["computers", 1], ["mysticism", 1]]]],
 
-                     [[]],
+                     [["None", "None"]],
 
                      [["Magic hack", "hack"]],
 
