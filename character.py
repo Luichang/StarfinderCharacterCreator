@@ -117,7 +117,7 @@ class Character:
                 self.read_from_html(file_name)
 
 
-    def set_name(self, name):
+    def set_name(self, name : str) -> None:
         """Sets the name of the character
 
         Args:
@@ -125,7 +125,7 @@ class Character:
         """
         self.name = name
 
-    def add_attribute(self, text):
+    def add_attribute(self, text : str) -> None:
         """Add a new attribute to the character
 
         Args:
@@ -137,7 +137,7 @@ class Character:
         entered = self.get_user_response(possible_attributes, text)
         return entered
 
-    def set_race(self, race, attr=None):
+    def set_race(self, race : str, attr : str=None) -> None:
         """Sets the race of the character
 
         Args:
@@ -161,7 +161,7 @@ class Character:
         self.calc_attributes()
 
 
-    def set_theme(self, theme, attr=None):
+    def set_theme(self, theme : str, attr : str=None) -> None:
         """Sets the character Theme
 
         Args:
@@ -183,7 +183,7 @@ class Character:
             self.theme += " (" + attribute_shortener[attribute] + ")"
         self.calc_attributes()
 
-    def calc_attributes(self):
+    def calc_attributes(self) -> None:
         """calculate the attribute values of every attribute
         """
         self.attributes["strength"]     = 10 + self.race_attributes["strength"]     +\
@@ -211,7 +211,7 @@ class Character:
                                           self.spent_points["charisma"]
         self.calc_attribut_mod()
 
-    def set_class_name(self, name, key=None):
+    def set_class_name(self, name : str, key : str=None) -> str:
         """Sets the character class
 
         Args:
@@ -235,19 +235,19 @@ class Character:
             self.skill_class[skill] = classesStatBonus[self.class_name]["classBonus"][skill]
         return class_name
 
-    def calc_armor_class(self):
+    def calc_armor_class(self) -> None:
         """calculate the armor classes
         """
         self.eac = 10 + 0 + self.mods["dex"] + 0
         self.kac = 10 + 0 + self.mods["dex"] + 0
         self.vs_combat = 8 + self.kac
 
-    def calc_init(self):
+    def calc_init(self) -> None:
         """calculate the initiative values
         """
         self.initiative = self.mods["dex"] + self.initiative_misc
 
-    def create_new(self):
+    def create_new(self) -> None:
         """create a new character
         """
         entered = self.get_user_response([""], "Enter a Character Name", False)
@@ -430,7 +430,7 @@ class Character:
 
         self.add_spells()
 
-    def calc_save(self):
+    def calc_save(self) -> None:
         """calculate the values of the saving throw bases
         """
         self.fort_save = classesStatBonus[self.class_name]["fort"][self.class_level - 1] +\
@@ -440,7 +440,7 @@ class Character:
         self.will_save = classesStatBonus[self.class_name]["will"][self.class_level - 1] +\
                           self.mods["wis"] + self.will_save_misc
 
-    def print_save(self):
+    def print_save(self) -> list:
         """Print the values of the saves into the HTML file
 
         Returns:
@@ -467,7 +467,7 @@ class Character:
         list_to_write_to_file.append([htmlTags["willSaveMisc"], self.will_save_misc])
         return list_to_write_to_file
 
-    def calc_attack(self):
+    def calc_attack(self) -> None:
         """calculates the base attack values
         """
         self.melee = classesStatBonus[self.class_name]["bab"][self.class_level - 1] +\
@@ -477,7 +477,7 @@ class Character:
         self.throw = classesStatBonus[self.class_name]["bab"][self.class_level - 1] +\
                      self.mods["str"] + self.throw_misc
 
-    def print_attack(self):
+    def print_attack(self) -> list:
         """prints the attack values to the HTML file
 
         Returns:
@@ -503,7 +503,7 @@ class Character:
         list_to_write_to_file.append([htmlTags["throw_misc"], self.throw_misc])
         return list_to_write_to_file
 
-    def print_spells(self):
+    def print_spells(self) -> list:
         """create list to print spells to the HTML file
 
         Returns:
@@ -527,7 +527,7 @@ class Character:
                 list_to_write_to_file.append([htmlTags[spell_boxes[i][j]], full_spell])
         return list_to_write_to_file
 
-    def print_spell_numbers(self):
+    def print_spell_numbers(self) -> list:
         """generate list to print spells to HTML
 
         Returns:
@@ -563,7 +563,7 @@ class Character:
         return list_to_write_to_file
 
 
-    def add_spells(self):
+    def add_spells(self) -> None:
         """add spells to the character
         """
         list_to_write_to_file = []
@@ -604,7 +604,7 @@ class Character:
         self.write_to_file("listPass", list_to_write_to_file)
 
 
-    def calc_skills(self, verbose=True):
+    def calc_skills(self, verbose : bool=True) -> list:
         """calculate the total of every skill
 
         Args:
@@ -672,7 +672,7 @@ class Character:
         if verbose:
             return list_to_write_to_file
 
-    def calc_hit_points(self):
+    def calc_hit_points(self) -> None:
         """calculates the current HP, SP, and RP
         """
         self.stamina_points = max(1, (max(0, classesStatBonus[self.class_name]["sp"] +\
@@ -681,7 +681,7 @@ class Character:
                              raceStatList[self.race_name.split()[0]]["hp"])
         self.resolve_points = max(1, max(1, self.class_level // 2) + self.mods[self.key])
 
-    def add_skill_points(self):
+    def add_skill_points(self) -> None:
         """add points to skills, only used in terminal use
         """
         skillpoints = classesStatBonus[self.class_name]["skills"] + self.mods["int"]
@@ -701,7 +701,7 @@ class Character:
             self.write_to_file(htmlTags["spendablePoints"], skillpoints)
 
 
-    def calc_attribut_mod(self): # TODO
+    def calc_attribut_mod(self) -> None: # TODO
         """calculate the attribute modifiers
         """
         self.mods["str"] = ((self.attributes["strength"] // 2) - 5)
@@ -711,7 +711,7 @@ class Character:
         self.mods["wis"] = ((self.attributes["wisdom"] // 2) - 5)
         self.mods["cha"] = ((self.attributes["charisma"] // 2) - 5)
 
-    def check_combat_feats(self, check_feat):
+    def check_combat_feats(self, check_feat : str) -> bool:
         """checks if a feat is a combat feat
 
         Args:
@@ -743,7 +743,7 @@ class Character:
             to_add = False
         return to_add
 
-    def check_for_feat(self, check_feat):
+    def check_for_feat(self, check_feat : str) -> bool:
         """checks to see if the feat is in the chosen_feats list
 
         Args:
@@ -760,7 +760,7 @@ class Character:
                 break
         return to_add
 
-    def check_for_skills(self, check_skills):
+    def check_for_skills(self, check_skills : list) -> bool:
         """does some skill check
 
         Args:
@@ -787,7 +787,7 @@ class Character:
                     to_add = False
         return to_add
 
-    def check_for_attribute(self, check_attribute):
+    def check_for_attribute(self, check_attribute : list) -> bool:
         """checks if the attribute is high enough for the feat to be added
 
         Args:
@@ -803,7 +803,7 @@ class Character:
             return True
         return False
 
-    def check_for_spell_level(self, check_spell_level):
+    def check_for_spell_level(self, check_spell_level : int) -> bool:
         """checks to see if the players spell level is high enough to be able to use
             the feat in question
 
@@ -820,11 +820,11 @@ class Character:
             return True
         return False
 
-    def check_for_bab(self, check_bab):
+    def check_for_bab(self, check_bab : int) -> bool:
         """check to see if the bab of the player is high enough for the feat
 
         Args:
-            check_bab (int ): bab of the character
+            check_bab (int): bab of the character
 
         Returns:
             bool: if the characters bab is high enough return True
@@ -833,7 +833,7 @@ class Character:
             return True
         return False
 
-    def check_for_level(self, check_level):
+    def check_for_level(self, check_level : int) -> bool:
         """checks if the character level is high enough for the feat in question
 
         Args:
@@ -846,7 +846,7 @@ class Character:
             return True
         return False
 
-    def check_for_saves(self, check_saves):
+    def check_for_saves(self, check_saves : list) -> bool:
         """checks to see if the given save stat is high enough
 
         Args:
@@ -859,7 +859,7 @@ class Character:
             return True
         return False
 
-    def check_for_race(self, check_race):
+    def check_for_race(self, check_race : str) -> bool:
         """check if the race is what is needed for the feat
 
         Args:
@@ -872,7 +872,7 @@ class Character:
             return True
         return False
 
-    def check_for_style(self, check_style):
+    def check_for_style(self, check_style : list) -> bool:
         """checks if the style the player chose is what is needed for the feat in question
 
         Args:
@@ -886,7 +886,7 @@ class Character:
                 return True
         return False
 
-    def check_from(self, from_list):
+    def check_from(self, from_list : list) -> bool:
         """Performs multiple checks at once
 
         Args:
@@ -910,7 +910,7 @@ class Character:
                 print(f"from {from_check[0]} not implemented {from_list}")
         return feat_true or class_true
 
-    def filter_feats(self, combat=False):
+    def filter_feats(self, combat : bool=False) -> list:
         """generates list of feats the player can chose from
 
         Args:
@@ -965,11 +965,16 @@ class Character:
                     selected.append(feat)
         return selected
 
-    def select_new_feat(self, combat=False):
+    def select_new_feat(self, combat : bool=False, verbose : bool=True) -> list:
         """function to add a feat to the character. only used in terminal version
 
         Args:
             combat (bool, optional): used to filter out combat feats. Defaults to False.
+            verbose (bool, optional): if the function is executed with the terminal.
+                                      Defaults to True.
+
+        Returns:
+            list: list of selectable feats
         """
         add_feat = False
         additional_info = ""
@@ -977,58 +982,59 @@ class Character:
         for feat in self.chosen_feats:
             if feat in possible_feats:
                 possible_feats.remove(feat)
-        while not add_feat:
-            print_text = "please enter feat name you would like to add. Possible feats are: " +\
-                         ", ".join(possible_feats)
-            lower_chosen_feats = [x.lower() for x in possible_feats]
-            entered = self.get_user_response(lower_chosen_feats, print_text)
-            add_feat = True
-            if entered == "weapon focus" or entered == "weapon specialization":
-                weapon_feats = ["advanced melee", "advanced melee weapon", "basic melee",
-                               "basic melee weapon", "grenade", "heavy", "heavy weapon",
-                               "longarm", "small arm", "sniper", "sniper weapon", "special",
-                               "special weapon"]
-                weapon_feats_small = ["advanced melee weapon", "basic melee weapon", "grenade",
-                                    "heavy weapon", "longarm", "small arm", "sniper weapon",
-                                    "special weapon"]
-                if entered == "weapon specialization":
-                    weapon_feats.remove("grenade")
-                    weapon_feats_small.remove("grenade")
+        if verbose:
+            while not add_feat:
+                print_text = "please enter feat name you would like to add. Possible feats are: " +\
+                            ", ".join(possible_feats)
+                lower_chosen_feats = [x.lower() for x in possible_feats]
+                entered = self.get_user_response(lower_chosen_feats, print_text)
+                add_feat = True
+                if entered == "weapon focus" or entered == "weapon specialization":
+                    weapon_feats = ["advanced melee", "advanced melee weapon", "basic melee",
+                                "basic melee weapon", "grenade", "heavy", "heavy weapon",
+                                "longarm", "small arm", "sniper", "sniper weapon", "special",
+                                "special weapon"]
+                    weapon_feats_small = ["advanced melee weapon", "basic melee weapon", "grenade",
+                                        "heavy weapon", "longarm", "small arm", "sniper weapon",
+                                        "special weapon"]
+                    if entered == "weapon specialization":
+                        weapon_feats.remove("grenade")
+                        weapon_feats_small.remove("grenade")
 
-                weapon_type_text = "With which weapon type do you wish to use this feat? \n" +\
-                                 "Possible weapon types are: " + ", ".join(weapon_feats_small)
-                weapon_entered = self.get_user_response(weapon_feats, weapon_type_text)
-                weapon_feats_dict = {
-                    "advanced melee"        : "Advanced Melee Weapon Proficiency",
-                    "advanced melee weapon" : "Advanced Melee Weapon Proficiency",
-                    "basic melee"           : "Basic Melee Weapon Proficiency",
-                    "basic melee weapon"    : "Basic Melee Weapon Proficiency",
-                    "grenade"               : "Grenade Proficiency",
-                    "heavy"                 : "Heavy Weapon Proficiency",
-                    "heavy weapon"          : "Heavy Weapon Proficiency",
-                    "longarm"               : "Longarm Proficiency",
-                    "small arm"             : "Small Arm Proficiency",
-                    "sniper"                : "Sniper Weapon Proficiency",
-                    "sniper weapon"         : "Sniper Weapon Proficiency",
-                    "special"               : "Special Weapon Proficiency",
-                    "special weapon"        : "Special Weapon Proficiency"
-                }
-                additional_info = f" [{weapon_feats_dict[weapon_entered]}]"
-                if weapon_feats_dict[weapon_entered] not in self.chosen_feats:
-                    add_feat = False
-                    print(f"You do not have the {weapon_feats_dict[weapon_entered]}, please " +\
-                           "selsct a different feat")
-                    additional_info = ""
-            elif entered == "skill focus":
-                print_text = "please enter the skill you would like to focus. " +\
-                             "Possible skills are: " + ", ".join([x for x in self.skills])
-                skill_entered = self.get_user_response([x for x in self.skills], print_text)
-                additional_info = f" [{skill_entered.title()}]".format()
-                self.skill_misc[skill_entered] += 3
+                    weapon_type_text = "With which weapon type do you wish to use this feat? \n" +\
+                                    "Possible weapon types are: " + ", ".join(weapon_feats_small)
+                    weapon_entered = self.get_user_response(weapon_feats, weapon_type_text)
+                    weapon_feats_dict = {
+                        "advanced melee"        : "Advanced Melee Weapon Proficiency",
+                        "advanced melee weapon" : "Advanced Melee Weapon Proficiency",
+                        "basic melee"           : "Basic Melee Weapon Proficiency",
+                        "basic melee weapon"    : "Basic Melee Weapon Proficiency",
+                        "grenade"               : "Grenade Proficiency",
+                        "heavy"                 : "Heavy Weapon Proficiency",
+                        "heavy weapon"          : "Heavy Weapon Proficiency",
+                        "longarm"               : "Longarm Proficiency",
+                        "small arm"             : "Small Arm Proficiency",
+                        "sniper"                : "Sniper Weapon Proficiency",
+                        "sniper weapon"         : "Sniper Weapon Proficiency",
+                        "special"               : "Special Weapon Proficiency",
+                        "special weapon"        : "Special Weapon Proficiency"
+                    }
+                    additional_info = f" [{weapon_feats_dict[weapon_entered]}]"
+                    if weapon_feats_dict[weapon_entered] not in self.chosen_feats:
+                        add_feat = False
+                        print(f"You do not have the {weapon_feats_dict[weapon_entered]}, please " +\
+                            "selsct a different feat")
+                        additional_info = ""
+                elif entered == "skill focus":
+                    print_text = "please enter the skill you would like to focus. " +\
+                                "Possible skills are: " + ", ".join([x for x in self.skills])
+                    skill_entered = self.get_user_response([x for x in self.skills], print_text)
+                    additional_info = f" [{skill_entered.title()}]".format()
+                    self.skill_misc[skill_entered] += 3
 
-        entered_feat_index = lower_chosen_feats.index(entered)
-        self.chosen_feats.append(possible_feats[entered_feat_index] + additional_info)
-
+            entered_feat_index = lower_chosen_feats.index(entered)
+            self.chosen_feats.append(possible_feats[entered_feat_index] + additional_info)
+        return possible_feats
         # entered = self.getUserResponse([x.lower() for x in possibleFeats], printText)
         # self.chosenFeats.append(entered)
 
@@ -1062,7 +1068,7 @@ class Character:
             self.class_feats.append(possible_class_feats[entered_feat_index])
         return possible_class_feats
 
-    def feats_and_abilities(self):
+    def feats_and_abilities(self) -> None:
         """do something with the feats and abilities
         """
 
@@ -1307,7 +1313,7 @@ class Character:
 
         self.write_to_file("listPass", list_to_write_to_file)
 
-    def print_abilities(self):
+    def print_abilities(self) -> list:
         """generates list to print objects to the HTML file
 
         Returns:
@@ -1382,7 +1388,7 @@ class Character:
         return list_to_write_to_file
 
 
-    def make_class_skill(self, new_class_skill):
+    def make_class_skill(self, new_class_skill : str) -> None:
         """make a skill into a class skill or give it an extra misc charge
 
         Args:
@@ -1393,7 +1399,7 @@ class Character:
         else:
             self.skill_misc[new_class_skill] += 1
 
-    def ability_increase(self):
+    def ability_increase(self) -> None:
         """every two levels this function adds a new feat to the character, every 5 the character
         can improve 4 stats
         """
@@ -1450,7 +1456,7 @@ class Character:
             list_to_write_to_file+= self.calc_skills()
             self.write_to_file("listPass", list_to_write_to_file)
 
-    def level_up(self): # TODO Spells
+    def level_up(self) -> None: # TODO Spells
         """Level the character up and call all relevant functions
         """
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,
@@ -1483,7 +1489,7 @@ class Character:
             list_to_write_to_file += self.print_save()
             self.write_to_file("listPass", list_to_write_to_file)
 
-    def get_user_response(self, options, text="", include=True):
+    def get_user_response(self, options : list, text : str="", include : bool=True) -> str:
         """Function to get user response from input options
 
         Args:
@@ -1506,7 +1512,7 @@ class Character:
                 entered = input(text).lower()
         return entered
 
-    def update_html(self):
+    def update_html(self) -> None:
         """Funtion that takes the internal variables and updates every single
            variable to the HTML file
         """
@@ -1604,7 +1610,7 @@ class Character:
 
         self.write_to_file("listPass", list_to_write_to_file)
 
-    def read_from_html(self, file_name):
+    def read_from_html(self, file_name : str) -> None:
         """takes input html file and creates a character from it
 
         Args:
@@ -1802,7 +1808,7 @@ class Character:
 
 
 
-    def write_to_file(self, attribute_name, attribute_name_value):
+    def write_to_file(self, attribute_name : str, attribute_name_value : str) -> None:
         """funtion to write the input to the HTML
 
         Args:
