@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from starfinder_class_dicts import classAbilities, classChoseFeats, class_feat_replacables
+from helpers.starfinder_class_dicts import classAbilities, classChoseFeats, class_feat_replacables
 
-from starfinder_dicts import skills
-from ProxyModel import ProxyModel
+from helpers.starfinder_dicts import skills
+from helpers.ProxyModel import ProxyModel
 
 
 class UiForm(QtWidgets.QWidget):

@@ -2,14 +2,14 @@ from copy import deepcopy
 
 from bs4 import BeautifulSoup
 
-from feats import feats
-from spells import spells
-from starfinder_dicts import possible_attributes, attribute_shorthand, attribute_shortener, \
+from helpers.feats import feats
+from helpers.spells import spells
+from helpers.starfinder_dicts import possible_attributes, attribute_shorthand, attribute_shortener, \
                              spells_known, spells_day, spells_bonus, skills
-from starfinder_html_dict import htmlTags
-from starfinder_race_dicts import raceAbilities, raceStatList
-from starfinder_theme_dicts import themes, themeAbilities
-from starfinder_class_dicts import classesStatFocus, classChoseFeats, classAbilities, \
+from helpers.starfinder_html_dict import htmlTags
+from helpers.starfinder_race_dicts import raceAbilities, raceStatList
+from helpers.starfinder_theme_dicts import themes, themeAbilities
+from helpers.starfinder_class_dicts import classesStatFocus, classChoseFeats, classAbilities,\
                                    classesStatBonus
 
 

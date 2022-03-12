@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from character import Character
-from ProxyModel import ProxyModel
-from starfinder_class_dicts import classesStatBonus
+from helpers.ProxyModel import ProxyModel
+from helpers.starfinder_class_dicts import classesStatBonus
 from starfinder_gui_feat import UiForm
 
 
