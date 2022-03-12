@@ -1660,7 +1660,7 @@ class Character:
             ["spell501", "spell502", "spell503", "spell504", "spell505", "spell506"],
             ["spell601", "spell602", "spell603", "spell604", "spell605", "spell606"]]
         try:
-            file = open(f"{file_name}.html", encoding='utf-8')
+            file = open(f"html/{file_name}.html", encoding='utf-8')
             soup = BeautifulSoup(file, 'html.parser')
 
             self.name                          = soup.find(attrs={"id": htmlTags["name"]})["value"]
@@ -1821,9 +1821,9 @@ class Character:
                                         second is the attribute_name_value
         """
         try:
-            file = open(f"{self.name}.html", mode="r+", encoding='utf-8')
+            file = open(f"html/{self.name}.html", mode="r+", encoding='utf-8')
         except FileNotFoundError:
-            file = open("CharacterSheet.html", mode="r+", encoding='utf-8')
+            file = open("html/CharacterSheet.html", mode="r+", encoding='utf-8')
 
         soup = BeautifulSoup(file, 'html.parser')
         if attribute_name == "listPass":
@@ -1846,6 +1846,6 @@ class Character:
                 print(soup.find(attrs={"id": attribute_name}))
                 print("------------------")
 
-        with open(f"{self.name.lower()}.html", "w", encoding='utf-8') as out:
+        with open(f"html/{self.name.lower()}.html", "w", encoding='utf-8') as out:
             out.write(str(soup))
         file.close()
