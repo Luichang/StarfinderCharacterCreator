@@ -81,7 +81,7 @@ classChoseFeats = {
             "Healer" : {
                 "spell" : ["ERROR", "ERROR", "ERROR", "ERROR", "ERROR", "ERROR"],
                 "skill" : ["medicine", "mysticism"],
-                "feat"  : [["Healing Channe"],
+                "feat"  : [["Healing Channel"],
                            ["Lifelink"],
                            ["Healer's Bond"],
                            ["Steal Life"],
@@ -203,20 +203,55 @@ classChoseFeats = {
         ],
         "styles" : {
             # name                  1, 5, 9, 13, 17
-            "arcane assailant" : ["Rune of the Eldritch Knight", "Secret of the Magi",
-                                  "Power of Legend", "Secret of the Archmagi", "Arcane Attack"],
-            "armor storm" : ["Hammer Fist", "Enhanced Tank", "Smash Through", "Mobile Army",
-                             "On the Bounce"],
-            "blitz" : ["Rapid Response", "Charge Attack", "Keep Fighting", "Perfect Opportunity",
-                       "Against the Odds"],
-            "bombard" : ["Grenade Expert", "Heavy Fire", "Debilitating Attack",
-                         "Explosives Acumen", "Impactful Attack"],
-            "guard" : ["Armor Training", "Guard's Protection", "Rapid Recovery",
-                       "Kinetic Resistance", "Impenetrable Defense"],
-            "hit-and-run" : ["Opening Volley", "Nimble Fusillade", "Duck and Weave",
-                             "Elusive Target", "Harrying Shot"],
-            "sharpshoot" : ["Sniper's Aim", "Focus Fire", "Intense Focus", "Focused Damage",
-                            "Prepared Shot"]
+            "arcane assailant" : {
+                1 : "Rune of the Eldritch Knight",
+                5 : "Secret of the Magi",
+                9 : "Power of Legend",
+                13: "Secret of the Archmagi",
+                17: "Arcane Attack"
+            },
+            "armor storm" : {
+                1 : "Hammer Fist",
+                5 : "Enhanced Tank",
+                9 : "Smash Through",
+                13: "Mobile Army",
+                17: "On the Bounce"
+            },
+            "blitz" : {
+                1 : "Rapid Response",
+                5 : "Charge Attack",
+                9 : "Keep Fighting",
+                13: "Perfect Opportunity",
+                17: "Against the Odds"
+            },
+            "bombard" : {
+                1 : "Grenade Expert",
+                5 : "Heavy Fire",
+                9 : "Debilitating Attack",
+                13: "Explosives Acumen",
+                17: "Impactful Attack"
+            },
+            "guard" : {
+                1 : "Armor Training",
+                5 : "Guard's Protection",
+                9 : "Rapid Recovery",
+                13: "Kinetic Resistance",
+                17: "Impenetrable Defense"
+            },
+            "hit-and-run" : {
+                1 : "Opening Volley",
+                5 : "Nimble Fusillade",
+                9 : "Duck and Weave",
+                13: "Elusive Target",
+                17: "Harrying Shot"
+            },
+            "sharpshoot" : {
+                1 : "Sniper's Aim",
+                5 : "Focus Fire",
+                9 : "Intense Focus",
+                13: "Focused Damage",
+                17: "Prepared Shot"
+            }
         }
     },
     "technomancer": {
@@ -300,7 +335,7 @@ classAbilities = {
                  ["Bypass +1", "words"],
                  ["Custom rig", "words"]],
 
-                [["Mechanic trick", "trick"]], # TODO
+                [["Mechanic trick", "trick"]],
 
                 [["Overload", "words"],
                  ["Weapon specialization", "weapon"]],
