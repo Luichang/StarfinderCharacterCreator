@@ -21,6 +21,7 @@ class UIMainWindow(object):
         Args:
             main_window (????): the main window?
         """
+        # pylint: disable=attribute-defined-outside-init
         self.character = Character(gui=True)
         self.point_buy_spendable_points = 10
         self.skill_buy_spendable_points = 0
