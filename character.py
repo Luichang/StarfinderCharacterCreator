@@ -199,29 +199,15 @@ class Character:
     def calc_attributes(self) -> None:
         """calculate the attribute values of every attribute
         """
-        self.attributes["strength"]     = 10 + self.race_attributes["strength"]     +\
-                                          self.theme_attributes["strength"]         +\
-                                          self.spent_points["strength"]
+        for attribute in self.attributes:
+            self.attributes[attribute] = 10 + self.race_attributes[attribute] +\
+                                          self.theme_attributes[attribute] +\
+                                          self.spent_points[attribute]
+            for _ in range(self.ability_increases[attribute]):
+                self.attributes[attribute] += 1
+                if self.attributes[attribute] < 18:
+                    self.attributes[attribute] += 1
 
-        self.attributes["dexterity"]    = 10 + self.race_attributes["dexterity"]    +\
-                                          self.theme_attributes["dexterity"]        +\
-                                          self.spent_points["dexterity"]
-
-        self.attributes["constitution"] = 10 + self.race_attributes["constitution"] +\
-                                          self.theme_attributes["constitution"]     +\
-                                          self.spent_points["constitution"]
-
-        self.attributes["intelligence"] = 10 + self.race_attributes["intelligence"] +\
-                                          self.theme_attributes["intelligence"]     +\
-                                          self.spent_points["intelligence"]
-
-        self.attributes["wisdom"]       = 10 + self.race_attributes["wisdom"]       +\
-                                          self.theme_attributes["wisdom"]           +\
-                                          self.spent_points["wisdom"]
-
-        self.attributes["charisma"]     = 10 + self.race_attributes["charisma"]     +\
-                                          self.theme_attributes["charisma"]         +\
-                                          self.spent_points["charisma"]
         self.calc_attribut_mod()
 
     def set_class_name(self, name : str, key : str=None) -> str:
@@ -1492,32 +1478,32 @@ class Character:
         #        break
         if self.class_level < 20:
             if not gui:
-            self.class_level = self.class_level + 1
+                self.class_level = self.class_level + 1
             self.ability_increase(gui=gui)
             if not gui:
-            self.add_skill_points()
+                self.add_skill_points()
             list_to_write_to_file = []
             list_to_write_to_file += self.calc_skills()
             if not gui:
-            self.feats_and_abilities()
+                self.feats_and_abilities()
             self.calc_hit_points()
             if not gui:
-            list_to_write_to_file.append([htmlTags["sp"], self.stamina_points])
-            list_to_write_to_file.append([htmlTags["hp"], self.hit_points])
-            list_to_write_to_file.append([htmlTags["rp"], self.resolve_points])
-            class_name = self.class_name.title() + " (" + str(self.class_level) + ")"
-            if self.class_name == "soldier":
-                class_name += " [" + str(self.key) + "]"
-            list_to_write_to_file.append([htmlTags["className"], class_name])
+                list_to_write_to_file.append([htmlTags["sp"], self.stamina_points])
+                list_to_write_to_file.append([htmlTags["hp"], self.hit_points])
+                list_to_write_to_file.append([htmlTags["rp"], self.resolve_points])
+                class_name = self.class_name.title() + " (" + str(self.class_level) + ")"
+                if self.class_name == "soldier":
+                    class_name += " [" + str(self.key) + "]"
+                list_to_write_to_file.append([htmlTags["className"], class_name])
                 self.add_spells() # TODO this will need to change in the future for gui addable spells
             self.calc_attack()
             if not gui:
-            list_to_write_to_file += self.print_attack()
+                list_to_write_to_file += self.print_attack()
             self.calc_save()
             if not gui:
-            list_to_write_to_file += self.print_save()
+                list_to_write_to_file += self.print_save()
             if not gui:
-            self.write_to_file("listPass", list_to_write_to_file)
+                self.write_to_file("listPass", list_to_write_to_file)
 
     def get_user_response(self, options : list, text : str="", include : bool=True) -> str:
         """Function to get user response from input options
