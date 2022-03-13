@@ -85,7 +85,8 @@ class UIMainWindow(object):
         self.ability_count_grid.setContentsMargins(0, 0, 0, 0)
         self.ability_count_grid.setObjectName("AbilityCountGrid")
         self.remaining_ability_text = QtWidgets.QLabel(self.horizontal_layout_widget_8)
-        initialize_text(self.remaining_ability_text, "RemainingAbilityText", "Remaining Ability Increase")
+        initialize_text(self.remaining_ability_text, "RemainingAbilityText",
+                        "Remaining Ability Increase")
         self.ability_count_grid.addWidget(self.remaining_ability_text)
         self.remaining_ability_box = QtWidgets.QLineEdit(self.horizontal_layout_widget_8)
         initialize_edit(self.remaining_ability_box, "RemainingAbilityBox", shape=[40, 25])
@@ -864,71 +865,92 @@ class UIMainWindow(object):
         self.skills_score_grid.addWidget(self.survival_total, 41, 2, 1, 1)
 
         self.rank_acrobatics_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_acrobatics_combo, "RankAcrobaticsCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_acrobatics_combo, "RankAcrobaticsCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_acrobatics_combo, 1, 4, 1, 1)
         self.rank_athletics_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_athletics_combo, "RankAthleticsCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_athletics_combo, "RankAthleticsCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_athletics_combo, 3, 4, 1, 1)
         self.rank_bluff_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_bluff_combo, "RankBluffCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_bluff_combo, "RankBluffCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_bluff_combo, 5, 4, 1, 1)
         self.rank_computers_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_computers_combo, "RankComputersCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_computers_combo, "RankComputersCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_computers_combo, 7, 4, 1, 1)
         self.rank_culture_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_culture_combo, "RankCultureCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_culture_combo, "RankCultureCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_culture_combo, 9, 4, 1, 1)
         self.rank_diplomacy_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_diplomacy_combo, "RankDiplomacyCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_diplomacy_combo, "RankDiplomacyCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_diplomacy_combo, 11, 4, 1, 1)
         self.rank_disguise_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_disguise_combo, "RankDisguiseCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_disguise_combo, "RankDisguiseCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_disguise_combo, 13, 4, 1, 1)
 
         self.rank_engineering_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_engineering_combo, "RankLifeCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_engineering_combo, "RankLifeCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_engineering_combo, 15, 4, 1, 1)
         self.rank_intimidate_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_intimidate_combo, "RankMedicineCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_intimidate_combo, "RankMedicineCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_intimidate_combo, 17, 4, 1, 1)
 
         self.rank_life_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_life_combo, "RankLifeCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_life_combo, "RankLifeCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_life_combo, 19, 4, 1, 1)
         self.rank_medicine_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_medicine_combo, "RankMedicineCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_medicine_combo, "RankMedicineCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_medicine_combo, 21, 4, 1, 1)
         self.rank_mysticism_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_mysticism_combo, "RankMysticismCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_mysticism_combo, "RankMysticismCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_mysticism_combo, 23, 4, 1, 1)
         self.rank_perception_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_perception_combo, "RankPerceptionCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_perception_combo, "RankPerceptionCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_perception_combo, 25, 4, 1, 1)
         self.rank_physical_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_physical_combo, "RankPhysicalCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_physical_combo, "RankPhysicalCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_physical_combo, 27, 4, 1, 1)
 
         self.rank_piloting_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_piloting_combo, "RankSenseCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_piloting_combo, "RankSenseCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_piloting_combo, 29, 4, 1, 1)
 
         self.rank_profession1_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_profession1_combo, "RankProfession1Combo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_profession1_combo, "RankProfession1Combo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_profession1_combo, 31, 4, 1, 1)
         self.rank_profession2_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_profession2_combo, "RankProfession2Combo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_profession2_combo, "RankProfession2Combo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_profession2_combo, 33, 4, 1, 1)
         self.rank_sense_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_sense_combo, "RankSenseCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_sense_combo, "RankSenseCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_sense_combo, 35, 4, 1, 1)
         self.rank_slight_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_slight_combo, "RankSlightCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_slight_combo, "RankSlightCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_slight_combo, 37, 4, 1, 1)
         self.rank_stealth_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_stealth_combo, "RankStealthCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_stealth_combo, "RankStealthCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_stealth_combo, 39, 4, 1, 1)
         self.rank_survival_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        initialize_combo(self.rank_survival_combo, "RankSurvivalCombo", ["0"], [43, 20], self.update_skill_buy)
+        initialize_combo(self.rank_survival_combo, "RankSurvivalCombo", ["0"], [43, 20],
+                         self.update_skill_buy)
         self.skills_score_grid.addWidget(self.rank_survival_combo, 41, 4, 1, 1)
 
 
@@ -1591,7 +1613,7 @@ class UIMainWindow(object):
         self.race_combo = QtWidgets.QComboBox()
         self.race_combo.setMaximumSize(QtCore.QSize(120, 20))
         self.race_combo.setObjectName("RaceCombo")
-        
+
         initialize_combo_model(self.race_combo, [x.capitalize() for x in raceAbilities],
                                 "<<Select Race>>", connection=self.race_activated)
         self.race_grid.addWidget(self.race_combo)
@@ -1845,7 +1867,7 @@ class UIMainWindow(object):
                   self.character.mods["cha"], self.character.mods["int"],
                   self.character.mods["int"], self.character.mods["wis"],
                   self.character.mods["wis"], self.character.mods["int"],
-                  self.character.mods["dex"], 
+                  self.character.mods["dex"],
 
                   self.character.mods[self.character.profession_ability],
                   self.character.mods[self.character.profession2_ability],
