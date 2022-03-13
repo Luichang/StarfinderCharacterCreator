@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from helpers.starfinder_class_dicts import classAbilities, classChoseFeats, class_feat_replacables
+from helpers.starfinder_class_dicts import (classAbilities, classChoseFeats,
+                                            class_feat_replacables, classesStatBonus)
 
 from helpers.starfinder_dicts import skills
 from helpers.ProxyModel import ProxyModel
@@ -434,6 +435,9 @@ class UiForm(QtWidgets.QWidget):
 
         QtCore.QMetaObject.connectSlotsByName(self.centralwidget)
 
+        for feat in classesStatBonus[self.character.class_name]["proficiencies"]:
+            self.character.chosen_feats.append(feat)
+
         self.class_list_one = []
         self.class_list_two = []
         self.expertises = []
@@ -442,6 +446,10 @@ class UiForm(QtWidgets.QWidget):
         self.update_class_feat_list()
         self.update_theme_feat_list()
         self.update_race_feat_list()
+        self.update_feats_and_abilities()
+
+        for _ in range(self.character.class_level - 1):
+            self.character.level_up(gui=True)
 
     def update_class_feat_list(self):
         """does some class feature related update
