@@ -9,7 +9,7 @@ from helpers.starfinder_race_dicts import raceAbilities
 from helpers.helper import initialize_combo_model
 
 
-class UiForm(QtWidgets.QWidget):
+class FeatForm(QtWidgets.QWidget):
     """UI Class to display the character Feats
 
     Args:
@@ -442,14 +442,14 @@ class UiForm(QtWidgets.QWidget):
         self.class_list_two = []
         self.expertises = []
         self.replacables = []
+        self.feats = []
+        self.combats = []
+        self.feat_to_add = [(self.character.class_level + 1) // 2, 0]
 
         self.update_class_feat_list()
         self.update_theme_feat_list()
         self.update_race_feat_list()
         self.update_feats_and_abilities()
-
-        for _ in range(self.character.class_level - 1):
-            self.character.level_up(gui=True)
 
     def update_class_feat_list(self):
         """does some class feature related update
@@ -502,7 +502,7 @@ class UiForm(QtWidgets.QWidget):
                         self.update_boxes(ability[1], self.class_list_one, possible_class_feats)
 
                 elif ability[1] in ["words", "weapon", "expertise", "skills", "spell", "channel",
-                                    "edge", "cpower", "feat"]:
+                                    "edge", "cpower", "feat", "combat"]:
                     info_text = "<<Fixed Feat>>"
                     possible_class_feats = [ability[0]]
                     # self.initialize_combobox(boxes[boxcount], boxcount, "<<Fixed Feat>>",
@@ -537,6 +537,9 @@ class UiForm(QtWidgets.QWidget):
                     elif ability[1] == "feat":
                         self.character.chosen_feats.append(ability[2])
                         possible_class_feats = [ability[2]]
+                    elif ability[1] == "combat":
+                        self.feat_to_add[1] += 1
+
                 elif ability[1] == "connection":
                     self.class_list_one.append(boxes[boxcount])
                     possible_class_feats = list(classChoseFeats["mystic"]["connection"])
@@ -619,11 +622,6 @@ class UiForm(QtWidgets.QWidget):
                     self.expertises.append(boxes[boxcount])
                     self.update_expertise()
                     self.update_boxes("expertise", self.expertises, possible_class_feats)
-                elif ability[1] == "combat":
-                    possible_class_feats = self.character.select_new_feat(combat=True,
-                                                                          verbose=False)
-                    info_text = "<<Select Combat Feat>>"
-                    self.character.chosen_feats.append(possible_class_feats[0])
                 elif ability[1] == "style": # there's 2 styles they need to be connected
                     possible_class_feats = [x.capitalize()
                                             for x in classChoseFeats["soldier"]["styles"]]
@@ -798,24 +796,24 @@ class UiForm(QtWidgets.QWidget):
                 box.setModel(ProxyModel(model, "<<Fixed Feat>>"))
                 box.setCurrentIndex(1)
 
-    def update_boxes(self, feat_type : str, feat_list : list, possible_class_feats : list) -> None:
+    def update_boxes(self, feat_type : str, feat_list : list, possible_feats : list) -> None:
         """update all selectable feat class comboboxes
 
         Args:
-            feat_type (str): the type of feat that should be checked in the select_new_class_feat
+            feat_type (str): the type of feat that should be checked in the select_new(_class)_feat
             feat_list (list): list of comboboxes that are to be updated
-            possible_class_feats (list): list of options that can be entered
+            possible_feats (list): list of options that can be entered
         """
         for box in feat_list:
             model = QtGui.QStandardItemModel()
             current_item = box.currentText()
             model.appendRow(QtGui.QStandardItem(current_item))
-            for feat in possible_class_feats:
+            for feat in possible_feats:
                 model.appendRow(QtGui.QStandardItem(feat))
             box.setModel(ProxyModel(model, f"<<Select {feat_type.capitalize()}>>"))
             box.setCurrentIndex(1)
 
-    def update_feat(self, selected_feat) -> None:
+    def update_feat(self, selected_feat : str) -> None:
         """replace the class feat with the newly selected class feat
 
         Args:
@@ -840,6 +838,31 @@ class UiForm(QtWidgets.QWidget):
                     if expertise.capitalize() in possible_class_feats:
                         possible_class_feats.remove(expertise.capitalize())
             self.update_boxes(*feat_function, possible_class_feats)
+
+    def update_chose_feats(self, selected_feat : str) -> None:
+        """function to handle chosen feat updates
+
+        Args:
+            selected_feat (str): new selected feat
+        """
+        combo = self.sender()
+        index = combo.property("feat_index")
+        self.character.chosen_feats[index] = selected_feat
+        possible_class_feats = self.character.select_new_feat(gui=True)
+        self.update_boxes("Feat", self.feats, possible_class_feats)
+
+    def update_chose_combat_feats(self, selected_feat : str) -> None:
+        """function to handle chosen combat feat updates
+
+        Args:
+            selected_feat (str): new selected combat feat
+        """
+        combo = self.sender()
+        index = combo.property("feat_index")
+        self.character.chosen_feats[index] = selected_feat
+        possible_class_feats = self.character.select_new_feat(combat=True, gui=True)
+        self.update_boxes("Combat Feat", self.combats, possible_class_feats)
+
 
     def update_theme_feat_list(self):
         """function that uptates the theme feats of the character in the GUI
@@ -866,7 +889,14 @@ class UiForm(QtWidgets.QWidget):
         character_races = raceAbilities[self.character.race_name]
         for feat, box in zip(character_races, boxes):
             initialize_combo_model(box, [feat[0]], "<<Race Feat>>", index=1)
-            # TODO needs logic
+            if feat[1] == "feat":
+                self.feat_to_add[0] += 1
+            elif feat[1] == "spell":
+                pass
+            elif feat[1] == "stats": # TODO needs logic
+                pass
+            elif feat[1] == "words":
+                pass
 
     def update_feats_and_abilities(self):
         """function that updates the feats and abilities tab of the character in the GUI
@@ -878,6 +908,29 @@ class UiForm(QtWidgets.QWidget):
                  self.feats21, self.feats22, self.feats23, self.feats24, self.feats25,
                  self.feats26, self.feats27, self.feats28]
 
-        for i, current_chosen_feat in enumerate(self.character.chosen_feats):
-            initialize_combo_model(boxes[i], [current_chosen_feat], "<<Feats and Abilities>>",
+        boxcount = 0
+        for current_chosen_feat in self.character.chosen_feats:
+            initialize_combo_model(boxes[boxcount], [current_chosen_feat], "<<Fixed Feat>>",
                                     index=1)
+            boxcount += 1
+
+        normal_feats = self.character.select_new_feat(gui=True)
+        normal_feat, combat_feat = self.feat_to_add
+        for _ in range(normal_feat):
+            self.feats.append(boxes[boxcount])
+            initialize_combo_model(boxes[boxcount], normal_feats, "<<Select Feat>>",
+                                    index=1, connection=self.update_chose_feats)
+            boxes[boxcount].setProperty("feat_index", len(self.feats))
+            normal_feats.pop(0)
+            boxcount += 1
+        self.update_boxes("Feat", self.feats, normal_feats)
+
+        combat_feats = self.character.select_new_feat(combat=True, gui=True)
+        for _ in range(combat_feat):
+            self.combats.append(boxes[boxcount])
+            initialize_combo_model(boxes[boxcount], combat_feats, "<<Select Combat Feat>>",
+                                    index=1, connection=self.update_chose_combat_feats)
+            boxes[boxcount].setProperty("feat_index", len(self.combats))
+            combat_feats.pop(0)
+            boxcount += 1
+        self.update_boxes("Combat Feat", self.combats, combat_feats)

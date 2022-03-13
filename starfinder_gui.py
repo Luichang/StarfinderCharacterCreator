@@ -7,7 +7,7 @@ from helpers.helper import (initialize_combo, initialize_combo_model,
 from helpers.starfinder_class_dicts import classesStatBonus
 from helpers.starfinder_race_dicts import raceAbilities
 from helpers.starfinder_theme_dicts import themeAbilities
-from starfinder_gui_feat import UiForm
+from starfinder_gui_feat import FeatForm
 
 class UIMainWindow(object):
     """Generated Function that has beed edited to contain function calls added afterwards.
@@ -28,7 +28,7 @@ class UIMainWindow(object):
         self.skill_buy_spendable_points = 0
         self.ability_buy_spendable_points = 0
 
-        self.window = None
+        self.feat_window = None
 
 
         main_window.setObjectName("MainWindow")
@@ -2151,9 +2151,9 @@ class UIMainWindow(object):
     def open_feats(self):
         """open the feats window
         """
-        if self.window is None:
-            self.window = UiForm(self.character)
-        self.window.show()
+        if self.feat_window is None:
+            self.feat_window = FeatForm(self.character)
+        self.feat_window.show()
 
 
 
