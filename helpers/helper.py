@@ -95,8 +95,8 @@ def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str],
     if connection:
         combo.activated[str].connect(connection)
 
-def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model_default : str, index : int=0,
-                            size : list[int]=None, connection : callable=None) -> None:
+def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model_default : str,
+                           index : int=0, size : list[int]=None, connection : callable=None)->None:
     """function to initialize combobox widgets
 
     Args:
