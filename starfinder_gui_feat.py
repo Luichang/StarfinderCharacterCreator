@@ -3,6 +3,9 @@ from helpers.starfinder_class_dicts import classAbilities, classChoseFeats, clas
 
 from helpers.starfinder_dicts import skills
 from helpers.ProxyModel import ProxyModel
+from helpers.starfinder_theme_dicts import themeAbilities
+from helpers.starfinder_race_dicts import raceAbilities
+from helpers.helper import initialize_combo_model
 
 
 class UiForm(QtWidgets.QWidget):
@@ -437,14 +440,13 @@ class UiForm(QtWidgets.QWidget):
         self.replacables = []
 
         self.update_class_feat_list()
+        self.update_theme_feat_list()
+        self.update_race_feat_list()
 
     def update_class_feat_list(self):
         """does some class feature related update
 
         """
-        # for i in self.character.class_level:
-        #     for ability in classAbilities[self.class_name][i]:
-
 
         boxes = [self.class1, self.class2, self.class3, self.class4, self.class5,
                  self.class6, self.class7, self.class8, self.class9, self.class10,
@@ -788,8 +790,6 @@ class UiForm(QtWidgets.QWidget):
                 box.setModel(ProxyModel(model, "<<Fixed Feat>>"))
                 box.setCurrentIndex(1)
 
-
-
     def update_boxes(self, feat_type : str, feat_list : list, possible_class_feats : list) -> None:
         """update all selectable feat class comboboxes
 
@@ -806,7 +806,6 @@ class UiForm(QtWidgets.QWidget):
                 model.appendRow(QtGui.QStandardItem(feat))
             box.setModel(ProxyModel(model, f"<<Select {feat_type.capitalize()}>>"))
             box.setCurrentIndex(1)
-
 
     def update_feat(self, selected_feat) -> None:
         """replace the class feat with the newly selected class feat
@@ -833,3 +832,44 @@ class UiForm(QtWidgets.QWidget):
                     if expertise.capitalize() in possible_class_feats:
                         possible_class_feats.remove(expertise.capitalize())
             self.update_boxes(*feat_function, possible_class_feats)
+
+    def update_theme_feat_list(self):
+        """function that uptates the theme feats of the character in the GUI
+        """
+        boxes = [self.theme1, self.theme2, self.theme3, self.theme4]
+        character_themes = themeAbilities[self.character.theme]
+        if self.character.class_level >= 1:
+            initialize_combo_model(boxes[0], [character_themes[0][0]],
+                                    "<<Theme Feat>>", index=1)
+        if self.character.class_level >= 6:
+            initialize_combo_model(boxes[1], [character_themes[1][0]],
+                                    "<<Theme Feat>>", index=1)
+        if self.character.class_level >= 12:
+            initialize_combo_model(boxes[2], [character_themes[2][0]],
+                                    "<<Theme Feat>>", index=1)
+        if self.character.class_level >= 18:
+            initialize_combo_model(boxes[3], [character_themes[3][0]],
+                                    "<<Theme Feat>>", index=1)
+
+    def update_race_feat_list(self):
+        """function that updates the race feats of the character in the GUI
+        """
+        boxes = [self.race1, self.race2, self.race3, self.race4]
+        character_races = raceAbilities[self.character.race_name]
+        for feat, box in zip(character_races, boxes):
+            initialize_combo_model(box, [feat[0]], "<<Race Feat>>", index=1)
+            # TODO needs logic
+
+    def update_feats_and_abilities(self):
+        """function that updates the feats and abilities tab of the character in the GUI
+        """
+        boxes = [self.feats1, self.feats2, self.feats3, self.feats4, self.feats5,
+                 self.feats6, self.feats7, self.feats8, self.feats9, self.feats10,
+                 self.feats11, self.feats12, self.feats13, self.feats14, self.feats15,
+                 self.feats16, self.feats17, self.feats18, self.feats19, self.feats20,
+                 self.feats21, self.feats22, self.feats23, self.feats24, self.feats25,
+                 self.feats26, self.feats27, self.feats28]
+
+        for i, current_chosen_feat in enumerate(self.character.chosen_feats):
+            initialize_combo_model(boxes[i], [current_chosen_feat], "<<Feats and Abilities>>",
+                                    index=1)
