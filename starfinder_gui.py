@@ -1825,6 +1825,11 @@ class UIMainWindow(object):
                  self.cha_theme]
         for skill, box in zip(self.character.theme_attributes.values(), boxes):
             box.setText(str(skill))
+        if self.character.theme == "spacefarer" and self.character.class_level >= 6:
+                # +2 bonus to skill checks for skills with 0 ranks in skill
+                for skill in self.character.skills:
+                    if self.character.skill_ranks[skill] == 0:
+                        self.character.skill_dabbler[skill] = 2
         self.update_abilities()
         self.update_point_buys()
 

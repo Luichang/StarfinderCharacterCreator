@@ -665,7 +665,7 @@ class Character:
             "survival"         : self.mods["wis"],
         }
         for skill in self.skills:
-            if self.skill_ranks[skill] > 0:
+            if self.skill_ranks[skill] > 0 or self.skill_dabbler[skill] > 0:
                 self.skills[skill] += self.skill_ranks[skill] + self.skill_class[skill] +\
                                     self.skill_misc[skill]
             else:
