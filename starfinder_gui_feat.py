@@ -6,7 +6,9 @@ from helpers.starfinder_dicts import skills
 from helpers.ProxyModel import ProxyModel
 from helpers.starfinder_theme_dicts import themeAbilities
 from helpers.starfinder_race_dicts import raceAbilities
-from helpers.helper import initialize_combo_model
+from helpers.helper import (initialize_combo, initialize_combo_model,
+                            initialize_edit, initialize_frame, initialize_text,
+                            initialize_widget)
 
 
 class FeatForm(QtWidgets.QWidget):
@@ -31,11 +33,7 @@ class FeatForm(QtWidgets.QWidget):
         self.character = character
 
         self.skillframe = QtWidgets.QFrame(self.centralwidget)
-        self.skillframe.setGeometry(QtCore.QRect(20, 10, 781, 221))
-        self.skillframe.setFrameShape(QtWidgets.QFrame.Box)
-        self.skillframe.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.skillframe.setLineWidth(2)
-        self.skillframe.setObjectName("Skillframe")
+        initialize_frame(self.skillframe, "Skillframe", [20, 10, 781, 221])
         self.grid_layout_widget_2 = QtWidgets.QWidget(self.skillframe)
         self.grid_layout_widget_2.setGeometry(QtCore.QRect(10, 10, 761, 201))
         self.grid_layout_widget_2.setObjectName("gridLayoutWidget_2")

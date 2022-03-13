@@ -8,6 +8,7 @@ from helpers.starfinder_class_dicts import classesStatBonus
 from helpers.starfinder_race_dicts import raceAbilities
 from helpers.starfinder_theme_dicts import themeAbilities
 from starfinder_gui_feat import FeatForm
+from starfinder_gui_spells import SpellForm
 
 class UIMainWindow(object):
     """Generated Function that has beed edited to contain function calls added afterwards.
@@ -29,6 +30,7 @@ class UIMainWindow(object):
         self.ability_buy_spendable_points = 0
 
         self.feat_window = None
+        self.spell_window = None
 
 
         main_window.setObjectName("MainWindow")
@@ -1701,6 +1703,7 @@ class UIMainWindow(object):
         self.action_spells = QtWidgets.QAction(main_window)
         self.action_spells.setObjectName("actionSpells")
         self.action_spells.setText("Spells")
+        self.action_spells.triggered.connect(self.open_spells)
         self.menu_save.addAction(self.action_save)
         self.menu_save.addAction(self.action_load)
         self.menu_extras.addAction(self.action_feats)
@@ -2154,6 +2157,13 @@ class UIMainWindow(object):
         if self.feat_window is None:
             self.feat_window = FeatForm(self.character)
         self.feat_window.show()
+
+    def open_spells(self):
+        """open the spells window
+        """
+        if self.spell_window is None:
+            self.spell_window = SpellForm(self.character)
+        self.spell_window.show()
 
 
 
