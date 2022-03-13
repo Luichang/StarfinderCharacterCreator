@@ -1,12 +1,13 @@
 from PyQt5 import QtCore, QtWidgets
 
 from character import Character
+from helpers.helper import (initialize_combo, initialize_combo_model,
+                            initialize_edit, initialize_frame, initialize_text,
+                            initialize_widget)
 from helpers.starfinder_class_dicts import classesStatBonus
 from helpers.starfinder_race_dicts import raceAbilities
 from helpers.starfinder_theme_dicts import themeAbilities
 from starfinder_gui_feat import UiForm
-from helpers.helper import initialize_text, initialize_frame, initialize_model, initialize_edit,\
-                            initialize_widget, initialize_combo, initialize_combo_model
 
 class UIMainWindow(object):
     """Generated Function that has beed edited to contain function calls added afterwards.
@@ -25,6 +26,7 @@ class UIMainWindow(object):
         self.character = Character(gui=True)
         self.point_buy_spendable_points = 10
         self.skill_buy_spendable_points = 0
+        self.ability_buy_spendable_points = 0
 
         self.window = None
 
@@ -1822,7 +1824,7 @@ class UIMainWindow(object):
                  self.cha_score, self.remaining_point_box, self.remaining_ability_box]
         #classesStatBonus[self.className]["skills"] + self.mods["int"]
         for skill, box in zip([*self.character.attributes.values(),
-                               self.point_buy_spendable_points, 0], boxes):
+                               self.point_buy_spendable_points, self.ability_buy_spendable_points], boxes):
             box.setText(str(skill))
 
         boxes = [self.str_mod, self.dex_mod, self.con_mod, self.int_mod, self.wis_mod,self.cha_mod]
@@ -1909,6 +1911,7 @@ class UIMainWindow(object):
         self.character.calc_init()
         self.update_initiative()
         self.update_point_buys()
+        self.update_increase_buys()
         self.update_saves()
         self.update_attack()
         if self.character.class_name and self.character.class_level > 0:
@@ -1946,8 +1949,40 @@ class UIMainWindow(object):
         if self.character.class_name and self.character.class_level > 0:
             self.update_skill_buy()
 
-    def update_increase_buys(self): # TODO needs to be implemented
-        pass
+    def update_increase_buys(self):
+        """update abilities based on ability increase buy system
+        """
+        ability_buys = {
+            "strength" : self.ability_str_combo,
+            "dexterity" : self.ability_dex_combo,
+            "constitution" : self.ability_con_combo,
+            "intelligence" : self.ability_int_combo,
+            "wisdom" : self.ability_wis_combo,
+            "charisma" : self.ability_cha_combo
+        }
+        attrs = ["strength", "dexterity", "constitution", "intelligence", "wisdom", "charisma"]
+        self.ability_buy_spendable_points = (self.character.class_level // 5)*4
+        for attr in attrs:
+            tmp = int(ability_buys[attr].currentText())
+            self.ability_buy_spendable_points -= tmp
+            self.character.ability_increases[attr] = tmp
+        
+            # self.ability_increases[entered] += 1
+            # self.attributes[entered] += 1
+            # if self.attributes[entered] < 18:
+            #     self.attributes[entered] += 1
+
+        for attr in attrs:
+            pbuy = ability_buys[attr]
+            pbuy.clear()
+            val = 2
+            points = [str(i) for i in range(val)]
+            pbuy.addItems(points)
+            pbuy.setCurrentIndex(self.character.ability_increases[attr])
+        self.update_abilities()
+        if self.character.class_name and self.character.class_level > 0:
+            self.update_skill_buy()
+
 
     def update_saves(self):
         """update the save tab related boxes
