@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 from helpers.feats import feats
 from helpers.spells import spells
-from helpers.starfinder_dicts import possible_attributes, attribute_shorthand, attribute_shortener, \
+from helpers.starfinder_dicts import possible_attributes, attribute_shorthand, attribute_shortener,\
                              spells_known, spells_day, spells_bonus, skills
 from helpers.starfinder_html_dict import htmlTags
 from helpers.starfinder_race_dicts import raceAbilities, raceStatList
@@ -116,6 +116,19 @@ class Character:
             else:
                 self.read_from_html(file_name)
 
+    def update_professions(self, profession1 : str=None, profession2 : str = None) -> None:
+        """function to update the profession ability modifiers
+
+        Args:
+            profession1 (str, optional): ability modifier for profession1.
+                                         Options are 'wis, int, and cha'. Defaults to None.
+            profession2 (str, optional): ability modifier for profession2.
+                                         Options are 'wis, int, and cha'. Defaults to None.
+        """
+        if profession1:
+            self.profession_ability = profession1
+        if profession2:
+            self.profession2_ability = profession2
 
     def set_name(self, name : str) -> None:
         """Sets the name of the character
@@ -631,8 +644,8 @@ class Character:
             list_to_write_to_file.append([htmlTags["perceptionMod"], self.mods["wis"]])
             list_to_write_to_file.append([htmlTags["physical scienceMod"], self.mods["int"]])
             list_to_write_to_file.append([htmlTags["pilotingMod"], self.mods["dex"]])
-            list_to_write_to_file.append([htmlTags["professionMod"], -1])
-            list_to_write_to_file.append([htmlTags["profession2Mod"], -1])
+            list_to_write_to_file.append([htmlTags["professionMod"], self.mods[self.profession_ability]])
+            list_to_write_to_file.append([htmlTags["profession2Mod"], self.mods[self.profession2_ability]])
             list_to_write_to_file.append([htmlTags["sense motiveMod"], self.mods["wis"]])
             list_to_write_to_file.append([htmlTags["sleight of handMod"], self.mods["dex"]])
             list_to_write_to_file.append([htmlTags["stealthMod"], self.mods["dex"]])
@@ -654,15 +667,18 @@ class Character:
             "physical science" : self.mods["int"],
             "piloting"         : self.mods["dex"],
             "profession"       : self.mods[self.profession_ability],
-            "profession2"      : self.mods[self.profession_ability],
+            "profession2"      : self.mods[self.profession2_ability],
             "sense motive"     : self.mods["wis"],
             "sleight of hand"  : self.mods["dex"],
             "stealth"          : self.mods["dex"],
             "survival"         : self.mods["wis"],
         }
         for skill in self.skills:
-            self.skills[skill] += self.skill_ranks[skill] + self.skill_class[skill] +\
-                                  self.skill_misc[skill]
+            if self.skill_ranks[skill] > 0:
+                self.skills[skill] += self.skill_ranks[skill] + self.skill_class[skill] +\
+                                    self.skill_misc[skill]
+            else:
+                self.skills[skill] = 0
             if verbose:
                 list_to_write_to_file.append([htmlTags[skill], self.skills[skill]])
                 list_to_write_to_file.append([htmlTags[skill + "Rank"], self.skill_ranks[skill]])
