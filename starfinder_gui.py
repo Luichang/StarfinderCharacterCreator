@@ -769,21 +769,15 @@ class UIMainWindow(object):
         initialize_text(self.profession_text, "ProfessionText", "Profession")
         self.skills_score_grid.addWidget(self.profession_text, 31, 0, 1, 1)
         self.rank_prof1_skill_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        self.rank_prof1_skill_combo.setMaximumSize(QtCore.QSize(43, 20))
-        self.rank_prof1_skill_combo.setObjectName("RankProf1SkillCombo")
-        self.rank_prof1_skill_combo.addItem("Cha")
-        self.rank_prof1_skill_combo.addItem("Int")
-        self.rank_prof1_skill_combo.addItem("Wis")
+        initialize_combo(self.rank_prof1_skill_combo, "RankProf1SkillCombo", ["Wis", "Int", "Cha"],
+                         [43, 20], self.update_profession)
         self.skills_score_grid.addWidget(self.rank_prof1_skill_combo, 31, 1, 1, 1)
         self.profession2_text = QtWidgets.QLabel(self.grid_layout_widget_2)
         initialize_text(self.profession2_text, "Profession2Text", "Profession")
         self.skills_score_grid.addWidget(self.profession2_text, 33, 0, 1, 1)
         self.rank_prof2_skill_combo = QtWidgets.QComboBox(self.grid_layout_widget_2)
-        self.rank_prof2_skill_combo.setMaximumSize(QtCore.QSize(43, 20))
-        self.rank_prof2_skill_combo.setObjectName("RankProf2SkillCombo")
-        self.rank_prof2_skill_combo.addItem("Cha")
-        self.rank_prof2_skill_combo.addItem("Int")
-        self.rank_prof2_skill_combo.addItem("Wis")
+        initialize_combo(self.rank_prof2_skill_combo, "RankProf2SkillCombo", ["Wis", "Int", "Cha"],
+                         [43, 20], self.update_profession)
         self.skills_score_grid.addWidget(self.rank_prof2_skill_combo, 33, 1, 1, 1)
         self.sense_text = QtWidgets.QLabel(self.grid_layout_widget_2)
         initialize_text(self.sense_text, "SenseText", "Sense Motive (Wis)")
@@ -1848,10 +1842,12 @@ class UIMainWindow(object):
                   self.character.mods["cha"], self.character.mods["int"],
                   self.character.mods["int"], self.character.mods["wis"],
                   self.character.mods["wis"], self.character.mods["int"],
-                  self.character.mods["dex"], self.character.mods["wis"],
-                  self.character.mods["wis"], self.character.mods["wis"],
-                  self.character.mods["dex"], self.character.mods["dex"],
-                  self.character.mods["wis"]]
+                  self.character.mods["dex"], 
+
+                  self.character.mods[self.character.profession_ability],
+                  self.character.mods[self.character.profession2_ability],
+                  self.character.mods["wis"], self.character.mods["dex"],
+                  self.character.mods["dex"], self.character.mods["wis"]]
         for skill, box in zip(skills, boxes):
             box.setText(str(skill))
         self.update_skills()
@@ -1948,6 +1944,9 @@ class UIMainWindow(object):
         self.update_abilities()
         if self.character.class_name and self.character.class_level > 0:
             self.update_skill_buy()
+
+    def update_increase_buys(self): # TODO needs to be implemented
+        pass
 
     def update_saves(self):
         """update the save tab related boxes
@@ -2065,7 +2064,13 @@ class UIMainWindow(object):
                                         self.character.skill_dabbler.values(), boxes):
             box.setText(str(skill + dabbler))
 
-
+    def update_profession(self):
+        """function to update the ability modifiers for the two profession skills
+        """
+        prof1 = self.rank_prof1_skill_combo.currentText()
+        prof2 = self.rank_prof2_skill_combo.currentText()
+        self.character.update_professions(prof1.lower(), prof2.lower())
+        self.update_abilities()
 
     def save_character(self):
         """saves the character to an HTML file
