@@ -644,8 +644,10 @@ class Character:
             list_to_write_to_file.append([htmlTags["perceptionMod"], self.mods["wis"]])
             list_to_write_to_file.append([htmlTags["physical scienceMod"], self.mods["int"]])
             list_to_write_to_file.append([htmlTags["pilotingMod"], self.mods["dex"]])
-            list_to_write_to_file.append([htmlTags["professionMod"], self.mods[self.profession_ability]])
-            list_to_write_to_file.append([htmlTags["profession2Mod"], self.mods[self.profession2_ability]])
+            list_to_write_to_file.append([htmlTags["professionMod"],
+                                            self.mods[self.profession_ability]])
+            list_to_write_to_file.append([htmlTags["profession2Mod"],
+                                            self.mods[self.profession2_ability]])
             list_to_write_to_file.append([htmlTags["sense motiveMod"], self.mods["wis"]])
             list_to_write_to_file.append([htmlTags["sleight of handMod"], self.mods["dex"]])
             list_to_write_to_file.append([htmlTags["stealthMod"], self.mods["dex"]])
