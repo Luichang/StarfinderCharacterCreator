@@ -396,3 +396,6 @@ class SpellForm(QtWidgets.QWidget):
         self.gridLayout_9.addWidget(self.level_6_box8, 4, 2, 1, 2)
 
         QtCore.QMetaObject.connectSlotsByName(self.centralwidget)
+
+    def update_level0_spells(self):
+        pass

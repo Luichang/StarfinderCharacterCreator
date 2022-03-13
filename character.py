@@ -562,7 +562,7 @@ class Character:
         return list_to_write_to_file
 
 
-    def add_spells(self) -> None:
+    def add_spells(self, gui : bool=False) -> None:
         """add spells to the character
         """
         list_to_write_to_file = []
@@ -582,6 +582,9 @@ class Character:
                 for spell in self.spells[i]:
                     if spell in list_of_pickable_spells[i]:
                         list_of_pickable_spells[i].remove(spell)
+
+            if gui:
+                return list_of_pickable_spells
 
             for i in range(7):
                 if list_of_pickable_spells[i] != []:
@@ -1099,7 +1102,7 @@ class Character:
             elif race_ability_block[1] == "spell": # TODO
                 for j in range(2):
                     for spell in race_ability_block[2][j]:
-                        if spell not in self.additional_spells:
+                        if spell not in self.additional_spells[j]:
                             self.additional_spells[j].append(spell)
             elif race_ability_block[1] == "feat":
                 self.select_new_feat()
@@ -1796,21 +1799,15 @@ class Character:
                         full_spell_list.append(adding_spell)
                     except KeyError:
                         break
-                #self.spells[i] + self.additionalSpells[i]
                 for j, current_spell in enumerate(full_spell_list):
                     if j < spells_known[self.class_level - 1][i]:
                         self.spells[i].append(current_spell)
                     else:
                         self.additional_spells[i].append(current_spell)
 
-            # self.expertise
-            # self.chosenFeats "weapon focus" or "weapon specialization" or "skill focus"
-
         except FileNotFoundError:
             print("""The Character name you entered does not have a file.
                     Please create the character with the wizard or enter another name""")
-
-
 
     def write_to_file(self, attribute_name : str, attribute_name_value : str) -> None:
         """funtion to write the input to the HTML

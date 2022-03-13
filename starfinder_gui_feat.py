@@ -525,7 +525,13 @@ class FeatForm(QtWidgets.QWidget):
                 box.setCurrentIndex(1)
 
             if i in [1, 2, 3, 4, 5, 6, 7]:
-                new_feat = specializations[self.character.styles[0]]["feat"][i - 1][0]
+                current_connection = specializations[self.character.styles[0]]
+                old_connection_spells = specializations[old_specialization]["spell"]
+                spell_index = self.character.additional_spells[i].index(old_connection_spells[i - 1])
+                spell_to_add = current_connection["spell"][i - 1]
+                self.character.additional_spells[i][spell_index] = spell_to_add
+
+                new_feat = current_connection["feat"][i - 1][0]
                 old_feat_index = self.character.class_feats.index(current_item)
                 self.character.class_feats[old_feat_index] = new_feat
                 model.appendRow(QtGui.QStandardItem(new_feat))
@@ -719,6 +725,9 @@ class FeatForm(QtWidgets.QWidget):
         if self.character.class_level >= 12:
             initialize_combo_model(boxes[2], [character_themes[2][0]],
                                     "<<Theme Feat>>", index=1)
+            if themeAbilities[self.character.theme][2][1] != "words":
+                self.additional_spells[1].append("MYSTICSPELL")
+
         if self.character.class_level >= 18:
             initialize_combo_model(boxes[3], [character_themes[3][0]],
                                     "<<Theme Feat>>", index=1)
@@ -733,7 +742,10 @@ class FeatForm(QtWidgets.QWidget):
             if feat[1] == "feat":
                 self.feat_to_add[0] += 1
             elif feat[1] == "spell":
-                pass
+                for j in range(2):
+                    for spell in feat[2][j]:
+                        if spell not in self.character.additional_spells[j]:
+                            self.character.additional_spells[j].append(spell)
             elif feat[1] == "stats": # TODO needs logic
                 pass
             elif feat[1] == "words":
