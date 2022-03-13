@@ -983,13 +983,13 @@ class Character:
                     selected.append(feat)
         return selected
 
-    def select_new_feat(self, combat : bool=False, verbose : bool=True) -> list:
+    def select_new_feat(self, combat : bool=False, gui : bool=False) -> list:
         """function to add a feat to the character. only used in terminal version
 
         Args:
             combat (bool, optional): used to filter out combat feats. Defaults to False.
-            verbose (bool, optional): if the function is executed with the terminal.
-                                      Defaults to True.
+            gui (bool, optional): if the function is executed with the terminal.
+                                      Defaults to False.
 
         Returns:
             list: list of selectable feats
@@ -1000,7 +1000,7 @@ class Character:
         for feat in self.chosen_feats:
             if feat in possible_feats:
                 possible_feats.remove(feat)
-        if verbose:
+        if not gui:
             while not add_feat:
                 print_text = "please enter feat name you would like to add. Possible feats are: " +\
                             ", ".join(possible_feats)
@@ -1417,16 +1417,18 @@ class Character:
         else:
             self.skill_misc[new_class_skill] += 1
 
-    def ability_increase(self) -> None:
+    def ability_increase(self, gui=False) -> None:
         """every two levels this function adds a new feat to the character, every 5 the character
         can improve 4 stats
         """
         if self.class_level % 2 == 1:
-            self.select_new_feat()
+            self.select_new_feat(gui=gui)
         if self.class_level % 5 == 0:
             possible_abilities = ["(str)ength", "(dex)terity", "(con)stitution", "(int)elligence",
                                  "(wis)dom", "(cha)risma"]
             to_increase_number = 4
+            if gui:
+                return
             while to_increase_number > 0:
                 print_text = f"You get to increase {to_increase_number} more attributes. " +\
                              f"Possible attributes: {possible_abilities}"
@@ -1441,7 +1443,7 @@ class Character:
                 possible_abilities.remove(index)
                 to_increase_number -= 1
             self.calc_attribut_mod()
-            self.initiative = self.mods["dex"] + self.initiative_misc
+            self.calc_init()
 
             list_to_write_to_file = []
             list_to_write_to_file.append([htmlTags["init_total"], self.initiative])
@@ -1474,8 +1476,11 @@ class Character:
             list_to_write_to_file+= self.calc_skills()
             self.write_to_file("listPass", list_to_write_to_file)
 
-    def level_up(self) -> None: # TODO Spells
+    def level_up(self, gui : bool=False) -> None: # TODO Spells
         """Level the character up and call all relevant functions
+
+        Args:
+            gui (bool, optional): if the function is called from a gui. Defaults to False.
         """
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,
         #          14500, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000]
@@ -1486,13 +1491,17 @@ class Character:
         #    else:
         #        break
         if self.class_level < 20:
+            if not gui:
             self.class_level = self.class_level + 1
-            self.ability_increase()
+            self.ability_increase(gui=gui)
+            if not gui:
             self.add_skill_points()
             list_to_write_to_file = []
             list_to_write_to_file += self.calc_skills()
+            if not gui:
             self.feats_and_abilities()
             self.calc_hit_points()
+            if not gui:
             list_to_write_to_file.append([htmlTags["sp"], self.stamina_points])
             list_to_write_to_file.append([htmlTags["hp"], self.hit_points])
             list_to_write_to_file.append([htmlTags["rp"], self.resolve_points])
@@ -1500,11 +1509,14 @@ class Character:
             if self.class_name == "soldier":
                 class_name += " [" + str(self.key) + "]"
             list_to_write_to_file.append([htmlTags["className"], class_name])
-            self.add_spells()
+                self.add_spells() # TODO this will need to change in the future for gui addable spells
             self.calc_attack()
+            if not gui:
             list_to_write_to_file += self.print_attack()
             self.calc_save()
+            if not gui:
             list_to_write_to_file += self.print_save()
+            if not gui:
             self.write_to_file("listPass", list_to_write_to_file)
 
     def get_user_response(self, options : list, text : str="", include : bool=True) -> str:
