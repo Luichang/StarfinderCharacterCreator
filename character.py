@@ -1403,18 +1403,16 @@ class Character:
         else:
             self.skill_misc[new_class_skill] += 1
 
-    def ability_increase(self, gui=False) -> None:
+    def ability_increase(self) -> None:
         """every two levels this function adds a new feat to the character, every 5 the character
         can improve 4 stats
         """
         if self.class_level % 2 == 1:
-            self.select_new_feat(gui=gui)
+            self.select_new_feat()
         if self.class_level % 5 == 0:
             possible_abilities = ["(str)ength", "(dex)terity", "(con)stitution", "(int)elligence",
                                  "(wis)dom", "(cha)risma"]
             to_increase_number = 4
-            if gui:
-                return
             while to_increase_number > 0:
                 print_text = f"You get to increase {to_increase_number} more attributes. " +\
                              f"Possible attributes: {possible_abilities}"
@@ -1462,11 +1460,8 @@ class Character:
             list_to_write_to_file+= self.calc_skills()
             self.write_to_file("listPass", list_to_write_to_file)
 
-    def level_up(self, gui : bool=False) -> None: # TODO Spells
+    def level_up(self) -> None: # TODO Spells
         """Level the character up and call all relevant functions
-
-        Args:
-            gui (bool, optional): if the function is called from a gui. Defaults to False.
         """
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,
         #          14500, 210000, 295000, 425000, 600000, 850000, 1200000, 1700000, 2400000]
@@ -1477,33 +1472,26 @@ class Character:
         #    else:
         #        break
         if self.class_level < 20:
-            if not gui:
-                self.class_level = self.class_level + 1
-            self.ability_increase(gui=gui)
-            if not gui:
-                self.add_skill_points()
+            self.class_level = self.class_level + 1
+            self.ability_increase()
+            self.add_skill_points()
             list_to_write_to_file = []
             list_to_write_to_file += self.calc_skills()
-            if not gui:
-                self.feats_and_abilities()
+            self.feats_and_abilities()
             self.calc_hit_points()
-            if not gui:
-                list_to_write_to_file.append([htmlTags["sp"], self.stamina_points])
-                list_to_write_to_file.append([htmlTags["hp"], self.hit_points])
-                list_to_write_to_file.append([htmlTags["rp"], self.resolve_points])
-                class_name = self.class_name.title() + " (" + str(self.class_level) + ")"
-                if self.class_name == "soldier":
-                    class_name += " [" + str(self.key) + "]"
-                list_to_write_to_file.append([htmlTags["className"], class_name])
-                self.add_spells() # TODO this will need to change in the future for gui addable spells
+            list_to_write_to_file.append([htmlTags["sp"], self.stamina_points])
+            list_to_write_to_file.append([htmlTags["hp"], self.hit_points])
+            list_to_write_to_file.append([htmlTags["rp"], self.resolve_points])
+            class_name = self.class_name.title() + " (" + str(self.class_level) + ")"
+            if self.class_name == "soldier":
+                class_name += " [" + str(self.key) + "]"
+            list_to_write_to_file.append([htmlTags["className"], class_name])
+            self.add_spells() # TODO this will need to change in the future for gui addable spells
             self.calc_attack()
-            if not gui:
-                list_to_write_to_file += self.print_attack()
+            list_to_write_to_file += self.print_attack()
             self.calc_save()
-            if not gui:
-                list_to_write_to_file += self.print_save()
-            if not gui:
-                self.write_to_file("listPass", list_to_write_to_file)
+            list_to_write_to_file += self.print_save()
+            self.write_to_file("listPass", list_to_write_to_file)
 
     def get_user_response(self, options : list, text : str="", include : bool=True) -> str:
         """Function to get user response from input options
