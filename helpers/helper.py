@@ -1,5 +1,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from helpers.ProxyModel import ProxyModel
+
 def initialize_text(text_widget : QtWidgets.QLabel, name : str, text : str,
                     max_size : list[int]=None) -> None:
     """function to initialize text widgets
@@ -75,7 +77,8 @@ def initialize_widget(widget : QtWidgets.QWidget, name : str, shape : list[int])
     widget.setGeometry(QtCore.QRect(*shape))
     widget.setObjectName(name)
 
-def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str], size : list[int], connection : callable) -> None:
+def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str], size : list[int],
+                    connection : callable=None) -> None:
     """function to initialize combobox widgets
 
     Args:
@@ -83,10 +86,32 @@ def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str],
         name (str): name of the widget
         items (list[str]): list of items to be added to the combobox
         size (list[int]): shape and location of the widget
-        connection (callable): function to be connected to the combobox
+        connection (callable, optional): function to be connected to the combobox. Defaults to None
     """
     combo.setMaximumSize(QtCore.QSize(*size))
     combo.setObjectName(name)
     for item in items:
         combo.addItem(item)
-    combo.activated[str].connect(connection)
+    if connection:
+        combo.activated[str].connect(connection)
+
+def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model_default : str, index : int=0,
+                            size : list[int]=None, connection : callable=None) -> None:
+    """function to initialize combobox widgets
+
+    Args:
+        combo (QtWidgets.QComboBox): combobox widget to be initialized
+        items (list[str]): list of items to be added to the combobox
+        size (list[int], optional): shape and location of the widget. Defaults to None
+        index (int, optional): index the model should be set to. Usually you want either 1 or 0.
+                               Defaults to 0
+    """
+    theme_model = QtGui.QStandardItemModel()
+    for item in items:
+        theme_model.appendRow(QtGui.QStandardItem(item))
+    combo.setModel(ProxyModel(theme_model, model_default))
+    combo.setCurrentIndex(index)
+    if size:
+        combo.setMaximumSize(QtCore.QSize(*size))
+    if connection:
+        combo.activated[str].connect(connection)
