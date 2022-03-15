@@ -572,19 +572,22 @@ class Character:
                 if spells_known[self.class_level - 1][i] > 0:
                     list_of_pickable_spells[i] += spells[self.class_name][i]
 
-            if self.class_level > 1:
-                for i in range(7):
-                    if spells_known[self.class_level - 1][i] - \
-                        spells_known[self.class_level - 2][i] == 0:
-                        list_of_pickable_spells[i] = []
-
             for i in range(7):
                 for spell in self.spells[i]:
+                    if spell in list_of_pickable_spells[i]:
+                        list_of_pickable_spells[i].remove(spell)
+                for spell in self.additional_spells[i]:
                     if spell in list_of_pickable_spells[i]:
                         list_of_pickable_spells[i].remove(spell)
 
             if gui:
                 return list_of_pickable_spells
+
+            if self.class_level > 1:
+                for i in range(7):
+                    if spells_known[self.class_level - 1][i] - \
+                        spells_known[self.class_level - 2][i] == 0:
+                        list_of_pickable_spells[i] = []
 
             for i in range(7):
                 if list_of_pickable_spells[i] != []:
