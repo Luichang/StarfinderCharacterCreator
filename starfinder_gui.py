@@ -1937,6 +1937,7 @@ class UIMainWindow(object):
             text (int): entered level
         """
         self.character.class_level = int(text)
+        self.character.calc_spell_level()
         self.update_hp()
         self.character.calc_init()
         self.update_initiative()
