@@ -8,6 +8,7 @@ from helpers.starfinder_class_dicts import classesStatBonus
 from helpers.starfinder_race_dicts import raceAbilities
 from helpers.starfinder_theme_dicts import themeAbilities
 from starfinder_gui_feat import FeatForm
+from starfinder_gui_spells import SpellForm
 
 class UIMainWindow(object):
     """Generated Function that has beed edited to contain function calls added afterwards.
@@ -29,6 +30,7 @@ class UIMainWindow(object):
         self.ability_buy_spendable_points = 0
 
         self.feat_window = None
+        self.spell_window = None
 
 
         main_window.setObjectName("MainWindow")
@@ -1701,6 +1703,7 @@ class UIMainWindow(object):
         self.action_spells = QtWidgets.QAction(main_window)
         self.action_spells.setObjectName("actionSpells")
         self.action_spells.setText("Spells")
+        self.action_spells.triggered.connect(self.open_spells)
         self.menu_save.addAction(self.action_save)
         self.menu_save.addAction(self.action_load)
         self.menu_extras.addAction(self.action_feats)
@@ -1822,6 +1825,11 @@ class UIMainWindow(object):
                  self.cha_theme]
         for skill, box in zip(self.character.theme_attributes.values(), boxes):
             box.setText(str(skill))
+        if self.character.theme == "spacefarer" and self.character.class_level >= 6:
+                # +2 bonus to skill checks for skills with 0 ranks in skill
+                for skill in self.character.skills:
+                    if self.character.skill_ranks[skill] == 0:
+                        self.character.skill_dabbler[skill] = 2
         self.update_abilities()
         self.update_point_buys()
 
@@ -1929,6 +1937,7 @@ class UIMainWindow(object):
             text (int): entered level
         """
         self.character.class_level = int(text)
+        self.character.calc_spell_level()
         self.update_hp()
         self.character.calc_init()
         self.update_initiative()
@@ -2154,6 +2163,13 @@ class UIMainWindow(object):
         if self.feat_window is None:
             self.feat_window = FeatForm(self.character)
         self.feat_window.show()
+
+    def open_spells(self):
+        """open the spells window
+        """
+        if self.spell_window is None:
+            self.spell_window = SpellForm(self.character)
+        self.spell_window.show()
 
 
 

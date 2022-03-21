@@ -232,6 +232,8 @@ class Character:
 
         for skill in classesStatBonus[self.class_name]["classBonus"]:
             self.skill_class[skill] = classesStatBonus[self.class_name]["classBonus"][skill]
+
+        self.calc_spell_level()
         return class_name
 
     def calc_armor_class(self) -> None:
@@ -539,7 +541,6 @@ class Character:
 
         list_to_write_to_file = []
         if self.class_name == "technomancer" or self.class_name == "mystic":
-            self.spell_level = self.class_level
 
             bonus_list = []
             for bonus in spells_bonus:
@@ -562,26 +563,32 @@ class Character:
         return list_to_write_to_file
 
 
-    def add_spells(self) -> None:
+    def add_spells(self, gui : bool=False) -> None:
         """add spells to the character
         """
         list_to_write_to_file = []
-        if self.class_name == "technomancer" or self.class_name == "mystic":
+        if self.class_name in ["mystic", "technomancer"]:
             list_of_pickable_spells = [[], [], [], [], [], [], []]
             for i in range(7):
                 if spells_known[self.class_level - 1][i] > 0:
                     list_of_pickable_spells[i] += spells[self.class_name][i]
+
+            for i in range(7):
+                for spell in self.spells[i]:
+                    if spell in list_of_pickable_spells[i]:
+                        list_of_pickable_spells[i].remove(spell)
+                for spell in self.additional_spells[i]:
+                    if spell in list_of_pickable_spells[i]:
+                        list_of_pickable_spells[i].remove(spell)
+
+            if gui:
+                return list_of_pickable_spells
 
             if self.class_level > 1:
                 for i in range(7):
                     if spells_known[self.class_level - 1][i] - \
                         spells_known[self.class_level - 2][i] == 0:
                         list_of_pickable_spells[i] = []
-
-            for i in range(7):
-                for spell in self.spells[i]:
-                    if spell in list_of_pickable_spells[i]:
-                        list_of_pickable_spells[i].remove(spell)
 
             for i in range(7):
                 if list_of_pickable_spells[i] != []:
@@ -662,7 +669,7 @@ class Character:
             "survival"         : self.mods["wis"],
         }
         for skill in self.skills:
-            if self.skill_ranks[skill] > 0:
+            if self.skill_ranks[skill] > 0 or self.skill_dabbler[skill] > 0:
                 self.skills[skill] += self.skill_ranks[skill] + self.skill_class[skill] +\
                                     self.skill_misc[skill]
             else:
@@ -1099,7 +1106,7 @@ class Character:
             elif race_ability_block[1] == "spell": # TODO
                 for j in range(2):
                     for spell in race_ability_block[2][j]:
-                        if spell not in self.additional_spells:
+                        if spell not in self.additional_spells[j]:
                             self.additional_spells[j].append(spell)
             elif race_ability_block[1] == "feat":
                 self.select_new_feat()
@@ -1460,6 +1467,12 @@ class Character:
             list_to_write_to_file+= self.calc_skills()
             self.write_to_file("listPass", list_to_write_to_file)
 
+    def calc_spell_level(self):
+        """function to update the spell_level of the character
+        """
+        if self.class_name in ["mystic", "technomancer"] or (self.theme == "priest" and self.class_level >= 12):
+            self.spell_level = self.class_level
+
     def level_up(self) -> None: # TODO Spells
         """Level the character up and call all relevant functions
         """
@@ -1486,6 +1499,7 @@ class Character:
             if self.class_name == "soldier":
                 class_name += " [" + str(self.key) + "]"
             list_to_write_to_file.append([htmlTags["className"], class_name])
+            self.calc_spell_level()
             self.add_spells() # TODO this will need to change in the future for gui addable spells
             self.calc_attack()
             list_to_write_to_file += self.print_attack()
@@ -1796,21 +1810,15 @@ class Character:
                         full_spell_list.append(adding_spell)
                     except KeyError:
                         break
-                #self.spells[i] + self.additionalSpells[i]
                 for j, current_spell in enumerate(full_spell_list):
                     if j < spells_known[self.class_level - 1][i]:
                         self.spells[i].append(current_spell)
                     else:
                         self.additional_spells[i].append(current_spell)
 
-            # self.expertise
-            # self.chosenFeats "weapon focus" or "weapon specialization" or "skill focus"
-
         except FileNotFoundError:
             print("""The Character name you entered does not have a file.
                     Please create the character with the wizard or enter another name""")
-
-
 
     def write_to_file(self, attribute_name : str, attribute_name_value : str) -> None:
         """funtion to write the input to the HTML
