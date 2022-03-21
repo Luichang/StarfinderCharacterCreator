@@ -232,6 +232,8 @@ class Character:
 
         for skill in classesStatBonus[self.class_name]["classBonus"]:
             self.skill_class[skill] = classesStatBonus[self.class_name]["classBonus"][skill]
+
+        self.calc_spell_level()
         return class_name
 
     def calc_armor_class(self) -> None:
@@ -539,7 +541,6 @@ class Character:
 
         list_to_write_to_file = []
         if self.class_name == "technomancer" or self.class_name == "mystic":
-            self.spell_level = self.class_level
 
             bonus_list = []
             for bonus in spells_bonus:
@@ -566,7 +567,7 @@ class Character:
         """add spells to the character
         """
         list_to_write_to_file = []
-        if self.class_name == "technomancer" or self.class_name == "mystic":
+        if self.class_name in ["mystic", "technomancer"]:
             list_of_pickable_spells = [[], [], [], [], [], [], []]
             for i in range(7):
                 if spells_known[self.class_level - 1][i] > 0:
@@ -1466,6 +1467,12 @@ class Character:
             list_to_write_to_file+= self.calc_skills()
             self.write_to_file("listPass", list_to_write_to_file)
 
+    def calc_spell_level(self):
+        """function to update the spell_level of the character
+        """
+        if self.class_name in ["mystic", "technomancer"] or (self.theme == "priest" and self.class_level >= 12):
+            self.spell_level = self.class_level
+
     def level_up(self) -> None: # TODO Spells
         """Level the character up and call all relevant functions
         """
@@ -1492,6 +1499,7 @@ class Character:
             if self.class_name == "soldier":
                 class_name += " [" + str(self.key) + "]"
             list_to_write_to_file.append([htmlTags["className"], class_name])
+            self.calc_spell_level()
             self.add_spells() # TODO this will need to change in the future for gui addable spells
             self.calc_attack()
             list_to_write_to_file += self.print_attack()
