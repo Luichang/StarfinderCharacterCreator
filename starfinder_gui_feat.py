@@ -726,7 +726,7 @@ class FeatForm(QtWidgets.QWidget):
             initialize_combo_model(boxes[2], [character_themes[2][0]],
                                     "<<Theme Feat>>", index=1)
             if themeAbilities[self.character.theme][2][1] != "words":
-                self.additional_spells[1].append("MYSTICSPELL")
+                self.character.additional_spells[1].append(["MYSTICSPELL"])
 
         if self.character.class_level >= 18:
             initialize_combo_model(boxes[3], [character_themes[3][0]],

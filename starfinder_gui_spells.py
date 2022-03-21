@@ -5,6 +5,7 @@ from helpers.helper import (initialize_combo, initialize_combo_model,
                             initialize_widget)
 from helpers.starfinder_dicts import spells_known, spells_day
 from helpers.ProxyModel import ProxyModel
+from helpers.spells import spells
 
 
 class SpellForm(QtWidgets.QWidget):
@@ -406,28 +407,13 @@ class SpellForm(QtWidgets.QWidget):
         self.choose_level5 = []
         self.choose_level6 = []
 
-        self.initialize_spells()
+        if self.character.spell_level > -1:
+            self.initialize_spells()
 
     def initialize_spells(self):
         """function to initialize the level 0 spell boxes
         """
-        known_boxes = [self.level_0_known_box, self.level_1_known_box, self.level_2_known_box,
-                       self.level_3_known_box, self.level_4_known_box, self.level_5_known_box,
-                       self.level_6_known_box]
-        for box, num in zip(known_boxes, spells_known[self.character.class_level - 1]):
-            box.setPlainText(str(num))
-
-        day_boxes = [self.level_1_per_box, self.level_2_per_box, self.level_3_per_box,
-                     self.level_4_per_box, self.level_5_per_box, self.level_6_per_box]
-        for box, num in zip(day_boxes, spells_day[self.character.class_level - 1]):
-            box.setPlainText(str(num))
-
-        chosen = [self.choose_level0, self.choose_level1, self.choose_level2, self.choose_level3,
-                  self.choose_level4, self.choose_level5, self.choose_level6]
-
-        list_of_pickable_spells = self.character.add_spells(gui=True)
-        if list_of_pickable_spells:
-            boxes = [[self.level_0_box1, self.level_0_box2, self.level_0_box3, self.level_0_box4,
+        boxes = [[self.level_0_box1, self.level_0_box2, self.level_0_box3, self.level_0_box4,
                       self.level_0_box5, self.level_0_box6, self.level_0_box7, self.level_0_box8,
                       self.level_0_box9, self.level_0_box10, self.level_0_box11,self.level_0_box12,
                       self.level_0_box13, self.level_0_box14
@@ -454,24 +440,60 @@ class SpellForm(QtWidgets.QWidget):
                      [self.level_6_box1, self.level_6_box2, self.level_6_box3, self.level_6_box4,
                       self.level_6_box5, self.level_6_box6, self.level_6_box7, self.level_6_box8
                      ]]
-            for i in range(7):
-                boxcount = 0
 
-                for spell in self.character.additional_spells[i]:
-                    # if we look at additional_spells[1] we need to check if spell name is MYSTICSPELL
-                    initialize_combo_model(boxes[i][boxcount], [spell],
-                                            "<<Fixed Spell>>", index=1)
-                    boxcount += 1
+        chosen = [self.choose_level0, self.choose_level1, self.choose_level2, self.choose_level3,
+                  self.choose_level4, self.choose_level5, self.choose_level6]
+
+
+        for i in range(7):
+            boxcount = 0
+
+            for spell in self.character.additional_spells[i]:
+                # if we look at additional_spells[1] we need to check if spell name is MYSTICSPELL
+                if not isinstance(spell, list):
+                    initialize_combo_model(boxes[i][boxcount], [spell], "<<Fixed Spell>>",
+                                            index=1)
+                else:
+                    model_default = "<<Select Priest Spell>>"
+                    self.initialize_combobox(boxes[i][boxcount],
+                                             model_default,
+                                             spells["mystic"][1],
+                                             "additional")
+                    index = self.character.additional_spells[i].index(spell)
+                    self.character.additional_spells[i][index] = spells["mystic"][1][0]
+                    chosen[i].append(boxes[i][boxcount])
+                    self.update_spell_boxes(i, chosen[i])
+                    boxes[i][boxcount].setProperty("model_default", model_default)
+                boxcount += 1
+
+
+        known_boxes = [self.level_0_known_box, self.level_1_known_box, self.level_2_known_box,
+                       self.level_3_known_box, self.level_4_known_box, self.level_5_known_box,
+                       self.level_6_known_box]
+        for box, num in zip(known_boxes, spells_known[self.character.class_level - 1]):
+            box.setPlainText(str(num))
+
+        day_boxes = [self.level_1_per_box, self.level_2_per_box, self.level_3_per_box,
+                     self.level_4_per_box, self.level_5_per_box, self.level_6_per_box]
+        for box, num in zip(day_boxes, spells_day[self.character.class_level - 1]):
+            box.setPlainText(str(num))
+
+        list_of_pickable_spells = self.character.add_spells(gui=True)
+        if list_of_pickable_spells:
+            for i in range(7):
+                boxcount = len(self.character.additional_spells[i])
 
                 num_to_add = spells_known[self.character.class_level - 1][i]
                 for _ in range(num_to_add):
+                    model_default = f"<<Select Level {i} Spell>>"
                     self.initialize_combobox(boxes[i][boxcount],
-                                             f"<<Select Level {i} Spell>>",
+                                             model_default,
                                             list_of_pickable_spells[i],
                                             "spells")
                     self.character.spells[i].append(list_of_pickable_spells[i].pop(0))
                     chosen[i].append(boxes[i][boxcount])
                     self.update_spell_boxes(i, chosen[i])
+                    boxes[i][boxcount].setProperty("model_default", model_default)
                     boxcount += 1
 
                 self.update_boxes(i, chosen[i], list_of_pickable_spells)
@@ -514,8 +536,8 @@ class SpellForm(QtWidgets.QWidget):
         """
         combo = self.sender()
         spell_list = combo.property("spell_list")
-        feat_function = combo.property("level")
-        level = feat_function[0]
+        spell_function = combo.property("level")
+        level = spell_function[0]
 
         # update spell in appropriate spell list
         if spell_list[0] == "spells":
@@ -523,27 +545,31 @@ class SpellForm(QtWidgets.QWidget):
             self.character.spells[level][index] = selected_spell
         elif spell_list[0] == "additional":
             index = self.character.additional_spells[level].index(spell_list[1])
-            self.character.additional_spells[level][spell_list[1]] = selected_spell
+            self.character.additional_spells[level][index] = selected_spell
 
         combo.setProperty("spell_list", [spell_list[0], selected_spell])
         # update all related comboboxes
 
         list_of_pickable_spells = self.character.add_spells(gui=True)
-        self.update_boxes(*feat_function, list_of_pickable_spells)
+        self.update_boxes(*spell_function, list_of_pickable_spells)
 
     def update_boxes(self, spell_level : int, spell_list : list, possible_spells : list) -> None:
-        """update all selectable feat class comboboxes
+        """update all selectable spell comboboxes
 
         Args:
-            spell_level (int): the type of feat that should be checked in the select_new(_class)_feat
+            spell_level (int): the type of spell that should be checked in the select_new_spell
             spell_list (list): list of comboboxes that are to be updated
             possible_spells (list): list of options that can be entered
         """
         for box in spell_list:
+            model_default = box.property("model_default")
             model = QtGui.QStandardItemModel()
             current_item = box.currentText()
             model.appendRow(QtGui.QStandardItem(current_item))
-            for feat in possible_spells[spell_level]:
-                model.appendRow(QtGui.QStandardItem(feat))
-            box.setModel(ProxyModel(model, f"<<Select {spell_level}>>"))
+            if not possible_spells:
+                possible_spells = [[], spells["mystic"][1]]
+                possible_spells[1].remove(current_item)
+            for spell in possible_spells[spell_level]:
+                model.appendRow(QtGui.QStandardItem(spell))
+            box.setModel(ProxyModel(model, model_default))
             box.setCurrentIndex(1)
