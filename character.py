@@ -671,7 +671,7 @@ class Character:
         for skill in self.skills:
             if self.skill_ranks[skill] > 0 or self.skill_dabbler[skill] > 0:
                 self.skills[skill] += self.skill_ranks[skill] + self.skill_class[skill] +\
-                                    self.skill_misc[skill]
+                                    self.skill_misc[skill] + self.skill_dabbler[skill]
             else:
                 self.skills[skill] = 0
             if verbose:

@@ -1818,6 +1818,21 @@ class UIMainWindow(object):
         self.update_skills()
         self.update_hp()
 
+    def update_dabbler(self) -> None:
+        """function to update the dabbler stats
+        """
+        dabble = 0
+        if self.character.theme == "spacefarer" and self.character.class_level >= 6:
+            dabble = 2
+        # +2 bonus to skill checks for skills with 0 ranks in skill
+        for skill in self.character.skills:
+            if self.character.skill_ranks[skill] == 0:
+                self.character.skill_dabbler[skill] = dabble
+            else:
+                self.character.skill_dabbler[skill] = 0
+            
+        self.update_misc_skills()
+
     def update_theme_stats(self):
         """updates the theme blocks in the attributes tab
         """
@@ -1825,11 +1840,7 @@ class UIMainWindow(object):
                  self.cha_theme]
         for skill, box in zip(self.character.theme_attributes.values(), boxes):
             box.setText(str(skill))
-        if self.character.theme == "spacefarer" and self.character.class_level >= 6:
-                # +2 bonus to skill checks for skills with 0 ranks in skill
-                for skill in self.character.skills:
-                    if self.character.skill_ranks[skill] == 0:
-                        self.character.skill_dabbler[skill] = 2
+        self.update_dabbler()
         self.update_abilities()
         self.update_point_buys()
 
@@ -1843,7 +1854,6 @@ class UIMainWindow(object):
         self.update_abilities()
         self.update_hp()
         self.update_point_buys()
-        self.update_misc_skills()
         self.update_skill_buy()
 
     def update_abilities(self):
@@ -2114,6 +2124,7 @@ class UIMainWindow(object):
             pbuy.addItems(points)
             pbuy.setCurrentIndex(self.character.skill_ranks[skill])
 
+        self.update_dabbler()
         self.update_skills()
 
 
