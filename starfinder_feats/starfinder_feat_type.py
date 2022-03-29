@@ -19,7 +19,6 @@ class FeatType(Enum):
     # condense these four
     CHANNEL = auto() # mystic
     EDGE = auto() # operative
-    INFLUENCE = auto() # solarian
     SKILLS = auto() # technomancer
     #
 
@@ -32,7 +31,7 @@ class FeatType(Enum):
 
     TALENT = auto() # envoy
 
-
+    INFLUENCE = auto() # solarian
     ZENITH = auto() # solarian
 
 

@@ -7,6 +7,7 @@ class Soldier(StarfinderClass):
     """
     def __init__(self, key : str = "str") -> None:
         super().__init__("Soldier")
+        self.style = "Arcane Assailant"
         self.bab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
         self.fort = [2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12]
         self.reflex = [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
@@ -101,3 +102,82 @@ class Soldier(StarfinderClass):
             Ability("Heavy Onslaught", 11, FeatType.WORDS)
         ]
         return choosable
+
+    def select_style(self, style : str):
+        """function that sets the style
+
+        Args:
+            style (str): new style
+        """
+        self.style = style
+
+    def possible_styles(self) -> list:
+        """function that gives every possible style
+
+        Returns:
+            list: list of possible styles
+        """
+        styles = [
+            "Arcane Assailant", "Armor Storm", "Blitz", "Bombard", "Guard", "Hit-and-Run", "Sharpshoot"
+        ]
+        return styles
+
+    def style_combat(self) -> dict:
+        """function to return the dictionary of styles for each style
+
+        Returns:
+            dict: dictionary where the possible levels are the keys and the combat feats are the items
+        """
+
+        styles = {
+            "Arcane Assailant" : {
+                1 : "Rune of the Eldritch Knight",
+                5 : "Secret of the Magi",
+                9 : "Power of Legend",
+                13: "Secret of the Archmagi",
+                17: "Arcane Attack"
+            },
+            "Armor Storm" : {
+                1 : "Hammer Fist",
+                5 : "Enhanced Tank",
+                9 : "Smash Through",
+                13: "Mobile Army",
+                17: "On the Bounce"
+            },
+            "Blitz" : {
+                1 : "Rapid Response",
+                5 : "Charge Attack",
+                9 : "Keep Fighting",
+                13: "Perfect Opportunity",
+                17: "Against the Odds"
+            },
+            "Bombard" : {
+                1 : "Grenade Expert",
+                5 : "Heavy Fire",
+                9 : "Debilitating Attack",
+                13: "Explosives Acumen",
+                17: "Impactful Attack"
+            },
+            "Guard" : {
+                1 : "Armor Training",
+                5 : "Guard's Protection",
+                9 : "Rapid Recovery",
+                13: "Kinetic Resistance",
+                17: "Impenetrable Defense"
+            },
+            "Hit-and-Run" : {
+                1 : "Opening Volley",
+                5 : "Nimble Fusillade",
+                9 : "Duck and Weave",
+                13: "Elusive Target",
+                17: "Harrying Shot"
+            },
+            "Sharpshoot" : {
+                1 : "Sniper's Aim",
+                5 : "Focus Fire",
+                9 : "Intense Focus",
+                13: "Focused Damage",
+                17: "Prepared Shot"
+            }
+        }
+        return styles[self.style]

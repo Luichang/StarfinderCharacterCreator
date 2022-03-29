@@ -128,3 +128,67 @@ class Operative(StarfinderClass):
             Ability("Uncanny Senses", 14, FeatType.WORDS)
         ]
         return choosable
+
+    def select_specialization(self, specialization : str):
+        """function that sets the specialization
+
+        Args:
+            specialization (str): new specialization
+        """
+        self.specialization = specialization
+
+    def possible_specializations(self) -> list:
+        """function that gives every possible specialization
+
+        Returns:
+            list: list of possible specializations
+        """
+        specializations = [
+            "Daredevil", "Detective", "Explorer", "Ghost", "Hacker", "Spy", "Thief"
+        ]
+        return specializations
+
+    def specialization_feat(self):
+        """function to return the feat related stuff of the operative
+        """
+        specialization = {
+            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
+            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
+            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
+            # Explorer: you gain a +4 bonus to Culture and Survival checks
+            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
+            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
+            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
+            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
+                            "Contingency Plan"]
+        }
+
+    def specialization_exploit(self):
+        """function to return the exploit related stuff of the operative
+        """
+        specialization = {
+            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
+            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
+            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
+            # Explorer: you gain a +4 bonus to Culture and Survival checks
+            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
+            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
+            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
+            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
+                            "Contingency Plan"]
+        }
+
+    def specialization_power(self):
+        """function to return the power related stuff of the operative
+        """
+        specialization = {
+            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
+            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
+            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
+            # Explorer: you gain a +4 bonus to Culture and Survival checks
+            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
+            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
+            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
+            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
+                            "Contingency Plan"]
+        }
