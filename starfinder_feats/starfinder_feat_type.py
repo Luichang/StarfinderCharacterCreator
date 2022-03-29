@@ -11,30 +11,32 @@ class FeatType(Enum):
 
     WEAPON = auto()
 
-
+    # condense these two
     ADD_EXPERTISE = auto() # envoy
     CLASS = auto() # solarian
+    #
 
+    # condense these four
+    CHANNEL = auto() # mystic
+    EDGE = auto() # operative
+    INFLUENCE = auto() # solarian
+    SKILLS = auto() # technomancer
+    #
+
+    # codense these three
+    COMBAT = auto() # soldier
+    CPOWER = auto() # mystic
+    SPELL = auto() # mystic
+    #
 
 
     TALENT = auto() # envoy
 
 
-    CPOWER = auto() # mystic
-    SPELL = auto() # mystic
-    CHANNEL = auto() # mystic
-
-    EDGE = auto() # operative
-
-
-    
-    INFLUENCE = auto() # solarian
     ZENITH = auto() # solarian
 
 
     TECHNIQUE1 = auto() # soldier
-    COMBAT = auto() # soldier
     TECHNIQUE2 = auto() # soldier
 
     FEAT = auto() # technomancer
-    SKILLS = auto() # technomancer
