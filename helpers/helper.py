@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from helpers.ProxyModel import ProxyModel
@@ -115,3 +116,69 @@ def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model
         combo.setMaximumSize(QtCore.QSize(*size))
     if connection:
         combo.activated[str].connect(connection)
+
+def get_user_response(options : list, text : str="", include : bool=True) -> str:
+    """Function to get user response from input options
+
+    Args:
+        options (list): list of possible options the user can choose from
+        text (str, optional): text to inform the user what they are responding to.
+                                Defaults to "".
+        include (bool, optional): if include is True the entered text must be in the options
+                                    list, False means the input can't be in the options.
+                                    Defaults to True.
+
+    Returns:
+        str: the entered text that was allowed
+    """
+    entered = ""
+    if include:
+        while entered not in options:
+            entered = input(text).lower()
+    else:
+        while entered in options:
+            entered = input(text).lower()
+    return entered
+
+def write_to_file(name : str, attribute_name : str, attribute_name_value : str) -> None:
+    """funtion to write the input to the HTML
+
+    Args:
+        name (str): name of the chraracter
+        attribute_name (str): either the string "listPass" or the box in which the
+                                attribute_name_value is to be entered
+        attribute_name_value (str): the string gets entered into the attribute_name box
+                                    unless attribute_name was "listPass" in which case it
+                                    is a list of lists where the first element of each internal
+                                    list is what is here considered the attribute_name and the
+                                    second is the attribute_name_value
+    """
+    try:
+        file = open(f"html/{name}.html", mode="r+", encoding='utf-8')
+    except FileNotFoundError:
+        file = open("html/CharacterSheet.html", mode="r+", encoding='utf-8')
+
+    soup = BeautifulSoup(file, 'html.parser')
+    if attribute_name == "listPass":
+        for a_name, a_name_value in attribute_name_value:
+            try:
+                soup.find(attrs={"id": a_name})["value"] = a_name_value
+            except TypeError:
+                print("------------------")
+                print(a_name)
+                print(a_name_value)
+                print(soup.find(attrs={"id": a_name}))
+                print("------------------")
+    else:
+        try:
+            soup.find(attrs={"id": attribute_name})["value"] = attribute_name_value
+        except TypeError:
+            print("------------------")
+            print(attribute_name)
+            print(attribute_name_value)
+            print(soup.find(attrs={"id": attribute_name}))
+            print("------------------")
+
+    with open(f"html/{name}.html", "w", encoding='utf-8') as out:
+        out.write(str(soup))
+    file.close()

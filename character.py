@@ -1,16 +1,16 @@
 from copy import deepcopy
 
-from bs4 import BeautifulSoup
-
 from helpers.feats import feats
+from helpers.helper import get_user_response, write_to_file
 from helpers.spells import spells
-from helpers.starfinder_dicts import possible_attributes, attribute_shorthand, attribute_shortener,\
-                             spells_known, spells_day, spells_bonus, skills
+from helpers.starfinder_class_dicts import (classAbilities, classChoseFeats,
+                                            classesStatBonus, classesStatFocus)
+from helpers.starfinder_dicts import (attribute_shortener, attribute_shorthand,
+                                      possible_attributes, skills,
+                                      spells_bonus, spells_day, spells_known)
 from helpers.starfinder_html_dict import htmlTags
 from helpers.starfinder_race_dicts import raceAbilities, raceStatList
-from helpers.starfinder_theme_dicts import themes, themeAbilities
-from helpers.starfinder_class_dicts import classesStatFocus, classChoseFeats, classAbilities,\
-                                   classesStatBonus
+from helpers.starfinder_theme_dicts import themeAbilities, themes
 
 
 class Character:
@@ -147,7 +147,7 @@ class Character:
         Returns:
             string: chosen value
         """
-        entered = self.get_user_response(possible_attributes, text)
+        entered = get_user_response(possible_attributes, text)
         return entered
 
     def set_race(self, race : str, attr : str=None) -> None:
@@ -225,7 +225,7 @@ class Character:
         if self.class_name == "soldier":
             if key is None:
                 response_text = "Soldier has to chose the key ability. Possible are str and dex"
-                key = self.get_user_response(["str", "dex"], response_text)
+                key = get_user_response(["str", "dex"], response_text)
             self.key = key
         else:
             self.key = classesStatBonus[self.class_name]["key"]
@@ -251,14 +251,14 @@ class Character:
     def create_new(self) -> None:
         """create a new character
         """
-        entered = self.get_user_response([""], "Enter a Character Name", False)
+        entered = get_user_response([""], "Enter a Character Name", False)
         self.set_name(entered)
 
-        self.write_to_file(htmlTags["name"], self.name.title())
+        write_to_file(self.name, htmlTags["name"], self.name.title())
 
         response_text = "Please chose a race, options are: android, human, kasatha, " +\
                         "lashunta(korasha), lashunta(damaya), shirren, vesk, ysoki"
-        entered = self.get_user_response(["android", "human", "kasatha", "lashunta(korasha)",
+        entered = get_user_response(["android", "human", "kasatha", "lashunta(korasha)",
                                          "lashunta(damaya)", "shirren", "vesk", "ysoki"],
                                          response_text
                                         )
@@ -273,18 +273,18 @@ class Character:
         list_to_write_to_file.append([htmlTags["raceWis"], self.race_attributes["wisdom"]])
         list_to_write_to_file.append([htmlTags["raceCha"], self.race_attributes["charisma"]])
 
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
 
         response_text = 'Chose a theme. Possible themes are: "ace pilot, bounty hunter, icon, ' +\
                         'mercenary, outlaw, priest, scholar, spacefarer, xenoseeker, themeless'
-        entered = self.get_user_response(["ace pilot", "bounty hunter", "icon", "mercenary",
+        entered = get_user_response(["ace pilot", "bounty hunter", "icon", "mercenary",
                                         "outlaw", "priest", "scholar", "spacefarer",
-                                        "xenoseeker", "themeless"],
+                                        "xenoseeker", "themeless"], response_text
                                       )
 
         self.set_theme(entered)
-        self.write_to_file(htmlTags["theme"], self.theme.title())
+        write_to_file(self.name, htmlTags["theme"], self.theme.title())
 
         list_to_write_to_file = []
         list_to_write_to_file.append([htmlTags["themeStr"], self.theme_attributes["strength"]])
@@ -310,13 +310,13 @@ class Character:
         list_to_write_to_file.append([htmlTags["abilityWis"], self.ability_increases["wisdom"]])
         list_to_write_to_file.append([htmlTags["abilityCha"], self.ability_increases["charisma"]])
 
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
         list_to_write_to_file = []
 
         response_text = "Chose a Class. Possible Classes are: envoy, mechanic, mystic, " +\
                         "operative, solarian, soldier, technomancer"
-        entered = self.get_user_response(["envoy", "mechanic", "mystic", "operative", "solarian",
+        entered = get_user_response(["envoy", "mechanic", "mystic", "operative", "solarian",
                                         "soldier", "technomancer"], response_text
                                       )
 
@@ -345,14 +345,13 @@ class Character:
         list_to_write_to_file.append([htmlTags["attrIntPoint"], 0])
         list_to_write_to_file.append([htmlTags["attrWisPoint"], 0])
         list_to_write_to_file.append([htmlTags["attrChaPoint"], 0])
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
         while spendable_points > 0:
             response_text = f"You have {spendable_points} points left to spend. Chose one from " +\
                             "(str)ength, (dex)terity, (con)stitution, (int)elligence, (wis)dom, "+\
                             "(cha)risma"
-            entered = self.get_user_response(possible_attributes,
-                                           )
+            entered = get_user_response(possible_attributes, response_text)
             if self.attributes[attribute_shorthand[entered]] == 18:
                 print_text = f"Sorry try again {attribute_shorthand[entered]} is already at 18 " +\
                              "which is the maximum when setting up a character"
@@ -362,7 +361,7 @@ class Character:
             self.attributes[curr_attr] += 1
             self.spent_points[attribute_shorthand[curr_attr]] += 1
 
-            self.write_to_file(htmlTags["attr" + attribute_shortener[curr_attr] + "Point"],
+            write_to_file(self.name, htmlTags["attr" + attribute_shortener[curr_attr] + "Point"],
                              self.spent_points[attribute_shorthand[curr_attr]])
 
             spendable_points -= 1
@@ -374,7 +373,7 @@ class Character:
             list_to_write_to_file.append([htmlTags["attrInt"], self.attributes["intelligence"]])
             list_to_write_to_file.append([htmlTags["attrWis"], self.attributes["wisdom"]])
             list_to_write_to_file.append([htmlTags["attrCha"], self.attributes["charisma"]])
-            self.write_to_file("listPass", list_to_write_to_file)
+            write_to_file(self.name, "listPass", list_to_write_to_file)
 
         self.calc_attribut_mod()
 
@@ -421,12 +420,12 @@ class Character:
         list_to_write_to_file.append([htmlTags["perLevelPoints"],
                                  classesStatBonus[self.class_name]["skills"] + self.mods["int"]])
 
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
         self.add_skill_points()
 
         list_to_write_to_file = self.calc_skills()
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
         self.feats_and_abilities()
 
         self.add_spells()
@@ -599,7 +598,7 @@ class Character:
                         print_text = f"please enter spell name of level {i} to add. "+\
                                       "Possible spells are: " +\
                                       ", ".join(list_of_pickable_spells[i])
-                        entered = self.get_user_response([x.lower() for x in \
+                        entered = get_user_response([x.lower() for x in \
                                                         list_of_pickable_spells[i]], print_text)
                         entered = entered.title()
                         list_of_pickable_spells[i].remove(entered)
@@ -607,7 +606,7 @@ class Character:
 
             list_to_write_to_file += self.print_spells()
         list_to_write_to_file += self.print_spell_numbers()
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
 
     def calc_skills(self, verbose : bool=True) -> list:
@@ -705,11 +704,11 @@ class Character:
         while skillpoints > 0:
             response_text = "please enter skill name to add a point to. Possible skills are: " +\
                             ", ".join(possible_skill)
-            entered = self.get_user_response(possible_skill, response_text)
+            entered = get_user_response(possible_skill, response_text)
             possible_skill.remove(entered)
             self.skill_ranks[entered] += 1
             skillpoints -= 1
-            self.write_to_file(htmlTags["spendablePoints"], skillpoints)
+            write_to_file(self.name, htmlTags["spendablePoints"], skillpoints)
 
 
     def calc_attribut_mod(self) -> None: # TODO
@@ -998,7 +997,7 @@ class Character:
                 print_text = "please enter feat name you would like to add. Possible feats are: " +\
                             ", ".join(possible_feats)
                 lower_chosen_feats = [x.lower() for x in possible_feats]
-                entered = self.get_user_response(lower_chosen_feats, print_text)
+                entered = get_user_response(lower_chosen_feats, print_text)
                 add_feat = True
                 if entered == "weapon focus" or entered == "weapon specialization":
                     weapon_feats = ["advanced melee", "advanced melee weapon", "basic melee",
@@ -1014,7 +1013,7 @@ class Character:
 
                     weapon_type_text = "With which weapon type do you wish to use this feat? \n" +\
                                     "Possible weapon types are: " + ", ".join(weapon_feats_small)
-                    weapon_entered = self.get_user_response(weapon_feats, weapon_type_text)
+                    weapon_entered = get_user_response(weapon_feats, weapon_type_text)
                     weapon_feats_dict = {
                         "advanced melee"        : "Advanced Melee Weapon Proficiency",
                         "advanced melee weapon" : "Advanced Melee Weapon Proficiency",
@@ -1039,7 +1038,7 @@ class Character:
                 elif entered == "skill focus":
                     print_text = "please enter the skill you would like to focus. " +\
                                 "Possible skills are: " + ", ".join([x for x in self.skills])
-                    skill_entered = self.get_user_response([x for x in self.skills], print_text)
+                    skill_entered = get_user_response([x for x in self.skills], print_text)
                     additional_info = f" [{skill_entered.title()}]".format()
                     self.skill_misc[skill_entered] += 3
 
@@ -1074,7 +1073,7 @@ class Character:
             print_text = "please enter class feat name you would like to add. " +\
                          "Possible feats are: " + ", ".join(possible_class_feats)
             lower_class_feats = [x.lower() for x in possible_class_feats]
-            entered = self.get_user_response(lower_class_feats, print_text)
+            entered = get_user_response(lower_class_feats, print_text)
             entered_feat_index = lower_class_feats.index(entered)
             self.class_feats.append(possible_class_feats[entered_feat_index])
         return possible_class_feats
@@ -1097,7 +1096,7 @@ class Character:
                     if block[0] == "any":
                         print_text = f"please enter skill name to add {block[1]} point(s) to. " +\
                                      "Possible skills are: " + ", ".join(possible_skill)
-                        block[0] = self.get_user_response(possible_skill, print_text)
+                        block[0] = get_user_response(possible_skill, print_text)
                     self.skill_misc[block[0]] += block[1]
                     self.skills[block[0]] += block[1]
                     list_to_write_to_file.append([htmlTags[block[0]], self.skills[block[0]]])
@@ -1120,12 +1119,12 @@ class Character:
             if isinstance(themeAbilities[theme_name][0][1], str):
                 new_class_skill = themeAbilities[theme_name][0][1]
                 if new_class_skill == "any":
-                    new_class_skill = self.get_user_response(possible_skill,
+                    new_class_skill = get_user_response(possible_skill,
                                     "You get to select a Skill to be turned into a class skill." +\
                                         " Options are " + ", ".join(possible_skill))
                 self.make_class_skill(new_class_skill)
             elif isinstance(themeAbilities[theme_name][0][1], list):
-                new_class_skill = self.get_user_response(themeAbilities[theme_name][0][1],
+                new_class_skill = get_user_response(themeAbilities[theme_name][0][1],
                                 "You get to select a Skill to be turned into a class skill. " +\
                                 "Options are " + ", ".join(themeAbilities[theme_name][0][1]))
                 self.make_class_skill(new_class_skill)
@@ -1149,7 +1148,7 @@ class Character:
                 possible_spells = spells["mystic"][1]
                 print_text = "as a priest you may choose one 1st-level mystic spell. " +\
                              "Possible spells are " + ", ".join(possible_spells)
-                entered = self.get_user_response(possible_spells, print_text)
+                entered = get_user_response(possible_spells, print_text)
                 self.additional_spells[1].append(entered)
             else:
                 pass # TODO # the alternative is spell and needs to add a spell,
@@ -1176,7 +1175,7 @@ class Character:
                     if new_class_skill == "any":
                         response_text = "You get to select a Skill to be turned into a class " +\
                                         "skill. Options are " + ", ".join(possible_skill)
-                        new_class_skill = self.get_user_response(possible_skill, response_text)
+                        new_class_skill = get_user_response(possible_skill, response_text)
                     self.make_class_skill(new_class_skill)
             elif ability[1] == "skills":
                 for skill in ability[2]:
@@ -1191,12 +1190,12 @@ class Character:
                     possible_styles.remove(style)
                 print_text = "please enter the style name you would like to add. " +\
                              "Possible styles are: " + ", ".join(possible_styles)
-                entered = self.get_user_response(possible_styles, print_text)
+                entered = get_user_response(possible_styles, print_text)
                 self.styles.append(entered)
                 self.class_feats.append(entered.title())
             elif ability[1] == "technique1":
                 self.class_feats.append(
-                    classChoseFeats["soldier"]["styles"][self.styles[0]][self.class_level - 1])
+                    classChoseFeats["soldier"]["styles"][self.styles[0]][self.class_level])
             elif ability[1] == "technique2":
                 self.class_feats.append(
                     classChoseFeats["soldier"]["styles"][self.styles[1]][(self.class_level - 1) -8])
@@ -1224,7 +1223,7 @@ class Character:
                                  "Possible specialization are: {}" +\
                                      ", ".join(possible_specialization)
 
-                    entered = self.get_user_response([x.lower() for x in possible_specialization],
+                    entered = get_user_response([x.lower() for x in possible_specialization],
                                                     print_text)
                     entered = entered.title()
                     self.styles.append(entered)
@@ -1247,7 +1246,7 @@ class Character:
                 possible_connection = list(classChoseFeats["mystic"]["connection"])
                 print_text = "please enter the connnection name you would like to add. " +\
                             "Possible connections are: " + ", ".join(possible_connection)
-                entered = self.get_user_response([x.lower() for x in possible_connection],
+                entered = get_user_response([x.lower() for x in possible_connection],
                                                   print_text)
                 entered = entered.title()
                 self.styles.append(entered)
@@ -1273,7 +1272,7 @@ class Character:
                         possible_expertise.remove(expertise)
                 print_text = "please enter the skill you would like to add as additional " +\
                             "expertise. Possible expertise are: " + ", ".join(possible_expertise)
-                entered = self.get_user_response(possible_expertise, print_text)
+                entered = get_user_response(possible_expertise, print_text)
                 self.expertise.append(entered)
             elif ability[1] == "influence": # solarian # add two skills, one each from two lists
                 possible_graviton = classChoseFeats["solarian"]["graviton"]
@@ -1285,11 +1284,11 @@ class Character:
                         possible_photon.remove(influence)
                 print_text = "please enter the influence you would like to add as the Graviton " +\
                     "influence. Possible influences are: " + ", ".join(possible_graviton)
-                entered = self.get_user_response(possible_graviton, print_text)
+                entered = get_user_response(possible_graviton, print_text)
                 self.expertise.append(entered)
                 print_text = "please enter the influence you would like to add as the Photon " +\
                     "influence. Possible influences are: " + ", ".join(possible_photon)
-                entered = self.get_user_response(possible_photon, print_text)
+                entered = get_user_response(possible_photon, print_text)
                 self.expertise.append(entered)
 
             elif ability[1] == "weapon": # all # TODO
@@ -1322,7 +1321,7 @@ class Character:
 
         list_to_write_to_file += self.print_spells()
 
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
     def print_abilities(self) -> list:
         """generates list to print objects to the HTML file
@@ -1423,7 +1422,7 @@ class Character:
             while to_increase_number > 0:
                 print_text = f"You get to increase {to_increase_number} more attributes. " +\
                              f"Possible attributes: {possible_abilities}"
-                entered = self.get_user_response(possible_attributes, print_text)
+                entered = get_user_response(possible_attributes, print_text)
                 entered = attribute_shorthand[entered]
                 self.ability_increases[entered] += 1
                 self.attributes[entered] += 1
@@ -1465,7 +1464,7 @@ class Character:
             list_to_write_to_file.append([htmlTags["attrWis"], self.attributes["wisdom"]])
             list_to_write_to_file.append([htmlTags["attrCha"], self.attributes["charisma"]])
             list_to_write_to_file+= self.calc_skills()
-            self.write_to_file("listPass", list_to_write_to_file)
+            write_to_file(self.name, "listPass", list_to_write_to_file)
 
     def calc_spell_level(self):
         """function to update the spell_level of the character
@@ -1473,7 +1472,7 @@ class Character:
         if self.class_name in ["mystic", "technomancer"] or (self.theme == "priest" and self.class_level >= 12):
             self.spell_level = self.class_level
 
-    def level_up(self) -> None: # TODO Spells
+    def level_up(self) -> None:
         """Level the character up and call all relevant functions
         """
         #levels = [1300, 3300, 6000, 10000, 15000, 23000, 34000, 50000, 71000, 105000,
@@ -1505,30 +1504,7 @@ class Character:
             list_to_write_to_file += self.print_attack()
             self.calc_save()
             list_to_write_to_file += self.print_save()
-            self.write_to_file("listPass", list_to_write_to_file)
-
-    def get_user_response(self, options : list, text : str="", include : bool=True) -> str:
-        """Function to get user response from input options
-
-        Args:
-            options (list): list of possible options the user can choose from
-            text (str, optional): text to inform the user what they are responding to.
-                                  Defaults to "".
-            include (bool, optional): if include is True the entered text must be in the options
-                                      list, False means the input can't be in the options.
-                                      Defaults to True.
-
-        Returns:
-            str: the entered text that was allowed
-        """
-        entered = ""
-        if include:
-            while entered not in options:
-                entered = input(text).lower()
-        else:
-            while entered in options:
-                entered = input(text).lower()
-        return entered
+            write_to_file(self.name, "listPass", list_to_write_to_file)
 
     def update_html(self) -> None:
         """Funtion that takes the internal variables and updates every single
@@ -1626,7 +1602,7 @@ class Character:
 
         list_to_write_to_file += self.print_spells()
 
-        self.write_to_file("listPass", list_to_write_to_file)
+        write_to_file(self.name, "listPass", list_to_write_to_file)
 
     def read_from_html(self, file_name : str) -> None:
         """takes input html file and creates a character from it
@@ -1819,45 +1795,3 @@ class Character:
         except FileNotFoundError:
             print("""The Character name you entered does not have a file.
                     Please create the character with the wizard or enter another name""")
-
-    def write_to_file(self, attribute_name : str, attribute_name_value : str) -> None:
-        """funtion to write the input to the HTML
-
-        Args:
-            attribute_name (str): either the string "listPass" or the box in which the
-                                  attribute_name_value is to be entered
-            attribute_name_value (str): the string gets entered into the attribute_name box
-                                        unless attribute_name was "listPass" in which case it
-                                        is a list of lists where the first element of each internal
-                                        list is what is here considered the attribute_name and the
-                                        second is the attribute_name_value
-        """
-        try:
-            file = open(f"html/{self.name}.html", mode="r+", encoding='utf-8')
-        except FileNotFoundError:
-            file = open("html/CharacterSheet.html", mode="r+", encoding='utf-8')
-
-        soup = BeautifulSoup(file, 'html.parser')
-        if attribute_name == "listPass":
-            for a_name, a_name_value in attribute_name_value:
-                try:
-                    soup.find(attrs={"id": a_name})["value"] = a_name_value
-                except TypeError:
-                    print("------------------")
-                    print(a_name)
-                    print(a_name_value)
-                    print(soup.find(attrs={"id": a_name}))
-                    print("------------------")
-        else:
-            try:
-                soup.find(attrs={"id": attribute_name})["value"] = attribute_name_value
-            except TypeError:
-                print("------------------")
-                print(attribute_name)
-                print(attribute_name_value)
-                print(soup.find(attrs={"id": attribute_name}))
-                print("------------------")
-
-        with open(f"html/{self.name.lower()}.html", "w", encoding='utf-8') as out:
-            out.write(str(soup))
-        file.close()
