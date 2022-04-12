@@ -5,37 +5,32 @@ class FeatType(Enum):
     """
     WORDS = auto() # have no further effect
     REPLACABLE = auto() # only replaces the text has no other effect
-
-    CHOOSE = auto() # choose from the class_choose_feats
-    SELECTION = auto() # used to select type for mystic, operative, soldier
-
     WEAPON = auto()
 
-    # condense these two
+    CHOOSE = auto() # choose from the class_choose_feats
+    CHOOSE2 = auto() # envoy Talent, solarian Zenith
+    SELECTION = auto() # used to select type for mystic, operative, soldier
+    MISC_INCREASE = auto() # mystic Channel, operative Edge, technomancer Skills
+
+
+    # condense these two maybe? one has a rename, the other does not
     ADD_EXPERTISE = auto() # envoy
-    CLASS = auto() # solarian
+    INFLUENCE = auto() # solarian
     #
 
-    # condense these four
-    CHANNEL = auto() # mystic
-    EDGE = auto() # operative
-    SKILLS = auto() # technomancer
-    #
-
-    # codense these three
-    COMBAT = auto() # soldier
+    # codense these two
     CPOWER = auto() # mystic
     SPELL = auto() # mystic
     #
 
-
-    TALENT = auto() # envoy
-
-    INFLUENCE = auto() # solarian
-    ZENITH = auto() # solarian
+    COMBAT = auto() # soldier
+    CLASS = auto() # solarian
+    FEAT = auto() # technomancer
 
 
     TECHNIQUE1 = auto() # soldier
     TECHNIQUE2 = auto() # soldier
 
-    FEAT = auto() # technomancer
+    STATS = auto() # race related
+
+    DABBLER = auto() # theme related

@@ -12,7 +12,7 @@ feats = {
     "Great Cleave" :                      ["combat", [["ability", ["str", 13]], ["feat", ["Cleave"]], ["bab", 4]],                                                             "words"],
     "Climbing Master" :                   ["normal", [["skills", [["athletics", 5]]]],                                                                                         "words"], # speed effected
     "Combat Casting" :                    ["combat", [["spellLevel", 2]],                                                                                                      "words"],
-    "Connection Inkling" :                ["normal", [["ability", ["wis", 15]], ["level", 5], ["skills", [["mysticism", 0, "less"]]]],                                         "words"], # Gain the ability to cast minor mystic spells
+    "Connection Inkling" :                ["normal", [["ability", ["wis", 15]], ["level", 5], ["class", "mystic", "not"]],                                                     "words"], # Gain the ability to cast minor mystic spells
     "Coordinated Shot" :                  ["combat", [["bab", 1]],                                                                                                             "words"],
     "Deadly Aim" :                        ["combat", [["bab", 1]],                                                                                                             "words"],
     "Deflect Projectiles" :               ["combat", [["bab", 8]],                                                                                                             "words"],

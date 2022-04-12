@@ -1,4 +1,5 @@
-from starfinder_classes.starfinder_class import StarfinderClass, Ability
+from helpers.ability import Ability
+from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('mechanic')
@@ -18,11 +19,9 @@ class Mechanic(StarfinderClass):
         self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
                            "Grenade Proficiency", "Small Arm Proficiency"]
 
-        bonuses = ["athletics", "computers", "engineering", "medicine", "perception",
+        self.bonuses = ["athletics", "computers", "engineering", "medicine", "perception",
                    "physical science", "piloting", "profession", "profession2"]
 
-        for bonus in bonuses:
-            self.class_bonus[bonus] = 3
 
         self.class_abilities = self.all_class_abilities()
         self.class_choose_feats = self.all_choosable_abilities()

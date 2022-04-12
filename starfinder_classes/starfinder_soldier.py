@@ -1,4 +1,5 @@
-from starfinder_classes.starfinder_class import StarfinderClass, Ability
+from helpers.ability import Ability
+from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('soldier')
@@ -7,7 +8,7 @@ class Soldier(StarfinderClass):
     """
     def __init__(self, key : str = "str") -> None:
         super().__init__("Soldier")
-        self.style = "Arcane Assailant"
+        self.selection = ["", ""]
         self.bab = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
         self.fort = [2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12]
         self.reflex = [0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6]
@@ -22,11 +23,8 @@ class Soldier(StarfinderClass):
                               "Heavy Weapon Proficiency", "Sniper Weapon Proficiency",
                               "Grenade Proficiency"]
 
-        bonuses = ["acrobatics", "athletics", "engineering", "intimidate", "medicine", "piloting",
-                   "profession", "profession2", "survival"]
-
-        for bonus in bonuses:
-            self.class_bonus[bonus] = 3
+        self.bonuses = ["acrobatics", "athletics", "engineering", "intimidate", "medicine",
+                        "piloting", "profession", "profession2", "survival"]
 
         self.class_abilities = self.all_class_abilities()
         #self.class_choose_feats = self.all_choosable_abilities()
@@ -103,30 +101,36 @@ class Soldier(StarfinderClass):
         ]
         return choosable
 
-    def select_style(self, style : str):
+    def select_selection(self, style : str, num : int):
         """function that sets the style
 
         Args:
             style (str): new style
+            num (int): which style is to be changed, the first or the second
         """
-        self.style = style
+        self.selection[num] = style
 
-    def possible_styles(self) -> list:
+    def possible_selections(self) -> list:
         """function that gives every possible style
 
         Returns:
             list: list of possible styles
         """
         styles = [
-            "Arcane Assailant", "Armor Storm", "Blitz", "Bombard", "Guard", "Hit-and-Run", "Sharpshoot"
+            "Arcane Assailant", "Armor Storm", "Blitz", "Bombard", "Guard", "Hit-and-Run",
+            "Sharpshoot"
         ]
         return styles
 
-    def style_combat(self) -> dict:
+    def style_combat(self, style : int) -> dict:
         """function to return the dictionary of styles for each style
 
+        Args:
+            style (int): which style is to be returned, the first or the second
+
         Returns:
-            dict: dictionary where the possible levels are the keys and the combat feats are the items
+            dict: dictionary where the possible levels are the keys and the combat feats are the
+                    items
         """
 
         styles = {
@@ -180,4 +184,4 @@ class Soldier(StarfinderClass):
                 17: "Prepared Shot"
             }
         }
-        return styles[self.style]
+        return styles[self.selection[style]]

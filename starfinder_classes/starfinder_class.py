@@ -1,24 +1,4 @@
-from starfinder_feats.starfinder_feat_type import FeatType
-
-class Ability:
-    """The ability class for Starfinder Classes
-    """
-    def __init__(self, name : str, level : int, _type : FeatType, *, short : str = None) -> None:
-        self.name = name
-        self.level = level
-        self.type = _type
-        self.short = short
-    def __str__(self) -> str:
-        return self.name
-
-    def get_type(self) -> FeatType:
-        """returns the type of the Ability
-
-        Returns:
-            FeatType: Ability Type
-        """
-        return self.type
-
+from helpers.ability import Ability
 
 class StarfinderClass:
     """Parent class of various Starfinder classes
@@ -34,31 +14,9 @@ class StarfinderClass:
         self.hit_points : int
         self.key : str
         self.proficiencies : list[str]
-        self.class_bonus = {
-                "acrobatics"       : 0,
-                "athletics"        : 0,
-                "bluff"            : 0,
-                "computers"        : 0,
-                "culture"          : 0,
-                "diplomacy"        : 0,
-                "disguise"         : 0,
-                "engineering"      : 0,
-                "intimidate"       : 0,
-                "life science"     : 0,
-                "medicine"         : 0,
-                "mysticism"        : 0,
-                "perception"       : 0,
-                "physical science" : 0,
-                "piloting"         : 0,
-                "profession"       : 0,
-                "profession2"      : 0,
-                "sense motive"     : 0,
-                "sleight of hand"  : 0,
-                "stealth"          : 0,
-                "survival"         : 0
-        }
-        self.class_abilities = []
-        self.class_choose_feats = []
+        self.class_bonus : list[str]
+        self.class_abilities : list[Ability]
+        self.class_choose_feats : list[Ability]
 
     def __str__(self) -> str:
         return self.name

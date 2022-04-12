@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from copy import deepcopy
 
 from helpers.feats import feats
@@ -1033,7 +1034,7 @@ class Character:
                     if weapon_feats_dict[weapon_entered] not in self.chosen_feats:
                         add_feat = False
                         print(f"You do not have the {weapon_feats_dict[weapon_entered]}, please " +\
-                            "selsct a different feat")
+                            "select a different feat")
                         additional_info = ""
                 elif entered == "skill focus":
                     print_text = "please enter the skill you would like to focus. " +\
@@ -1115,7 +1116,7 @@ class Character:
                 print(f"The race Ability {race_ability_block[1]} has not yet been implemented")
 
         theme_name = self.theme.split("(")[0].rstrip()
-        if self.class_level == 1:
+        if self.class_level >= 1:
             if isinstance(themeAbilities[theme_name][0][1], str):
                 new_class_skill = themeAbilities[theme_name][0][1]
                 if new_class_skill == "any":
@@ -1138,7 +1139,7 @@ class Character:
                 for skill in self.skills:
                     if self.skill_ranks[skill] == 0:
                         self.skill_dabbler[skill] = 2
-        if self.class_level == 12:
+        if self.class_level >= 12:
             if themeAbilities[theme_name][2][1] != "words":
                 # ^Choose one 1st-level mystic spell with some connection to your deity's portfolio
                 # (subject to the GM's approval). If you have levels in the mystic class, you

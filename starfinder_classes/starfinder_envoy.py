@@ -1,4 +1,5 @@
-from starfinder_classes.starfinder_class import StarfinderClass, Ability
+from helpers.ability import Ability
+from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('envoy')
@@ -18,15 +19,14 @@ class Envoy(StarfinderClass):
         self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
                            "Grenade Proficiency", "Small Arm Proficiency"]
 
-        bonuses = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
+        self.bonuses = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
                    "disguise", "engineering", "intimidate", "medicine", "perception", "piloting",
                    "profession", "profession2", "sense motive", "sleight of hand", "stealth"]
 
-        for bonus in bonuses:
-            self.class_bonus[bonus] = 3
 
         self.class_abilities = self.all_class_abilities()
-        #self.class_choose_feats = self.all_choosable_abilities()
+        self.class_choose_feats = self.all_choosable_abilities()
+        self.class_secondary_feats = self.all_secondary_abilities()
 
     def all_class_abilities(self) -> list[Ability]:
         """creates the ability list for character level up
@@ -40,28 +40,28 @@ class Envoy(StarfinderClass):
             Ability("Expertise (1d6)", 1, FeatType.ADD_EXPERTISE),
             Ability("Skill expertise (1)", 1, FeatType.ADD_EXPERTISE),
             Ability("Envoy improvisation", 2, FeatType.CHOOSE),
-            Ability("Expertise talent", 3, FeatType.TALENT),
+            Ability("Expertise talent", 3, FeatType.CHOOSE2),
             Ability("Weapon specialization", 3, FeatType.WEAPON),
             Ability("Envoy improvisation", 4, FeatType.CHOOSE),
             Ability("Expertise (1d6+1)", 5, FeatType.REPLACABLE, short="Expertise"),
             Ability("Skill expertise (2)", 5, FeatType.ADD_EXPERTISE),
             Ability("Envoy improvisation", 6, FeatType.CHOOSE),
-            Ability("Expertise talent", 7, FeatType.TALENT),
+            Ability("Expertise talent", 7, FeatType.CHOOSE2),
             Ability("Envoy improvisation", 8, FeatType.CHOOSE),
             Ability("Expertise (1d6+2)", 9, FeatType.REPLACABLE, short="Expertise"),
             Ability("Skill expertise (3)", 9, FeatType.ADD_EXPERTISE),
             Ability("Envoy improvisation", 10, FeatType.CHOOSE),
-            Ability("Expertise talent", 11, FeatType.TALENT),
+            Ability("Expertise talent", 11, FeatType.CHOOSE2),
             Ability("Envoy improvisation", 12, FeatType.CHOOSE),
             Ability("Expertise (1d8+2)", 13, FeatType.REPLACABLE, short="Expertise"),
             Ability("Skill expertise (4)", 13, FeatType.ADD_EXPERTISE),
             Ability("Envoy improvisation", 14, FeatType.CHOOSE),
-            Ability("Expertise talent", 15, FeatType.TALENT),
+            Ability("Expertise talent", 15, FeatType.CHOOSE2),
             Ability("Envoy improvisation", 16, FeatType.CHOOSE),
             Ability("Expertise (1d8+3)", 17, FeatType.REPLACABLE, short="Expertise"),
             Ability("Skill expertise (5)", 17, FeatType.ADD_EXPERTISE),
             Ability("Envoy improvisation", 18, FeatType.CHOOSE),
-            Ability("Expertise talent", 19, FeatType.TALENT),
+            Ability("Expertise talent", 19, FeatType.CHOOSE2),
             # gains the counter measures of lock out and wipe as a bonus
             Ability("Envoy improvisation", 20, FeatType.CHOOSE),
             Ability("Expertise (1d8+4)", 20, FeatType.REPLACABLE, short="Expertise"),
@@ -106,6 +106,36 @@ class Envoy(StarfinderClass):
         ]
         return choosable
 
+    def all_secondary_abilities(self) -> list[Ability]:
+        """creates the choosable ability list for the Mechanic class
+
+        Returns:
+            list[Ability]: list of choosable abilities
+        """
+
+        choosable = [
+            Ability("Additional Skill Expertise", 1, FeatType.WORDS),
+            Ability("Altered Bearing", 1, FeatType.WORDS),
+            Ability("Analyst", 1, FeatType.WORDS),
+            Ability("Cautious Expertise", 1, FeatType.WORDS),
+            Ability("Convincing Liar", 1, FeatType.WORDS),
+            Ability("Cultural Savant", 1, FeatType.WORDS),
+            Ability("Cunning Disguise", 1, FeatType.WORDS),
+            Ability("Engineering Adept", 1, FeatType.WORDS),
+            Ability("Expert Forger", 1, FeatType.WORDS),
+            Ability("Fast Hack", 1, FeatType.WORDS),
+            Ability("Inspired Medic", 1, FeatType.WORDS),
+            Ability("Keen Observer", 1, FeatType.WORDS),
+            Ability("Menacing Gaze", 1, FeatType.WORDS),
+            Ability("Rattling Presence", 1, FeatType.WORDS),
+            Ability("Skilled Linguist", 1, FeatType.WORDS),
+            Ability("Slick Customer", 1, FeatType.WORDS),
+            Ability("Student of Technology", 1, FeatType.WORDS),
+            Ability("Surgeon", 1, FeatType.WORDS),
+            Ability("Well Informed", 1, FeatType.WORDS)
+        ]
+        return choosable
+
     def new_expertises(self, current_expertises : list):
         """function to return the possible expertises. The first call should only return the first
         element. Every other should return the ones that have not been used yet.
@@ -116,11 +146,29 @@ class Envoy(StarfinderClass):
         Returns:
             list: list of possible expertises.
         """
+        if not current_expertises:
+            return ["sense motive"]
+
         expertises = [
-            "sense motive", "bluff", "computers", "culture", "diplomacy", "disguise",
+            "bluff", "computers", "culture", "diplomacy", "disguise",
             "engineering", "intimidate", "medicine"
         ]
 
         for expertise in current_expertises:
             expertises.remove(expertise)
         return expertises
+
+    def list_of_secondaries(self, level) -> list[Ability]:
+        """Function to return the secondary feats the player can choose from
+
+        Args:
+            level (int): current level of the character
+
+        Returns:
+            list[Ability]: list of feats the player can choose from
+        """
+        level_up_abilities = []
+        for ability in self.class_choose_feats:
+            if ability.level <= level:
+                level_up_abilities.append(ability)
+        return level_up_abilities

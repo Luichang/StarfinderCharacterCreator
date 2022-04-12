@@ -1,4 +1,5 @@
-from starfinder_classes.starfinder_class import StarfinderClass, Ability
+from helpers.ability import Ability
+from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('solarian')
@@ -18,14 +19,13 @@ class Solarian(StarfinderClass):
         self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
                            "Advanced Melee Weapon Proficiency", "Small Arm Proficiency"]
 
-        bonuses = ["acrobatics", "athletics", "diplomacy", "intimidate", "mysticism", "perception", "physical science",
-                   "profession", "profession2", "sense motive", "stealth"]
-
-        for bonus in bonuses:
-            self.class_bonus[bonus] = 3
+        self.bonuses = ["acrobatics", "athletics", "diplomacy", "intimidate", "mysticism",
+                        "perception", "physical science", "profession", "profession2",
+                        "sense motive", "stealth"]
 
         self.class_abilities = self.all_class_abilities()
-        #self.class_choose_feats = self.all_choosable_abilities()
+        self.class_choose_feats = self.all_choosable_abilities()
+        self.class_secondary_feats = self.all_secondary_abilities()
 
     def all_class_abilities(self) -> list[Ability]:
         """creates the ability list for character level up
@@ -46,14 +46,14 @@ class Solarian(StarfinderClass):
             Ability("Stellar revelation", 6, FeatType.CHOOSE),
             Ability("Flashing strikes", 7, FeatType.WORDS),
             Ability("Stellar revelation", 8, FeatType.CHOOSE),
-            Ability("Zenith revelations", 9, FeatType.ZENITH),
+            Ability("Zenith revelations", 9, FeatType.CHOOSE2),
             Ability("Stellar revelation", 10, FeatType.CHOOSE),
             Ability("Sidereal influence (4 skills)", 11, FeatType.INFLUENCE, short="Sidereal influence"),
             Ability("Stellar revelation", 12, FeatType.CHOOSE),
             Ability("Solarian's onslaught", 13, FeatType.WORDS),
             Ability("Stellar revelation", 14, FeatType.CHOOSE),
             Ability("Stellar revelation", 16, FeatType.CHOOSE),
-            Ability("Zenith revelations", 17, FeatType.ZENITH),
+            Ability("Zenith revelations", 17, FeatType.CHOOSE2),
             Ability("Stellar revelation", 18, FeatType.CHOOSE),
             Ability("Sidereal influence (6 skills)", 19, FeatType.INFLUENCE, short="Sidereal influence"),
             Ability("Stellar revelation", 20, FeatType.CHOOSE),
@@ -94,3 +94,67 @@ class Solarian(StarfinderClass):
             Ability("Ultimate Photon", 16, FeatType.WORDS)
         ]
         return choosable
+
+    def all_secondary_abilities(self) -> list[Ability]:
+        """creates the choosable ability list for the Mechanic class
+
+        Returns:
+            list[Ability]: list of choosable abilities
+        """
+
+        choosable = [
+            Ability("Additional Skill Expertise", 1, FeatType.WORDS),
+            Ability("Altered Bearing", 1, FeatType.WORDS),
+            Ability("Analyst", 1, FeatType.WORDS),
+            Ability("Cautious Expertise", 1, FeatType.WORDS),
+            Ability("Convincing Liar", 1, FeatType.WORDS),
+            Ability("Cultural Savant", 1, FeatType.WORDS),
+            Ability("Cunning Disguise", 1, FeatType.WORDS),
+            Ability("Engineering Adept", 1, FeatType.WORDS),
+            Ability("Expert Forger", 1, FeatType.WORDS),
+            Ability("Fast Hack", 1, FeatType.WORDS),
+            Ability("Inspired Medic", 1, FeatType.WORDS),
+            Ability("Keen Observer", 1, FeatType.WORDS),
+            Ability("Menacing Gaze", 1, FeatType.WORDS),
+            Ability("Rattling Presence", 1, FeatType.WORDS),
+            Ability("Skilled Linguist", 1, FeatType.WORDS),
+            Ability("Slick Customer", 1, FeatType.WORDS),
+            Ability("Student of Technology", 1, FeatType.WORDS),
+            Ability("Surgeon", 1, FeatType.WORDS),
+            Ability("Well Informed", 1, FeatType.WORDS)
+        ]
+        return choosable
+
+    def new_expertises(self, _ = None):
+        """function to return the possible
+
+        Args:
+            _ (None): empty input so this can be used together with another class
+
+        Returns:
+            list: list of possible expertises.
+        """
+
+        possible_skill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
+                         "disguise", "engineering", "intimidate", "life science", "medicine",
+                         "mysticism", "perception", "physical science", "profession1",
+                         "profession2", "piloting", "sense motive", "sleight of hand", "stealth",
+                         "survival"
+        ]
+
+        return possible_skill
+
+    def list_of_secondaries(self, level) -> list[Ability]:
+        """Function to return the secondary feats the player can choose from
+
+        Args:
+            level (int): current level of the character
+
+        Returns:
+            list[Ability]: list of feats the player can choose from
+        """
+        level_up_abilities = []
+        for ability in self.class_choose_feats:
+            if ability.level <= level:
+                level_up_abilities.append(ability)
+        return level_up_abilities

@@ -1,4 +1,5 @@
-from starfinder_classes.starfinder_class import StarfinderClass, Ability
+from helpers.ability import Ability
+from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('technomancer')
@@ -18,11 +19,8 @@ class Technomancer(StarfinderClass):
         self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
                            "Small Arm Proficiency"]
 
-        bonuses = ["computers", "engineering", "life science", "mysticism", "physical science", "piloting",
+        self.bonuses = ["computers", "engineering", "life science", "mysticism", "physical science", "piloting",
                    "profession", "profession2", "sleight of hand"]
-
-        for bonus in bonuses:
-            self.class_bonus[bonus] = 3
 
         self.class_abilities = self.all_class_abilities()
         #self.class_choose_feats = self.all_choosable_abilities()
@@ -38,21 +36,21 @@ class Technomancer(StarfinderClass):
             Ability("Spell cache", 1, FeatType.WORDS),
             Ability("Magic hack", 2, FeatType.CHOOSE),
             Ability("Spell Focus", 3, FeatType.FEAT), # "Spell Focus"
-            Ability("Techlore +1", 3, FeatType.SKILLS, short="Techlore"), # [["computers", 1], ["mysticism", 1]]
+            Ability("Techlore +1", 3, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Weapon specialization", 3, FeatType.WEAPON),
             Ability("Magic hack", 5, FeatType.CHOOSE),
             Ability("Cache capacitor 1", 6, FeatType.REPLACABLE, short="Cache capacitor"),
-            Ability("Techlore +2", 6, FeatType.SKILLS, short="Techlore"), # [["computers", 1], ["mysticism", 1]]
+            Ability("Techlore +2", 6, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Magic hack", 8, FeatType.CHOOSE),
-            Ability("Techlore +3", 9, FeatType.SKILLS, short="Techlore"), # [["computers", 1], ["mysticism", 1]]
+            Ability("Techlore +3", 9, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Magic hack", 11, FeatType.CHOOSE),
             Ability("Cache capacitor 2", 12, FeatType.REPLACABLE, short="Cache capacitor"),
-            Ability("Techlore +4", 12, FeatType.SKILLS, short="Techlore"), # [["computers", 1], ["mysticism", 1]]
+            Ability("Techlore +4", 12, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Magic hack", 14, FeatType.CHOOSE),
-            Ability("Techlore +5", 15, FeatType.SKILLS, short="Techlore"), # [["computers", 1], ["mysticism", 1]]
+            Ability("Techlore +5", 15, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Magic hack", 17, FeatType.CHOOSE),
             Ability("Cache capacitor 3", 18, FeatType.REPLACABLE, short="Cache capacitor"),
-            Ability("Techlore +6", 18, FeatType.SKILLS, short="Techlore"), # [["computers", 1], ["mysticism", 1]]
+            Ability("Techlore +6", 18, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Resolve attunement", 19, FeatType.WORDS),
             Ability("Fuse spells", 20, FeatType.WORDS),
             Ability("Magic hack", 20, FeatType.CHOOSE)
@@ -101,3 +99,11 @@ class Technomancer(StarfinderClass):
 
         ]
         return choosable
+
+    def misc_additions(self) -> list:
+        """function to return the skills that are to be increased
+
+        Returns:
+            list: list of all the skills that are to be increased by 1
+        """
+        return ["computers", "mysticism"]
