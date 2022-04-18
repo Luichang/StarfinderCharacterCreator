@@ -1,14 +1,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from helpers.starfinder_class_dicts import (classAbilities, classChoseFeats,
-                                            class_feat_replacables, classesStatBonus)
-
-from helpers.starfinder_dicts import skills
+from helpers.ability import Ability
 from helpers.ProxyModel import ProxyModel
-from helpers.starfinder_theme_dicts import themeAbilities
-from helpers.starfinder_race_dicts import raceAbilities
 from helpers.helper import (initialize_combo, initialize_combo_model,
                             initialize_frame, initialize_text,
                             initialize_widget)
+from starfinder_classes.starfinder_mystic import Mystic
+from starfinder_classes.starfinder_operative import Operative
+from starfinder_classes.starfinder_soldier import Soldier
+from starfinder_feats.starfinder_feat_type import FeatType
 
 
 class FeatForm(QtWidgets.QWidget):
@@ -276,16 +275,18 @@ class FeatForm(QtWidgets.QWidget):
 
         QtCore.QMetaObject.connectSlotsByName(self.centralwidget)
 
-        for feat in classesStatBonus[self.character.class_name]["proficiencies"]:
+        for feat in self.character.class_name.proficiencies:
             self.character.chosen_feats.append(feat)
 
         self.class_list_one = []
         self.class_list_two = []
-        self.expertises = []
+        self.class_influence = []
+        self.class_abilities = []
         self.replacables = []
         self.feats = []
         self.combats = []
         self.feat_to_add = [(self.character.class_level + 1) // 2, 0]
+        self.feat_dict = {}
 
         self.update_class_feat_list()
         self.update_theme_feat_list()
@@ -305,269 +306,175 @@ class FeatForm(QtWidgets.QWidget):
                  self.class26, self.class27, self.class28]
         boxcount = 0
 
-        for i in range(self.character.class_level):
-            for ability in classAbilities[self.character.class_name][i]:
-                try:
-                    boxes[boxcount].disconnect()
-                except TypeError:
-                    pass
-                info_text = "None"
+        for ability in self.character.class_name.current_abilities(self.character.class_level):
+            try:
+                boxes[boxcount].disconnect()
+            except TypeError:
+                pass
+            self.update_feat_dict(ability)
+            info_text = "None"
 
-                if ability[1] in ["improvisation", "trick", "revelation", "hack"] +\
-                                 ["talent", "exploit", "zenith", "gear"]:
-                    # improvisation : Envoy
-                    # trick : Mechanic
-                    # revelation : Solarian
-                    # hack : Technomancer
-
-                    # talent : Envoy
-                    # exploit : Operative
-                    # zenith : Solarian
-                    # gear : Soldier
-
-                    # list_replaceables = ["Bypass", "Miracle", "Coordinated",
-                    #
-                    #        "Trick attack", "Quick",
-                    #
-                    #        "Cache capacitor", "Skill"]
-                    possible_class_feats = self.character.select_new_class_feat(ability[1],
-                                                self.character.class_level, verbose=False)
-                    info_text = f"<<Select {ability[1].capitalize()}>>"
-                    if ability[1] in ["talent", "exploit", "zenith", "gear"]:
-                        self.class_list_two.append(boxes[boxcount])
-                        self.update_class_list_two(ability[1])
-                        self.update_boxes(ability[1], self.class_list_two, possible_class_feats)
-                    else:
-                        self.class_list_one.append(boxes[boxcount])
-                        self.update_class_list_one(ability[1])
-                        self.update_boxes(ability[1], self.class_list_one, possible_class_feats)
-
-                elif ability[1] in ["words", "weapon", "expertise", "skills", "spell", "channel",
-                                    "edge", "cpower", "feat", "combat"]:
-                    info_text = "<<Fixed Feat>>"
-                    possible_class_feats = [ability[0]]
-                    # self.initialize_combobox(boxes[boxcount], boxcount, "<<Fixed Feat>>",
-                    #                             [ability[0]])
-                    if ability[1] == "expertise":
-                        self.character.expertise.append("sense motive")
-                    elif ability[1] == "skills":
-                        for skill in ability[2]:
-                            self.character.skill_misc[skill[0]] += skill[1]
-                    elif ability[1] == "spell":
-                        connections = classChoseFeats["mystic"]["connection"]
-                        current_connection = connections[self.character.styles[0]]
-                        spell_to_add = current_connection["spell"][ability[2]]
-                        self.character.additional_spells[ability[2] + 1].append(spell_to_add)
-                    elif ability[1] == "channel":
-                        connections = classChoseFeats["mystic"]["connection"]
-                        skill1, skill2 = connections[self.character.styles[0]]["skill"]
-                        self.character.skill_misc[skill1] += 1
-                        self.character.skill_misc[skill2] += 1
-                    elif ability[1] == "edge":
-                        self.character.initiative_misc += 1
-                        self.character.calc_init()
-                        for skill in self.character.skill_misc:
-                            self.character.skill_misc[skill] += 1
-                    elif ability[1] == "cpower":
-                        self.class_list_one.append(boxes[boxcount])
-                        connections = classChoseFeats["mystic"]["connection"]
-                        mystic_styles = connections[self.character.styles[0]]
-                        new_feat = mystic_styles["feat"][ability[2]]
-                        possible_class_feats = new_feat
-
-                    elif ability[1] == "feat":
-                        self.character.chosen_feats.append(ability[2])
-                        possible_class_feats = [ability[2]]
-                    elif ability[1] == "combat":
-                        self.feat_to_add[1] += 1
-
-                elif ability[1] == "connection":
+            if ability.get_type() in [FeatType.WORDS, FeatType.REPLACABLE, FeatType.MISC_INCREASE,
+                                        FeatType.FEAT, FeatType.TECHNIQUE1, FeatType.TECHNIQUE2,
+                                        FeatType.CPOWER, FeatType.SPELL, FeatType.WEAPON,
+                                        FeatType.COMBAT]:
+                info_text = "<<Fixed Feat>>"
+                possible_class_feats = [ability]
+                if ability.get_type() == FeatType.MISC_INCREASE:
+                    self.character.misc_increase()
+                elif ability.get_type() == FeatType.FEAT:
+                    self.character.chosen_feats.append(ability.feat)
+                elif ability.get_type() == FeatType.TECHNIQUE1:
+                    possible_class_feats = [self.character.add_technique(0, ability.level)]
                     self.class_list_one.append(boxes[boxcount])
-                    possible_class_feats = list(classChoseFeats["mystic"]["connection"])
-                    info_text = f"<<Select {ability[1].capitalize()}>>"
-                    self.character.styles.append(possible_class_feats[0])
-                    self.character.class_feats.append(possible_class_feats[0])
-
-                elif ability[1] == "specialization":
+                    self.update_class_list_one()
+                elif ability.get_type() == FeatType.TECHNIQUE2:
+                    possible_class_feats = [self.character.add_technique(1, ability.level - 8)]
                     self.class_list_one.append(boxes[boxcount])
-                    if ability[2][0] == "feat":
-                        self.character.chosen_feats.append(ability[2][1])
-                        info_text = f"<<Select {ability[1].capitalize()}>>"
-                        possible_class_feats = list(classChoseFeats["operative"]["specialization"])
-                        self.character.styles.append(possible_class_feats[0])
-                        self.character.class_feats.append(possible_class_feats[0])
-                        specialization = classChoseFeats["operative"]["specialization"]
-                        skill1, skill2 = specialization[self.character.styles[0]][0]
-                        self.character.chosen_feats.append(f"Skill Focus [{skill1.title()}]")
-                        self.character.chosen_feats.append(f"Skill Focus [{skill2.title()}]")
-                        self.character.skill_misc[skill1] += 3
-                        self.character.skill_misc[skill2] += 3
-
-                    elif ability[2][0] == "exploit":
-                        specialization = classChoseFeats["operative"]["specialization"]
-                        new_feat = specialization[self.character.styles[0]][1]
-                        self.character.class_feats.append(new_feat[0])
-                        info_text = "<<Fixed Feat>>"
-                        possible_class_feats = [new_feat]
-
-                    elif ability[2][0] == "power":
-                        specialization = classChoseFeats["operative"]["specialization"]
-                        new_feat = specialization[self.character.styles[0]][2]
-                        self.character.class_feats.append(new_feat[0])
-                        info_text = "<<Fixed Feat>>"
-                        possible_class_feats = [new_feat]
-                elif ability[1] == "class": # TODO needs functions connecting it
-                    info_text = "<<Select Class Skill>>"
-                    possible_class_feats = [x.capitalize() for x in skills]
-                    self.initialize_combobox(boxes[boxcount], boxcount, info_text,
-                                                possible_class_feats)
-                    boxcount += 1
-                    #     self.character.make_class_skill(possible_class_feats[0])
-                    #     self.character.make_class_skill(possible_class_feats[0])
-                    try:
-                        boxes[boxcount].disconnect()
-                    except TypeError:
-                        pass
-                elif ability[1] == "influence": # solarian # add two skills, one each from two lists
-                    solarian_dicts = classChoseFeats["solarian"]
-                    possible_graviton = [x.capitalize() for x in solarian_dicts["graviton"]]
-                    possible_class_feats = [x.capitalize() for x in solarian_dicts["photon"]]
-                    for influence in self.character.expertise:
-                        if influence in possible_graviton:
-                            possible_graviton.remove(influence)
-                        if influence in possible_class_feats:
-                            possible_class_feats.remove(influence)
-                    info_text = "<<Select Graviton>>"
-                    self.character.expertise.append(possible_graviton[0])
-                    self.initialize_combobox(boxes[boxcount], boxcount, info_text,
-                                                possible_graviton)
-                    boxcount += 1
-                    try:
-                        boxes[boxcount].disconnect()
-                    except TypeError:
-                        pass
-                    info_text = "<<Select Photon>>"
-                    self.character.expertise.append(possible_class_feats[0])
-
-                elif ability[1] == "add expertise": # envoy
-                    # this is not shown on the excel sheet, might just ignore it then # TODO
-                    possible_class_feats = ["Bluff", "Computers", "Culture", "Diplomacy",
-                                            "Disguise", "Engineering", "Intimidate", "Medicine"]
-                    for expertise in self.character.expertise:
-                        if expertise.capitalize() in possible_class_feats:
-                            possible_class_feats.remove(expertise.capitalize())
-                    info_text = "<<Select Expertise>>"
-                    # self.initialize_combobox(boxes[boxcount], boxcount, "<<Select Expertise>>",
-                    #                             possible_class_feats)
-                    self.character.expertise.append(possible_class_feats[0])
-                    self.expertises.append(boxes[boxcount])
-                    self.update_expertise()
-                    self.update_boxes("expertise", self.expertises, possible_class_feats)
-                elif ability[1] == "style": # there's 2 styles they need to be connected
-                    possible_class_feats = [x.capitalize()
-                                            for x in classChoseFeats["soldier"]["styles"]]
-                    for style in self.character.styles:
-                        possible_class_feats.remove(style)
-                    self.character.styles.append(possible_class_feats[0])
-                    self.character.class_feats.append(possible_class_feats[0])
-                    info_text = "<<Select Style>>"
-
-                elif ability[1] == "technique1":
-                    soldier_style = classChoseFeats["soldier"]["styles"]
-                    soldier_style = soldier_style[self.character.styles[0].lower()]
-                    new_feat = soldier_style[i + 1]
+                    self.update_class_list_one()
+                elif ability.get_type() == FeatType.COMBAT:
+                    self.feat_to_add[1] += 1
+                elif ability.get_type() == FeatType.CPOWER:
+                    skill_to_add = self.character.class_name.connection_feat()
+                    self.character.class_feats.append(skill_to_add[ability.level//3])
+                elif ability.get_type() == FeatType.SPELL:
+                    skill_to_add = self.character.class_name.connection_spell()
+                    spell_level = ((ability.level-1)//3)
+                    self.character.additional_spells[spell_level + 1].append(
+                                                                    skill_to_add[spell_level])
+            elif ability.get_type() == FeatType.CHOOSE:
+                possible_class_feats = self.character.select_new_class_feat(verbose=False)
+                info_text = f"<<Select {str(ability)}>>"
+                self.class_list_one.append(boxes[boxcount])
+                self.character.other_abilities.append(possible_class_feats[0])
+                self.update_class_list_one()
+            elif ability.get_type() == FeatType.CHOOSE2:
+                possible_class_feats = self.character.select_new_class_feat(secondary=True, verbose=False)
+                info_text = f"<<Select {str(ability)}>>"
+                self.class_list_two.append(boxes[boxcount])
+                self.character.other_abilities.append(possible_class_feats[0])
+                self.update_class_list_two()
+            elif ability.get_type() == FeatType.INFLUENCE:
+                possible_class_feats = self.character.class_name.new_expertises(self.character.expertise)
+                info_text = f"<<Select {str(ability)}>>"
+                if len(possible_class_feats) == 1:
                     info_text = "<<Fixed Feat>>"
-                    possible_class_feats = [new_feat]
+                    self.character.expertise.append(possible_class_feats[0])
+                    possible_class_feats = [ability]
+                else:
+                    if isinstance(possible_class_feats[0], list):
+                        self.class_influence.append(boxes[boxcount])
+                        self.character.expertise.append(possible_class_feats[0][0])
+                        self.update_feat_dict(possible_class_feats)
+                        self.initialize_combobox(boxes[boxcount], len(self.character.expertise) - 1,
+                                                    info_text, possible_class_feats[0])
+                        boxcount += 1
+                        possible_class_feats = possible_class_feats[1]
+                    self.character.expertise.append(possible_class_feats[0])
+                    self.class_influence.append(boxes[boxcount])
+                    self.update_influence()
+            elif ability.get_type() == FeatType.CLASS:
+                info_text = "<<Fixed Feat>>"
+                possible_class_feats = list(self.character.skills)
+                self.update_feat_dict(possible_class_feats)
+                self.class_abilities.append(boxes[boxcount])
+                self.character.class_name.bonuses.append(possible_class_feats[0])
+                length = len(self.character.class_name.bonuses) - 1
+                self.initialize_combobox(boxes[boxcount], length,
+                                            info_text, possible_class_feats)
+                boxcount += 1
+                self.class_abilities.append(boxes[boxcount])
+                self.character.class_name.bonuses.append(possible_class_feats[0])
+                self.update_class_abilities()
 
-                elif ability[1] == "technique2":
-                    soldier_style = classChoseFeats["soldier"]["styles"]
-                    soldier_style = soldier_style[self.character.styles[1].lower()]
-                    new_feat = soldier_style[i - 8 + 1]
-                    info_text = "<<Fixed Feat>>"
-                    possible_class_feats = [new_feat]
+            elif ability.get_type() == FeatType.SELECTION: # TODO add thing for mystic
+                possible_class_feats = self.character.class_name.possible_selections()
+                if isinstance(self.character.class_name.selection, list):
+                    for selection in self.character.class_name.selection:
+                        if selection:
+                            possible_class_feats.remove(selection)
+                info_text = f"<<Select {str(ability)}>>"
+                self.character.class_name.select_selection(possible_class_feats[0], (ability.level - 1) % 7)
+                self.class_list_one.append(boxes[boxcount])
+                self.character.other_abilities.append(possible_class_feats[0])
+                self.update_class_list_one()
 
-                elif ability[1] in ["None"]:
-                    pass
 
-                tmp = next((s for s in class_feat_replacables if s in ability[0]), None)
-                if tmp:
-                    if self.update_feat_text(ability[0], info_text):
-                        continue
+
+
+            if ability.get_type() in [FeatType.REPLACABLE, FeatType.MISC_INCREASE, FeatType.INFLUENCE]:
+                result = [oldAbility for oldAbility in self.character.class_feats \
+                            if ability.short and ability.short in str(oldAbility)]
+                if len(result) != 0:
+                    result = result[0]
+                    self.update_feat_text(result, ability)
+                    result = self.character.class_feats.index(result)
+                    self.character.class_feats[result] = ability
+                    if ability.get_type() != FeatType.INFLUENCE:
+                        info_text = "None"
+                else:
                     self.replacables.append(boxes[boxcount])
+                    self.character.class_feats.append(ability)
+            else:
+                self.character.class_feats.append(ability)
 
 
 
-                if info_text != "None":
-                    self.initialize_combobox(boxes[boxcount], boxcount, info_text,
-                                                possible_class_feats)
-                    if ability[1] == "specialization":
-                        if ability[2][0] == "feat":
-                            boxes[boxcount].activated[str].connect(self.update_specialization)
-                    elif ability[1] == "connection":
-                        boxes[boxcount].activated[str].connect(self.update_connection)
-                    boxcount += 1
+            if info_text != "None":
+                self.update_feat_dict(possible_class_feats)
+                length = len(self.character.other_abilities) - 1
+                if ability.get_type() == FeatType.INFLUENCE:
+                    length = len(self.character.expertise) - 1
+                elif ability.get_type() == FeatType.INFLUENCE:
+                    length = len(self.character.class_name.bonuses) - 1
+                self.initialize_combobox(boxes[boxcount], length,
+                                            info_text, possible_class_feats)
+                boxcount += 1
 
-    def update_connection(self):
-        """function to update the mystic connection
-        """
-        old_specialization = self.character.styles[0]
-        feat_index = self.character.class_feats.index(old_specialization)
-        specializations = classChoseFeats["mystic"]["connection"]
-        for i, box in enumerate(self.class_list_one):
-            model = QtGui.QStandardItemModel()
-            current_item = box.currentText()
-            if i == 0:
-                self.character.styles[0] = current_item
-                self.character.class_feats[feat_index] = current_item
-                for feat in list(dict.fromkeys([current_item] + list(specializations))):
-                    model.appendRow(QtGui.QStandardItem(feat))
-                box.setModel(ProxyModel(model, "<<Select Connection>>"))
-                box.setCurrentIndex(1)
+        if self.class_list_one:
+            if isinstance(self.character.class_name, (Mystic, Operative, Soldier)):
+                possible_class_feats = self.character.class_name.possible_selections()
+                selections = self.character.class_name.selection
+                if isinstance(selections, str):
+                    selections = [selections]
+                for selection in selections:
+                    if selection:
+                        self.update_selection(selection, selection)
+            else:
+                possible_class_feats = self.character.select_new_class_feat(verbose=False)
+                self.update_boxes(self.class_list_one, possible_class_feats)
+        if self.class_list_two:
+            possible_class_feats = self.character.select_new_class_feat(secondary=True, verbose=False)
+            self.update_boxes(self.class_list_two, possible_class_feats)
+        if self.class_influence:
+            self.update_expertise()
 
-            if i in [1, 2, 3, 4, 5, 6, 7]:
-                current_connection = specializations[self.character.styles[0]]
-                old_connection_spells = specializations[old_specialization]["spell"]
-                spell_index = self.character.additional_spells[i].index(old_connection_spells[i - 1])
-                spell_to_add = current_connection["spell"][i - 1]
-                self.character.additional_spells[i][spell_index] = spell_to_add
 
-                new_feat = current_connection["feat"][i - 1][0]
-                old_feat_index = self.character.class_feats.index(current_item)
-                self.character.class_feats[old_feat_index] = new_feat
-                model.appendRow(QtGui.QStandardItem(new_feat))
-                box.setModel(ProxyModel(model, "<<Fixed Feat>>"))
-                box.setCurrentIndex(1)
-
-    def update_feat_text(self, new_text : str, model_default : str) -> bool:
+    def update_feat_text(self, old_feat : Ability, new_feat : Ability) -> bool:
         """function that takes the replacable box list and checks if any box present contains
         similar language to what is to be replaced. Should a box have similar text that text
         is to be replaced with the new text. If none of the boxes have the text the combobox
         should be initialized. Probably needs to have a return.
 
         Args:
-            new_text (str): text that is to be added to the feats. If it already exists somewhere
-                            this text replaces that text
-            model_default (str): used for the model. If possible remove this down the line
+            new_feat (Ability): text that is to be added to the feats. If it already exists
+                                somewhere this text replaces that text
 
         Returns:
             bool : if a replacement happened or not
         """
 
-        # tmp = next((s for s in class_feat_replacables if s in j[0]), None)
-
-        # if tmp:
-        #     index = class_feat_replacables.index(tmp)
-
         for box in self.replacables:
-            tmp = next((s for s in class_feat_replacables if s in box.currentText()), None)
+            tmp = box.currentText() == str(old_feat)
 
             if tmp:
                 class_model = QtGui.QStandardItemModel()
-                class_model.appendRow(QtGui.QStandardItem(new_text))
-                box.setModel(ProxyModel(class_model, model_default))
+                class_model.appendRow(QtGui.QStandardItem(str(new_feat)))
+                placeholder = box.model().data(box.model().index(0,0))
+                box.setModel(ProxyModel(class_model, placeholder))
                 box.setCurrentIndex(1)
                 return True
-            return False
+        return False
 
     def initialize_combobox(self, box : QtWidgets.QComboBox, index : int, model_default : str,
                             possible_class_feats : list) -> None:
@@ -581,73 +488,97 @@ class FeatForm(QtWidgets.QWidget):
         """
         class_model = QtGui.QStandardItemModel()
         for feat in possible_class_feats:
-            class_model.appendRow(QtGui.QStandardItem(feat))
+            class_model.appendRow(QtGui.QStandardItem(str(feat)))
         box.setModel(ProxyModel(class_model, model_default))
         box.setCurrentIndex(1)
         box.activated[str].connect(self.update_feat)
-        self.character.class_feats.append(possible_class_feats[0])
         box.setProperty("class_feat_index", index)
 
-    def update_class_list_one(self, key : str) -> None:
+    def update_class_list_one(self) -> None:
         """update the class_feat_function for the first class list feats
-
-        Args:
-            key (str): key for the select_new_class_feat function
         """
         for box in self.class_list_one:
-            box.setProperty("class_feat_function", [key, self.class_list_one])
+            box.setProperty("class_feat_function", [1, self.class_list_one])
 
-    def update_class_list_two(self, key : str) -> None:
+    def update_class_list_two(self) -> None:
         """update the class_feat_function for talents
-
-        Args:
-            key (str): key for the select_new_class_feat function
         """
         for box in self.class_list_two:
-            box.setProperty("class_feat_function", [key, self.class_list_two])
+            box.setProperty("class_feat_function", [2, self.class_list_two])
 
-    def update_expertise(self) -> None:
+    def update_influence(self) -> None:
         """update the class_feat_function for expertise
         """
-        for box in self.expertises:
-            box.setProperty("class_feat_function", ["expertise", self.expertises])
+        for box in self.class_influence:
+            box.setProperty("class_feat_function", [3, self.class_influence])
 
-    def update_specialization(self):
-        """function to handle the three boxes of the operative that depend on the specialization
+    def update_class_abilities(self) -> None:
+        """update the class_feat_function for expertise
         """
-        old_specialization = self.character.styles[0]
-        feat_index = self.character.class_feats.index(old_specialization)
-        specializations = classChoseFeats["operative"]["specialization"]
-        for i, box in enumerate(self.class_list_one):
-            model = QtGui.QStandardItemModel()
-            current_item = box.currentText()
-            if i == 0:
-                self.character.styles[0] = current_item
-                self.character.class_feats[feat_index] = current_item
-                for feat in list(dict.fromkeys([current_item] + list(specializations))):
-                    model.appendRow(QtGui.QStandardItem(feat))
-                box.setModel(ProxyModel(model, "<<Select Specialization>>"))
-                box.setCurrentIndex(1)
+        for box in self.class_abilities:
+            box.setProperty("class_feat_function", [4, self.class_abilities])
 
-                old_skill1, old_skill2 = specializations[old_specialization][0]
-                skill1, skill2 = specializations[self.character.styles[0]][0]
-                self.character.skill_misc[old_skill1] -= 3
-                self.character.skill_misc[old_skill2] -= 3
-                self.character.skill_misc[skill1] += 3
-                self.character.skill_misc[skill2] += 3
-            if i in [1, 2]:
-                new_feat = specializations[self.character.styles[0]][i]
-                old_feat_index = self.character.class_feats.index(current_item)
-                self.character.class_feats[old_feat_index] = new_feat
-                model.appendRow(QtGui.QStandardItem(new_feat))
-                box.setModel(ProxyModel(model, "<<Fixed Feat>>"))
-                box.setCurrentIndex(1)
+    def update_expertise(self):
+        """function to update relevant expertise boxes
+        """
+        possible_class_feats = self.character.class_name.new_expertises(self.character.expertise)
+        if isinstance(possible_class_feats[0], list):
+            self.update_boxes(self.class_influence[::2], possible_class_feats[0])
+            self.update_boxes(self.class_influence[1::2], possible_class_feats[1])
+        else:
+            self.update_boxes(self.class_influence, possible_class_feats)
 
-    def update_boxes(self, feat_type : str, feat_list : list, possible_feats : list) -> None:
+    def update_class_ability_list(self, selected_ability : str):
+        """function to update relevant class ability boxes
+        """
+        possible_abilities = list(self.character.skills)
+        possible_abilities.remove(selected_ability)
+        self.update_boxes(self.class_abilities, possible_abilities)
+
+    def update_selection(self, old_selection : str, new_selection : str) -> None:
+        """function to update the technique boxes. Only needed for Operative, Soldier and Mystic
+
+        Args:
+            old_selection (str): old selection
+            new_selection (str): new selection
+        """
+        list_to_check = self.class_list_one
+        selections = self.character.class_name.selection
+        index = selections.index(old_selection)
+        old_technique_dict = self.character.class_name.style_combat(index)
+        self.character.class_name.select_selection(new_selection, index)
+        possible_class_feats = self.character.class_name.possible_selections()
+        selections = self.character.class_name.selection
+        new_technique_dict = self.character.class_name.style_combat(index)
+        if isinstance(selections, str):
+            selections = [selections]
+        for selection in selections:
+            if selection:
+                possible_class_feats.remove(selection)
+        selection_boxes = [box for box in list_to_check if box.currentText() in selections + [new_selection]]
+        self.update_boxes(selection_boxes, possible_class_feats)
+        if len(list_to_check) > 1:
+            info_text = "<<Fixed Feat>>"
+            for box in list_to_check[1:]:
+                index = box.property("class_feat_index")
+                feat_text = self.character.other_abilities[index]
+                old_technique_key_list = list(old_technique_dict.keys())
+                old_technique_val_list = list(old_technique_dict.values())
+                try:
+                    tmp = old_technique_val_list.index(feat_text)
+                except ValueError:
+                    continue
+                level = old_technique_key_list[tmp]
+                selected_feat = new_technique_dict[level]
+                self.update_feat_dict(selected_feat)
+                self.character.other_abilities[index] = self.feat_dict[selected_feat]
+                self.initialize_combobox(box, index, info_text, [selected_feat])
+
+
+    def update_boxes(self, feat_list : list, possible_feats : list) -> None:
         """update all selectable feat class comboboxes
 
         Args:
-            feat_type (str): the type of feat that should be checked in the select_new(_class)_feat
             feat_list (list): list of comboboxes that are to be updated
             possible_feats (list): list of options that can be entered
         """
@@ -656,9 +587,25 @@ class FeatForm(QtWidgets.QWidget):
             current_item = box.currentText()
             model.appendRow(QtGui.QStandardItem(current_item))
             for feat in possible_feats:
-                model.appendRow(QtGui.QStandardItem(feat))
-            box.setModel(ProxyModel(model, f"<<Select {feat_type.capitalize()}>>"))
+                model.appendRow(QtGui.QStandardItem(str(feat)))
+            placeholder = box.model().data(box.model().index(0,0))
+            box.setModel(ProxyModel(model, placeholder))
             box.setCurrentIndex(1)
+
+    def update_feat_dict(self, new_feat : list[Ability]) -> None:
+        """Function to keep the feat dict updated
+
+        Args:
+            new_feat (Ability): Feat that is to be checked if it already is in the dict
+        """
+        if not isinstance(new_feat, list):
+            new_feat = [new_feat]
+
+        for feat in new_feat:
+            try:
+                self.feat_dict[str(feat)]
+            except KeyError:
+                self.feat_dict[str(feat)] = feat
 
     def update_feat(self, selected_feat : str) -> None:
         """replace the class feat with the newly selected class feat
@@ -669,86 +616,93 @@ class FeatForm(QtWidgets.QWidget):
         combo = self.sender()
         index = combo.property("class_feat_index")
         feat_function = combo.property("class_feat_function")
-        feat_text = self.character.class_feats[index]
-        self.character.class_feats[index] = selected_feat
         if feat_function:
-            if feat_function[0] != "expertise":
-                possible_class_feats = self.character.select_new_class_feat(feat_function[0],
-                                            self.character.class_level, verbose=False)
-
-            else:
-                index = self.character.expertise.index(feat_text)
+            if feat_function[0] == 3:
                 self.character.expertise[index] = selected_feat
-                possible_class_feats = ["Bluff", "Computers", "Culture", "Diplomacy", "Disguise",
-                                          "Engineering", "Intimidate", "Medicine"]
-                for expertise in self.character.expertise:
-                    if expertise.capitalize() in possible_class_feats:
-                        possible_class_feats.remove(expertise.capitalize())
-            self.update_boxes(*feat_function, possible_class_feats)
+                self.update_expertise()
+                return
+            elif feat_function[0] == 4:
+                self.character.class_name.bonuses[index] = selected_feat
+                self.update_class_ability_list(selected_feat)
+                return
+            feat_text = self.character.other_abilities[index]
+            if feat_function[0] == 1:
+                self.character.other_abilities[index] = self.feat_dict[selected_feat]
+                if isinstance(self.character.class_name, (Mystic, Operative, Soldier)):
+                    self.update_selection(feat_text, selected_feat)
+                    return
+                possible_class_feats = self.character.select_new_class_feat(verbose=False)
+            elif feat_function[0] == 2:
+                possible_class_feats = self.character.select_new_class_feat(secondary=True,
+                                                                            verbose=False)
+            self.update_boxes(feat_function[1], possible_class_feats)
+        self.character.other_abilities[index] = self.feat_dict[selected_feat]
 
-    def update_chose_feats(self, selected_feat : str) -> None:
+    def update_chose_feats(self, selected_feat : Ability) -> None:
         """function to handle chosen feat updates
 
         Args:
-            selected_feat (str): new selected feat
+            selected_feat (Ability): new selected feat
         """
         combo = self.sender()
         index = combo.property("feat_index")
-        self.character.chosen_feats[index] = selected_feat
-        possible_class_feats = self.character.select_new_feat(gui=True)
-        self.update_boxes("Feat", self.feats, possible_class_feats)
+        self.character.chosen_feats[index] = self.feat_dict[selected_feat]
+        possible_class_feats = self.character.select_new_feat(verbose=False)
+        self.update_boxes(self.feats, possible_class_feats)
+        possible_class_feats = self.character.select_new_feat(combat=True, verbose=False)
+        self.update_boxes(self.combats, possible_class_feats)
 
-    def update_chose_combat_feats(self, selected_feat : str) -> None:
+    def update_chose_combat_feats(self, selected_feat : Ability) -> None:
         """function to handle chosen combat feat updates
 
         Args:
-            selected_feat (str): new selected combat feat
+            selected_feat (Ability): new selected combat feat
         """
         combo = self.sender()
         index = combo.property("feat_index")
-        self.character.chosen_feats[index] = selected_feat
-        possible_class_feats = self.character.select_new_feat(combat=True, gui=True)
-        self.update_boxes("Combat Feat", self.combats, possible_class_feats)
+        self.character.chosen_feats[index] = self.feat_dict[selected_feat]
+        possible_class_feats = self.character.select_new_feat(combat=True, verbose=False)
+        self.update_boxes(self.combats, possible_class_feats)
+        possible_class_feats = self.character.select_new_feat(verbose=False)
+        self.update_boxes(self.feats, possible_class_feats)
 
 
-    def update_theme_feat_list(self):
+    def update_theme_feat_list(self): # TODO needs logic for the skill increases
         """function that uptates the theme feats of the character in the GUI
         """
         boxes = [self.theme1, self.theme2, self.theme3, self.theme4]
-        character_themes = themeAbilities[self.character.theme]
         if self.character.class_level >= 1:
-            initialize_combo_model(boxes[0], [character_themes[0][0]],
+            initialize_combo_model(boxes[0], [str(self.character.theme.abilities[0])],
                                     "<<Theme Feat>>", index=1)
         if self.character.class_level >= 6:
-            initialize_combo_model(boxes[1], [character_themes[1][0]],
+            initialize_combo_model(boxes[1], [str(self.character.theme.abilities[1])],
                                     "<<Theme Feat>>", index=1)
         if self.character.class_level >= 12:
-            initialize_combo_model(boxes[2], [character_themes[2][0]],
+            initialize_combo_model(boxes[2], [str(self.character.theme.abilities[2])],
                                     "<<Theme Feat>>", index=1)
-            if themeAbilities[self.character.theme][2][1] != "words":
+            if self.character.theme.abilities[2].get_type() == FeatType.SPELL:
                 self.character.additional_spells[1].append(["MYSTICSPELL"])
 
         if self.character.class_level >= 18:
-            initialize_combo_model(boxes[3], [character_themes[3][0]],
+            initialize_combo_model(boxes[3], [str(self.character.theme.abilities[3])],
                                     "<<Theme Feat>>", index=1)
 
     def update_race_feat_list(self):
         """function that updates the race feats of the character in the GUI
         """
         boxes = [self.race1, self.race2, self.race3, self.race4]
-        character_races = raceAbilities[self.character.race_name]
-        for feat, box in zip(character_races, boxes):
-            initialize_combo_model(box, [feat[0]], "<<Race Feat>>", index=1)
-            if feat[1] == "feat":
+        for feat, box in zip(self.character.race_name.abilities, boxes):
+            initialize_combo_model(box, [str(feat)], "<<Race Feat>>", index=1)
+            if feat.get_type() == FeatType.FEAT:
                 self.feat_to_add[0] += 1
-            elif feat[1] == "spell":
+            elif feat.get_type() == FeatType.SPELL:
                 for j in range(2):
-                    for spell in feat[2][j]:
+                    for spell in self.character.race_name.spells[j]:
                         if spell not in self.character.additional_spells[j]:
                             self.character.additional_spells[j].append(spell)
-            elif feat[1] == "stats": # TODO needs logic
+            elif feat.get_type() == FeatType.STATS: # TODO needs logic
                 pass
-            elif feat[1] == "words":
+            elif feat.get_type() == FeatType.WORDS:
                 pass
 
     def update_feats_and_abilities(self):
@@ -767,23 +721,27 @@ class FeatForm(QtWidgets.QWidget):
                                     index=1)
             boxcount += 1
 
-        normal_feats = self.character.select_new_feat(gui=True)
+        normal_feats = self.character.select_new_feat(verbose=False)
+        self.update_feat_dict(normal_feats)
         normal_feat, combat_feat = self.feat_to_add
         for _ in range(normal_feat):
             self.feats.append(boxes[boxcount])
             initialize_combo_model(boxes[boxcount], normal_feats, "<<Select Feat>>",
                                     index=1, connection=self.update_chose_feats)
-            boxes[boxcount].setProperty("feat_index", len(self.feats))
-            normal_feats.pop(0)
+            boxes[boxcount].setProperty("feat_index", len(self.character.chosen_feats))
+            selected_feat = normal_feats.pop(0)
+            self.character.chosen_feats.append(selected_feat)
             boxcount += 1
-        self.update_boxes("Feat", self.feats, normal_feats)
+        self.update_boxes(self.feats, normal_feats)
 
-        combat_feats = self.character.select_new_feat(combat=True, gui=True)
+        combat_feats = self.character.select_new_feat(combat=True, verbose=False)
+        self.update_feat_dict(combat_feats)
         for _ in range(combat_feat):
             self.combats.append(boxes[boxcount])
             initialize_combo_model(boxes[boxcount], combat_feats, "<<Select Combat Feat>>",
                                     index=1, connection=self.update_chose_combat_feats)
-            boxes[boxcount].setProperty("feat_index", len(self.combats))
-            combat_feats.pop(0)
+            boxes[boxcount].setProperty("feat_index", len(self.character.chosen_feats))
+            selected_feat = combat_feats.pop(0)
+            self.character.chosen_feats.append(selected_feat)
             boxcount += 1
-        self.update_boxes("Combat Feat", self.combats, combat_feats)
+        self.update_boxes(self.combats, combat_feats)
