@@ -36,46 +36,46 @@ class Operative(StarfinderClass):
         """
 
         levelups = [
-            Ability("Operative's edge +1", 1, FeatType.MISC_INCREASE, short="Operative's edge"),
+            Ability("Operative's edge +1", 1, FeatType.MISC_INCREASE, short=""),
             Ability("Specialization", 1, FeatType.SELECTION), # ["feat", "Skill Focus"]
-            Ability("Trick attack +1d4", 1, FeatType.REPLACABLE, short="Trick attack"),
+            Ability("Trick attack +1d4", 1, FeatType.REPLACABLE, short=""),
             Ability("Evasion", 2, FeatType.WORDS),
-            Ability("Operative exploit", 2, FeatType.CHOOSE),
+            Ability("Operative exploit", 2, FeatType.CHOOSE2),
             Ability("Operative's edge +2", 3, FeatType.MISC_INCREASE, short="Operative's edge"),
-            Ability("Quick movement (+10 ft.)", 3, FeatType.REPLACABLE, short="Quick movement"),
+            Ability("Quick movement (+10 ft.)", 3, FeatType.REPLACABLE, short=""),
             Ability("Trick attack +1d8", 3, FeatType.REPLACABLE, short="Trick attack"),
             Ability("Weapon specialization", 3, FeatType.WEAPON),
             Ability("Debilitating trick", 4, FeatType.WORDS),
-            Ability("Operative exploit", 4, FeatType.CHOOSE),
-            Ability("Specialization exploit", 5, FeatType.SELECTION), # ["exploit"]
+            Ability("Operative exploit", 4, FeatType.CHOOSE2),
+            Ability("Specialization exploit", 5, FeatType.TECHNIQUE1), # ["exploit"]
             Ability("Trick attack +3d8", 5, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 6, FeatType.CHOOSE),
+            Ability("Operative exploit", 6, FeatType.CHOOSE2),
             Ability("Operative's edge +3", 7, FeatType.MISC_INCREASE, short="Operative's edge"),
             Ability("Specialization skill mastery", 7, FeatType.WORDS),
             Ability("Trick attack +4d8", 7, FeatType.REPLACABLE, short="Trick attack"),
             Ability("Uncanny agility", 7, FeatType.WORDS),
-            Ability("Operative exploit", 8, FeatType.CHOOSE),
+            Ability("Operative exploit", 8, FeatType.CHOOSE2),
             Ability("Triple attack", 8, FeatType.WORDS),
             Ability("Quick movement (+20 ft.)", 9, FeatType.REPLACABLE, short="Quick movement"),
             Ability("Trick attack +5d8", 9, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 10, FeatType.CHOOSE),
+            Ability("Operative exploit", 10, FeatType.CHOOSE2),
             Ability("Operative's edge +4", 11, FeatType.MISC_INCREASE, short="Operative's edge"),
-            Ability("Specialization power", 11, FeatType.SELECTION), # ["power"]
+            Ability("Specialization power", 11, FeatType.TECHNIQUE2), # ["power"]
             Ability("Trick attack +6d8", 11, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 12, FeatType.CHOOSE),
+            Ability("Operative exploit", 12, FeatType.CHOOSE2),
             Ability("Quad attack", 13, FeatType.WORDS),
             Ability("Trick attack +7d8", 13, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 14, FeatType.CHOOSE),
+            Ability("Operative exploit", 14, FeatType.CHOOSE2),
             Ability("Operative's edge +5", 15, FeatType.MISC_INCREASE, short="Operative's edge"),
             Ability("Quick movement (+30 ft.)", 15, FeatType.REPLACABLE, short="Quick movement"),
             Ability("Trick attack +8d8", 15, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 16, FeatType.CHOOSE),
+            Ability("Operative exploit", 16, FeatType.CHOOSE2),
             Ability("Double debilitation", 17, FeatType.WORDS),
             Ability("Trick attack +9d8", 17, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 18, FeatType.CHOOSE),
+            Ability("Operative exploit", 18, FeatType.CHOOSE2),
             Ability("Operative's edge +6", 19, FeatType.MISC_INCREASE, short="Operative's edge"),
             Ability("Trick attack +10d8", 19, FeatType.REPLACABLE, short="Trick attack"),
-            Ability("Operative exploit", 20, FeatType.CHOOSE),
+            Ability("Operative exploit", 20, FeatType.CHOOSE2),
             Ability("Supreme operative", 20, FeatType.WORDS)
         ]
         return levelups
