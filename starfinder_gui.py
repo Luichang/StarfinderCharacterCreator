@@ -1,14 +1,15 @@
 from PyQt5 import QtCore, QtWidgets
 
-from character import Character
+from classed_character import Character
 from helpers.helper import (initialize_combo, initialize_combo_model,
                             initialize_edit, initialize_frame, initialize_text,
-                            initialize_widget)
-from helpers.starfinder_class_dicts import classesStatBonus
-from helpers.starfinder_race_dicts import raceAbilities
-from helpers.starfinder_theme_dicts import themeAbilities
+                            initialize_widget, update_combo)
+from helpers.starfinder_dicts import attribute_shorthand
+from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_gui_feat import FeatForm
 from starfinder_gui_spells import SpellForm
+from starfinder_races.starfinder_race import StarfinderRace
+from starfinder_themes.starfinder_theme import StarfinderTheme
 
 class UIMainWindow(object):
     """Generated Function that has beed edited to contain function calls added afterwards.
@@ -706,7 +707,7 @@ class UIMainWindow(object):
         initialize_frame(self.skills_line113, "SkillsLine113", vertical=True)
         self.skills_score_grid.addWidget(self.skills_line113, 41, 7, 1, 1)
 
-        self.skill_total_text = QtWidgets.QLabel(self.grid_layout_widget_2) # TODO
+        self.skill_total_text = QtWidgets.QLabel(self.grid_layout_widget_2)
         initialize_text(self.skill_total_text, "SkillTotalText", "Total")
         self.skills_score_grid.addWidget(self.skill_total_text, 0, 2, 1, 1)
         self.skill_ranks_text = QtWidgets.QLabel(self.grid_layout_widget_2)
@@ -1616,7 +1617,7 @@ class UIMainWindow(object):
         self.race_combo.setMaximumSize(QtCore.QSize(120, 20))
         self.race_combo.setObjectName("RaceCombo")
 
-        initialize_combo_model(self.race_combo, [x.capitalize() for x in raceAbilities],
+        initialize_combo_model(self.race_combo, [x.capitalize() for x in StarfinderRace.subraces],
                                 "<<Select Race>>", connection=self.race_activated)
         self.race_grid.addWidget(self.race_combo)
 
@@ -1641,7 +1642,7 @@ class UIMainWindow(object):
         self.theme_combo = QtWidgets.QComboBox()
         self.theme_combo.setMaximumSize(QtCore.QSize(120, 20))
         self.theme_combo.setObjectName("ThemeCombo")
-        initialize_combo_model(self.theme_combo, [x.capitalize() for x in themeAbilities],
+        initialize_combo_model(self.theme_combo, [x.capitalize() for x in StarfinderTheme.subthemes],
                                 "<<Select Theme>>", connection=self.theme_activated)
         self.theme_grid.addWidget(self.theme_combo)
 
@@ -1665,7 +1666,7 @@ class UIMainWindow(object):
         self.class_combo = QtWidgets.QComboBox(self.horizontal_layout_widget_6)
         self.class_combo.setMaximumSize(QtCore.QSize(120, 20))
         self.class_combo.setObjectName("ClassCombo")
-        initialize_combo_model(self.class_combo, [x.capitalize() for x in classesStatBonus],
+        initialize_combo_model(self.class_combo, [x.capitalize() for x in StarfinderClass.subclasses],
                                 "<<Select Class>>", connection=self.class_activated)
         self.class_grid.addWidget(self.class_combo)
 
@@ -1720,23 +1721,21 @@ class UIMainWindow(object):
         """
         self.character.set_name(self.character_name_box.toPlainText())
 
-    def class_activated(self, text):
+    def class_activated(self, text): # TODO
         """sets the extra combobox text depending on if the class is soldier or not
 
         Args:
             text (str): text of the combobox that determines the class
         """
-        self.class_ability_combo.clear()
         if text == "Soldier":
             combo_text = ["Str", "Dex"]
-            self.class_ability_combo.addItems(combo_text)
-            self.character.set_class_name(text.lower(), combo_text[0].lower())
+            self.character.class_name = StarfinderClass.create(text.lower(), combo_text[0].lower())
         else:
-            self.class_ability_combo.addItem("Blank")
-            self.character.set_class_name(text.lower())
+            combo_text = ["Blank"]
+            self.character.class_name = StarfinderClass.create(text.lower())
+        update_combo(self.class_ability_combo, combo_text)
 
         self.update_class_stats()
-        self.update_hp()
         self.update_saves()
         self.update_attack()
 
@@ -1746,14 +1745,13 @@ class UIMainWindow(object):
         Args:
             text (str): text of the combobox that determines the theme
         """
-        self.theme_ability_combo.clear()
         if text == "Themeless":
             combo_text = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
-            self.theme_ability_combo.addItems(combo_text)
-            self.character.set_theme(text.lower(), combo_text[0].lower())
+            self.character.theme = StarfinderTheme.create(text.lower(), attribute_shorthand[combo_text[0]])
         else:
-            self.theme_ability_combo.addItem("Blank")
-            self.character.set_theme(text.lower())
+            combo_text = ["Blank"]
+            self.character.theme = StarfinderTheme.create(text.lower())
+        update_combo(self.theme_ability_combo, combo_text)
 
         self.update_theme_stats()
 
@@ -1763,14 +1761,14 @@ class UIMainWindow(object):
         Args:
             text (str): text of the combobox that determines the race
         """
-        self.race_ability_combo.clear()
         if text == "Human":
             combo_text = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
-            self.race_ability_combo.addItems(combo_text)
-            self.character.set_race(text.lower(), combo_text[0].lower())
+            self.character.race_name = StarfinderRace.create(text.lower(), attribute_shorthand[combo_text[0]])
         else:
-            self.race_ability_combo.addItem("Blank")
-            self.character.set_race(text.lower())
+            combo_text = ["Blank"]
+            self.character.race_name = StarfinderRace.create(text.lower())
+        update_combo(self.race_ability_combo, combo_text)
+
         self.update_race_stats()
 
     def soldier_key_update(self, text):
@@ -1780,8 +1778,13 @@ class UIMainWindow(object):
             text (str): key of the character
         """
         if text != 'Blank':
-            self.character.set_class_name("soldier", text.lower())
+            self.character.class_name.select_key(text.lower())
             self.update_class_stats()
+
+            combo_text = ["Str", "Dex"]
+            combo_text.remove(text)
+            combo_text = [text] + combo_text
+            update_combo(self.class_ability_combo, combo_text)
 
     def themeless_key_update(self, text):
         """sets the key attribute if the theme is themeless
@@ -1790,8 +1793,13 @@ class UIMainWindow(object):
             text (str): attribute of the themeless
         """
         if text != 'Blank':
-            self.character.set_theme("themeless", text.lower())
+            self.character.theme.select_improvement(attribute_shorthand[text])
             self.update_theme_stats()
+
+            combo_text = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
+            combo_text.remove(text)
+            combo_text = [text] + combo_text
+            update_combo(self.theme_ability_combo, combo_text)
 
     def human_key_update(self, text):
         """sets the key attribute if the theme is themeless
@@ -1799,8 +1807,13 @@ class UIMainWindow(object):
             text (str): attribute of the race
         """
         if text != 'Blank':
-            self.character.set_race("human", text.lower())
+            self.character.race_name.select_improvement(attribute_shorthand[text])
             self.update_race_stats()
+
+            combo_text = ["Str", "Dex", "Con", "Int", "Wis", "Cha"]
+            combo_text.remove(text)
+            combo_text = [text] + combo_text
+            update_combo(self.race_ability_combo, combo_text)
 
     def update_class_stats(self):
         """updates the class blocks in the skills tab
@@ -1813,9 +1826,14 @@ class UIMainWindow(object):
                  self.profession_class, self.profession2_class, self.sense_class,
                  self.slight_class, self.stealth_class, self.survival_class]
 
-        for skill, box in zip(self.character.skill_class.values(), boxes):
-            box.setText(str(skill))
+        # for skill, box in zip(self.character.skill_class.values(), boxes):
+        for i, skill in enumerate(self.character.skills):
+            val = 0
+            if skill in self.character.class_name.bonuses:
+                val = 3
+            boxes[i].setText(str(val))
         self.update_skills()
+        self.update_skill_buy()
         self.update_hp()
 
     def update_dabbler(self) -> None:
@@ -1838,7 +1856,7 @@ class UIMainWindow(object):
         """
         boxes = [self.str_theme, self.dex_theme, self.con_theme, self.int_theme, self.wis_theme,
                  self.cha_theme]
-        for skill, box in zip(self.character.theme_attributes.values(), boxes):
+        for skill, box in zip(self.character.theme.attributes.values(), boxes):
             box.setText(str(skill))
         self.update_dabbler()
         self.update_abilities()
@@ -1849,7 +1867,8 @@ class UIMainWindow(object):
         """
         boxes = [self.str_race, self.dex_race, self.con_race, self.int_race, self.wis_race,
                  self.cha_race]
-        for skill, box in zip(self.character.race_attributes.values(), boxes):
+
+        for skill, box in zip(self.character.race_name.attributes.values(), boxes):
             box.setText(str(skill))
         self.update_abilities()
         self.update_hp()
@@ -1859,7 +1878,12 @@ class UIMainWindow(object):
     def update_abilities(self):
         """updates the attribute scores in the attributes tab
         """
-        self.character.calc_attributes()
+        try:
+            self.character.race_name
+            self.character.theme
+            self.character.calc_attributes()
+        except AttributeError:
+            pass
         boxes = [self.str_score, self.dex_score, self.con_score, self.int_score, self.wis_score,
                  self.cha_score, self.remaining_point_box, self.remaining_ability_box]
         #classesStatBonus[self.className]["skills"] + self.mods["int"]
@@ -1901,10 +1925,11 @@ class UIMainWindow(object):
         self.update_attack()
 
     def update_skills(self):
-        """update the skill totals in the skills tab
+        """update the skill totals in the skills tab. Needs the class_name to be set
         """
-        if self.character.class_name:
-            self.character.calc_skills(verbose=False)
+        try:
+            self.character.class_name
+            self.character.calc_skills()
             boxes = [self.acrobatics_total, self.athletics_total, self.bluff_total,
                      self.computers_total, self.culture_total, self.diplomacy_total,
                      self.disguise_total, self.engineering_total, self.intimidate_total,
@@ -1915,15 +1940,22 @@ class UIMainWindow(object):
                      self.remaining_skill_box, self.skills_per_box]
 
             for skill, box in zip([*self.character.skills.values(),self.skill_buy_spendable_points,
-                                    (classesStatBonus[self.character.class_name]["skills"] +\
+                                    (self.character.class_name.skills +\
                                         self.character.mods["int"])], boxes):
                 box.setText(str(skill))
+        except AttributeError:
+            pass
 
     def update_hp(self):
-        """updates the HP tab related items
+        """updates the HP tab related items. calc_hit_points need race_name and class_name to be
+            set
         """
-        if self.character.race_name and self.character.class_name:
+        try:
+            self.character.race_name
+            self.character.class_name
             self.character.calc_hit_points()
+        except AttributeError:
+            pass
         boxes = [self.hp_stamina_box, self.hp_hit_box, self.hp_resolve_box]
         skills = [self.character.stamina_points, self.character.hit_points,
                     self.character.resolve_points]
@@ -1979,16 +2011,27 @@ class UIMainWindow(object):
 
         for attr in attrs:
             pbuy = point_buys[attr]
-            pbuy.clear()
             val = self.point_buy_spendable_points + self.character.spent_points[attr] + 1
-            max_val = 10 + self.character.race_attributes[attr] +\
-                         self.character.theme_attributes[attr]
+            try:
+                race_val = self.character.race_name.attributes[attr]
+            except AttributeError:
+                race_val = 0
+            try:
+                theme_val = self.character.theme.attributes[attr]
+            except AttributeError:
+                theme_val = 0
+            max_val = 10 + race_val + theme_val
             points = [str(i) for i in range(val) if i + max_val <= 18]
-            pbuy.addItems(points)
+            update_combo(pbuy, points)
             pbuy.setCurrentIndex(self.character.spent_points[attr])
         self.update_abilities()
-        if self.character.class_name and self.character.class_level > 0:
-            self.update_skill_buy()
+
+        try:
+            self.character.class_name
+            if self.character.class_level > 0:
+                self.update_skill_buy()
+        except AttributeError:
+            pass
 
     def update_increase_buys(self):
         """update abilities based on ability increase buy system
@@ -2007,7 +2050,7 @@ class UIMainWindow(object):
             tmp = int(ability_buys[attr].currentText())
             self.ability_buy_spendable_points -= tmp
             self.character.ability_increases[attr] = tmp
-        
+
             # self.ability_increases[entered] += 1
             # self.attributes[entered] += 1
             # if self.attributes[entered] < 18:
@@ -2015,10 +2058,9 @@ class UIMainWindow(object):
 
         for attr in attrs:
             pbuy = ability_buys[attr]
-            pbuy.clear()
             val = 2
             points = [str(i) for i in range(val)]
-            pbuy.addItems(points)
+            update_combo(pbuy, points)
             pbuy.setCurrentIndex(self.character.ability_increases[attr])
         self.update_abilities()
         if self.character.class_name and self.character.class_level > 0:
@@ -2026,25 +2068,28 @@ class UIMainWindow(object):
 
 
     def update_saves(self):
-        """update the save tab related boxes
+        """update the save tab related boxes. Needs class_name to be set
         """
-        if self.character.class_name and self.character.class_level > 0:
-            self.character.calc_save()
-            boxes = [self.fortitude_total_box, self.reflex_total_box, self.will_total_box,
-                     self.fortitude_base_box,  self.reflex_base_box, self.will_base_box,
-                     self.fortitude_ability_box, self.reflex_ability_box, self.will_ability_box,
-                     self.fortitude_misc_box, self.reflex_misc_box, self.will_misc_box]
+        try:
+            self.character.class_name
+            if self.character.class_level > 0:
+                self.character.calc_save()
+                boxes = [self.fortitude_total_box, self.reflex_total_box, self.will_total_box,
+                        self.fortitude_base_box,  self.reflex_base_box, self.will_base_box,
+                        self.fortitude_ability_box, self.reflex_ability_box, self.will_ability_box,
+                        self.fortitude_misc_box, self.reflex_misc_box, self.will_misc_box]
 
-            class_bonuses = classesStatBonus[self.character.class_name]
-            skills = [self.character.fort_save,self.character.reflex_save,self.character.will_save,
-                      class_bonuses["fort"][self.character.class_level - 1],
-                      class_bonuses["reflex"][self.character.class_level - 1],
-                      class_bonuses["will"][self.character.class_level - 1],
-                      self.character.mods["con"], self.character.mods["dex"],
-                      self.character.mods["wis"], self.character.fort_save_misc,
-                      self.character.reflex_save_misc, self.character.will_save_misc]
-            for skill, box in zip(skills, boxes):
-                box.setText(str(skill))
+                skills = [self.character.fort_save,self.character.reflex_save,self.character.will_save,
+                        self.character.class_name.fort[self.character.class_level - 1],
+                        self.character.class_name.reflex[self.character.class_level - 1],
+                        self.character.class_name.will[self.character.class_level - 1],
+                        self.character.mods["con"], self.character.mods["dex"],
+                        self.character.mods["wis"], self.character.fort_save_misc,
+                        self.character.reflex_save_misc, self.character.will_save_misc]
+                for skill, box in zip(skills, boxes):
+                    box.setText(str(skill))
+        except AttributeError:
+            pass
 
     def update_ac(self):
         """update ac tab related boxes
@@ -2060,72 +2105,78 @@ class UIMainWindow(object):
             box.setText(str(skill))
 
     def update_attack(self):
-        """update attack tab related boxes
+        """update attack tab related boxes. Needs class_name to be set
         """
-        if self.character.class_name and self.character.class_level > 0:
-            self.character.calc_attack()
-            boxes = [self.melee_total_box, self.melee_bab_box, self.melee_mod_box,
-                     self.melee_misc_box, self.ranged_total_box, self.ranged_bab_box,
-                     self.ranged_mod_box, self.ranged_misc_box, self.thrown_total_box,
-                     self.thrown_bab_box, self.thrown_mod_box, self.thrown_misc_box]
+        try:
+            self.character.class_name
+            if self.character.class_level > 0:
+                self.character.calc_attack()
+                boxes = [self.melee_total_box, self.melee_bab_box, self.melee_mod_box,
+                        self.melee_misc_box, self.ranged_total_box, self.ranged_bab_box,
+                        self.ranged_mod_box, self.ranged_misc_box, self.thrown_total_box,
+                        self.thrown_bab_box, self.thrown_mod_box, self.thrown_misc_box]
 
-            class_stat_boni = classesStatBonus[self.character.class_name]
-            skills = [self.character.melee, class_stat_boni["bab"][self.character.class_level - 1],
-                      self.character.mods["str"], self.character.melee_misc,
-                      self.character.range, class_stat_boni["bab"][self.character.class_level - 1],
-                      self.character.mods["dex"], self.character.range_misc,
-                      self.character.throw, class_stat_boni["bab"][self.character.class_level - 1],
-                      self.character.mods["str"], self.character.throw_misc]
-            for skill, box in zip(skills, boxes):
-                box.setText(str(skill))
+                skills = [self.character.melee, self.character.class_name.bab[self.character.class_level - 1],
+                        self.character.mods["str"], self.character.melee_misc,
+                        self.character.range, self.character.class_name.bab[self.character.class_level - 1],
+                        self.character.mods["dex"], self.character.range_misc,
+                        self.character.throw, self.character.class_name.bab[self.character.class_level - 1],
+                        self.character.mods["str"], self.character.throw_misc]
+                for skill, box in zip(skills, boxes):
+                    box.setText(str(skill))
+        except AttributeError:
+            pass
 
     def update_skill_buy(self):
-        """update skills based on the skill buys
+        """update skills based on the skill buys. Needs class_name to be set
         """
-        skill_buys = {
-            "acrobatics"       : self.rank_acrobatics_combo,
-            "athletics"        : self.rank_athletics_combo,
-            "bluff"            : self.rank_bluff_combo,
-            "computers"        : self.rank_computers_combo,
-            "culture"          : self.rank_culture_combo,
-            "diplomacy"        : self.rank_diplomacy_combo,
-            "disguise"         : self.rank_disguise_combo,
-            "engineering"      : self.rank_engineering_combo,
-            "intimidate"       : self.rank_intimidate_combo,
-            "life science"     : self.rank_life_combo,
-            "medicine"         : self.rank_medicine_combo,
-            "mysticism"        : self.rank_mysticism_combo,
-            "perception"       : self.rank_perception_combo,
-            "physical science" : self.rank_physical_combo,
-            "piloting"         : self.rank_piloting_combo,
-            "profession"       : self.rank_profession1_combo,
-            "profession2"      : self.rank_profession2_combo,
-            "sense motive"     : self.rank_sense_combo,
-            "sleight of hand"  : self.rank_slight_combo,
-            "stealth"          : self.rank_stealth_combo,
-            "survival"         : self.rank_survival_combo
-        }
-        self.skill_buy_spendable_points = (classesStatBonus[self.character.class_name]["skills"] +\
-                                           self.character.mods["int"]) * self.character.class_level
-        possible_skill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
-                          "disguise", "engineering", "intimidate", "life science", "medicine",
-                          "mysticism", "perception", "physical science", "piloting", "profession",
-                          "profession2", "sense motive", "sleight of hand", "stealth", "survival"]
-        for skill in possible_skill:
-            tmp = int(skill_buys[skill].currentText())
-            self.skill_buy_spendable_points -= tmp
-            self.character.skill_ranks[skill] = tmp
+        try:
+            self.character.class_name
+            skill_buys = {
+                "acrobatics"       : self.rank_acrobatics_combo,
+                "athletics"        : self.rank_athletics_combo,
+                "bluff"            : self.rank_bluff_combo,
+                "computers"        : self.rank_computers_combo,
+                "culture"          : self.rank_culture_combo,
+                "diplomacy"        : self.rank_diplomacy_combo,
+                "disguise"         : self.rank_disguise_combo,
+                "engineering"      : self.rank_engineering_combo,
+                "intimidate"       : self.rank_intimidate_combo,
+                "life science"     : self.rank_life_combo,
+                "medicine"         : self.rank_medicine_combo,
+                "mysticism"        : self.rank_mysticism_combo,
+                "perception"       : self.rank_perception_combo,
+                "physical science" : self.rank_physical_combo,
+                "piloting"         : self.rank_piloting_combo,
+                "profession"       : self.rank_profession1_combo,
+                "profession2"      : self.rank_profession2_combo,
+                "sense motive"     : self.rank_sense_combo,
+                "sleight of hand"  : self.rank_slight_combo,
+                "stealth"          : self.rank_stealth_combo,
+                "survival"         : self.rank_survival_combo
+            }
+            self.skill_buy_spendable_points = (self.character.class_name.skills +\
+                                            self.character.mods["int"]) * self.character.class_level
+            possible_skill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
+                            "disguise", "engineering", "intimidate", "life science", "medicine",
+                            "mysticism", "perception", "physical science", "piloting", "profession",
+                            "profession2", "sense motive", "sleight of hand", "stealth", "survival"]
+            for skill in possible_skill:
+                tmp = int(skill_buys[skill].currentText())
+                self.skill_buy_spendable_points -= tmp
+                self.character.skill_ranks[skill] = tmp
 
-        for skill, pbuy in skill_buys.items():
-            pbuy.clear()
-            val = self.character.class_level + 1
-            points = [str(i) for i in range(val) if i < self.skill_buy_spendable_points +\
-                         self.character.skill_ranks[skill] + 1]
-            pbuy.addItems(points)
-            pbuy.setCurrentIndex(self.character.skill_ranks[skill])
+            for skill, pbuy in skill_buys.items():
+                val = self.character.class_level + 1
+                points = [str(i) for i in range(val) if i < self.skill_buy_spendable_points +\
+                            self.character.skill_ranks[skill] + 1]
+                update_combo(pbuy, points)
+                pbuy.setCurrentIndex(self.character.skill_ranks[skill])
 
-        self.update_dabbler()
-        self.update_skills()
+            self.update_dabbler()
+            self.update_skills()
+        except AttributeError:
+            pass
 
 
     def update_misc_skills(self):
