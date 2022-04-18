@@ -156,20 +156,70 @@ class Operative(StarfinderClass):
         ]
         return specializations
 
-    def specialization_feat(self):
+    def specialization_skills(self):
         """function to return the feat related stuff of the operative
         """
         specialization = {
-            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
-            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
-            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
+            "Daredevil" : ["acrobatics", "athletics"],
+            "Detective" : ["culture", "sense motive"],
+            "Explorer"  : ["culture", "survival"],
             # Explorer: you gain a +4 bonus to Culture and Survival checks
-            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
-            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
-            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
-            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
-                            "Contingency Plan"]
+            "Ghost"     : ["acrobatics", "stealth"],
+            "Hacker"    : ["computers", "engineering"],
+            "Spy"       : ["bluff", "disguise"],
+            "Thief"     : ["perception", "sleight of hand"]
         }
+        return specialization[self.selection]
+
+    def style_combat(self, _ : int) -> dict:
+        """function to return the dictionary of specializations for each specialization
+        The way the dictionary is setup is: the keys are level equivalent so this function
+        can work in tandem with the soldier class. For the soldier in technique2 the character
+        level is taken and 8 is subtracted. So since the operative gains Specialization exploit
+        at level 5 and Specialization power at level 11, the dictionary has the keys of 5 and 3.
+        Yes it is dumb. Whoever is reading this, feel free to make a pull request with a better
+        solution.
+
+        Args:
+            _ (int): comes from the soldier class. can be ignored here
+
+        Returns:
+            dict: dictionary where the possible levels are the keys and the combat feats are the
+                    items
+        """
+
+        specialization = {
+            "Daredevil" : {
+                5 : "Versatile movement",
+                3 : "Terrain Attack"
+            },
+            "Detective" : {
+                5 : "Glimpse the truth",
+                3 : "Detective's Insight"
+            },
+            "Explorer"  : {
+                5 : "Ever vigilant",
+                3 : "Into the Unknown"
+            },
+            # Explorer: you gain a +4 bonus to Culture and Survival checks
+            "Ghost"     : {
+                5 : "Cloaking field",
+                3 : "Phase Shift Escape"
+            },
+            "Hacker"    : {
+                5 : "Elusive hacker",
+                3 : "Control Hack"
+            },
+            "Spy"       : {
+                5 : "Master of disguise",
+                3 : "Fool Detection"
+            },
+            "Thief"     : {
+                5 : "Holographic distraction",
+                3 : "Contingency Plan"
+            }
+        }
+        return specialization[self.selection]
 
     def specialization_exploit(self):
         """function to return the exploit related stuff of the operative
@@ -211,6 +261,7 @@ class Operative(StarfinderClass):
                 "disguise", "engineering", "intimidate", "life science", "medicine", "mysticism",
                 "perception", "physical science", "piloting", "profession", "profession2",
                 "sense motive", "sleight of hand", "stealth", "survival", "initiative"]
+
 
 skill_focus = Feat("Skill Focus", False, None, FeatType.WORDS) # "choose", ["skill", ["any", 3]]
 mobility = Feat("Mobility", True, Requirements(ability=[["dex", 13]]), FeatType.WORDS)
