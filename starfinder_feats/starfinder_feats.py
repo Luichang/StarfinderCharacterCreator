@@ -1,6 +1,20 @@
-from starfinder_classes.starfinder_mystic import Mystic
-from starfinder_classes.starfinder_operative import Operative
-from starfinder_classes.starfinder_technomancer import Technomancer
+from starfinder_classes.starfinder_class import (advanced_melee_prof,
+                                                 basic_melee_prof,
+                                                 grenade_proficiency,
+                                                 heavy_armor, heavy_weapon,
+                                                 light_armor,
+                                                 longarm_proficiency,
+                                                 small_arm_proficiency,
+                                                 sniper_weapon, special_weapon,
+                                                 suppressive_fire)
+from starfinder_classes.starfinder_mystic import (connection_inkling,
+                                                  harm_undead)
+from starfinder_classes.starfinder_operative import (improved_sidestep,
+                                                     mobility, sidestep,
+                                                     skill_focus)
+from starfinder_classes.starfinder_technomancer import (agile_casting,
+                                                        spell_focus,
+                                                        techno_dabbler)
 from starfinder_races.starfinder_kasatha import Kasatha
 
 from starfinder_feats.feat_requirement import Requirements
@@ -13,9 +27,6 @@ any_combat_feat = Feat("Any", True, None, None)
 adaptive_fighting = Feat("Adaptive Fighting", True,
                         Requirements(feat=[any_combat_feat, any_combat_feat, any_combat_feat]),
                         FeatType.WORDS)
-basic_melee_prof = Feat("Basic Melee Weapon Proficiency", True, None, FeatType.WORDS)
-advanced_melee_prof = Feat("Advanced Melee Weapon Proficiency", True,
-                            Requirements(feat=[basic_melee_prof]), FeatType.WORDS)
 amplified_glitch = Feat("Amplified Glitch", True,
                         Requirements(skills=[["computers", 3], ["intimidate", 3]]), FeatType.WORDS)
 antagonize = Feat("Antagonize", False, Requirements(skills=[["diplomacy", 5], ["intimidate", 5]]),
@@ -30,8 +41,6 @@ great_cleave = Feat("Great Cleave", True, Requirements(ability=[["str", 13]], fe
 climbing_master = Feat("Climbing Master", False, Requirements(skills=[["athletics", 5]]),
                         FeatType.WORDS) # speed effected
 combat_casting = Feat("Combat Casting", True, Requirements(spell_level=2), FeatType.WORDS)
-connection_inkling = Feat("Connection Inkling", False, Requirements(ability=[["wis", 15]], level=5),
-                            FeatType.WORDS) # TODO need to check that the character is NOT mystic
 coordinated_shot = Feat("Coordinated Shot", True, Requirements(bab=1), FeatType.WORDS)
 deadly_aim = Feat("Deadly Aim", True, Requirements(bab=1), FeatType.WORDS)
 deflect_projectile = Feat("Deflect Projectiles", True, Requirements(bab=8), FeatType.WORDS)
@@ -50,20 +59,6 @@ fusillade = Feat("Fusillade", True, Requirements(bab=1, race=Kasatha), FeatType.
 great_fortitude = Feat("Great Fortitude", False, None, FeatType.WORDS) # fortitude + 2
 improved_great_fortitude = Feat("Improved Great Fortitude", False,
                                 Requirements(feat=[great_fortitude], level=5), FeatType.WORDS)
-grenade_proficiency = Feat("Grenade Proficiency", True, None, FeatType.WORDS)
-tmp_class_name = Mystic()
-tmp_class_name.select_selection("Healer")
-harm_undead = Feat("Harm Undead", False, Requirements(class_name=tmp_class_name), FeatType.WORDS)
-light_armor = Feat("Light Armor Proficiency", True, None, FeatType.WORDS)
-heavy_armor = Feat("Heavy Armor Proficiency", True,
-                    Requirements(ability=[["str", 13]], feat=[light_armor]), FeatType.WORDS)
-small_arm_proficiency = Feat("Small Arm Proficiency", True, None, FeatType.WORDS)
-longarm_proficiency = Feat("Longarm Proficiency", True, Requirements(feat=[small_arm_proficiency]),
-                            FeatType.WORDS)
-heavy_weapon = Feat("Heavy Weapon Proficiency", True,
-                    Requirements(ability=[["str", 13]],
-                                feat=[longarm_proficiency, small_arm_proficiency]),
-                    FeatType.WORDS)
 improved_combat = Feat("Improved Combat Maneuver", True, Requirements(bab=1),
                         FeatType.WORDS) # +4 bonus to perform one combat maneuver
 pull_the_pin = Feat("Pull the Pin", True, Requirements(feat=[improved_combat]), FeatType.WORDS)
@@ -85,7 +80,7 @@ improved_lightning_reflexes = Feat("Improved Lightning Reflexes", False,
 lunge = Feat("Lunge", True, Requirements(bab=6), FeatType.WORDS)
 master_crafter = Feat("Master Crafter", False,
                         Requirements(skills=[["computers", "engineering", "life science",
-                                              "mysticism", "physical science", "profession"], 5]),
+                                              "mysticism", "physical science", "profession", 5]]),
                         FeatType.WORDS)
 medical_expert = Feat("Medical Expert", False,
                         Requirements(skills=[["life science", 1], ["medicine", 1],
@@ -100,24 +95,11 @@ major_psychic_power = Feat("Major Psychic Power", False,
                             Requirements(ability=[["cha", 15]],
                                         feat=[minor_psychic_power, psychic_power], level=4),
                             FeatType.WORDS) # Cast a 2nd-level spell as a spell-like ability 1/day
-mobility = Feat("Mobility", True, Requirements(ability=[["dex", 13]]), FeatType.WORDS)
-agile_casting = Feat("Agile Casting", False,
-                    Requirements(ability=[["key", 15], ["dex", 15]], feat=[mobility],
-                                class_name=[Mystic, Technomancer], level=4),
-                    FeatType.WORDS)
 shot_on_run = Feat("Shot on the Run", True,
                     Requirements(ability=[["dex", 15]], feat=[mobility], bab=4), FeatType.WORDS)
 parting_shot = Feat("Parting Shot", True,
                     Requirements(ability=[["dex", 15]], feat=[mobility, shot_on_run], bab=6),
                     FeatType.WORDS)
-sidestep = Feat("Sidestep", True,
-                Requirements(ability=[["dex", 15]], from_list=[["feat", [mobility]],
-                                        ["class", Operative]]),
-                FeatType.WORDS)
-improved_sidestep = Feat("Improved Sidestep", True,
-                        Requirements(ability=[["dex", 15]], feat=[sidestep],
-                                    from_list=[["feat", [mobility]], ["class",  Operative]]),
-                        FeatType.WORDS)
 spring_attack = Feat("Spring Attack", True,
                     Requirements(ability=[["dex", 15]], feat=[mobility], bab=4), FeatType.WORDS)
 multi_weapon_attack = Feat("Multi-Weapon Fighting", True, None, FeatType.WORDS)
@@ -130,22 +112,15 @@ power_armor_proficiency = Feat("Powered Armor Proficiency", True,
                                 Requirements(ability=[["str", 13]], feat=[light_armor], bab=5),
                                 FeatType.WORDS)
 quick_draw = Feat("Quick Draw", True, Requirements(bab=1), FeatType.WORDS)
-skill_focus = Feat("Skill Focus", False, None, FeatType.WORDS) # "choose", ["skill", ["any", 3]]
 skill_synergy = Feat("Skill Synergy", False, None,
                     FeatType.WORDS) # "classSkill", [["any"], ["any"]]], # or a +2 bonus to it
 sky_jockey = Feat("Sky Jockey", False, Requirements(skills=[["piloting", 5]]), FeatType.WORDS)
 slippery_shooter = Feat("Slippery Shooter", True, Requirements(ability=[["dex", 15]], bab=6),
                         FeatType.WORDS)
-sniper_weapon = Feat("Sniper Weapon Proficiency", True, None, FeatType.WORDS)
-special_weapon = Feat("Special Weapon Proficiency", True,
-                        Requirements(from_list=[["feat", [small_arm_proficiency,
-                                                            basic_melee_prof]]]),
-                        FeatType.WORDS)
-spell_focus = Feat("Spell Focus", False, Requirements(spell_level=1, level=3), FeatType.WORDS)
 spell_penetration = Feat("Spell Penetration", False, None,
                             FeatType.WORDS) # +2 bonus to caster level checks to overcome SR
 greater_spell_penetration = Feat("Greater Spell Penetration", False,
-                                    Requirements(feat=spell_penetration), FeatType.WORDS)
+                                    Requirements(feat=[spell_penetration]), FeatType.WORDS)
 # ^ Additional +2 bonus to caster level checks to overcome SR
 spellbane = Feat("Spellbane", False, Requirements(spell_level=-1), FeatType.WORDS)
 spry_cover = Feat("Spry Cover", True, Requirements(bab=1), FeatType.WORDS)
@@ -157,12 +132,8 @@ step_up_and_strike = Feat("Step Up and Strike", True,
                             Requirements(ability=[["dex", 13]], feat=[step_up], bab=6),
                             FeatType.WORDS)
 strike_back = Feat("Strike Back", True, Requirements(bab=1), FeatType.WORDS)
-suppressive_fire = Feat("Suppressive Fire", True, Requirements(feat=[heavy_weapon], bab=1),
-                        FeatType.WORDS)
 swimming_master = Feat("Swimming Master", False, Requirements(skills=[["athletics", 5]]),
                         FeatType.WORDS) # effects speed
-techno_dabbler = Feat("Technomantic Dabbler", False, Requirements(ability=[["int", 15]], level=5),
-                        FeatType.WORDS) # TODO need to check that the character is NOT technomancer
 toughness = Feat("Toughness", False, None,
                 FeatType.WORDS) # +1 Stamina Point per character level and other bonuses
 unfriendly_fire = Feat("Unfriendly Fire", True, Requirements(skills=[["bluff", 5]]), FeatType.WORDS)

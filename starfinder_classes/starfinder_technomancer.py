@@ -1,6 +1,11 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_feats.feat_requirement import Requirements
+from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
+
+from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_mystic import Mystic
+from starfinder_classes.starfinder_operative import mobility
 
 @StarfinderClass.register_subclass('technomancer')
 class Technomancer(StarfinderClass):
@@ -107,3 +112,11 @@ class Technomancer(StarfinderClass):
             list: list of all the skills that are to be increased by 1
         """
         return ["computers", "mysticism"]
+
+spell_focus = Feat("Spell Focus", False, Requirements(spell_level=1, level=3), FeatType.WORDS)
+agile_casting = Feat("Agile Casting", False,
+                    Requirements(ability=[["key", 15], ["dex", 15]], feat=[mobility],
+                                class_name=[Mystic, Technomancer], level=4),
+                    FeatType.WORDS)
+techno_dabbler = Feat("Technomantic Dabbler", False, Requirements(ability=[["int", 15]], level=5),
+                        FeatType.WORDS) # TODO need to check that the character is NOT technomancer

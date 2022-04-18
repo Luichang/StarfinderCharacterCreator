@@ -1,7 +1,9 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_feats.feat_requirement import Requirements
+from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
 
+from starfinder_classes.starfinder_class import StarfinderClass
 @StarfinderClass.register_subclass('mystic')
 class Mystic(StarfinderClass):
     """The Mystic Starfinder class that inherits from the StarfinderClass class
@@ -208,3 +210,9 @@ class Mystic(StarfinderClass):
                            "Guided Rebirth"]
         }
         return feat_dict[self.selection]
+
+connection_inkling = Feat("Connection Inkling", False, Requirements(ability=[["wis", 15]], level=5),
+                            FeatType.WORDS) # TODO need to check that the character is NOT mystic
+tmp_class_name = Mystic()
+tmp_class_name.select_selection("Healer")
+harm_undead = Feat("Harm Undead", False, Requirements(class_name=tmp_class_name), FeatType.WORDS)

@@ -1,7 +1,9 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_feats.feat_requirement import Requirements
+from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
 
+from starfinder_classes.starfinder_class import StarfinderClass
 @StarfinderClass.register_subclass('operative')
 class Operative(StarfinderClass):
     """The Operative Starfinder class that inherits from the StarfinderClass class
@@ -204,3 +206,14 @@ class Operative(StarfinderClass):
                 "disguise", "engineering", "intimidate", "life science", "medicine", "mysticism",
                 "perception", "physical science", "piloting", "profession", "profession2",
                 "sense motive", "sleight of hand", "stealth", "survival", "initiative"]
+
+skill_focus = Feat("Skill Focus", False, None, FeatType.WORDS) # "choose", ["skill", ["any", 3]]
+mobility = Feat("Mobility", True, Requirements(ability=[["dex", 13]]), FeatType.WORDS)
+sidestep = Feat("Sidestep", True,
+                Requirements(ability=[["dex", 15]], from_list=[["feat", [mobility]],
+                                        ["class", Operative]]),
+                FeatType.WORDS)
+improved_sidestep = Feat("Improved Sidestep", True,
+                        Requirements(ability=[["dex", 15]], feat=[sidestep],
+                                    from_list=[["feat", [mobility]], ["class",  Operative]]),
+                        FeatType.WORDS)

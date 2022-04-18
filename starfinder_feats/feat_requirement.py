@@ -3,10 +3,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
-from starfinder_classes.starfinder_class import StarfinderClass
 from starfinder_races.starfinder_race import StarfinderRace
 
 if TYPE_CHECKING:
+    from starfinder_classes.starfinder_class import StarfinderClass
     from starfinder_feats.starfinder_feat import Feat
 
 @dataclass(repr=False, eq=False)
