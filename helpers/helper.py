@@ -109,13 +109,23 @@ def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model
     """
     theme_model = QtGui.QStandardItemModel()
     for item in items:
-        theme_model.appendRow(QtGui.QStandardItem(item))
+        theme_model.appendRow(QtGui.QStandardItem(str(item)))
     combo.setModel(ProxyModel(theme_model, model_default))
     combo.setCurrentIndex(index)
     if size:
         combo.setMaximumSize(QtCore.QSize(*size))
     if connection:
         combo.activated[str].connect(connection)
+
+def update_combo(combo : QtWidgets.QComboBox, items : list[str]):
+    """Function to update the entered combobox with the entered items
+
+    Args:
+        combo (QtWidgets.QComboBox): combobox to be updated
+        items (list[str]): list of items to be added
+    """
+    combo.clear()
+    combo.addItems(items)
 
 def get_user_response(options : list, text : str="", include : bool=True) -> str:
     """Function to get user response from input options
