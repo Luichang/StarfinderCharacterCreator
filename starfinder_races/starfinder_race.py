@@ -37,11 +37,12 @@ class StarfinderRace:
         return decorator
 
     @classmethod
-    def create(cls, starfinder_race : str):
+    def create(cls, starfinder_race : str, key : str=None):
         """Function to return the called starfinder race
 
         Args:
             starfinder_race (str): name of the starfinder race
+            key (str): key attribute should it be needed. Defaults to None
 
         Raises:
             ValueError: if the starfinder race has not been implemented yet
@@ -52,4 +53,6 @@ class StarfinderRace:
         if starfinder_race not in cls.subraces:
             raise ValueError(f'{starfinder_race} has not yet been implemented')
 
+        if key: # only to be called on the human race
+            return cls.subraces[starfinder_race](key)
         return cls.subraces[starfinder_race]()

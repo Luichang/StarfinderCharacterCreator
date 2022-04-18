@@ -36,11 +36,12 @@ class StarfinderTheme:
         return decorator
 
     @classmethod
-    def create(cls, starfinder_theme : str):
+    def create(cls, starfinder_theme : str, key : str=None):
         """Function to return the called starfinder theme
 
         Args:
             starfinder_theme (str): name of the starfinder theme
+            key (str): key attribute should it be needed. Defaults to None
 
         Raises:
             ValueError: if the starfinder theme has not been implemented yet
@@ -51,6 +52,8 @@ class StarfinderTheme:
         if starfinder_theme not in cls.subthemes:
             raise ValueError(f'{starfinder_theme} has not yet been implemented')
 
+        if key:
+            return cls.subthemes[starfinder_theme](key)
         return cls.subthemes[starfinder_theme]()
 
     def current_abilities(self, level : int) -> list[Ability]:
