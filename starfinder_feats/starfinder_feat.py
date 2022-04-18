@@ -20,3 +20,11 @@ class Feat:
 
     def __str__(self) -> str:
         return self.name
+
+    def copy(self) -> Feat:
+        """function that returns a copy of the Feat
+
+        Returns:
+            Feat: a copy of the current Feat
+        """
+        return Feat(self.name, self.combat, self.requirements, self.result)
