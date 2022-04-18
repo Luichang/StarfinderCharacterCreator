@@ -128,36 +128,25 @@ class Solarian(StarfinderClass):
         ]
         return choosable
 
-    def new_expertises(self, _ = None):
+    def new_expertises(self, current_expertises : list):
         """function to return the possible
 
         Args:
-            _ (None): empty input so this can be used together with another class
+            current_expertises (list): list of current selected expertises
 
         Returns:
             list: list of possible expertises.
         """
 
-        possible_skill = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
-                         "disguise", "engineering", "intimidate", "life science", "medicine",
-                         "mysticism", "perception", "physical science", "profession1",
-                         "profession2", "piloting", "sense motive", "sleight of hand", "stealth",
-                         "survival"
+        possible_skill = [
+            ["bluff", "disguise", "mysticism", "sense motive", "stealth"],
+            ["culture", "diplomacy", "intimidate", "medicine", "survival"]
         ]
 
+        for expertise in current_expertises:
+            if expertise in possible_skill[0]:
+                possible_skill[0].remove(expertise)
+            if expertise in possible_skill[1]:
+                possible_skill[1].remove(expertise)
+
         return possible_skill
-
-    def list_of_secondaries(self, level) -> list[Ability]:
-        """Function to return the secondary feats the player can choose from
-
-        Args:
-            level (int): current level of the character
-
-        Returns:
-            list[Ability]: list of feats the player can choose from
-        """
-        level_up_abilities = []
-        for ability in self.class_choose_feats:
-            if ability.level <= level:
-                level_up_abilities.append(ability)
-        return level_up_abilities
