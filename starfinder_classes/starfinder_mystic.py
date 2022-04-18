@@ -3,7 +3,12 @@ from starfinder_feats.feat_requirement import Requirements
 from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
 
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass,
+                                                 basic_melee_prof,
+                                                 light_armor,
+                                                 small_arm_proficiency)
+
+
 @StarfinderClass.register_subclass('mystic')
 class Mystic(StarfinderClass):
     """The Mystic Starfinder class that inherits from the StarfinderClass class
@@ -19,8 +24,7 @@ class Mystic(StarfinderClass):
         self.stamina_points = 6
         self.hit_points = 6
         self.key = "wis"
-        self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
-                           "Small Arm Proficiency"]
+        self.proficiencies = [light_armor, basic_melee_prof, small_arm_proficiency]
 
         self.bonuses = ["bluff", "culture", "diplomacy", "disguise", "intimidate", "life science",
                    "medicine", "mysticism", "perception", "profession", "profession2",

@@ -3,7 +3,10 @@ from starfinder_feats.feat_requirement import Requirements
 from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
 
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass,
+                                                 basic_melee_prof,
+                                                 light_armor,
+                                                 small_arm_proficiency)
 from starfinder_classes.starfinder_mystic import Mystic
 from starfinder_classes.starfinder_operative import mobility
 
@@ -21,8 +24,7 @@ class Technomancer(StarfinderClass):
         self.stamina_points = 5
         self.hit_points = 5
         self.key = "int"
-        self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
-                           "Small Arm Proficiency"]
+        self.proficiencies = [light_armor, basic_melee_prof, small_arm_proficiency]
 
         self.bonuses = ["computers", "engineering", "life science", "mysticism", "physical science", "piloting",
                    "profession", "profession2", "sleight of hand"]
@@ -40,7 +42,7 @@ class Technomancer(StarfinderClass):
         levelups = [
             Ability("Spell cache", 1, FeatType.WORDS),
             Ability("Magic hack", 2, FeatType.CHOOSE),
-            Ability("Spell Focus", 3, FeatType.FEAT), # "Spell Focus"
+            Ability("Spell Focus", 3, FeatType.FEAT, feat=spell_focus),
             Ability("Techlore +1", 3, FeatType.MISC_INCREASE, short="Techlore"),
             Ability("Weapon specialization", 3, FeatType.WEAPON),
             Ability("Magic hack", 5, FeatType.CHOOSE),

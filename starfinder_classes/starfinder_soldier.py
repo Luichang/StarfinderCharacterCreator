@@ -1,5 +1,12 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass, advanced_melee_prof,
+                                                 basic_melee_prof,
+                                                 grenade_proficiency,
+                                                 heavy_armor, heavy_weapon,
+                                                 light_armor,
+                                                 longarm_proficiency,
+                                                 small_arm_proficiency,
+                                                 sniper_weapon)
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('soldier')
@@ -17,17 +24,15 @@ class Soldier(StarfinderClass):
         self.stamina_points = 7
         self.hit_points = 7
         self.key = key
-        self.proficiencies = ["Light Armor Proficiency", "Heavy Armor Proficiency",
-                              "Basic Melee Weapon Proficiency", "Advanced Melee Weapon Proficiency",
-                              "Small Arm Proficiency", "Longarm Proficiency",
-                              "Heavy Weapon Proficiency", "Sniper Weapon Proficiency",
-                              "Grenade Proficiency"]
+        self.proficiencies = [light_armor, heavy_armor, basic_melee_prof, advanced_melee_prof,
+                              small_arm_proficiency, longarm_proficiency, heavy_weapon,
+                              sniper_weapon, grenade_proficiency]
 
         self.bonuses = ["acrobatics", "athletics", "engineering", "intimidate", "medicine",
                         "piloting", "profession", "profession2", "survival"]
 
         self.class_abilities = self.all_class_abilities()
-        #self.class_choose_feats = self.all_choosable_abilities()
+        self.class_secondary_feats = self.all_choosable_abilities()
 
     def __str__(self) -> str:
         return f"{self.name} [{self.key}]"

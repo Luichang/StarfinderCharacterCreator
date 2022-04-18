@@ -3,7 +3,13 @@ from starfinder_feats.feat_requirement import Requirements
 from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
 
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass,
+                                                 basic_melee_prof,
+                                                 light_armor,
+                                                 small_arm_proficiency,
+                                                 sniper_weapon)
+
+
 @StarfinderClass.register_subclass('operative')
 class Operative(StarfinderClass):
     """The Operative Starfinder class that inherits from the StarfinderClass class
@@ -19,8 +25,7 @@ class Operative(StarfinderClass):
         self.stamina_points = 6
         self.hit_points = 6
         self.key = "dex"
-        self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
-                           "Small Arm Proficiency", "Sniper Weapon Proficiency"]
+        self.proficiencies = [light_armor, basic_melee_prof, small_arm_proficiency, sniper_weapon]
 
         self.bonuses = ["acrobatics", "athletics", "bluff", "computers", "culture", "disguise",
                    "engineering", "intimidate", "medicine", "perception", "piloting", "profession",
@@ -28,7 +33,7 @@ class Operative(StarfinderClass):
 
 
         self.class_abilities = self.all_class_abilities()
-        #self.class_choose_feats = self.all_choosable_abilities()
+        self.class_secondary_feats = self.all_choosable_abilities()
 
     def all_class_abilities(self) -> list[Ability]:
         """creates the ability list for character level up
@@ -39,7 +44,7 @@ class Operative(StarfinderClass):
 
         levelups = [
             Ability("Operative's edge +1", 1, FeatType.MISC_INCREASE, short=""),
-            Ability("Specialization", 1, FeatType.SELECTION), # ["feat", "Skill Focus"]
+            Ability("Specialization", 1, FeatType.SELECTION, feat=skill_focus),
             Ability("Trick attack +1d4", 1, FeatType.REPLACABLE, short=""),
             Ability("Evasion", 2, FeatType.WORDS),
             Ability("Operative exploit", 2, FeatType.CHOOSE2),

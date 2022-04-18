@@ -1,5 +1,9 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass,
+                                                 basic_melee_prof,
+                                                 grenade_proficiency,
+                                                 light_armor,
+                                                 small_arm_proficiency)
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('mechanic')
@@ -16,8 +20,8 @@ class Mechanic(StarfinderClass):
         self.stamina_points = 6
         self.hit_points = 6
         self.key = "int"
-        self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
-                           "Grenade Proficiency", "Small Arm Proficiency"]
+        self.proficiencies = [light_armor, basic_melee_prof, grenade_proficiency,
+                                small_arm_proficiency]
 
         self.bonuses = ["athletics", "computers", "engineering", "medicine", "perception",
                    "physical science", "piloting", "profession", "profession2"]

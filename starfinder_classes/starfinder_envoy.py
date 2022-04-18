@@ -1,5 +1,9 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass,
+                                                 basic_melee_prof,
+                                                 grenade_proficiency,
+                                                 light_armor,
+                                                 small_arm_proficiency)
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('envoy')
@@ -16,8 +20,8 @@ class Envoy(StarfinderClass):
         self.stamina_points = 6
         self.hit_points = 6
         self.key = "cha"
-        self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
-                           "Grenade Proficiency", "Small Arm Proficiency"]
+        self.proficiencies = [light_armor, basic_melee_prof, grenade_proficiency,
+                                small_arm_proficiency]
 
         self.bonuses = ["acrobatics", "athletics", "bluff", "computers", "culture", "diplomacy",
                    "disguise", "engineering", "intimidate", "medicine", "perception", "piloting",
@@ -151,24 +155,9 @@ class Envoy(StarfinderClass):
 
         expertises = [
             "bluff", "computers", "culture", "diplomacy", "disguise",
-            "engineering", "intimidate", "medicine"
+            "engineering", "intimidate", "medicine", "sense motive"
         ]
 
         for expertise in current_expertises:
             expertises.remove(expertise)
         return expertises
-
-    def list_of_secondaries(self, level) -> list[Ability]:
-        """Function to return the secondary feats the player can choose from
-
-        Args:
-            level (int): current level of the character
-
-        Returns:
-            list[Ability]: list of feats the player can choose from
-        """
-        level_up_abilities = []
-        for ability in self.class_choose_feats:
-            if ability.level <= level:
-                level_up_abilities.append(ability)
-        return level_up_abilities

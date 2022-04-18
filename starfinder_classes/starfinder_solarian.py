@@ -1,5 +1,8 @@
 from helpers.ability import Ability
-from starfinder_classes.starfinder_class import StarfinderClass
+from starfinder_classes.starfinder_class import (StarfinderClass, advanced_melee_prof,
+                                                 basic_melee_prof,
+                                                 light_armor,
+                                                 small_arm_proficiency)
 from starfinder_feats.starfinder_feat_type import FeatType
 
 @StarfinderClass.register_subclass('solarian')
@@ -16,8 +19,8 @@ class Solarian(StarfinderClass):
         self.stamina_points = 7
         self.hit_points = 7
         self.key = "cha"
-        self.proficiencies = ["Light Armor Proficiency", "Basic Melee Weapon Proficiency",
-                           "Advanced Melee Weapon Proficiency", "Small Arm Proficiency"]
+        self.proficiencies = [light_armor, basic_melee_prof, advanced_melee_prof,
+                                small_arm_proficiency]
 
         self.bonuses = ["acrobatics", "athletics", "diplomacy", "intimidate", "mysticism",
                         "perception", "physical science", "profession", "profession2",
