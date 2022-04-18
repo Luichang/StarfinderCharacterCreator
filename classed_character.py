@@ -120,6 +120,20 @@ class Character:
             if file_name == "":
                 self.create_new()
 
+    def update_professions(self, profession1 : str=None, profession2 : str = None) -> None:
+        """function to update the profession ability modifiers
+
+        Args:
+            profession1 (str, optional): ability modifier for profession1.
+                                         Options are 'wis, int, and cha'. Defaults to None.
+            profession2 (str, optional): ability modifier for profession2.
+                                         Options are 'wis, int, and cha'. Defaults to None.
+        """
+        if profession1:
+            self.profession_ability = profession1
+        if profession2:
+            self.profession2_ability = profession2
+
     def create_new(self):
         """create a new character
         """
@@ -164,6 +178,8 @@ class Character:
             response_text = "Soldier has to chose the key ability. Possible are str and dex"
             key = get_user_response(possible_attrs, response_text)
             self.class_name.select_key(key)
+
+        self.chosen_feats = self.class_name.proficiencies
 
         self.calc_spell_level()
 
@@ -295,8 +311,14 @@ class Character:
         """
         if feat.requirements.skills:
             for skill in feat.requirements.skills:
-                if self.skills[skill[0]] < skill[1]:
+                if isinstance(skill, list):
+                    for check_skill in skill[:-1]:
+                        if self.skills[check_skill] > skill[-1]:
+                            return True
                     return False
+                else:
+                    if self.skills[skill[0]] < skill[1]:
+                        return False
         return True
 
     def feat_ability_check(self, feat : Feat) -> bool:
@@ -338,8 +360,9 @@ class Character:
                 if inspect.isclass(feat.requirements.class_name):
                     if isinstance(self.class_name, feat.requirements.class_name):
                         to_add = True
-                elif feat.requirements.class_name.selection == self.class_name.selection:
-                    to_add = True
+                elif type(feat.requirements.class_name) is type(self.class_name):
+                    if feat.requirements.class_name.selection == self.class_name.selection:
+                        to_add = True
         return to_add
 
     def feat_bab_check(self, feat : Feat) -> bool:
@@ -453,11 +476,17 @@ class Character:
             to_add = False
             for check in feat.requirements.from_list:
                 if check[0] == "feat":
-                    if self.feat_feat_check(check[1]):
-                        to_add = True
-                        break
+                    if isinstance(check[1], list):
+                        for check_feat in check[1]:
+                            if check_feat in self.chosen_feats:
+                                to_add = True
+                                break
+                    else:
+                        if check[1] in self.chosen_feats:
+                                to_add = True
+                                break
                 elif check[0] == "class":
-                    if self.feat_class_name_check(check[1]):
+                    if isinstance(self.class_name, check[1]):
                         to_add = True
                         break
         return to_add
@@ -476,40 +505,43 @@ class Character:
         for feat in feats:
             if combat and not feat.combat:
                 continue
-            if not self.feat_level_check(feat):
-                continue
-            if not self.feat_spell_level_check(feat):
-                continue
-            if not self.feat_skills_check(feat):
-                continue
-            if not self.feat_ability_check(feat):
-                continue
-            if not self.feat_class_name_check(feat):
-                continue
-            if not self.feat_bab_check(feat):
-                continue
-            if not self.feat_reflex_check(feat):
-                continue
-            if not self.feat_will_check(feat):
-                continue
-            if not self.feat_fort_check(feat):
-                continue
-            if not self.feat_race_check(feat):
-                continue
-            if not self.feat_feat_check(feat):
-                continue
-            if not self.feat_from_check(feat):
-                continue
+            if feat.requirements:
+                if not self.feat_level_check(feat):
+                    continue
+                if not self.feat_spell_level_check(feat):
+                    continue
+                if not self.feat_skills_check(feat):
+                    continue
+                if not self.feat_ability_check(feat):
+                    continue
+                if not self.feat_class_name_check(feat):
+                    continue
+                if not self.feat_bab_check(feat):
+                    continue
+                if not self.feat_reflex_check(feat):
+                    continue
+                if not self.feat_will_check(feat):
+                    continue
+                if not self.feat_fort_check(feat):
+                    continue
+                if not self.feat_race_check(feat):
+                    continue
+                if not self.feat_feat_check(feat):
+                    continue
+                if not self.feat_from_check(feat):
+                    continue
             selected.append(feat)
         return selected
 
 
-    def select_new_feat(self, combat : bool=False) -> list:
+    def select_new_feat(self, combat : bool=False, verbose : bool=True) -> list:
         """function to add new feat to the character
 
         Args:
             combat (bool, optional): if the feat that is to be added needs to be a combat feat.
                                         Defaults to False.
+            verbose (bool, optional): if the function should return a list or ask for user input.
+                                        Defaults to True
 
         Returns:
             list: list of all possible feats. used in the GUI
@@ -518,6 +550,8 @@ class Character:
         for feat in self.chosen_feats:
             if feat in possible_feats:
                 possible_feats.remove(feat)
+        if not verbose:
+            return possible_feats
         print_text = "please enter feat name you would like to add. Possible feats are: " +\
                             ", ".join([str(x) for x in possible_feats])
         lower_chosen_feats = [str(x).lower() for x in possible_feats]
@@ -547,8 +581,7 @@ class Character:
                         if spell not in self.additional_spells[j]:
                             self.additional_spells[j].append(spell)
             elif ability.get_type == FeatType.FEAT:
-                # self.select_new_feat()
-                pass
+                self.select_new_feat()
 
         # Theme part
         for ability in self.theme.current_abilities(self.class_level):
@@ -575,38 +608,52 @@ class Character:
 
         # Class part
         for ability in self.class_name.current_abilities(self.class_level):
-            if ability.get_type() in [FeatType.REPLACABLE, FeatType.MISC_INCREASE, FeatType.INFLUENCE]:
+            # add the ability to the class_feats list. this list only contains the names of the
+            # things
+            print([str(x) for x in self.class_feats])
+            if ability.get_type() in [FeatType.REPLACABLE, FeatType.MISC_INCREASE,
+                                        FeatType.INFLUENCE]:
                 result = [oldAbility for oldAbility in self.class_feats \
-                            if ability.short in oldAbility]
+                            if ability.short and ability.short in str(oldAbility)]
                 if len(result) != 0:
                     result = result[0]
                     result = self.class_feats.index(result)
-                    self.class_feats[result] = str(ability)
+                    self.class_feats[result] = ability
                 else:
-                    self.class_feats.append(str(ability))
+                    self.class_feats.append(ability)
             else:
-                self.class_feats.append(str(ability))
-
+                self.class_feats.append(ability)
+            print([str(x) for x in self.class_feats])
+            print("--------")
             # perform ability logic
             if ability.get_type() == FeatType.CHOOSE:
                 self.select_new_class_feat()
             elif ability.get_type() == FeatType.CHOOSE2:
                 self.select_new_class_feat(secondary=True)
-            elif ability.get_type() in [FeatType.ADD_EXPERTISE, FeatType.INFLUENCE]:
+            elif ability.get_type() == FeatType.INFLUENCE:
                 self.select_new_expertise()
-                if isinstance(self.class_name, Solarian):
-                     self.select_new_expertise()
             elif ability.get_type() == FeatType.SELECTION:
                 self.select_selection()
+                if ability.feat:
+                    #self.chosen_feats.append(ability.feat)
+                    skill1, skill2 = self.class_name.specialization_skills()
+                    skill_feat1 = ability.feat.copy()
+                    skill_feat1.name += f" [{skill1.title()}]"
+                    skill_feat2 = ability.feat.copy()
+                    skill_feat2.name += f" [{skill2.title()}]"
+                    self.chosen_feats.append(skill_feat1)
+                    self.chosen_feats.append(skill_feat2)
+                    self.skill_misc[skill1] += 3
+                    self.skill_misc[skill2] += 3
             elif ability.get_type() == FeatType.MISC_INCREASE:
                 self.misc_increase()
             elif ability.get_type() == FeatType.COMBAT:
-                pass
+                self.select_new_feat(combat=True)
             elif ability.get_type() == FeatType.FEAT:
-                pass
+                self.chosen_feats.append(ability.feat)
             elif ability.get_type() == FeatType.TECHNIQUE1:
                 self.add_technique(0, self.class_level)
-            elif ability.get_type() == FeatType.TECHNIQUE1:
+            elif ability.get_type() == FeatType.TECHNIQUE2:
                 self.add_technique(1, self.class_level - 8)
             elif ability.get_type() == FeatType.CLASS:
                 possible_skill = list(self.skills)
@@ -617,7 +664,7 @@ class Character:
                     self.make_class_skill(new_class_skill)
             elif ability.get_type() == FeatType.CPOWER:
                 skill_to_add = self.class_name.connection_feat()
-                self.class_feats.append(skill_to_add[self.class_level//3])
+                self.other_abilities.append(skill_to_add[self.class_level//3])
             elif ability.get_type() == FeatType.SPELL:
                 skill_to_add = self.class_name.connection_spell()
                 spell_level = ((self.class_level-1)//3)
@@ -634,6 +681,7 @@ class Character:
         """
         techniques = self.class_name.style_combat(style)
         self.other_abilities.append(techniques[level])
+        return techniques[level]
 
     def misc_increase(self):
         """function to increase the misc value based on mystic Channel, operative Edge or
@@ -676,14 +724,19 @@ class Character:
             self.expertise.append(possible_expertise[0])
             return
 
-        print_text = "please enter name of expertise you would like to add. " +\
-                        "Possible expertises are: " + ", ".join(possible_expertise)
-        lower_class_feats = [x.lower() for x in possible_expertise]
-        entered = get_user_response(lower_class_feats, print_text)
-        entered_feat_index = lower_class_feats.index(entered)
-        self.expertise.append(possible_expertise[entered_feat_index])
-        self.other_abilities.append(possible_expertise[entered_feat_index])
+        def enter_expertise(expertise_options : list):
+            print_text = "please enter name of expertise you would like to add. " +\
+                            "Possible expertises are: " + ", ".join(expertise_options)
+            entered = get_user_response(expertise_options, print_text)
+            self.expertise.append(entered)
 
+
+
+        if isinstance(possible_expertise[0], list):
+            enter_expertise(possible_expertise[0])
+            enter_expertise(possible_expertise[1])
+        else:#
+            enter_expertise(possible_expertise)
 
     def select_new_class_feat(self, secondary : bool = False, verbose : bool=True) -> list:
         """Adds a new feature based on the entered featType and level. Should verbose be set to
@@ -704,16 +757,16 @@ class Character:
         else:
             possible_class_feats = self.class_name.list_of_choosables(self.class_level)
 
-        for feat in self.class_feats:
+        for feat in self.other_abilities:
             if feat in possible_class_feats:
                 possible_class_feats.remove(feat)
         if verbose:
             print_text = "please enter class feat name you would like to add. " +\
-                         "Possible feats are: " + ", ".join(possible_class_feats)
-            lower_class_feats = [x.lower() for x in possible_class_feats]
+                         "Possible feats are: " + ", ".join([str(x) for x in possible_class_feats])
+            lower_class_feats = [str(x).lower() for x in possible_class_feats]
             entered = get_user_response(lower_class_feats, print_text)
             entered_feat_index = lower_class_feats.index(entered)
-            self.class_feats.append(possible_class_feats[entered_feat_index])
+            # self.class_feats.append(possible_class_feats[entered_feat_index])
             self.other_abilities.append(possible_class_feats[entered_feat_index])
         return possible_class_feats
 
@@ -936,20 +989,22 @@ class Character:
 
         j = 0
         for i, current_class_abilities in enumerate(self.class_feats):
-            if "Expertise" in current_class_abilities: # expertise and influence
+            if self.expertise and \
+                str(current_class_abilities).split()[:-1] == ['Skill', 'expertise']:
+                # expertise and influence
                 for expertise in self.expertise:
-                    list_to_write_to_file.append([class_boxes[i + j], current_class_abilities +\
+                    list_to_write_to_file.append([class_boxes[i + j], str(current_class_abilities) +\
                                                   f" [{expertise}]"])
                     j += 1
                 j -= 1
             else:
-                list_to_write_to_file.append([class_boxes[i + j], current_class_abilities])
+                list_to_write_to_file.append([class_boxes[i + j], str(current_class_abilities)])
 
         for i, current_class_feat in enumerate(self.other_abilities):
-            list_to_write_to_file.append([other_boxes[i], current_class_feat])
+            list_to_write_to_file.append([other_boxes[i], str(current_class_feat)])
 
         for i, current_chosen_feat in enumerate(self.chosen_feats):
-            list_to_write_to_file.append([feat_boxes[i], current_chosen_feat])
+            list_to_write_to_file.append([feat_boxes[i], str(current_chosen_feat)])
         return list_to_write_to_file
 
     def print_spell_numbers(self) -> list:
