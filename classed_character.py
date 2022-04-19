@@ -11,7 +11,6 @@ from helpers.starfinder_html_dict import htmlTags
 # from helpers.starfinder_race_dicts import raceStatList
 # from helpers.starfinder_theme_dicts import themes
 from starfinder_classes.starfinder_class import StarfinderClass
-from starfinder_classes.starfinder_solarian import Solarian
 from starfinder_feats.starfinder_feat import Feat
 from starfinder_feats.starfinder_feat_type import FeatType
 from starfinder_feats.starfinder_feats import feats, any_combat_feat

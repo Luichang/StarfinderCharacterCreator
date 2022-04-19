@@ -30,7 +30,7 @@ class Technomancer(StarfinderClass):
                    "profession", "profession2", "sleight of hand"]
 
         self.class_abilities = self.all_class_abilities()
-        #self.class_choose_feats = self.all_choosable_abilities()
+        self.class_choose_feats = self.all_choosable_abilities()
 
     def all_class_abilities(self) -> list[Ability]:
         """creates the ability list for character level up

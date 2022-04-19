@@ -44,26 +44,26 @@ class Mystic(StarfinderClass):
         levelups = [
             Ability("Connection", 1, FeatType.SELECTION),
             Ability("Connection power", 1, FeatType.CPOWER), # argument of 0
-            Ability("Connection spell", 1, FeatType.SPELL), # argument of 0
+            Ability("Connection spell", 1, FeatType.SPELL), # argument of 0 -> 1 - 8 = -7
             Ability("Healing touch", 1, FeatType.WORDS),
             Ability("Channel skill +1", 2, FeatType.MISC_INCREASE, short="Channel skill"),
             Ability("Mindlink", 2, FeatType.WORDS),
             Ability("Connection power", 3, FeatType.CPOWER), # argument of 1
             Ability("Weapon specialization", 3, FeatType.WEAPON),
-            Ability("Connection spell", 4, FeatType.SPELL), # argument of 1
+            Ability("Connection spell", 4, FeatType.SPELL), # argument of 1 -> 4 - 8 = -4
             Ability("Channel skill +2", 5, FeatType.MISC_INCREASE, short="Channel skill"),
             Ability("Connection power", 6, FeatType.CPOWER), # argument of 2
-            Ability("Connection spell", 7, FeatType.SPELL), # argument of 2
+            Ability("Connection spell", 7, FeatType.SPELL), # argument of 2 -> 7 - 8 = -1
             Ability("Channel skill +3", 8, FeatType.MISC_INCREASE, short="Channel skill"),
             Ability("Connection power", 9, FeatType.CPOWER), # argument of 3
-            Ability("Connection spell", 10, FeatType.SPELL), # argument of 3
+            Ability("Connection spell", 10, FeatType.SPELL), # argument of 3 -> 10 - 8 = 2
             Ability("Channel skill +4", 11, FeatType.MISC_INCREASE, short="Channel skill"),
             Ability("Telepathic bond", 11, FeatType.WORDS),
             Ability("Connection power", 12, FeatType.CPOWER), # argument of 4
-            Ability("Connection spell", 13, FeatType.SPELL), # argument of 4
+            Ability("Connection spell", 13, FeatType.SPELL), # argument of 4 -> 13 - 8 = 5
             Ability("Channel skill +5", 14, FeatType.MISC_INCREASE, short="Channel skill"),
             Ability("Connection power", 15, FeatType.CPOWER), # argument of 5
-            Ability("Connection spell", 16, FeatType.SPELL), # argument of 5
+            Ability("Connection spell", 16, FeatType.SPELL), # argument of 5 -> 16 - 8 = 8
             Ability("Channel skill +6", 17, FeatType.MISC_INCREASE, short="Channel skill"),
             Ability("Connection power", 18, FeatType.CPOWER), # argument of 6
             Ability("Transcendence", 19, FeatType.WORDS),
