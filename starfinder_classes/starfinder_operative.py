@@ -156,21 +156,6 @@ class Operative(StarfinderClass):
         ]
         return specializations
 
-    def specialization_skills(self):
-        """function to return the feat related stuff of the operative
-        """
-        specialization = {
-            "Daredevil" : ["acrobatics", "athletics"],
-            "Detective" : ["culture", "sense motive"],
-            "Explorer"  : ["culture", "survival"],
-            # Explorer: you gain a +4 bonus to Culture and Survival checks
-            "Ghost"     : ["acrobatics", "stealth"],
-            "Hacker"    : ["computers", "engineering"],
-            "Spy"       : ["bluff", "disguise"],
-            "Thief"     : ["perception", "sleight of hand"]
-        }
-        return specialization[self.selection]
-
     def style_combat(self, _ : int) -> dict:
         """function to return the dictionary of specializations for each specialization
         The way the dictionary is setup is: the keys are level equivalent so this function
@@ -220,36 +205,6 @@ class Operative(StarfinderClass):
             }
         }
         return specialization[self.selection]
-
-    def specialization_exploit(self):
-        """function to return the exploit related stuff of the operative
-        """
-        specialization = {
-            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
-            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
-            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
-            # Explorer: you gain a +4 bonus to Culture and Survival checks
-            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
-            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
-            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
-            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
-                            "Contingency Plan"]
-        }
-
-    def specialization_power(self):
-        """function to return the power related stuff of the operative
-        """
-        specialization = {
-            "Daredevil" : [["acrobatics", "athletics"], "Versatile movement", "Terrain Attack"],
-            "Detective" : [["culture", "sense motive"], "Glimpse the truth","Detective's Insight"],
-            "Explorer"  : [["culture", "survival"], "Ever vigilant", "Into the Unknown"],
-            # Explorer: you gain a +4 bonus to Culture and Survival checks
-            "Ghost"     : [["acrobatics", "stealth"], "Cloaking field", "Phase Shift Escape"],
-            "Hacker"    : [["computers", "engineering"], "Elusive hacker", "Control Hack"],
-            "Spy"       : [["bluff", "disguise"], "Master of disguise", "Fool Detection"],
-            "Thief"     : [["perception", "sleight of hand"], "Holographic distraction",
-                            "Contingency Plan"]
-        }
 
     def misc_additions(self) -> list:
         """function to return the skills that are to be increased
