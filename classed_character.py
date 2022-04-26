@@ -217,7 +217,7 @@ class Character:
     def add_spells(self, gui : bool=False) -> None:
         """add spells to the character
         """
-        if self.class_name in ["mystic", "technomancer"]:
+        if str(self.class_name) in ["Mystic", "Technomancer"]:
             list_of_pickable_spells = [[], [], [], [], [], [], []]
             for i in range(7):
                 if spells_known[self.class_level - 1][i] > 0:
@@ -927,7 +927,7 @@ class Character:
     def calc_spell_level(self):
         """function to update the spell_level of the character
         """
-        if self.class_name in ["Mystic", "Technomancer"] or (self.theme == "Priest" and self.class_level >= 12):
+        if str(self.class_name) in ["Mystic", "Technomancer"] or (str(self.theme) == "Priest" and self.class_level >= 12):
             self.spell_level = self.class_level
         else:
             self.spell_level = -1
