@@ -136,12 +136,12 @@ class Operative(StarfinderClass):
         ]
         return choosable
 
-    def select_selection(self, specialization : str, num : int = None):
+    def select_selection(self, specialization : str, _ : int = None):
         """function that sets the specialization
 
         Args:
             specialization (str): new specialization
-            num (int): added so this function can be used with other classes that need the num
+            _ (int): added so this function can be used with other classes that need the num
         """
         self.selection = specialization
 

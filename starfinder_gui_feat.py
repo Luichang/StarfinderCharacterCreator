@@ -330,6 +330,16 @@ class FeatForm(QtWidgets.QWidget):
                     self.update_class_list_one()
                 elif ability.get_type() == FeatType.TECHNIQUE2:
                     possible_class_feats = [self.character.add_technique(1, ability.level - 8)]
+                    if isinstance(possible_class_feats[0], list):
+                        level_list = [-7, -4, -1, 2, 5, 8]
+                        try:
+                            next_element = level_list[level_list.index(ability.level - 8 - 8) + 1]
+                            if (self.character.class_level - 8) > next_element:
+                                possible_class_feats = [possible_class_feats[0]]
+                            else:
+                                possible_class_feats = [possible_class_feats[1]]
+                        except IndexError:
+                            pass
                     self.class_list_one.append(boxes[boxcount])
                     self.update_class_list_one()
                 elif ability.get_type() == FeatType.COMBAT:
@@ -387,7 +397,7 @@ class FeatForm(QtWidgets.QWidget):
                 self.character.class_name.bonuses.append(possible_class_feats[0])
                 self.update_class_abilities()
 
-            elif ability.get_type() == FeatType.SELECTION: # TODO add thing for mystic
+            elif ability.get_type() == FeatType.SELECTION:
                 possible_class_feats = self.character.class_name.possible_selections()
                 if isinstance(self.character.class_name.selection, list):
                     for selection in self.character.class_name.selection:
@@ -571,7 +581,7 @@ class FeatForm(QtWidgets.QWidget):
                 level = old_technique_key_list[tmp]
                 selected_feat = new_technique_dict[level]
                 self.update_feat_dict(selected_feat)
-                self.character.other_abilities[index] = self.feat_dict[selected_feat]
+                self.character.other_abilities[index] = self.feat_dict[str(selected_feat)]
                 self.initialize_combobox(box, index, info_text, [selected_feat])
 
 
