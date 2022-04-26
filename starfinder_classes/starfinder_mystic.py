@@ -181,12 +181,12 @@ class Mystic(StarfinderClass):
                 12 : "Channel Bond",
                 15 : "Channel Life",
                 18 : "Deny Death",
-                -7 : [lesser_remove_condition, mind_thrust_1],
-                -4 : [remove_condition, mind_thrust_2],
-                -1 : [remove_affliction, mind_thrust_3],
-                2  : [restoration, mind_thrust_4],
-                5  : [greater_remove_condition, mind_thrust_5],
-                8  : mind_thrust_6
+                -7 : [lesser_remove_condition, mystic_cure_1],
+                -4 : [remove_condition, mystic_cure_2],
+                -1 : [remove_affliction, mystic_cure_3],
+                2  : [restoration, mystic_cure_4],
+                5  : [greater_remove_condition, mystic_cure_5],
+                8  : mystic_cure_6
             },
             "Mindbreaker" : {
                 1  : "Share Pain",
@@ -250,103 +250,6 @@ class Mystic(StarfinderClass):
             }
         }
         return specialization[self.selection]
-
-    def connection_spell(self) -> list:
-        """function to return the chosen connections spells
-
-        Returns:
-            list: list of connection spells
-        """
-        spell_dict = {
-            "Akashic" : [identify, augury, tongues, divination, contact_plane, vision],
-
-            "Empath" :  [detect_thoughts, zone_truth, clairaudience, mind_probe, telepathy,
-                         true_seeing],
-
-            "Healer" : [lesser_remove_condition, remove_condition, remove_affliction, restoration,
-                        greater_remove_condition, mind_thrust_1, mind_thrust_2, mind_thrust_3,
-                        mind_thrust_4, mind_thrust_5, mind_thrust_6],
-
-            "Mindbreaker" : [lesser_confusion, inflict_pain, synaptic_pulse, confusion, feeblemind,
-                             mind_thrust_1, mind_thrust_2, mind_thrust_3, mind_thrust_4,
-                             mind_thrust_5, mind_thrust_6],
-
-            "Overlord" : [command, hold_person, suggestion, confusion, dominate_person,
-                           mass_suggestion],
-
-            "Star Shaman" : [magic_missile, darkvision, irridate, remove_radioactivity,
-                             telekinesis, control_gravity],
-
-            "Xenodruid" : [life_bubble, fog_cloud, entropic_grasp, reincarnate, commune_nature,
-                           terraform]
-        }
-
-        return spell_dict[self.selection]
-
-    def connection_feat(self) -> list:
-        """function to return the feats of the selected connection
-
-        Returns:
-            list: list of the feats from the connection
-        """
-        feat_dict = {
-            "Akashic" : ["Akashic Knowledge",
-                         "Access Akashic Record",
-                         "Peer into the Future",
-                         "Mind Probe",
-                         "Telepathic Memories",
-                         "Memory Palace",
-                         "Glean Spell"],
-
-            "Empath" : ["Empathy",
-                        "Greater Mindlink",
-                        "Emotionsense",
-                        "Discern Lies",
-                        "Greater Emotionsense",
-                        "Retrocognition",
-                        "Empathic Mastery"],
-
-            "Healer" : ["Healing Channel",
-                        "Lifelink",
-                        "Healer's Bond",
-                        "Steal Life",
-                        "Channel Bond",
-                        "Channel Life",
-                        "Deny Death"],
-
-            "Mindbreaker" : ["Share Pain",
-                             "Backlash",
-                             "Sow Doubt",
-                             "Mental Anguish",
-                             "Mindbreaking Link",
-                             "Mindkiller",
-                             "Explode Head"],
-
-            "Overlord" :  ["Inexplicable Commands",
-                           "Forced Amity",
-                           "Echoes of Obedience",
-                           "Greater Forced Amity",
-                           "Jealous Overlord",
-                           "Forceful Commands",
-                           "Absolute Control"],
-
-            "Star Shaman" : ["Walk the Void",
-                             "Starlight Form",
-                             "Stargazer",
-                             "Starflight",
-                             "Starry Bond",
-                             "Meteor Shower",
-                             "Interplanetary Teleport"],
-
-            "Xenodruid" : ["Speak with Animals",
-                           "Grasping Vines",
-                           "Animal Adaptation",
-                           "Reactive Resistance",
-                           "Share Resistance",
-                           "Plant Transport",
-                           "Guided Rebirth"]
-        }
-        return feat_dict[self.selection]
 
     def misc_additions(self) -> list:
         """function to return the two skills that get improved by the selected connection
