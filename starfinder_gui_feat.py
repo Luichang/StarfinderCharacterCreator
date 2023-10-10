@@ -340,6 +340,10 @@ class FeatForm(QtWidgets.QWidget):
                                 possible_class_feats = [possible_class_feats[1]]
                         except IndexError:
                             pass
+                    if str(self.character.class_name) == "Mystic":
+                        spell_to_add = possible_class_feats[0]
+                        spell_level = spell_to_add.level
+                        self.character.spells[spell_level].append(spell_to_add)
                     self.class_list_one.append(boxes[boxcount])
                     self.update_class_list_one()
                 elif ability.get_type() == FeatType.COMBAT:
@@ -580,8 +584,22 @@ class FeatForm(QtWidgets.QWidget):
                     continue
                 level = old_technique_key_list[tmp]
                 selected_feat = new_technique_dict[level]
+                if isinstance(selected_feat, list):
+                    level_list = [-7, -4, -1, 2, 5, 8]
+                    try:
+                        next_element = level_list[level_list.index(level) + 1]
+                        if (self.character.class_level - 8) > next_element:
+                            selected_feat = selected_feat[0]
+                        else:
+                            selected_feat = selected_feat[1]
+                    except IndexError:
+                        pass
+                if str(self.character.class_name) == "Mystic":
+                    spell_to_add = selected_feat
+                    spell_level = spell_to_add.level
+                    self.spells[spell_level][0] = spell_to_add
                 self.update_feat_dict(selected_feat)
-                self.character.other_abilities[index] = self.feat_dict[str(selected_feat)]
+                self.character.other_abilities[index] = selected_feat
                 self.initialize_combobox(box, index, info_text, [selected_feat])
 
 

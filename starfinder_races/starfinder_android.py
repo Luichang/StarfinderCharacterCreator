@@ -14,7 +14,7 @@ class Android(StarfinderRace):
         self.hit_points = 4
         self.abilities = self.all_race_abilities()
 
-    def all_race_abilities(self):
+    def all_race_abilities(self) -> list[Ability]:
         """creates the ability list for the race
 
         Returns:

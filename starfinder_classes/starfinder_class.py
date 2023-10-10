@@ -21,6 +21,7 @@ class StarfinderClass:
         self.class_abilities : list[Ability]
         self.class_choose_feats : list[Ability]
         self.class_secondary_feats : list[Ability]
+        self.bonuses : list[str]
 
     def __str__(self) -> str:
         return self.name

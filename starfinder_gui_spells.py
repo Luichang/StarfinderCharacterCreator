@@ -565,7 +565,7 @@ class SpellForm(QtWidgets.QWidget):
             index = self.character.spells[level].index(spell_list[1])
             self.character.spells[level][index] = self.spell_dict[selected_spell]
         elif spell_list[0] == "additional":
-            index = self.character.additional_spells[level].index(self.spell_dict[spell_list[1]])
+            index = self.character.additional_spells[level].index(spell_list[1])
             self.character.additional_spells[level][index] = self.spell_dict[selected_spell]
 
         combo.setProperty("spell_list", [spell_list[0], selected_spell])

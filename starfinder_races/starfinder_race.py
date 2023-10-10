@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from helpers.ability import Ability
 
 class StarfinderRace:
@@ -37,7 +39,7 @@ class StarfinderRace:
         return decorator
 
     @classmethod
-    def create(cls, starfinder_race : str, key : str=None):
+    def create(cls, starfinder_race : str, key : str=None) -> StarfinderRace:
         """Function to return the called starfinder race
 
         Args:

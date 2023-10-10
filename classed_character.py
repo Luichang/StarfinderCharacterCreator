@@ -482,8 +482,8 @@ class Character:
                                 break
                     else:
                         if check[1] in self.chosen_feats:
-                                to_add = True
-                                break
+                            to_add = True
+                            break
                 elif check[0] == "class":
                     if isinstance(self.class_name, check[1]):
                         to_add = True

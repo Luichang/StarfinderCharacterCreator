@@ -78,8 +78,7 @@ def initialize_widget(widget : QtWidgets.QWidget, name : str, shape : list[int])
     widget.setGeometry(QtCore.QRect(*shape))
     widget.setObjectName(name)
 
-def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str], size : list[int],
-                    connection : callable=None) -> None:
+def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str], size : list[int], func=None) -> None:
     """function to initialize combobox widgets
 
     Args:
@@ -87,17 +86,14 @@ def initialize_combo(combo : QtWidgets.QComboBox, name : str, items : list[str],
         name (str): name of the widget
         items (list[str]): list of items to be added to the combobox
         size (list[int]): shape and location of the widget
-        connection (callable, optional): function to be connected to the combobox. Defaults to None
     """
     combo.setMaximumSize(QtCore.QSize(*size))
     combo.setObjectName(name)
     for item in items:
         combo.addItem(item)
-    if connection:
-        combo.activated[str].connect(connection)
 
 def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model_default : str,
-                           index : int=0, size : list[int]=None, connection : callable=None)->None:
+                           index : int=0, size : list[int]=None, connection=None)->None:
     """function to initialize combobox widgets
 
     Args:
@@ -114,8 +110,6 @@ def initialize_combo_model(combo : QtWidgets.QComboBox, items : list[str], model
     combo.setCurrentIndex(index)
     if size:
         combo.setMaximumSize(QtCore.QSize(*size))
-    if connection:
-        combo.activated[str].connect(connection)
 
 def update_combo(combo : QtWidgets.QComboBox, items : list[str]):
     """Function to update the entered combobox with the entered items
